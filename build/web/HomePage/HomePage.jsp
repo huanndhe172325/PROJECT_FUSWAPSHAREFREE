@@ -438,7 +438,7 @@
                                     </label>
                                 </div>
                                 <div class="nav-drop-body account-items">
-                                    <a id="profile-link" href="profile-main.html" class="account-item">
+                                    <a id="profile-link" href="Profile" class="account-item">
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="image">
@@ -4994,7 +4994,7 @@
                         <!-- /partials/widgets/suggested-friends-1-widget.html -->
                         <div class="card">
                             <div class="card-heading is-bordered">
-                                <h4>Suggested Friends</h4>
+                                <h4>User near me</h4>
                                 <div class="dropdown is-spaced is-right dropdown-trigger">
                                     <div>
                                         <div class="button">

@@ -13,6 +13,7 @@ import java.sql.SQLException;
  * @author FPT
  */
 public class DBContext {
+
     protected Connection connect;
 
     public DBContext() {
@@ -26,5 +27,5 @@ public class DBContext {
             System.out.println(ex);
         }
 
-}
+    }
 }
