@@ -1,15 +1,14 @@
 <%-- 
     Document   : Profile
-    Created on : May 21, 2024, 2:44:35 PM
+    Created on : May 21, 2024, 3:08:09 PM
     Author     : FPT
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html lang="en">
 
 
-<!-- Mirrored from friendkit.cssninja.io/navbar-v1-profile-main.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:36:49 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -803,44 +802,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Notification -->
-                            <div class="media">
-                                <figure class="media-left">
-                                    <p class="image">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                                    </p>
-                                </figure>
-                                <div class="media-content">
-                                    <span
-              ><a href="#">Stella Bergmann</a> shared a
-              <a href="#">New video</a> on your wall.</span>
-                                    <span class="time">Yesterday</span>
-                                </div>
-                                <div class="media-right">
-                                    <div class="added-icon">
-                                        <i data-feather="youtube"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Notification -->
-                            <div class="media">
-                                <figure class="media-left">
-                                    <p class="image">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                    </p>
-                                </figure>
-                                <div class="media-content">
-                                    <span
-              ><a href="#">Elise Walker</a> shared an <a href="#">Image</a> with
-              you an 2 other people.</span>
-                                    <span class="time">2 days ago</span>
-                                </div>
-                                <div class="media-right">
-                                    <div class="added-icon">
-                                        <i data-feather="image"></i>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="nav-drop-footer">
                             <a href="#">View All</a>
@@ -947,63 +908,7 @@
                 <span></span>
             </div>
         </div>
-        <!-- Navbar mobile menu -->
-        <div class="navbar-menu">
-            <!-- Account -->
-            <div class="navbar-item has-dropdown is-active">
-                <a href="navbar-v1-profile-main.html" class="navbar-link">
-                    <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                    <span class="is-heading">Jenna Davis</span>
-                </a>
 
-                <!-- Mobile Dropdown -->
-                <div class="navbar-dropdown">
-                    <a href="navbar-v1-feed.html" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="activity"></i>Feed</span>
-                        <span class="menu-badge">87</span>
-                    </a>
-                    <a href="navbar-v1-videos-home-v2.html" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="play-circle"></i>Watch</span>
-                        <span class="menu-badge">21</span>
-                    </a>
-                    <a href="navbar-v1-profile-friends.html" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="heart"></i>Friend Requests</span>
-                        <span class="menu-badge">3</span>
-                    </a>
-                    <a href="navbar-v1-profile-main.html" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="user"></i>Profile</span>
-                    </a>
-                    <a href="navbar-v1-ecommerce-cart.html" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="shopping-cart"></i>Cart</span>
-                        <span class="menu-badge">3</span>
-                    </a>
-                    <a href="#" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="bookmark"></i>Bookmarks</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- More -->
-            <div class="navbar-item has-dropdown">
-                <a href="navbar-v1-settings.html" class="navbar-link">
-                    <i data-feather="user"></i>
-                    <span class="is-heading">Account</span>
-                </a>
-
-                <!-- Mobile Dropdown -->
-                <div class="navbar-dropdown">
-                    <a href="#" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="life-buoy"></i>Support</span>
-                    </a>
-                    <a href="navbar-v1-settings.html" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="settings"></i>Settings</span>
-                    </a>
-                    <a href="#" class="navbar-item is-flex is-mobile-icon">
-                        <span><i data-feather="log-out"></i>Logout</span>
-                    </a>
-                </div>
-            </div>
-        </div>
         <!--Search-->
         <div class="mobile-search is-hidden">
             <div class="control">
@@ -1328,7 +1233,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
                         <div class="friend-cards-list">
                             <div class="card is-friend-card">
@@ -1459,7 +1363,6 @@
                                 </div>
                                 <div class="video-overlay"></div>
                             </div>
-                        </div>
 
                         <!-- Trips widget -->
                         <!-- html/partials/pages/profile/timeline/widgets/trips-widget.html -->
