@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Model.Quanlity;
 import Model.Type;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,12 +34,31 @@ public class DAOManagePost extends DBContext{
         }
         return listType;
     }
+    public ArrayList<Quanlity> getAllQuanlity(){
+        ArrayList<Quanlity> listQuanlity = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Quanlity";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Quanlity quan = new Quanlity();
+                quan.setQuanlityID(rs.getInt("QuanlityID"));
+                quan.setName(rs.getString("Name"));
+                listQuanlity.add(quan);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listQuanlity;
+    }
+    
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-         ArrayList<Type> listType = new ArrayList<>();
-         listType = dao.getAllType();
-         for(Type ty : listType){
-             System.out.println(ty.getTypeID());
-         }
+        ArrayList<Quanlity> listQuanlity = new ArrayList<>();
+        listQuanlity = dao.getAllQuanlity();
+        for(Quanlity quan : listQuanlity){
+            System.out.println(quan.getName());
+        }
     }
 }
