@@ -49,10 +49,15 @@
         </style>
     </head>
     <body>
-        <form action="addMovies" method="post" enctype="multipart/form-data">
+         <form action="CreatePost" method="post" enctype="multipart/form-data">
+            <select id="type" name="listType" required>
+                <c:forEach items="${listType}" var="type">
+                    <option value="${type.typeID}">${type.name}</option>
+                </c:forEach>
+            </select>
             <label for="imgPath">Image:</label>
-            <input type="file" id="imgPath" name="imgPath" accept="image/*" required>
-            
+            <input type="file" id="imgPath" name="imgPath" accept="image/*" multiple required>
+
             <label for="Title">Title</label>
             <input type="text" id="title" name="title" required>
 
@@ -62,15 +67,71 @@
             <label for="quanlity">Quanlity</label>
             <select id="quanlity" name="listQuanlity" required>
                 <c:forEach items="${listQuanlity}" var="quan">
-                    <option value="">${quan.name}</option>
+                    <option value="${quan.quanlityID}">${quan.name}</option>
                 </c:forEach>
             </select>
 
             <label for="instructions">Pick-up instructions</label>
             <input type="text" id="instructions" name="instructions" required>
 
+            
+            <div id="addNewSnippet" style="display: block;">
+                <p>Pick-up location</p><br>
+                <div class="input-container">
+                    <label>District<span class="required">*</span></label>
+                    <select name="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
+                        <option value="" selected>Select district</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <label>Commune  <span class="required">*</span></label>
+                    <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
+                        <option value="" selected>Select commune</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <label>StreetNumber</label>
+                    <input name="newAddress" id="Order_name" type="text" maxlength="255" value="${address}">
+                </div>
+            </div>
 
-            <input type="submit" value="Add Film">
+            <input type="submit" value="Submit">
         </form>
+                
     </body>
+    <script>
+        var cities = document.getElementById("city");
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+
+        axios(Parameter).then(function (result) {
+            renderDistricts(result.data);
+        });
+
+        function renderDistricts(data) {
+            const hanoi = data.find(city => city.Name === "Thành phố Hà Nội");
+            if (hanoi) {
+                for (const district of hanoi.Districts) {
+                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                }
+                
+                districts.onchange = function () {
+                    wards.length = 1; // Clear previous ward options
+                    const selectedDistrict = hanoi.Districts.find(district => district.Name === this.value);
+                    
+                    if (selectedDistrict) {
+                        for (const ward of selectedDistrict.Wards) {
+                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                        }
+                    }
+                };
+            }
+        }
+    </script>
 </html>

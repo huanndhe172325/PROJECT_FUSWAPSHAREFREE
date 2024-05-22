@@ -61,6 +61,8 @@ public class CreatePost extends HttpServlet {
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         request.setAttribute("listQuanlity", listQuanlity);
+        request.setAttribute("listType", listType);
+
         
         request.getRequestDispatcher("HomePage/formCreatePost.jsp").forward(request, response);
     } 
