@@ -63,6 +63,8 @@ public class HomePage extends HttpServlet {
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         request.setAttribute("listQuanlity", listQuanlity);
+        request.setAttribute("listType", listType);
+
         
         request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
     }
