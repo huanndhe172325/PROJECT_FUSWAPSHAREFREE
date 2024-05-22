@@ -74,7 +74,7 @@
                 <div class="navbar-end">
                     <div class="navbar-item">
                         <div class="navbar-item">
-                            <a href="login.html">Login</a>
+                            <a href="Login">Login</a>
                         </div>
                         <a id="signup-button" href="signup.html" class="button is-cta is-solid primary-button raised">
                             Sign Up
@@ -4021,33 +4021,7 @@
     <!-- Landing page js -->
     <script src="assets/js/landing.js"></script>
 
-    <!-- Signup page js -->
-
-    <!-- Feed pages js -->
-
-    <!-- profile js -->
-
-    <!-- stories js -->
-
-    <!-- friends js -->
-
-    <!-- questions js -->
-
-    <!-- video js -->
-
-    <!-- events js -->
-
-    <!-- news js -->
-
-    <!-- shop js -->
-
-    <!-- inbox js -->
-
-    <!-- settings js -->
-
-    <!-- map page js -->
-
-    <!-- elements page js -->
+    
 </body>
 
 
