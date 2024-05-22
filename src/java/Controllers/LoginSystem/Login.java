@@ -74,23 +74,23 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+        String userName = request.getParameter("username");
+        String passWord = request.getParameter("password");
+        if (userName == null || passWord == null || userName.isEmpty() || passWord.isEmpty()) {
             request.setAttribute("mess", "Please enter both username or password");
             request.getRequestDispatcher("Login/login.jsp").forward(request, response);
         } else {
-            User acccount = daoLogin.login(username, password);
-            if (acccount == null) {
+            User userInfo = daoLogin.login(userName, passWord);
+            if (userInfo == null) {
                 request.setAttribute("mess", "Wrong username or password");
                 request.getRequestDispatcher("Login/login.jsp").forward(request, response);
             } else {
                 HttpSession session = request.getSession();
-                session.setAttribute("acc", acccount);
-                request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
+                session.setAttribute("userInfo", userInfo);
+                session.setAttribute("loginsuccess", true);
+                response.sendRedirect("HomePage");
             }
         }
-
     }
 
     /**

@@ -48,7 +48,32 @@
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
     </head>
-
+     <style>
+        .account-item {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+        .media {
+            display: flex;
+            align-items: center;
+        }
+        .icon-wrap {
+            margin-right: 10px;
+        }
+        .button-link {
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            color: inherit;
+            font: inherit;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+    </style>
     <body>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQHJPZP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
@@ -401,7 +426,7 @@
                                 <i class="mdi mdi-apps"></i>
                             </a>
                         </div>
-                        
+
                         <div class="navbar-item is-icon">
                             <a class="icon-link is-primary" href="CreatePost">
                                 <i data-feather="plus"></i>
@@ -487,17 +512,20 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="logout"class="account-item">
-                                            <div class="media">
-                                                <div class="icon-wrap">
-                                                    <i data-feather="power"></i>
+                                        <form action="logout" method="POST">
+                                            <button type="submit" class="button-link account-item">
+                                                <div class="media">
+                                                    <div class="icon-wrap">
+                                                        <i data-feather="power"></i>
+                                                    </div>
+                                                    <div class="media-content">
+                                                        <h3>Log out</h3>
+                                                        <small>Log out from your account.</small>
+                                                    </div>
                                                 </div>
-                                                <div class="media-content">
-                                                    <h3>Log out</h3>
-                                                    <small>Log out from your account.</small>
-                                                </div>
-                                            </div>
-                                        </a>
+                                            </button>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>
