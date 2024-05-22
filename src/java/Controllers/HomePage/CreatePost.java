@@ -5,12 +5,16 @@
 
 package Controllers.HomePage;
 
+import DAL.DAOManagePost;
+import Model.Quanlity;
+import Model.Type;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -53,6 +57,11 @@ public class CreatePost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+                DAOManagePost dao = new DAOManagePost();
+        ArrayList<Type> listType = dao.getAllType();
+        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
+        request.setAttribute("listQuanlity", listQuanlity);
+        
         request.getRequestDispatcher("HomePage/formCreatePost.jsp").forward(request, response);
     } 
 

@@ -62,7 +62,7 @@ public class HomePage extends HttpServlet {
         DAOManagePost dao = new DAOManagePost();
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
-        
+        request.setAttribute("listQuanlity", listQuanlity);
         
         request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
     }
