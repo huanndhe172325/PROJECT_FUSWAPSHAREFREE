@@ -86,9 +86,9 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher("Login/login.jsp").forward(request, response);
             } else {
                 HttpSession session = request.getSession();
-                session.setAttribute("acc", userInfo);
+                session.setAttribute("userInfo", userInfo);
                 session.setAttribute("loginsuccess", true);
-                request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
+                response.sendRedirect("HomePage");
             }
         }
     }
