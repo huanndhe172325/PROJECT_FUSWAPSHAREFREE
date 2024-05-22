@@ -487,7 +487,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a class="account-item">
+                                        <a href="logout"class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">
                                                     <i data-feather="power"></i>
@@ -899,8 +899,8 @@
                         <a href="navbar-v1-settings.html" class="navbar-item is-flex is-mobile-icon">
                             <span><i data-feather="settings"></i>Settings</span>
                         </a>
-                        <a href="#" class="navbar-item is-flex is-mobile-icon">
-                            <span><i data-feather="log-out"></i>Logout</span>
+                        <a class="navbar-item is-flex is-mobile-icon">
+                            <span><i href="logout" data-feather="log-out"></i>Logout</span>
                         </a>
                     </div>
                 </div>
