@@ -50,7 +50,7 @@
     </head>
     <body>
         <form action="CreatePost" method="post" enctype="multipart/form-data">
-            <select id="type" name="listType" required>
+            <select id="type" name="typePost" required>
                 <c:forEach items="${listType}" var="type">
                     <option value="${type.typeID}">${type.name}</option>
                 </c:forEach>
@@ -62,13 +62,12 @@
             <input type="text" id="title" name="title" required>
 
             <label for="Description">Description:</label>
-            <textarea id="description" name="description" required placeholder="e.g 2 x bottles of shampoo, almost full">
-                
-            </textarea>
+            <input type="text" id="description" name="description" required placeholder="e.g 2 x bottles of shampoo, almost full">
+
 
 
             <label for="quanlity">Quanlity</label>
-            <select id="quanlity" name="listQuanlity" required>
+            <select id="quanlity" name="quanlity" required>
                 <c:forEach items="${listQuanlity}" var="quan">
                     <option value="${quan.quanlityID}">${quan.name}</option>
                 </c:forEach>
@@ -99,7 +98,15 @@
             <label for="instructions">Pick-up instructions</label>
             <input type="text" id="instructions" name="instructions" required placeholder="Pick up to day from 4 - 6pm. Please ring doorbell when here">
 
-
+            <label>Expires Date<span class="required">*</span></label>
+            <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required>
+                <option value="1" selected>1 Day</option>
+                <option value="3" selected>3 Days</option>
+                <option value="7" selected>7 Days</option>
+                <option value="15" selected>15 Days</option>
+            </select>
+            
+            
             <input type="submit" value="Submit">
         </form>
 
