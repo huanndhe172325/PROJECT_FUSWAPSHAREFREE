@@ -464,54 +464,6 @@
                                             </div>
                                         </a>
                                         <hr class="account-divider" />
-                                        <a href="navbar-v1-pages-main.html" class="account-item">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <div class="image">
-                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/hanzo.svg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div class="media-content">
-                                                    <h3>Css Ninja</h3>
-                                                    <small>Company page</small>
-                                                </div>
-                                                <div class="media-right is-hidden">
-                                                    <i data-feather="check"></i>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="navbar-v1-pages-main.html" class="account-item">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <div class="image">
-                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/vector/icons/logos/fastpizza.svg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div class="media-content">
-                                                    <h3>Fast Pizza</h3>
-                                                    <small>Company page</small>
-                                                </div>
-                                                <div class="media-right is-hidden">
-                                                    <i data-feather="check"></i>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="navbar-v1-pages-main.html" class="account-item">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <div class="image">
-                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/vector/icons/logos/slicer.svg" alt="" />
-                                                    </div>
-                                                </div>
-                                                <div class="media-content">
-                                                    <h3>Slicer</h3>
-                                                    <small>Company page</small>
-                                                </div>
-                                                <div class="media-right is-hidden">
-                                                    <i data-feather="check"></i>
-                                                </div>
-                                            </div>
-                                        </a>
                                         <hr class="account-divider" />
                                         <a href="options-settings.html" class="account-item">
                                             <div class="media">
@@ -1233,115 +1185,7 @@
                         <div class="column is-3 is-hidden-mobile">
                             <!-- Weather widget -->
                             <!-- /partials/widgets/weather-widget.html -->
-                            <div class="card is-weather-card has-background-image" data-background="assets/img/illustrations/cards/weather-bg.svg">
-                                <div class="card-heading">
-                                    <div class="dropdown is-spaced is-accent is-right dropdown-trigger is-light">
-                                        <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="map-pin"></i>
-                                                        <div class="media-content">
-                                                            <h3>Change City</h3>
-                                                            <small>Change the displayed city.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="rotate-ccw"></i>
-                                                        <div class="media-content">
-                                                            <h3>Synchronize</h3>
-                                                            <small>Synchronize with a weather source.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="settings"></i>
-                                                        <div class="media-content">
-                                                            <h3>Settings</h3>
-                                                            <small>Access widget settings.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider" />
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="trash-2"></i>
-                                                        <div class="media-content">
-                                                            <h3>Remove</h3>
-                                                            <small>Removes this widget from your feed.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="temperature">
-                                        <span>71</span>
-                                    </div>
-                                    <div class="weather-icon">
-                                        <div>
-                                            <i data-feather="sun"></i>
-                                            <h4>Sunny</h4>
-                                            <div class="details">
-                                                <span>Real Feel: 78° </span>
-                                                <span>Rain Chance: 5%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="previsions">
-                                        <div class="day">
-                                            <span>Mon</span>
-                                            <i data-feather="sun"></i>
-                                            <span>69°</span>
-                                        </div>
-                                        <div class="day">
-                                            <span>Tue</span>
-                                            <i data-feather="cloud-lightning"></i>
-                                            <span>74°</span>
-                                        </div>
-                                        <div class="day">
-                                            <span>Wed</span>
-                                            <i data-feather="cloud-lightning"></i>
-                                            <span>73°</span>
-                                        </div>
-                                        <div class="day">
-                                            <span>Thu</span>
-                                            <i data-feather="sun"></i>
-                                            <span>68°</span>
-                                        </div>
-                                        <div class="day">
-                                            <span>Fri</span>
-                                            <i data-feather="cloud-drizzle"></i>
-                                            <span>55°</span>
-                                        </div>
-                                        <div class="day">
-                                            <span>Sat</span>
-                                            <i data-feather="cloud-rain"></i>
-                                            <span>58°</span>
-                                        </div>
-                                        <div class="day">
-                                            <span>Sun</span>
-                                            <i data-feather="sun"></i>
-                                            <span>64°</span>
-                                        </div>
-                                    </div>
-                                    <div class="current-date-location has-text-centered">
-                                        <span class="date">Sunday, 18th 2018</span>
-                                        <span class="location">
-                                            <i data-feather="map-pin"></i> Los Angeles, CA</span>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <!-- Pages widget -->
                             <!-- /partials/widgets/recommended-pages-1-widget.html -->
@@ -1449,13 +1293,6 @@
 
                             <!-- Fake Ad -->
                             <!-- /partials/widgets/fake-add-widget.html -->
-                            <div class="card is-ad">
-                                <div class="card-body">
-                                    <img src="assets/img/ads/ninja-ad.svg" alt="" />
-                                    <div class="ad-text">Simple, pleasant, and productive.</div>
-                                    <div class="ad-brand">Ads via Ninja</div>
-                                </div>
-                            </div>
 
                             <!-- Latest activities widget -->
                             <!-- /partials/widgets/latest-activity-1-widget.html -->
@@ -4444,63 +4281,7 @@
 
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
-                            <div class="card is-birthday-card has-background-image" data-background="assets/img/illustrations/cards/birthday-bg.svg">
-                                <div class="card-heading">
-                                    <i data-feather="gift"></i>
-                                    <div class="dropdown is-spaced is-right dropdown-trigger is-light">
-                                        <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="clock"></i>
-                                                        <div class="media-content">
-                                                            <h3>Remind me</h3>
-                                                            <small>Remind me of this later today.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="message-circle"></i>
-                                                        <div class="media-content">
-                                                            <h3>Message</h3>
-                                                            <small>Send an automatic greeting message.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider" />
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="trash-2"></i>
-                                                        <div class="media-content">
-                                                            <h3>Remove</h3>
-                                                            <small>Removes this widget from your feed.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div>
-                                        <div class="birthday-avatar">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                                            <div class="birthday-indicator">31</div>
-                                        </div>
-                                        <div class="birthday-content">
-                                            <h4>Dan turns 31 today!</h4>
-                                            <p>Send him your best wishes by leaving something on his wall.</p>
-                                            <button type="button" class="button light-button">Write Message</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <!-- Suggested friends widget -->
                             <!-- /partials/widgets/suggested-friends-1-widget.html -->
@@ -4607,63 +4388,6 @@
                             </div>
 
                             <!-- New job widget -->
-                            <!-- /partials/widgets/new-job-widget.html -->
-                            <div class="card is-new-job-card has-background-image" data-background="assets/img/illustrations/cards/job-bg.svg">
-                                <div class="card-heading">
-                                    <i data-feather="briefcase"></i>
-                                    <div class="dropdown is-spaced is-right dropdown-trigger is-light">
-                                        <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="clock"></i>
-                                                        <div class="media-content">
-                                                            <h3>Remind me</h3>
-                                                            <small>Remind me of this later today.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="message-circle"></i>
-                                                        <div class="media-content">
-                                                            <h3>Message</h3>
-                                                            <small>Send an automatic congratz message.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider" />
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="trash-2"></i>
-                                                        <div class="media-content">
-                                                            <h3>Remove</h3>
-                                                            <small>Removes this widget from your feed.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div>
-                                        <div class="job-avatar">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                                        </div>
-                                        <div class="job-content">
-                                            <h4>Nelly has a new job!</h4>
-                                            <p>Send her message congratulating her for getting this job.</p>
-                                            <button type="button" class="button light-button">Write Message</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <!-- /Right side column -->
                     </div>
