@@ -73,22 +73,16 @@
                     <option value="${quan.quanlityID}">${quan.name}</option>
                 </c:forEach>
             </select>
-            
+
             <br><br><br>
 
             <div id="addNewSnippet" style="display: block;">
-                <p>Pick-up location</p>
-                <div class="input-container">
-                    <label>City<span class="required">*</span></label>
-                    <select  name="city" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm" required>
-                        <option value=""  selected>Select city</option>           
-                    </select> </div>
                 <div class="input-container">
                     <label>District<span class="required">*</span></label>
-
-                    <select name="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required>
+                    <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required>
                         <option value="" selected>Select district</option>
-                    </select>  </div>
+                    </select>  
+                </div>
                 <div class="input-container">
                     <label>Ward<span class="required">*</span></label>
                     <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required>
@@ -99,12 +93,13 @@
                     <label>Street number</label>
                     <input name="newAddress" id="Order_name" type="text" maxlength="255" value="${address}" required>
                 </div>
-            </div> 
-                
+            </div>
+
+
             <label for="instructions">Pick-up instructions</label>
             <input type="text" id="instructions" name="instructions" required placeholder="Pick up to day from 4 - 6pm. Please ring doorbell when here">
 
-            
+
             <input type="submit" value="Submit">
         </form>
 
@@ -113,10 +108,9 @@
 
 
     <script>
-        var cities = document.getElementById("city");
         var districts = document.getElementById("district");
         var wards = document.getElementById("ward");
-        var selectedCityValue = 'Thành phố Hà Nội'; 
+        var selectedCityValue = 'Thành phố Hà Nội';
 
         var Parameter = {
             url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
@@ -127,80 +121,57 @@
         var promise = axios(Parameter);
 
         promise.then(function (result) {
-            renderCity(result.data);
-            selectCityOption(result.data);
-            selectDistrictOption(result.data);
-            selectWardOption(result.data);
+            var data = result.data;
+            var selectedCity = data.find((city) => city.Name === selectedCityValue);
+            renderDistricts(selectedCity.Districts);
+            selectDistrictOption(selectedCity.Districts);
+            selectWardOption(selectedCity.Districts);
         });
 
-        function selectCityOption(data) {
-            for (let i = 0; i < cities.options.length; i++) {
-                if (cities.options[i].value === selectedCityValue) {
-                    cities.options[i].selected = true;
-                    // Trigger change event to populate districts and wards
-                    simulateEvent(cities, 'change');
-                    break;
-                }
+        function renderDistricts(districtsData) {
+            for (const district of districtsData) {
+                districts.options[districts.options.length] = new Option(district.Name, district.Name);
             }
+
+            districts.onchange = function () {
+                wards.length = 1;
+                const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                if (this.value !== "") {
+                    for (const ward of selectedDistrict.Wards) {
+                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                    }
+                }
+            };
         }
-        function selectDistrictOption(data) {
-            const selectedCity = data.find((city) => city.Name === selectedCityValue);
-            for (let i = 0; i < selectedCity.Districts.length; i++) {
-                if (selectedCity.Districts[i].Name === '${district}') {
-                    districts.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn quận huyện" option
+
+        function selectDistrictOption(districtsData) {
+            for (let i = 0; i < districtsData.length; i++) {
+                if (districtsData[i].Name === '${district}') {
+                    districts.options[i + 1].selected = true;
                     simulateEvent(districts, 'change');
                     break;
                 }
             }
         }
 
-        function selectWardOption(data) {
-            const selectedCity = data.find((city) => city.Name === selectedCityValue);
-            const selectedDistrict = selectedCity.Districts.find((district) => district.Name === '${district}');
+        function selectWardOption(districtsData) {
+            const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
             for (let i = 0; i < selectedDistrict.Wards.length; i++) {
                 if (selectedDistrict.Wards[i].Name === '${ward}') {
-                    wards.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn phường xã" option
+                    wards.options[i + 1].selected = true;
                     simulateEvent(wards, 'change');
                     break;
                 }
             }
         }
-        function renderCity(data) {
-            for (const city of data) {
-                cities.options[cities.options.length] = new Option(city.Name, city.Name); // Use "Name" as both value and text.
-            }
 
-            cities.onchange = function () {
-                districts.length = 1;
-                wards.length = 1;
-
-                if (this.value !== "") {
-                    const selectedCity = data.find((city) => city.Name === this.value);
-
-                    for (const district of selectedCity.Districts) {
-                        districts.options[districts.options.length] = new Option(district.Name, district.Name); // Use "Name" as both value and text.
-                    }
-                }
-            };
-
-            districts.onchange = function () {
-                wards.length = 1;
-                const selectedCity = data.find((city) => city.Name === cities.value);
-                const selectedDistrict = selectedCity.Districts.find((district) => district.Name === this.value);
-
-                if (this.value !== "") {
-                    for (const ward of selectedDistrict.Wards) {
-                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name); // Use "Name" as both value and text.
-                    }
-                }
-            };
-        }
-
-        // Function to simulate change event
+// Function to simulate change event
         function simulateEvent(element, eventName) {
             var event = new Event(eventName);
             element.dispatchEvent(event);
         }
+
 
     </script>
 </html>
