@@ -80,17 +80,17 @@ public class Login extends HttpServlet {
             request.setAttribute("mess", "Please enter both username or password");
             request.getRequestDispatcher("Login/login.jsp").forward(request, response);
         } else {
-            User acccount = daoLogin.login(username, password);
-            if (acccount == null) {
+            User userInfo = daoLogin.login(username, password);
+            if (userInfo == null) {
                 request.setAttribute("mess", "Wrong username or password");
                 request.getRequestDispatcher("Login/login.jsp").forward(request, response);
             } else {
                 HttpSession session = request.getSession();
-                session.setAttribute("acc", acccount);
+                session.setAttribute("acc", userInfo);
+                session.setAttribute("loginsuccess", true);
                 request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
             }
         }
-
     }
 
     /**
