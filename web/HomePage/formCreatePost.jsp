@@ -49,7 +49,7 @@
         </style>
     </head>
     <body>
-         <form action="CreatePost" method="post" enctype="multipart/form-data">
+        <form action="CreatePost" method="post" enctype="multipart/form-data">
             <select id="type" name="listType" required>
                 <c:forEach items="${listType}" var="type">
                     <option value="${type.typeID}">${type.name}</option>
@@ -58,11 +58,14 @@
             <label for="imgPath">Image:</label>
             <input type="file" id="imgPath" name="imgPath" accept="image/*" multiple required>
 
-            <label for="Title">Title</label>
+            <label for="Title">Title:</label>
             <input type="text" id="title" name="title" required>
 
             <label for="Description">Description:</label>
-            <input type="text" id="description" name="description" required>
+            <textarea id="description" name="description" required placeholder="e.g 2 x bottles of shampoo, almost full">
+                
+            </textarea>
+
 
             <label for="quanlity">Quanlity</label>
             <select id="quanlity" name="listQuanlity" required>
@@ -70,39 +73,50 @@
                     <option value="${quan.quanlityID}">${quan.name}</option>
                 </c:forEach>
             </select>
-
-            <label for="instructions">Pick-up instructions</label>
-            <input type="text" id="instructions" name="instructions" required>
-
             
+            <br><br><br>
+
             <div id="addNewSnippet" style="display: block;">
-                <p>Pick-up location</p><br>
+                <p>Pick-up location</p>
+                <div class="input-container">
+                    <label>City<span class="required">*</span></label>
+                    <select  name="city" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm" required>
+                        <option value=""  selected>Select city</option>           
+                    </select> </div>
                 <div class="input-container">
                     <label>District<span class="required">*</span></label>
-                    <select name="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-                        <option value="" selected>Select district</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label>Commune  <span class="required">*</span></label>
-                    <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
-                        <option value="" selected>Select commune</option>
-                    </select>
-                </div>
-                <div class="input-container">
-                    <label>StreetNumber</label>
-                    <input name="newAddress" id="Order_name" type="text" maxlength="255" value="${address}">
-                </div>
-            </div>
 
+                    <select name="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required>
+                        <option value="" selected>Select district</option>
+                    </select>  </div>
+                <div class="input-container">
+                    <label>Ward<span class="required">*</span></label>
+                    <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required>
+                        <option value="" selected>Select Ward</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <label>Street number</label>
+                    <input name="newAddress" id="Order_name" type="text" maxlength="255" value="${address}" required>
+                </div>
+            </div> 
+                
+            <label for="instructions">Pick-up instructions</label>
+            <input type="text" id="instructions" name="instructions" required placeholder="Pick up to day from 4 - 6pm. Please ring doorbell when here">
+
+            
             <input type="submit" value="Submit">
         </form>
-                
+
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+
     <script>
         var cities = document.getElementById("city");
         var districts = document.getElementById("district");
         var wards = document.getElementById("ward");
+        var selectedCityValue = 'Thành phố Hà Nội'; 
 
         var Parameter = {
             url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
@@ -110,28 +124,83 @@
             responseType: "application/json",
         };
 
-        axios(Parameter).then(function (result) {
-            renderDistricts(result.data);
+        var promise = axios(Parameter);
+
+        promise.then(function (result) {
+            renderCity(result.data);
+            selectCityOption(result.data);
+            selectDistrictOption(result.data);
+            selectWardOption(result.data);
         });
 
-        function renderDistricts(data) {
-            const hanoi = data.find(city => city.Name === "Thành phố Hà Nội");
-            if (hanoi) {
-                for (const district of hanoi.Districts) {
-                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
+        function selectCityOption(data) {
+            for (let i = 0; i < cities.options.length; i++) {
+                if (cities.options[i].value === selectedCityValue) {
+                    cities.options[i].selected = true;
+                    // Trigger change event to populate districts and wards
+                    simulateEvent(cities, 'change');
+                    break;
                 }
-                
-                districts.onchange = function () {
-                    wards.length = 1; // Clear previous ward options
-                    const selectedDistrict = hanoi.Districts.find(district => district.Name === this.value);
-                    
-                    if (selectedDistrict) {
-                        for (const ward of selectedDistrict.Wards) {
-                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
-                        }
-                    }
-                };
             }
         }
+        function selectDistrictOption(data) {
+            const selectedCity = data.find((city) => city.Name === selectedCityValue);
+            for (let i = 0; i < selectedCity.Districts.length; i++) {
+                if (selectedCity.Districts[i].Name === '${district}') {
+                    districts.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn quận huyện" option
+                    simulateEvent(districts, 'change');
+                    break;
+                }
+            }
+        }
+
+        function selectWardOption(data) {
+            const selectedCity = data.find((city) => city.Name === selectedCityValue);
+            const selectedDistrict = selectedCity.Districts.find((district) => district.Name === '${district}');
+            for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                if (selectedDistrict.Wards[i].Name === '${ward}') {
+                    wards.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn phường xã" option
+                    simulateEvent(wards, 'change');
+                    break;
+                }
+            }
+        }
+        function renderCity(data) {
+            for (const city of data) {
+                cities.options[cities.options.length] = new Option(city.Name, city.Name); // Use "Name" as both value and text.
+            }
+
+            cities.onchange = function () {
+                districts.length = 1;
+                wards.length = 1;
+
+                if (this.value !== "") {
+                    const selectedCity = data.find((city) => city.Name === this.value);
+
+                    for (const district of selectedCity.Districts) {
+                        districts.options[districts.options.length] = new Option(district.Name, district.Name); // Use "Name" as both value and text.
+                    }
+                }
+            };
+
+            districts.onchange = function () {
+                wards.length = 1;
+                const selectedCity = data.find((city) => city.Name === cities.value);
+                const selectedDistrict = selectedCity.Districts.find((district) => district.Name === this.value);
+
+                if (this.value !== "") {
+                    for (const ward of selectedDistrict.Wards) {
+                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name); // Use "Name" as both value and text.
+                    }
+                }
+            };
+        }
+
+        // Function to simulate change event
+        function simulateEvent(element, eventName) {
+            var event = new Event(eventName);
+            element.dispatchEvent(event);
+        }
+
     </script>
 </html>
