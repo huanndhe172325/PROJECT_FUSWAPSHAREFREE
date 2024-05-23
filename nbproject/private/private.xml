@@ -24,7 +24,21 @@
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Profile.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Preview.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
+<<<<<<< HEAD
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/ForgotPassword/ForgotPassword.jsp</file>
+=======
+        </group>
+        <group>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/Login/login.jsp</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Preview.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/CreatePost.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/HomePage/profile.jsp</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/ForgotPassword/ForgotPassword.jsp</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/ForgotPassword/ForgotPassword.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
+>>>>>>> febc20340581936801dc9c7500468ec727f876ef
         </group>
     </open-files>
 </project-private>
