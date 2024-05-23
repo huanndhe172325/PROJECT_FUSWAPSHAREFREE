@@ -14,7 +14,32 @@
 
         <title>Friendkit | Profile</title>
         <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
-
+        <style>
+        .account-item {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+        .media {
+            display: flex;
+            align-items: center;
+        }
+        .icon-wrap {
+            margin-right: 10px;
+        }
+        .button-link {
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            color: inherit;
+            font: inherit;
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+    </style>
         <!-- Google Tag Manager -->
         <script>
             ;
@@ -536,17 +561,19 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a class="account-item">
-                                        <div class="media">
-                                            <div class="icon-wrap">
-                                                <i data-feather="power"></i>
-                                            </div>
-                                            <div class="media-content">
-                                                <h3>Log out</h3>
-                                                <small>Log out from your account.</small>
-                                            </div>
-                                        </div>
-                                    </a>
+                                     <form action="logout" method="POST">
+                                            <button type="submit" class="button-link account-item">
+                                                <div class="media">
+                                                    <div class="icon-wrap">
+                                                        <i data-feather="power"></i>
+                                                    </div>
+                                                    <div class="media-content">
+                                                        <h3>Log out</h3>
+                                                        <small>Log out from your account.</small>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        </form>
                                 </div>
                             </div>
                         </div>
