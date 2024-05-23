@@ -69,7 +69,7 @@ public class Logout extends HttpServlet {
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        request.getRequestDispatcher("Preview/Preview.jsp").forward(request, response);
+        response.sendRedirect("Preview");
     }
 
     /** 
