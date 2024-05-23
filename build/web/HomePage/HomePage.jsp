@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <!doctype html>
 <html lang="en">
 
@@ -488,7 +488,6 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <hr class="account-divider" />
                                         <hr class="account-divider" />
                                         <a class="account-item">
                                             <div class="media">

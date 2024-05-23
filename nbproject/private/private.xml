@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManagePost.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/formCreatePost.jsp</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/Profile.jsp</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Model/Quanlity.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Model/Type.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/CreatePost.java</file>
-        </group>
         <group name="PRJ301">
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/profile.jsp</file>
@@ -22,6 +11,12 @@
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Profile.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Preview.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
+        </group>
+        <group>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Preview.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/CreatePost.java</file>
         </group>
     </open-files>
 </project-private>
