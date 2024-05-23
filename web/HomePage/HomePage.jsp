@@ -48,7 +48,7 @@
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
     </head>
-     <style>
+    <style>
         .account-item {
             display: block;
             text-decoration: none;
@@ -490,6 +490,17 @@
                                         </a>
                                         <hr class="account-divider" />
                                         <hr class="account-divider" />
+                                        <a class="account-item">
+                                            <div class="media">
+                                                <div class="icon-wrap">
+                                                    <i data-feather="map-pin"></i>
+                                                </div>
+                                                <div class="media-content">
+                                                    <h3>Manage Location</h3>
+                                                    <small>Change your location here</small>
+                                                </div>
+                                            </div>
+                                        </a>
                                         <a href="options-settings.html" class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">

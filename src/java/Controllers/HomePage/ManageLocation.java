@@ -14,9 +14,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author FPT
+ * @author haoto
  */
-public class Profile extends HttpServlet {
+public class ManageLocation extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,10 +33,10 @@ public class Profile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Profile</title>");  
+            out.println("<title>Servlet ManageLocation</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Profile at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManageLocation at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,7 +53,7 @@ public class Profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("HomePage/Profile.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
