@@ -570,7 +570,7 @@
         </div>
 
         <div class="view-wrapper">
-            <div id="profile-main" class="navbar-v2-wrapper">
+            <div id="profile-main" class="navbar-v2-wrapper" style="padding-top: 14rem;">
                 <div class="container is-custom">
                     <!-- Profile page main wrapper -->
                     <div class="view-wrap is-headless">
@@ -581,7 +581,7 @@
                                 <!-- html/partials/pages/profile/timeline/timeline-header.html -->
                                 <div class="cover-bg">
                                     <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />
-                                    <div class="avatar">
+                                    <div class="avatar" style="margin-bottom: 60px;">
                                         <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
                                         <div class="avatar-button">
                                             <i data-feather="plus"></i>
