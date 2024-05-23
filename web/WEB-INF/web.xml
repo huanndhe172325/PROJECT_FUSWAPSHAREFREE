@@ -21,13 +21,18 @@
         <servlet-class>Controllers.LogOut.Logout</servlet-class>
     </servlet>
     <servlet>
-
-        <servlet-name>ForgotPassword</servlet-name>
-        <servlet-class>Controllers.ForgotPassword.ForgotPassword</servlet-class>
-
+<!--<<<<<<< HEAD
+<<<<<<< HEAD
         <servlet-name>ManageLocation</servlet-name>
         <servlet-class>Controllers.HomePage.ManageLocation</servlet-class>
-
+=======
+        <servlet-name>ForgotPassword</servlet-name>
+        <servlet-class>Controllers.ForgotPassword.ForgotPassword</servlet-class>
+>>>>>>> d39b673af213f02a09c0bd66736be458ea126bb4
+=======
+        <servlet-name>ManageLocation</servlet-name>
+        <servlet-class>Controllers.HomePage.ManageLocation</servlet-class>
+>>>>>>> 907350f913567511b6281d56ac98532ea263d0b0-->
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -58,7 +63,7 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
+<!--<<<<<<< HEAD
 <<<<<<< HEAD
         <servlet-name>ManageLocation</servlet-name>
         <url-pattern>/managelocation</url-pattern>
@@ -69,7 +74,7 @@
 =======
         <servlet-name>ManageLocation</servlet-name>
         <url-pattern>/managelocation</url-pattern>
->>>>>>> 907350f913567511b6281d56ac98532ea263d0b0
+>>>>>>> 907350f913567511b6281d56ac98532ea263d0b0-->
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>
