@@ -63,6 +63,8 @@ public class HomePage extends HttpServlet {
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         request.setAttribute("listQuanlity", listQuanlity);
+        request.setAttribute("listType", listType);
+
         
         request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
     }
@@ -79,6 +81,7 @@ public class HomePage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        System.out.println(".....");
     }
 
     /**

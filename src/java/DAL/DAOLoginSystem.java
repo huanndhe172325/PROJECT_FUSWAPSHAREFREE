@@ -5,6 +5,7 @@
 package DAL;
 
 import Model.User;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -38,6 +39,8 @@ public class DAOLoginSystem extends DBContext {
         }
         return null;
     }
-    
+    public static void main(String[] args) {
+
+    }
     
 }
