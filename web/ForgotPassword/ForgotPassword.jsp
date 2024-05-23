@@ -1,15 +1,15 @@
 <%-- 
-    Document   : login
-    Created on : May 17, 2024, 12:59:48 AM
-    Author     : haoto
+    Document   : ForgotPassword
+    Created on : May 23, 2024, 4:11:03 PM
+    Author     : Binhtran
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 
-    <!-- Mirrored from friendkit.cssninja.io/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:35:50 GMT -->
+    <!-- Mirrored from friendkit.cssninja.io/login-minimal.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:39:28 GMT -->
     <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
     <head>
         <!-- Required meta tags -->
@@ -47,7 +47,7 @@
         <link rel="stylesheet" href="assets/css/core.css" />
     </head>
 
-    <body class="is-white">
+    <body>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQHJPZP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
@@ -56,77 +56,47 @@
         <div class="pageloader"></div>
         <div class="infraloader is-active"></div>
 
-        <div class="login-wrapper">
-            <!-- Main Wrapper -->
-            <div class="login-wrapper columns is-gapless">
-                <!--Left Side (Desktop Only)-->
-                <div class="column is-6 is-hidden-mobile hero-banner">
-                    <div class="hero is-fullheight is-login">
-                        <div class="hero-body">
-                            <div class="container">
-                                <div class="left-caption">
-                                    <h2>Join an Exciting Social Experience.</h2>
-                                </div>
-                            </div>
+        <div class="signup-wrapper">
+            <!--Fake navigation-->
+            <div class="fake-nav">
+                <a href="index.html" class="logo">
+                    <img class="light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
+                    <img class="dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
+                </a>
+            </div>
+
+            <div class="container">
+                <!--Container-->
+                <div class="login-container">
+                    <div class="columns is-vcentered">
+                        <div class="column is-6 image-column">
+                            <!--Illustration-->
+                            <img class="light-image login-image" src="assets/img/illustrations/login/login.svg" alt="" />
+                            <img class="dark-image login-image" src="assets/img/illustrations/login/login-dark.svg" alt="" />
                         </div>
-                    </div>
-                </div>
-                <!--Right Side-->
-                <div class="column is-6">
-                    <div class="hero form-hero is-fullheight">
-                        <!--Logo-->
-                        <div class="logo-wrap">
-                            <div class="wrap-inner">
-                                <img src="assets/img/vector/logo/friendkit-white.svg" alt="" />
-                            </div>
-                        </div>
-                        <!--Login Form-->
-                        <div class="hero-body">
-                            <div class="form-wrapper">
-                                <!--Avatar-->
-                                <div class="avatar">
-                                    <div class="badge">
-                                        <i data-feather="check"></i>
-                                    </div>
-                                    <img src="https://placehold.it/128x128" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                        <div class="column is-6">
+                            <h2 class="form-title">Welcome Back</h2>
+                            <h3 class="form-subtitle">Enter your credentials to sign in.</h3>
+
+                            <!--Form-->
+                            <form action="forgotpassword" method="POST">
+                                <div class="login-form">
+                                    <div class="form-panel">
+                                        <div class="field">
+                                            <label>Email</label>
+                                            <div class="control">
+                                                <input name="email" type="text" class="input" placeholder="Enter your email address" />
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <div class="control">
+                                                <button type="submit" class="button is-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>                       
                                 </div>
-                                <!--Form-->
-                                <form action="Login" method="POST">
-                                    <div class="login-form">
-                                        <div class="field">
-                                            <div class="control">
-                                                <input name="username" class="input email-input" type="text" placeholder="username" required=""/>
-                                                <div class="input-icon">
-                                                    <i data-feather="user"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="field">
-                                            <div class="control">
-                                                <input name="password" class="input password-input" type="password" placeholder="●●●●●●●●●" required=""/>
-                                                <div class="input-icon">
-                                                    <i data-feather="lock"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="field">
-                                            <div class="control">
-                                                <input type="submit" value="Login" class="button is-solid primary-button raised is-rounded is-fullwidth">
-                                            </div>
-                                        </div>
-                                        <p style="color: red">${mess}</p>  
-                                    </div>
-                                </form>
+                            </form>
 
-
-                                <div class="section forgot-password">
-                                    <div class="has-text-centered">
-                                        <a href="forgotpassword">Forgot password?</a>
-                                    </div>
-                                </div> 
-
-
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -194,5 +164,5 @@
     </body>
 
 
-    <!-- Mirrored from friendkit.cssninja.io/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:35:50 GMT -->
+    <!-- Mirrored from friendkit.cssninja.io/login-minimal.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:39:30 GMT -->
 </html>
