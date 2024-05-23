@@ -53,7 +53,7 @@ public class ForgotPassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        System.out.println("huannd");
+        
         request.getRequestDispatcher("ForgotPassword/ForgotPassword.jsp").forward(request, response);
     } 
 
