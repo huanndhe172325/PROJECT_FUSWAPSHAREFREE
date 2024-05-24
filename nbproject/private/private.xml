@@ -3,25 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Profile.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Preview.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
-=======
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/Login/login.jsp</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/Preview/Preview.jsp</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOLoginSystem.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/WEB-INF/web.xml</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManagePost.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/HomePage/Profile.jsp</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Model/User.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LogOut/Logout.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
->>>>>>> e7d83257215b3f4d37dda5f5d04f7ec8e762a6ec
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/web/assets/css/app.css</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOLoginSystem.java</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/CreatePost.java</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/src/java/Model/User.java</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/web/assets/img/ImgPRV/anhdoiqa.jpg</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/web/assets/css/core.css</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/web/assets/css/style.css</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/web/Preview/Preview.jsp</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManagePost.java</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/web/assets/img/ImgPRV/CommunityEngagement.jpg</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/web/WEB-INF/web.xml</file>
+            <file>file:/A:/Swp/FUSWAPSHAREFREE/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOGetUserNearMe.java</file>
         </group>
     </open-files>
 </project-private>
