@@ -4,16 +4,20 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOGetUserNearMe;
 import DAL.DAOManagePost;
 import Model.Quanlity;
 import Model.Type;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -59,13 +63,34 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+           DAOGetUserNearMe daoGetUserNearMe = new DAOGetUserNearMe();
+        HttpSession session = request.getSession();
+        Object userInfo_raw = (Object) session.getAttribute("userInfo");
+        User user;
+        int id = -1;
+          List<User> usersInSameDistrict=null;
+        String district = "";
+        if (userInfo_raw != null) {
+            // User is logged in
+            user = (User) userInfo_raw;
+            id = daoGetUserNearMe.getIdByUser(user.getUserName());
+            district = daoGetUserNearMe.getDistrict(id);
+
+            if (district != null) {
+               usersInSameDistrict = daoGetUserNearMe.getUsersInSameDistrict(district);
+            }
+        }
+
         DAOManagePost dao = new DAOManagePost();
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
+        request.setAttribute("i", district);
+        request.setAttribute("usersInSameDistrict", usersInSameDistrict);
+
+        request.setAttribute("id", id);
         request.setAttribute("listQuanlity", listQuanlity);
         request.setAttribute("listType", listType);
 
-        
         request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
     }
 
