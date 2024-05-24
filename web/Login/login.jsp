@@ -117,13 +117,15 @@
                                         <p style="color: red">${mess}</p>  
                                     </div>
                                 </form>
-                                
+
 
                                 <div class="section forgot-password">
                                     <div class="has-text-centered">
-                                        <a href="#">Forgot password?</a>
+                                        <a href="forgotpassword">Forgot password?</a>
                                     </div>
-                                </div>
+                                </div> 
+
+
                             </div>
                         </div>
                     </div>

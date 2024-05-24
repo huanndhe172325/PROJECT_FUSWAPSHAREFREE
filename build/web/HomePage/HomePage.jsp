@@ -5,7 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+=======
+>>>>>>> 801d7484497c0766936945374f83c38f5a4b481d
 
 <!doctype html>
 <html lang="en">
