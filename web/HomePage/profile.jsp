@@ -84,7 +84,7 @@
             <div class="top-nav">
                 <div class="left">
                     <div class="brand">
-                        <a href="index.html" class="navbar-logo">
+                        <a href="HomePage" class="navbar-logo">
                             <img class="logo light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
                             <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
                         </a>
@@ -426,68 +426,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="navbar-item is-cart">
-                        <div class="cart-button">
-                            <i data-feather="shopping-cart"></i>
-                            <div class="cart-count"></div>
-                        </div>
-
-                        <!-- Cart dropdown -->
-                        <div class="shopping-cart">
-                            <div class="cart-inner">
-                                <!--Loader-->
-                                <div class="navbar-cart-loader is-active">
-                                    <div class="loader is-loading"></div>
-                                </div>
-
-                                <div class="shopping-cart-header">
-                                    <a href="ecommerce-cart.html" class="cart-link">View Cart</a>
-                                    <div class="shopping-cart-total">
-                                        <span class="lighter-text">Total:</span>
-                                        <span class="main-color-text">$193.00</span>
-                                    </div>
-                                </div>
-                                <!--end shopping-cart-header -->
-
-                                <ul class="shopping-cart-items">
-                                    <li class="cart-row">
-                                        <img src="assets/img/products/2.svg" alt="" />
-                                        <span class="item-meta">
-                                            <span class="item-name">Cool Shirt</span>
-                                            <span class="meta-info">
-                                                <span class="item-price">$29.00</span>
-                                                <span class="item-quantity">Qty: 01</span>
-                                            </span>
-                                        </span>
-                                    </li>
-
-                                    <li class="cart-row">
-                                        <img src="assets/img/products/3.svg" alt="" />
-                                        <span class="item-meta">
-                                            <span class="item-name">Military Short</span>
-                                            <span class="meta-info">
-                                                <span class="item-price">$39.00</span>
-                                                <span class="item-quantity">Qty: 01</span>
-                                            </span>
-                                        </span>
-                                    </li>
-
-                                    <li class="cart-row">
-                                        <img src="assets/img/products/4.svg" alt="" />
-                                        <span class="item-meta">
-                                            <span class="item-name">Cool Backpack</span>
-                                            <span class="meta-info">
-                                                <span class="item-price">$125.00</span>
-                                                <span class="item-quantity">Qty: 01</span>
-                                            </span>
-                                        </span>
-                                    </li>
-                                </ul>
-
-                                <a href="#" class="button primary-button is-raised">Checkout</a>
-                            </div>
-                        </div>
-                    </div>
+                 
                     <div id="account-dropdown" class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image">
                             <img src="https://via.placeholder.com/400x400" data-demo-src="assets/img/avatars/jenna.png" alt="" />
