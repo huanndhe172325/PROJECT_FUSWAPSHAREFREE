@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html lang="en">
 
@@ -4323,7 +4323,7 @@
 
                             <!-- Suggested friends widget -->
                             <!-- /partials/widgets/suggested-friends-1-widget.html -->
-                            <div class="card">
+                           <div class="card">
                                 <div class="card-heading is-bordered">
                                     <h4>User near me</h4>
                                     <div class="dropdown is-spaced is-right dropdown-trigger">
@@ -4367,61 +4367,20 @@
                                     </div>
                                 </div>
                                 <div class="card-body no-padding">
-                                    <!-- Suggested friend -->
                                     <div class="add-friend-block transition-block">
+                                        <c:forEach var="user" items="${requestScope.usersInSameDistrict}">
                                         <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
                                         <div class="page-meta">
-                                            <span>Nelly Schwartz</span>
-                                            <span>Melbourne</span>
+                                               <span>${user.userName}</span>
+                                            <span>${user.district}</span>
                                         </div>
                                         <div class="add-friend add-transition">
                                             <i data-feather="user-plus"></i>
                                         </div>
+                                        </c:forEach>  
                                     </div>
-                                    <!-- Suggested friend -->
-                                    <div class="add-friend-block transition-block">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/lana.jpeg" data-user-popover="10" alt="" />
-                                        <div class="page-meta">
-                                            <span>Lana Henrikssen</span>
-                                            <span>Helsinki</span>
-                                        </div>
-                                        <div class="add-friend add-transition">
-                                            <i data-feather="user-plus"></i>
-                                        </div>
-                                    </div>
-                                    <!-- Suggested friend -->
-                                    <div class="add-friend-block transition-block">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/gaelle.jpeg" data-user-popover="11" alt="" />
-                                        <div class="page-meta">
-                                            <span>Gaelle Morris</span>
-                                            <span>Lyon</span>
-                                        </div>
-                                        <div class="add-friend add-transition">
-                                            <i data-feather="user-plus"></i>
-                                        </div>
-                                    </div>
-                                    <!-- Suggested friend -->
-                                    <div class="add-friend-block transition-block">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/mike.jpg" data-user-popover="12" alt="" />
-                                        <div class="page-meta">
-                                            <span>Mike Lasalle</span>
-                                            <span>Toronto</span>
-                                        </div>
-                                        <div class="add-friend add-transition">
-                                            <i data-feather="user-plus"></i>
-                                        </div>
-                                    </div>
-                                    <!-- Suggested friend -->
-                                    <div class="add-friend-block transition-block">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/rolf.jpg" data-user-popover="13" alt="" />
-                                        <div class="page-meta">
-                                            <span>Rolf Krupp</span>
-                                            <span>Berlin</span>
-                                        </div>
-                                        <div class="add-friend add-transition">
-                                            <i data-feather="user-plus"></i>
-                                        </div>
-                                    </div>
+                                 
+                                    
                                 </div>
                             </div>
 
