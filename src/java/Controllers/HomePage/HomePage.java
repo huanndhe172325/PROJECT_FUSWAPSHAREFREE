@@ -68,21 +68,19 @@ public class HomePage extends HttpServlet {
         User userInfo_raw = (User) session.getAttribute("userInfo");
         User user;
         int id = -1;
-          List<User> usersInSameDistrict=null;
+        List<User> usersInSameDistrict = null;
 
         String district = "";
         if (userInfo_raw != null) {
-            // User is logged in
             user = (User) userInfo_raw;
-
             district = daoGetUserNearMe.getDistrict(user.getUserID());
 
             if (district != null) {
                usersInSameDistrict = daoGetUserNearMe.getUsersInSameDistrict(district);
             }
         }
-         DAOManageUser dao1 = new DAOManageUser();
-        List<User> listPoint = dao1.getAllUsersSortedByPoint(); // Lấy tất cả người dùng và sắp xếp theo điểm
+        DAOManageUser dao1 = new DAOManageUser();
+        List<User> listPoint = dao1.getAllUsersSortedByPoint();
         
         DAOManagePost dao = new DAOManagePost();
         ArrayList<Type> listType = dao.getAllType();
@@ -108,8 +106,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        System.out.println(".....");
+         response.getWriter().write("success");
     }
 
     /**

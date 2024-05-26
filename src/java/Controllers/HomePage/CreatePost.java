@@ -7,12 +7,14 @@ package Controllers.HomePage;
 import DAL.DAOManagePost;
 import Model.Quanlity;
 import Model.Type;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -79,17 +81,19 @@ public class CreatePost extends HttpServlet {
         String description = request.getParameter("description");
         String intructions = request.getParameter("instructions");
         String expiresDate_raw = request.getParameter("expiresDate");
-        String Desire = request.getParameter("");
         String Commune = request.getParameter("ward");
         String District = request.getParameter("district");
         String Street_Number = request.getParameter("newAddress");
-        String createTime = request.getParameter("");
-        String userID = request.getParameter("");
+        
+        HttpSession session = request.getSession();
+        User userInfor = (User) session.getAttribute("userInfo");
+        
         int statusId = 1;
         String quanlityId_raw = request.getParameter("quanlity");
 
 
         String uploadDirectory = "web/FolderImages/ImagePost";
+        
 
     }
 

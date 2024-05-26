@@ -83,78 +83,78 @@
         <!-- Core CSS -->
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
-          <script>
-                                        document.addEventListener('DOMContentLoaded', (event) => {
-                                            const openModalBtn = document.getElementById('open-modal-btn');
-                                            const modal = document.getElementById('create-post-modal');
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const openModalBtn = document.getElementById('open-modal-btn');
+                const modal = document.getElementById('create-post-modal');
 
-                                            openModalBtn.addEventListener('click', () => {
-                                                modal.classList.add('is-active');
-                                            });
-                                        });
-                                         var districts = document.getElementById("district");
-                var wards = document.getElementById("ward");
-                var selectedCityValue = 'Thành phố Hà Nội';
-
-                var Parameter = {
-                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                    method: "GET",
-                    responseType: "application/json",
-                };
-
-                var promise = axios(Parameter);
-
-                promise.then(function (result) {
-                    var data = result.data;
-                    var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                    renderDistricts(selectedCity.Districts);
-                    selectDistrictOption(selectedCity.Districts);
-                    selectWardOption(selectedCity.Districts);
+                openModalBtn.addEventListener('click', () => {
+                    modal.classList.add('is-active');
                 });
+            });
+            var districts = document.getElementById("district");
+            var wards = document.getElementById("ward");
+            var selectedCityValue = 'Thành phố Hà Nội';
 
-                function renderDistricts(districtsData) {
-                    for (const district of districtsData) {
-                        districts.options[districts.options.length] = new Option(district.Name, district.Name);
-                    }
+            var Parameter = {
+                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                method: "GET",
+                responseType: "application/json",
+            };
 
-                    districts.onchange = function () {
-                        wards.length = 1;
-                        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+            var promise = axios(Parameter);
 
-                        if (this.value !== "") {
-                            for (const ward of selectedDistrict.Wards) {
-                                wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
-                            }
-                        }
-                    };
+            promise.then(function (result) {
+                var data = result.data;
+                var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                renderDistricts(selectedCity.Districts);
+                selectDistrictOption(selectedCity.Districts);
+                selectWardOption(selectedCity.Districts);
+            });
+
+            function renderDistricts(districtsData) {
+                for (const district of districtsData) {
+                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
                 }
 
-                function selectDistrictOption(districtsData) {
-                    for (let i = 0; i < districtsData.length; i++) {
-                        if (districtsData[i].Name === '${district}') {
-                            districts.options[i + 1].selected = true;
-                            simulateEvent(districts, 'change');
-                            break;
-                        }
-                    }
-                }
+                districts.onchange = function () {
+                    wards.length = 1;
+                    const selectedDistrict = districtsData.find((district) => district.Name === this.value);
 
-                function selectWardOption(districtsData) {
-                    const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                    for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                        if (selectedDistrict.Wards[i].Name === '${ward}') {
-                            wards.options[i + 1].selected = true;
-                            simulateEvent(wards, 'change');
-                            break;
+                    if (this.value !== "") {
+                        for (const ward of selectedDistrict.Wards) {
+                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
                         }
                     }
-                }
+                };
+            }
 
-        // Function to simulate change event
-                function simulateEvent(element, eventName) {
-                    var event = new Event(eventName);
-                    element.dispatchEvent(event);
+            function selectDistrictOption(districtsData) {
+                for (let i = 0; i < districtsData.length; i++) {
+                    if (districtsData[i].Name === '${district}') {
+                        districts.options[i + 1].selected = true;
+                        simulateEvent(districts, 'change');
+                        break;
+                    }
                 }
+            }
+
+            function selectWardOption(districtsData) {
+                const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                    if (selectedDistrict.Wards[i].Name === '${ward}') {
+                        wards.options[i + 1].selected = true;
+                        simulateEvent(wards, 'change');
+                        break;
+                    }
+                }
+            }
+
+            // Function to simulate change event
+            function simulateEvent(element, eventName) {
+                var event = new Event(eventName);
+                element.dispatchEvent(event);
+            }
 
         </script>
     </head>
@@ -5551,7 +5551,7 @@
 
                         <div class="card-body">
                             <div class="control">
-                                <form action="CreatePost" method="post" enctype="multipart/form-data">
+                                <form action="CreatePost" id="create-post" method="post" enctype="multipart/form-data">
                                     <select id="type" name="typePost" required>
                                         <c:forEach items="${listType}" var="type">
                                             <option value="${type.typeID}" selected>${type.name}</option>
@@ -5563,7 +5563,7 @@
                                     <label for="Title">Title:</label>
                                     <input type="text" id="title" name="title" required>
                                     <label for="Title">Description: </label>
-                                    <textarea class="textarea comment-textarea" rows="1" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+                                    <textarea class="textarea comment-textarea" name="description" rows="1" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
 
 
                                     <label for="quanlity">Quanlity</label>
@@ -5604,7 +5604,7 @@
                                     </select>
 
 
-                                    <input type="submit" id="submit-create-post" style="display :none;" value="Submit">
+                                    <input type="submit" id="submit-create-post" style="display : none;" value="Submit">
                                 </form>
 
                             </div>
@@ -5612,7 +5612,7 @@
 
                         <div class="card-footer">
                             <div class="button-wrap" style="width: 100%;">
-                                <button type="button" class="button is-solid primary-button close-modal" style="width: 100%;">
+                                <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
                                     Post
                                 </button>
                             </div>
@@ -7479,7 +7479,12 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
+
+
+
         <!-- Concatenated js plugins and jQuery -->
         <script src="assets/js/app.js"></script>
         <script src="https://js.stripe.com/v3/"></script>
@@ -7502,7 +7507,7 @@
 
         <!-- Components js -->
         <script src="assets/js/explorer.js"></script>
-        <script src="assets/js/widgets.js"></script>
+        <script src="assets/js/widgets2.js"></script>
         <script src="assets/js/modal-uploader.js"></script>
         <script src="assets/js/popovers-users.js"></script>
         <script src="assets/js/popovers-pages.js"></script>
@@ -7542,76 +7547,115 @@
         <!-- map page js -->
 
         <!-- elements page js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
 
-    <script>
-        var districts = document.getElementById("district");
-        var wards = document.getElementById("ward");
-        var selectedCityValue = 'Thành phố Hà Nội';
+        <script>
+                                    var districts = document.getElementById("district");
+                                    var wards = document.getElementById("ward");
+                                    var selectedCityValue = 'Thành phố Hà Nội';
 
-        var Parameter = {
-            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-            method: "GET",
-            responseType: "application/json",
-        };
+                                    var Parameter = {
+                                        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                                        method: "GET",
+                                        responseType: "application/json",
+                                    };
 
-        var promise = axios(Parameter);
+                                    var promise = axios(Parameter);
 
-        promise.then(function (result) {
-            var data = result.data;
-            var selectedCity = data.find((city) => city.Name === selectedCityValue);
-            renderDistricts(selectedCity.Districts);
-            selectDistrictOption(selectedCity.Districts);
-            selectWardOption(selectedCity.Districts);
-        });
+                                    promise.then(function (result) {
+                                        var data = result.data;
+                                        var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                                        renderDistricts(selectedCity.Districts);
+                                        selectDistrictOption(selectedCity.Districts);
+                                        selectWardOption(selectedCity.Districts);
+                                    });
 
-        function renderDistricts(districtsData) {
-            for (const district of districtsData) {
-                districts.options[districts.options.length] = new Option(district.Name, district.Name);
-            }
+                                    function renderDistricts(districtsData) {
+                                        for (const district of districtsData) {
+                                            districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                                        }
 
-            districts.onchange = function () {
-                wards.length = 1;
-                const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+                                        districts.onchange = function () {
+                                            wards.length = 1;
+                                            const selectedDistrict = districtsData.find((district) => district.Name === this.value);
 
-                if (this.value !== "") {
-                    for (const ward of selectedDistrict.Wards) {
-                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
-                    }
-                }
-            };
-        }
+                                            if (this.value !== "") {
+                                                for (const ward of selectedDistrict.Wards) {
+                                                    wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                                                }
+                                            }
+                                        };
+                                    }
 
-        function selectDistrictOption(districtsData) {
-            for (let i = 0; i < districtsData.length; i++) {
-                if (districtsData[i].Name === '${district}') {
-                    districts.options[i + 1].selected = true;
-                    simulateEvent(districts, 'change');
-                    break;
-                }
-            }
-        }
+                                    function selectDistrictOption(districtsData) {
+                                        for (let i = 0; i < districtsData.length; i++) {
+                                            if (districtsData[i].Name === '${district}') {
+                                                districts.options[i + 1].selected = true;
+                                                simulateEvent(districts, 'change');
+                                                break;
+                                            }
+                                        }
+                                    }
 
-        function selectWardOption(districtsData) {
-            const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-            for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                if (selectedDistrict.Wards[i].Name === '${ward}') {
-                    wards.options[i + 1].selected = true;
-                    simulateEvent(wards, 'change');
-                    break;
-                }
-            }
-        }
+                                    function selectWardOption(districtsData) {
+                                        const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+                                        for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                                            if (selectedDistrict.Wards[i].Name === '${ward}') {
+                                                wards.options[i + 1].selected = true;
+                                                simulateEvent(wards, 'change');
+                                                break;
+                                            }
+                                        }
+                                    }
 
-// Function to simulate change event
-        function simulateEvent(element, eventName) {
-            var event = new Event(eventName);
-            element.dispatchEvent(event);
-        }
+                                    function simulateEvent(element, eventName) {
+                                        var event = new Event(eventName);
+                                        element.dispatchEvent(event);
+                                    }
 
 
-    </script>
+
+                                    $(document).ready(function () {
+                                        $("#create-post").on("submit", function (event) {
+                                            event.preventDefault(); 
+                                            $.ajax({
+                                                url: 'CreatePost',
+                                                type: 'POST',
+                                                data: $(this).serialize(),
+                                                success: function (response) {
+                                                    const modal = document.getElementById('create-post-modal');
+                                                    modal.classList.remove('is-active');
+                                                    var form = document.getElementById('create-post');
+                                                    form.reset();
+                                                        iziToast.show({
+                                                            maxWidth: "280px",
+                                                            class: "success-toast",
+                                                            icon: "mdi mdi-check",
+                                                            title: "",
+                                                            message: "Create post successfully",
+                                                            titleColor: "#fff",
+                                                            messageColor: "#fff",
+                                                            iconColor: "#fff",
+                                                            backgroundColor: "#60c032",
+                                                            progressBarColor: "#0062ff",
+                                                            position: "bottomRight",
+                                                            transitionIn: "fadeInUp",
+                                                            close: false,
+                                                            timeout: 1800,
+                                                            zindex: 99999
+                                                        });
+                                                                                                            
+                                                                                                            
+                                                },
+                                                error: function (jqXHR, textStatus, errorThrown) {
+                                                    console.error('Error:', errorThrown);
+                                                }
+                                            });
+                                        });
+                                    });
+
+        </script>
     </body>
 
 
