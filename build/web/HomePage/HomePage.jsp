@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
 
@@ -472,7 +472,8 @@
                                         </label>
                                     </div>
                                     <div class="nav-drop-body account-items">
-                                        <a id="profile-link" href="Profile" class="account-item">
+                                        
+                                        <a id="profile-link" href="profile?id=${sessionScope.userInfo.getUserID()}" class="account-item">
                                             <div class="media">
                                                 <div class="media-left">
                                                     <div class="image">

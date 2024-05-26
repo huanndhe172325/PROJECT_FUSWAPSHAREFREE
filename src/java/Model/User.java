@@ -26,8 +26,8 @@ public class User {
     public User() {
     }
 
-    public User(int UserID, String Email, String Phone, String PassWord, String JoinDate, String UserName, String Full_Name, String District, String Commune, String StreetNumber, int Point, int RoleID, int StatusID) {
-        this.UserID = UserID;
+    public User(int userID, String Email, String Phone, String PassWord, String JoinDate, String UserName, String Full_Name, String District, String Commune, String StreetNumber, int Point, int RoleID, int StatusID) {
+        this.UserID = userID;
         this.Email = Email;
         this.Phone = Phone;
         this.PassWord = PassWord;
@@ -46,9 +46,11 @@ public class User {
         return UserID;
     }
 
-    public void setUserID(int UserID) {
-        this.UserID = UserID;
+    public void setUserID(int userID) {
+        this.UserID = userID;
     }
+
+    
 
     public String getEmail() {
         return Email;
@@ -144,6 +146,11 @@ public class User {
 
     public void setStatusID(int StatusID) {
         this.StatusID = StatusID;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "userID=" + UserID + ", Email=" + Email + ", Phone=" + Phone + ", PassWord=" + PassWord + ", JoinDate=" + JoinDate + ", UserName=" + UserName + ", Full_Name=" + Full_Name + ", District=" + District + ", Commune=" + Commune + ", StreetNumber=" + StreetNumber + ", Point=" + Point + ", RoleID=" + RoleID + ", StatusID=" + StatusID + '}';
     }
     
     
