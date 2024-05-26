@@ -9,6 +9,7 @@ package Model;
  * @author FPT
  */
 public class User {
+
     private int UserID;
     private String Email;
     private String Phone;
@@ -23,11 +24,8 @@ public class User {
     private int RoleID;
     private int StatusID;
 
-    public User() {
-    }
-
-    public User(int userID, String Email, String Phone, String PassWord, String JoinDate, String UserName, String Full_Name, String District, String Commune, String StreetNumber, int Point, int RoleID, int StatusID) {
-        this.UserID = userID;
+    public User(int UserID, String Email, String Phone, String PassWord, String JoinDate, String UserName, String Full_Name, String District, String Commune, String StreetNumber, int Point, int RoleID, int StatusID) {
+        this.UserID = UserID;
         this.Email = Email;
         this.Phone = Phone;
         this.PassWord = PassWord;
@@ -40,6 +38,10 @@ public class User {
         this.Point = Point;
         this.RoleID = RoleID;
         this.StatusID = StatusID;
+
+    }
+
+    public User() {
     }
 
     public int getUserID() {
