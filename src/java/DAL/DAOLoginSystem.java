@@ -47,10 +47,7 @@ public class DAOLoginSystem extends DBContext {
         }
         return null;
     }
-    public static void main(String[] args) {
-        DAOLoginSystem s = new DAOLoginSystem();
-        User ss= s.login("testabc", "12345678");
-        System.out.println(ss);
+    
 
     public User getUserByUserName(String username) {
         String sql = "SELECT * FROM [User] \n"
