@@ -37,6 +37,26 @@
                 f.parentNode.insertBefore(j, f)
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
         </script>
+
+        <!-- Check Validation Email -->
+
+        <script>
+            function validateEmail(email) {
+                const emaiRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                return emaiRegex.test(email);
+            }
+            function validateForm() {
+                const email = document.getElementById('email').value;
+                if (!validateEmail(email)) {
+                    alert('Please enter a valid email address.');
+                    return false;
+                }
+                return true;
+            }
+
+        </script>
+
+
         <!-- End Google Tag Manager -->
 
         <!-- Fonts -->
@@ -75,17 +95,17 @@
                             <img class="dark-image login-image" src="assets/img/illustrations/login/login-dark.svg" alt="" />
                         </div>
                         <div class="column is-6">
-                            <h2 class="form-title">Welcome Back</h2>
-                            <h3 class="form-subtitle">Enter your credentials to sign in.</h3>
+                            <h2 class="form-title">Password Recovery</h2>
+                            <h3 class="form-subtitle">Enter your email to change password</h3>
 
                             <!--Form-->
-                            <form action="forgotpassword" method="POST">
+                            <form action="forgotpassword" method="POST" onsubmit="return validateForm()">
                                 <div class="login-form">
                                     <div class="form-panel">
                                         <div class="field">
                                             <label>Email</label>
                                             <div class="control">
-                                                <input name="email" type="text" class="input" placeholder="Enter your email address" />
+                                                <input name="email" id="email" type="text" class="input" placeholder="Enter your email address" required=""/>
                                             </div>
                                         </div>
                                         <div class="field">
@@ -93,6 +113,7 @@
                                                 <button type="submit" class="button is-primary">Submit</button>
                                             </div>
                                         </div>
+                                        <p style="color: red">${msg}</p> 
                                     </div>                       
                                 </div>
                             </form>
