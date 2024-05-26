@@ -5593,7 +5593,7 @@
 
 
                                     <label for="instructions">Pick-up instructions</label>
-                                    <input type="text" id="instructions" name="instructions" required placeholder="Pick up to day from 4 - 6pm. Please ring doorbell when here">
+                                    <input type="text" id="instructions" name="instructions" required placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
 
                                     <label>Expires Date<span class="required">*</span></label>
                                     <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required>
@@ -7590,7 +7590,7 @@
 
                                     function selectDistrictOption(districtsData) {
                                         for (let i = 0; i < districtsData.length; i++) {
-                                            if (districtsData[i].Name === '${district}') {
+                                            if (districtsData[i].Name === 'Huyện Thạch Thất') {
                                                 districts.options[i + 1].selected = true;
                                                 simulateEvent(districts, 'change');
                                                 break;
@@ -7645,8 +7645,6 @@
                                                             timeout: 1800,
                                                             zindex: 99999
                                                         });
-                                                                                                            
-                                                                                                            
                                                 },
                                                 error: function (jqXHR, textStatus, errorThrown) {
                                                     console.error('Error:', errorThrown);
