@@ -75,6 +75,7 @@
         }
     </style>
     <body>
+        <h1>${requestScope.listPoint.size()}</h1>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQHJPZP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
@@ -1336,7 +1337,7 @@
                             <!-- /partials/widgets/latest-activity-1-widget.html -->
                             <div id="latest-activity-1" class="card">
                                 <div class="card-heading is-bordered">
-                                    <h4>Latest activity</h4>
+                                    <h4>User Ranking</h4>
                                     <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
                                         <div>
                                             <div class="button">
@@ -1379,38 +1380,18 @@
                                 </div>
                                 <div class="card-body no-padding">
                                     <!-- Recommended Page -->
-                                    <div class="page-block">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/hanzo.svg" data-page-popover="5" alt="" />
-                                        <div class="page-meta">
-                                            <span>Css Ninja</span>
-                                            <span>3 hours ago</span>
+                                    <c:forEach var="c" items="${requestScope.listPoint}">
+                                        <div class="page-block">
+                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/hanzo.svg" data-page-popover="5" alt="" />
+                                            <div class="page-meta">
+                                                <span>${c.userName}</span>
+                                                <span>${c.point}</span>
+                                            </div>
+                                            <div class="add-page">
+                                                <i data-feather="eye"></i>
+                                            </div>
                                         </div>
-                                        <div class="add-page">
-                                            <i data-feather="eye"></i>
-                                        </div>
-                                    </div>
-                                    <!-- Recommended Page -->
-                                    <div class="page-block">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" data-user-popover="7" />
-                                        <div class="page-meta">
-                                            <span>Milly Augustine</span>
-                                            <span>5 hours ago</span>
-                                        </div>
-                                        <div class="add-page">
-                                            <i data-feather="eye"></i>
-                                        </div>
-                                    </div>
-                                    <!-- Recommended Page -->
-                                    <div class="page-block">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/vector/icons/logos/nuclearjs.svg" data-page-popover="3" alt="" />
-                                        <div class="page-meta">
-                                            <span>Nuclearjs</span>
-                                            <span>Yesterday</span>
-                                        </div>
-                                        <div class="add-page">
-                                            <i data-feather="eye"></i>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -4323,7 +4304,7 @@
 
                             <!-- Suggested friends widget -->
                             <!-- /partials/widgets/suggested-friends-1-widget.html -->
-                           <div class="card">
+                            <div class="card">
                                 <div class="card-heading is-bordered">
                                     <h4>User near me</h4>
                                     <div class="dropdown is-spaced is-right dropdown-trigger">
@@ -4369,18 +4350,18 @@
                                 <div class="card-body no-padding">
                                     <div class="add-friend-block transition-block">
                                         <c:forEach var="user" items="${requestScope.usersInSameDistrict}">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
-                                        <div class="page-meta">
-                                               <span>${user.userName}</span>
-                                            <span>${user.district}</span>
-                                        </div>
-                                        <div class="add-friend add-transition">
-                                            <i data-feather="user-plus"></i>
-                                        </div>
+                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
+                                            <div class="page-meta">
+                                                <span>${user.userName}</span>
+                                                <span>${user.district}</span>
+                                            </div>
+                                            <div class="add-friend add-transition">
+                                                <i data-feather="user-plus"></i>
+                                            </div>
                                         </c:forEach>  
                                     </div>
-                                 
-                                    
+
+
                                 </div>
                             </div>
 

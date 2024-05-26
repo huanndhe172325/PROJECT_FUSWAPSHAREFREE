@@ -9,30 +9,16 @@ import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  *
  * @author admin
  */
-public class DAOGetUserNearMe extends DBContext {
+public class DAOManageUser extends DBContext {
 
-    public int getIdByUser(String username) {
-        int n = -1;
-        String sql = "Select UserID from [User] where UserName=?";
-        try {
-            PreparedStatement st = connect.prepareStatement(sql);
-            st.setString(1, username);
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                n = rs.getInt("UserID");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return n;
-    }
+   
 
     public String getDistrict(int userId) {
         String sql = "SELECT District FROM [User] WHERE UserID = ?";
@@ -69,16 +55,38 @@ public class DAOGetUserNearMe extends DBContext {
         }
         return users;
     }
+       
+    public List<User> getAllUsersSortedByPoint() {
+        List<User> users = new ArrayList<>();
+    String sql = "SELECT UserName, Point FROM [User] order by Point desc";
+    try {
+        PreparedStatement st = connect.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
 
-    public static void main(String[] args) {
-        DAOGetUserNearMe dao = new DAOGetUserNearMe();
-        String id = dao.getDistrict(1);
-        List<User> s = dao.getUsersInSameDistrict(id);
-        for (User x : s) {
-            System.out.println(x.getUserName());
-            System.out.println(x.getDistrict());
+        while (rs.next()) {
+            User user = new User();
+            user.setUserName(rs.getString("UserName"));
+            user.setPoint(rs.getInt("Point"));
+            users.add(user);
         }
-        System.out.println(id);
-    }
 
+        // Sắp xếp danh sách users theo thuộc tính Point
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return users;
+    }
+    public static void main(String[] args) {
+        DAOManageUser dao = new DAOManageUser();
+        List<User> users = dao.getAllUsersSortedByPoint(); 
+
+        for (User user : users) {
+           
+            System.out.println("Point: " + user.getPoint());
+        }
+
+    }
 }
+
+
