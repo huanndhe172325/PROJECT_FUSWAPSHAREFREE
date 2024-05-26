@@ -59,13 +59,7 @@ public class CreatePost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManagePost dao = new DAOManagePost();
-        ArrayList<Type> listType = dao.getAllType();
-        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
-        request.setAttribute("listQuanlity", listQuanlity);
-        request.setAttribute("listType", listType);
-
-        request.getRequestDispatcher("HomePage/formCreatePost.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

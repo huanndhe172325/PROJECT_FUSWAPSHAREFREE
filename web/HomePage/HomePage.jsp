@@ -38,6 +38,42 @@
                 f.parentNode.insertBefore(j, f)
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
         </script>
+        <style>
+            form {
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            input[type="file"],
+            select,
+            textarea {
+                width: 100%;
+                padding: 10px;
+                margin: 5px 0;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"] {
+                width: 100%;
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+        </style>
         <!-- End Google Tag Manager -->
 
         <!-- Fonts -->
@@ -47,6 +83,80 @@
         <!-- Core CSS -->
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
+          <script>
+                                        document.addEventListener('DOMContentLoaded', (event) => {
+                                            const openModalBtn = document.getElementById('open-modal-btn');
+                                            const modal = document.getElementById('create-post-modal');
+
+                                            openModalBtn.addEventListener('click', () => {
+                                                modal.classList.add('is-active');
+                                            });
+                                        });
+                                         var districts = document.getElementById("district");
+                var wards = document.getElementById("ward");
+                var selectedCityValue = 'Thành phố Hà Nội';
+
+                var Parameter = {
+                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                    method: "GET",
+                    responseType: "application/json",
+                };
+
+                var promise = axios(Parameter);
+
+                promise.then(function (result) {
+                    var data = result.data;
+                    var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                    renderDistricts(selectedCity.Districts);
+                    selectDistrictOption(selectedCity.Districts);
+                    selectWardOption(selectedCity.Districts);
+                });
+
+                function renderDistricts(districtsData) {
+                    for (const district of districtsData) {
+                        districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                    }
+
+                    districts.onchange = function () {
+                        wards.length = 1;
+                        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                        if (this.value !== "") {
+                            for (const ward of selectedDistrict.Wards) {
+                                wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                            }
+                        }
+                    };
+                }
+
+                function selectDistrictOption(districtsData) {
+                    for (let i = 0; i < districtsData.length; i++) {
+                        if (districtsData[i].Name === '${district}') {
+                            districts.options[i + 1].selected = true;
+                            simulateEvent(districts, 'change');
+                            break;
+                        }
+                    }
+                }
+
+                function selectWardOption(districtsData) {
+                    const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+                    for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                        if (selectedDistrict.Wards[i].Name === '${ward}') {
+                            wards.options[i + 1].selected = true;
+                            simulateEvent(wards, 'change');
+                            break;
+                        }
+                    }
+                }
+
+        // Function to simulate change event
+                function simulateEvent(element, eventName) {
+                    var event = new Event(eventName);
+                    element.dispatchEvent(event);
+                }
+
+        </script>
     </head>
     <style>
         .account-item {
@@ -429,7 +539,7 @@
                         </div>
 
                         <div class="navbar-item is-icon">
-                            <a class="icon-link is-primary" href="CreatePost">
+                            <a class="icon-link is-primary" href="javascript:void(0);" data-modal="create-post-modal" id="open-modal-btn">
                                 <i data-feather="plus"></i>
                                 <span class="indicator"></span>
                             </a>
@@ -5426,6 +5536,91 @@
                 </div>
             </div>
 
+
+            <div id="create-post-modal" class="modal create-post-modal is-xsmall has-light-bg">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-heading">
+                            <div class="close-wrap">
+                                <span class="close-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="control">
+                                <form action="CreatePost" method="post" enctype="multipart/form-data">
+                                    <select id="type" name="typePost" required>
+                                        <c:forEach items="${listType}" var="type">
+                                            <option value="${type.typeID}" selected>${type.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="imgPath">Image:</label>
+                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" multiple required>
+
+                                    <label for="Title">Title:</label>
+                                    <input type="text" id="title" name="title" required>
+                                    <label for="Title">Description: </label>
+                                    <textarea class="textarea comment-textarea" rows="1" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+
+
+                                    <label for="quanlity">Quanlity</label>
+                                    <select id="quanlity" name="quanlity" required>
+                                        <c:forEach items="${listQuanlity}" var="quan">
+                                            <option value="${quan.quanlityID}">${quan.name}</option>
+                                        </c:forEach>
+                                    </select>
+
+
+                                    <div id="addNewSnippet" style="margin-top: 10px;">
+                                        <div class="input-container" style="display: inline-block; width: 49%;">
+                                            <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required>
+                                                <option value="" selected>Select district</option>
+                                            </select>  
+                                        </div>
+                                        <div class="input-container" style="display: inline-block; width: 50%;">
+                                            <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required>
+                                                <option value="" selected>Select Ward</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-container">
+                                            <label>Street number</label>
+                                            <input name="newAddress" id="Order_name" type="text" maxlength="255" value="${address}" required>
+                                        </div>
+                                    </div>
+
+
+                                    <label for="instructions">Pick-up instructions</label>
+                                    <input type="text" id="instructions" name="instructions" required placeholder="Pick up to day from 4 - 6pm. Please ring doorbell when here">
+
+                                    <label>Expires Date<span class="required">*</span></label>
+                                    <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required>
+                                        <option value="1" >1 Day</option>
+                                        <option value="3" selected>3 Days</option>
+                                        <option value="7">7 Days</option>
+                                        <option value="15">15 Days</option>
+                                    </select>
+
+
+                                    <input type="submit" id="submit-create-post" style="display :none;" value="Submit">
+                                </form>
+
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="button-wrap" style="width: 100%;">
+                                <button type="button" class="button is-solid primary-button close-modal" style="width: 100%;">
+                                    Post
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- No Stream modal -->
             <!-- /partials/pages/feed/modals/no-stream-modal.html -->
             <div id="no-stream-modal" class="modal no-stream-modal is-xsmall has-light-bg">
@@ -7347,7 +7542,76 @@
         <!-- map page js -->
 
         <!-- elements page js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
+
+    <script>
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var selectedCityValue = 'Thành phố Hà Nội';
+
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+
+        var promise = axios(Parameter);
+
+        promise.then(function (result) {
+            var data = result.data;
+            var selectedCity = data.find((city) => city.Name === selectedCityValue);
+            renderDistricts(selectedCity.Districts);
+            selectDistrictOption(selectedCity.Districts);
+            selectWardOption(selectedCity.Districts);
+        });
+
+        function renderDistricts(districtsData) {
+            for (const district of districtsData) {
+                districts.options[districts.options.length] = new Option(district.Name, district.Name);
+            }
+
+            districts.onchange = function () {
+                wards.length = 1;
+                const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                if (this.value !== "") {
+                    for (const ward of selectedDistrict.Wards) {
+                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                    }
+                }
+            };
+        }
+
+        function selectDistrictOption(districtsData) {
+            for (let i = 0; i < districtsData.length; i++) {
+                if (districtsData[i].Name === '${district}') {
+                    districts.options[i + 1].selected = true;
+                    simulateEvent(districts, 'change');
+                    break;
+                }
+            }
+        }
+
+        function selectWardOption(districtsData) {
+            const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+            for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                if (selectedDistrict.Wards[i].Name === '${ward}') {
+                    wards.options[i + 1].selected = true;
+                    simulateEvent(wards, 'change');
+                    break;
+                }
+            }
+        }
+
+// Function to simulate change event
+        function simulateEvent(element, eventName) {
+            var event = new Event(eventName);
+            element.dispatchEvent(event);
+        }
+
+
+    </script>
     </body>
 
 
