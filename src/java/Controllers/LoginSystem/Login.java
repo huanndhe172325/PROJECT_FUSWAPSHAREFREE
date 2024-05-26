@@ -5,6 +5,7 @@
 package Controllers.LoginSystem;
 
 import DAL.DAOLoginSystem;
+import Model.PasswordReset;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,10 +14,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
- * @author mosdd
+ * @author BinhTran
  */
 public class Login extends HttpServlet {
 
@@ -75,20 +79,55 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String userName = request.getParameter("username");
+//
         String passWord = request.getParameter("password");
+
         if (userName == null || passWord == null || userName.isEmpty() || passWord.isEmpty()) {
             request.setAttribute("mess", "Please enter both username or password");
             request.getRequestDispatcher("Login/login.jsp").forward(request, response);
         } else {
+
+            int userID = daoLogin.getUserByUserName(userName).getUserID();
+
             User userInfo = daoLogin.login(userName, passWord);
-            if (userInfo == null) {
-                request.setAttribute("mess", "Wrong username or password");
-                request.getRequestDispatcher("Login/login.jsp").forward(request, response);
-            } else {
+            if (userInfo != null) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userInfo", userInfo);
                 session.setAttribute("loginsuccess", true);
                 response.sendRedirect("HomePage");
+
+            } else {
+                PasswordReset passwordResetInfo = daoLogin.getPasswordResetByUserName(userName);
+                if (passwordResetInfo != null && passWord.equals(passwordResetInfo.getPassword())) {
+
+                    Date dateNow = new Date();
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(dateNow);
+                    Date CurrentDate = calendar.getTime();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String formattedCurrentDate = dateFormat.format(CurrentDate);
+
+                    try {
+                        Date currentDate = dateFormat.parse(formattedCurrentDate);
+                        Date expiryDateTime = dateFormat.parse(passwordResetInfo.getExpiryDateTime());
+                        if (currentDate.before(expiryDateTime)) {
+                            HttpSession session = request.getSession();
+                            session.setAttribute("userInfo", userInfo);
+                            session.setAttribute("loginsuccess", true);
+                            response.sendRedirect("HomePage");
+                        } else {
+                            request.setAttribute("mess", "Password reset has expired");
+                            request.getRequestDispatcher("Login/login.jsp").forward(request, response);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    request.setAttribute("mess", "Wrong username or password");
+                    request.getRequestDispatcher("Login/login.jsp").forward(request, response);
+                }
+
             }
         }
     }
