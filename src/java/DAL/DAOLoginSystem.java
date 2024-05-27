@@ -18,7 +18,25 @@ import java.util.Date;
 
 public class DAOLoginSystem extends DBContext {
 
-    public User login(String username, String password) {
+    public boolean login(String username, String password) {
+        String sql = "SELECT * FROM [User] \n"
+                + "WHERE UserName = ?\n"
+                + "AND PassWord = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public User getUser(String username, String password) {
         String sql = "SELECT * FROM [User] \n"
                 + "WHERE UserName = ?\n"
                 + "AND PassWord = ?";
@@ -47,7 +65,6 @@ public class DAOLoginSystem extends DBContext {
         }
         return null;
     }
-    
 
     public User getUserByUserName(String username) {
         String sql = "SELECT * FROM [User] \n"
@@ -135,6 +152,15 @@ public class DAOLoginSystem extends DBContext {
         return false;
     }
 
+    public boolean checkUserNameExits(String userName, ArrayList<User> listUser) {
+        for (User user : listUser) {
+            if (user.getUserName().equals(userName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public User getUserIdByEmail(String email) {
         String sql = "SELECT * FROM [User] \n"
                 + "WHERE Email = ?";
@@ -173,6 +199,41 @@ public class DAOLoginSystem extends DBContext {
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+     public void updatePasswordReset(int userId, String password, String expiryDateTime) {
+        String sql = "UPDATE PasswordReset SET Password = ?, ExpiryDateTime = ? WHERE UserID = ?";
+        try (PreparedStatement st = connect.prepareStatement(sql)) {
+            st.setString(1, password);
+            st.setString(2, expiryDateTime);
+            st.setInt(3, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    public void updatePassword(String userName, String newPassword) {
+        String sql = "UPDATE [User] SET PassWord = ? WHERE UserName = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, newPassword);
+            st.setString(2, userName);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isUserInPasswordReset(int userId) {
+        String sql = "SELECT 1 FROM PasswordReset WHERE UserID = ?";
+        try (PreparedStatement st = connect.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            try (ResultSet rs = st.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
