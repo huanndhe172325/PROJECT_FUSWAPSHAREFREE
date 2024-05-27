@@ -5551,14 +5551,14 @@
 
                         <div class="card-body">
                             <div class="control">
-                                <form action="CreatePost" id="create-post" method="post" enctype="multipart/form-data">
+                                <form enctype="multipart/form-data" action="CreatePost" id="create-post" method="post" >
                                     <select id="type" name="typePost" required>
                                         <c:forEach items="${listType}" var="type">
                                             <option value="${type.typeID}" selected>${type.name}</option>
                                         </c:forEach>
                                     </select>
                                     <label for="imgPath">Image:</label>
-                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" multiple required>
+                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required>
 
                                     <label for="Title">Title:</label>
                                     <input type="text" id="title" name="title" required>
@@ -7628,23 +7628,24 @@
                                                     modal.classList.remove('is-active');
                                                     var form = document.getElementById('create-post');
                                                     form.reset();
+                                                    console.log(response);
                                                     iziToast.show({
-                                                        maxWidth: "280px",
-                                                        class: "success-toast",
-                                                        icon: "mdi mdi-check",
-                                                        title: "",
-                                                        message: "Create post successfully",
-                                                        titleColor: "#fff",
-                                                        messageColor: "#fff",
-                                                        iconColor: "#fff",
-                                                        backgroundColor: "#60c032",
-                                                        progressBarColor: "#0062ff",
-                                                        position: "bottomRight",
-                                                        transitionIn: "fadeInUp",
-                                                        close: false,
-                                                        timeout: 1800,
-                                                        zindex: 99999
-                                                    });
+                                                            maxWidth: "280px",
+                                                            class: "success-toast",
+                                                            icon: "mdi mdi-check",
+                                                            title: "",
+                                                            message: "Create post successfully",
+                                                            titleColor: "#fff",
+                                                            messageColor: "#fff",
+                                                            iconColor: "#fff",
+                                                            backgroundColor: "#60c032",
+                                                            progressBarColor: "#0062ff",
+                                                            position: "bottomRight",
+                                                            transitionIn: "fadeInUp",
+                                                            close: false,
+                                                            timeout: 1800,
+                                                            zindex: 99999
+                                                        });
                                                 },
                                                 error: function (jqXHR, textStatus, errorThrown) {
                                                     console.error('Error:', errorThrown);
