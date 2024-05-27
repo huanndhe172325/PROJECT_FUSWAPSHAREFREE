@@ -38,11 +38,10 @@ public class DAOProfile extends DBContext {
         return null;
     }
 
-    public void UpdateProfile(String pass, String name, String email,String phone, String district, String commune, String snumber,String id) {
+    public void UpdateProfile(String name, String email,String phone, String district, String commune, String snumber,String id) {
         String sql = "UPDATE [dbo].[User]\n"
                 + "   SET [Email] = ?\n"
-                + "      ,[Phone] = ?     \n"
-                + "      ,[PassWord] = ?     \n"              
+                + "      ,[Phone] = ?     \n"             
                 + "      ,[Full_Name] = ?\n"
                 + "      ,[District] = ?\n"
                 + "      ,[Commune] = ?\n"
@@ -52,12 +51,11 @@ public class DAOProfile extends DBContext {
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, phone);
-            statement.setString(3, pass);
-            statement.setString(4, name);
-            statement.setString(5, district);
-            statement.setString(6, commune);
-            statement.setString(7, snumber);
-            statement.setString(8, id);
+            statement.setString(3, name);
+            statement.setString(4, district);
+            statement.setString(5, commune);
+            statement.setString(6, snumber);
+            statement.setString(7, id);
 
             ResultSet rs = statement.executeQuery();
         } catch (Exception e) {
@@ -66,7 +64,7 @@ public class DAOProfile extends DBContext {
 
     public static void main(String[] args) {
         DAOProfile dao = new DAOProfile();
-        dao.UpdateProfile("12345687", "Khuong Ngu", "haotvhe172558@fpt.edu.vn", "0987654321", "Ung Hoa", "Vien Noi", "12", "1");
+        dao.UpdateProfile("Khuong Ngu", "haotvhe172558@fpt.edu.vn", "0987654321", "Ung Hoa", "Vien Noi", "12", "1");
         System.out.println();
     }
 }

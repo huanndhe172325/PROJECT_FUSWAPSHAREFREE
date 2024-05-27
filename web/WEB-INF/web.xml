@@ -36,10 +36,6 @@
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>Controllers.Profile.ProfileServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>UpdateProfileServlet</servlet-name>
-        <servlet-class>Controllers.Profile.UpdateProfileServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -75,10 +71,6 @@
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/profile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateProfileServlet</servlet-name>
-        <url-pattern>/updateprofile</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>

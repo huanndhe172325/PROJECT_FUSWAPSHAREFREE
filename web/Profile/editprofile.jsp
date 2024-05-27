@@ -92,9 +92,7 @@
                             <div class="row mt-3">
                                 <div class="col-md-12"><label class="labels">Points</label><input name="points" type="text" class="form-control" readonly value="${profile.getPoint()}"></div>
                                 <div class="col-md-12"><label class="labels">ID</label><input name="id" type="text" class="form-control" readonly value="${profile.getUserID()}"></div>
-                                <div class="col-md-12"><label class="labels">Username</label><input name="user" type="text" class="form-control" readonly value="${profile.getUserName()}"></div>
-                                <div class="col-md-12"><label class="labels">Password</label><input name="pass" type="password" class="form-control"  value=""></div>
-                                <div class="col-md-12"><label class="labels">New Password</label><input name="newpass" type="password" class="form-control"  value=""></div>
+                                <div class="col-md-12"><label class="labels">Username</label><input name="user" type="text" class="form-control" readonly value="${profile.getUserName()}"></div>                          
                                 <div class="col-md-12"><label class="labels">Name</label><input name="name" type="text" class="form-control"  value="${profile.getFull_Name()}"></div>
                                 <div class="col-md-12"><label class="labels">Email</label><input  name="email" type="text" class="form-control"  value="${profile.getEmail()}"></div>
                                 <div class="col-md-12"><label class="labels">Phone Number</label><input name="phone" type="text" class="form-control" value="${profile.getPhone()}"></div>
@@ -102,8 +100,7 @@
                                 <div class="col-md-12"><label class="labels">Commune</label><input name="commune" type="text" class="form-control" value="${profile.getCommune()}"></div>                 
                                 <div class="col-md-12"><label class="labels">StreetNumber</label><input name="snumber" type="text" class="form-control" value="${profile.getStreetNumber()}"></div>                 
                             </div>
-                            <p>${error0}</p>
-                            <p>${error1}</p>
+                            <p>${msg}</p>
                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
                         </form>
                     </div>
