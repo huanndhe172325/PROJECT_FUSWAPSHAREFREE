@@ -7,6 +7,7 @@ package DAL;
 import Model.Post;
 import Model.Quanlity;
 import Model.Type;
+import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -113,6 +114,52 @@ public class DAOManagePost extends DBContext {
         return maxId;
     }
 
+    public User getUserIdByUserId(int UserID) {
+        String sql = "SELECT * FROM [User] \n"
+                + "where UserID = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, UserID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public ArrayList<Post> getNewFeed(){
+         ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Quanlity";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
 //        Post newPost = new Post();
@@ -130,7 +177,6 @@ public class DAOManagePost extends DBContext {
 //        boolean result = dao.createPost(newPost, 7, null, 1);
 //
 //        System.out.println("Post creation successful: " + result);
-
 
     }
 }

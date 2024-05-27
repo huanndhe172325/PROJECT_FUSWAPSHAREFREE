@@ -49,6 +49,7 @@ public class DAOLoginSystem extends DBContext {
                 return new User(rs.getInt("UserID"),
                         rs.getString("Email"),
                         rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
                         rs.getString("PassWord"),
                         rs.getString("JoinDate"),
                         rs.getString("UserName"),
@@ -77,6 +78,7 @@ public class DAOLoginSystem extends DBContext {
                 return new User(rs.getInt("UserID"),
                         rs.getString("Email"),
                         rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
                         rs.getString("PassWord"),
                         rs.getString("JoinDate"),
                         rs.getString("UserName"),
@@ -124,6 +126,7 @@ public class DAOLoginSystem extends DBContext {
                 user.setUserID(rs.getInt("UserID"));
                 user.setEmail(rs.getString("Email"));
                 user.setPhone(rs.getString("Phone"));
+                user.setAvatarUrl(rs.getString("AvatarUrl"));
                 user.setPassWord(rs.getString("PassWord"));
                 user.setJoinDate(rs.getString("JoinDate"));
                 user.setUserName(rs.getString("UserName"));
@@ -172,6 +175,7 @@ public class DAOLoginSystem extends DBContext {
                 return new User(rs.getInt("UserID"),
                         rs.getString("Email"),
                         rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
                         rs.getString("PassWord"),
                         rs.getString("JoinDate"),
                         rs.getString("UserName"),

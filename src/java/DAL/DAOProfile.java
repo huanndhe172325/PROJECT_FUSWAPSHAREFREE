@@ -16,22 +16,30 @@ import java.util.ArrayList;
  */
 public class DAOProfile extends DBContext {
 
-    public User getUserbyId(int id) {
-        try {
-            String sql = "SELECT * FROM [User] where UserId=?";
-            PreparedStatement statement = connect.prepareStatement(sql);
-            statement.setInt(1, id);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                return new User(rs.getInt(1), rs.getString(2),
-                        rs.getString(3), rs.getString(5),
-                        rs.getString(6), rs.getString(7),
-                        rs.getString(8), rs.getString(9),
-                        rs.getString(10), rs.getString(11),
-                        rs.getInt(12), rs.getInt(13), rs.getInt(14));
 
+    public User getUserbyId(int UserID) {
+        String sql = "SELECT * FROM [User] \n"
+                + "where UserID = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, UserID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID"));
             }
-            rs.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
