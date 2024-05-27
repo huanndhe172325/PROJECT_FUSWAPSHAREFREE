@@ -47,6 +47,7 @@ public class DAOLoginSystem extends DBContext {
         }
         return null;
     }
+    
 
     public User getUserByUserName(String username) {
         String sql = "SELECT * FROM [User] \n"

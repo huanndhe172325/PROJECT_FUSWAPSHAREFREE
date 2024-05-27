@@ -48,9 +48,11 @@ public class User {
         return UserID;
     }
 
-    public void setUserID(int UserID) {
-        this.UserID = UserID;
+    public void setUserID(int userID) {
+        this.UserID = userID;
     }
+
+    
 
     public String getEmail() {
         return Email;
@@ -148,4 +150,10 @@ public class User {
         this.StatusID = StatusID;
     }
 
+    @Override
+    public String toString() {
+        return "User{" + "userID=" + UserID + ", Email=" + Email + ", Phone=" + Phone + ", PassWord=" + PassWord + ", JoinDate=" + JoinDate + ", UserName=" + UserName + ", Full_Name=" + Full_Name + ", District=" + District + ", Commune=" + Commune + ", StreetNumber=" + StreetNumber + ", Point=" + Point + ", RoleID=" + RoleID + ", StatusID=" + StatusID + '}';
+    }
+    
+    
 }

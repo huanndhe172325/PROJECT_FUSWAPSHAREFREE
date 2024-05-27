@@ -4,16 +4,20 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManageUser;
 import DAL.DAOManagePost;
 import Model.Quanlity;
 import Model.Type;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -59,13 +63,35 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+           DAOManageUser daoGetUserNearMe = new DAOManageUser();
+        HttpSession session = request.getSession();
+        User userInfo_raw = (User) session.getAttribute("userInfo");
+        User user;
+        int id = -1;
+        List<User> usersInSameDistrict = null;
+
+        String district = "";
+        if (userInfo_raw != null) {
+            user = (User) userInfo_raw;
+            district = daoGetUserNearMe.getDistrict(user.getUserID());
+
+            if (district != null) {
+               usersInSameDistrict = daoGetUserNearMe.getUsersInSameDistrict(district);
+            }
+        }
+        DAOManageUser dao1 = new DAOManageUser();
+        List<User> listPoint = dao1.getAllUsersSortedByPoint();
+        
         DAOManagePost dao = new DAOManagePost();
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
+        request.setAttribute("i", district);
+        request.setAttribute("usersInSameDistrict", usersInSameDistrict);
+        request.setAttribute("listPoint", listPoint);
+        request.setAttribute("id", id);
         request.setAttribute("listQuanlity", listQuanlity);
         request.setAttribute("listType", listType);
 
-        
         request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
     }
 
@@ -80,8 +106,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        System.out.println(".....");
+         response.getWriter().write("success");
     }
 
     /**
