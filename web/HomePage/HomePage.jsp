@@ -42,8 +42,6 @@
             form {
                 max-width: 500px;
                 margin: 0 auto;
-                padding: 20px;
-                border: 1px solid #ccc;
                 border-radius: 5px;
             }
 
@@ -72,6 +70,30 @@
 
             input[type="submit"]:hover {
                 background-color: #0056b3;
+            }
+            .account-item {
+                display: block;
+                text-decoration: none;
+                color: inherit;
+                cursor: pointer;
+            }
+            .media {
+                display: flex;
+                align-items: center;
+            }
+            .icon-wrap {
+                margin-right: 10px;
+            }
+            .button-link {
+                border: none;
+                background: none;
+                padding: 0;
+                cursor: pointer;
+                color: inherit;
+                font: inherit;
+                display: block;
+                width: 100%;
+                text-align: left;
             }
         </style>
         <!-- End Google Tag Manager -->
@@ -159,30 +181,7 @@
         </script>
     </head>
     <style>
-        .account-item {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-        .media {
-            display: flex;
-            align-items: center;
-        }
-        .icon-wrap {
-            margin-right: 10px;
-        }
-        .button-link {
-            border: none;
-            background: none;
-            padding: 0;
-            cursor: pointer;
-            color: inherit;
-            font: inherit;
-            display: block;
-            width: 100%;
-            text-align: left;
-        }
+
     </style>
     <body>
         <h1>${requestScope.listPoint.size()}</h1>
@@ -583,7 +582,7 @@
                                         </label>
                                     </div>
                                     <div class="nav-drop-body account-items">
-                                        
+
                                         <a id="profile-link" href="profile?id=${sessionScope.userInfo.getUserID()}" class="account-item">
                                             <div class="media">
                                                 <div class="media-left">
@@ -634,7 +633,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <form action="logout" method="POST">
+                                        <form action="logout" method="POST" >
                                             <button type="submit" class="button-link account-item">
                                                 <div class="media">
                                                     <div class="icon-wrap">
@@ -7619,7 +7618,7 @@
 
                                     $(document).ready(function () {
                                         $("#create-post").on("submit", function (event) {
-                                            event.preventDefault(); 
+                                            event.preventDefault();
                                             $.ajax({
                                                 url: 'CreatePost',
                                                 type: 'POST',
@@ -7629,23 +7628,23 @@
                                                     modal.classList.remove('is-active');
                                                     var form = document.getElementById('create-post');
                                                     form.reset();
-                                                        iziToast.show({
-                                                            maxWidth: "280px",
-                                                            class: "success-toast",
-                                                            icon: "mdi mdi-check",
-                                                            title: "",
-                                                            message: "Create post successfully",
-                                                            titleColor: "#fff",
-                                                            messageColor: "#fff",
-                                                            iconColor: "#fff",
-                                                            backgroundColor: "#60c032",
-                                                            progressBarColor: "#0062ff",
-                                                            position: "bottomRight",
-                                                            transitionIn: "fadeInUp",
-                                                            close: false,
-                                                            timeout: 1800,
-                                                            zindex: 99999
-                                                        });
+                                                    iziToast.show({
+                                                        maxWidth: "280px",
+                                                        class: "success-toast",
+                                                        icon: "mdi mdi-check",
+                                                        title: "",
+                                                        message: "Create post successfully",
+                                                        titleColor: "#fff",
+                                                        messageColor: "#fff",
+                                                        iconColor: "#fff",
+                                                        backgroundColor: "#60c032",
+                                                        progressBarColor: "#0062ff",
+                                                        position: "bottomRight",
+                                                        transitionIn: "fadeInUp",
+                                                        close: false,
+                                                        timeout: 1800,
+                                                        zindex: 99999
+                                                    });
                                                 },
                                                 error: function (jqXHR, textStatus, errorThrown) {
                                                     console.error('Error:', errorThrown);
