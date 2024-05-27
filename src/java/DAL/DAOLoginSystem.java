@@ -179,16 +179,13 @@ public class DAOLoginSystem extends DBContext {
         DAOLoginSystem dao = new DAOLoginSystem();
         PasswordReset passwordResetInfo = dao.getPasswordResetByUserName("BinhTran");
         String expiryDateTimeStr = passwordResetInfo.getExpiryDateTime();
-
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date currentDate = new Date();
-            Date expiryDateTime = dateFormat.parse(expiryDateTimeStr);
-            System.out.println(expiryDateTime);
-            System.out.println(currentDate);
-        } catch (ParseException e) {
-            System.out.println("Error parsing date: " + e.getMessage());
-        }
+        Date dateNow = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateNow);
+        Date CurrentDate = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedCurrentDate = dateFormat.format(CurrentDate);
+        System.out.println(formattedCurrentDate);
     }
 
 }

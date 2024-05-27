@@ -12,16 +12,10 @@
         </group>
         <group>
             <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/Login/login.jsp</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/Preview/Preview.jsp</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Model/Quanlity.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Model/PasswordReset.java</file>
             <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOLoginSystem.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/CreatePost.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/ForgotPassword/ForgotPassword.jsp</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/web/ForgotPassword/ChangePassword.jsp</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/ManageLocation.java</file>
             <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/ForgotPassword/ForgotPassword.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManagePost.java</file>
-            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LogOut/Logout.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Model/User.java</file>
             <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
         </group>
     </open-files>
