@@ -115,8 +115,11 @@ public class ForgotPassword extends HttpServlet {
             Date expiryDate = calendar.getTime();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String formattedExpiryDate = dateFormat.format(expiryDate);
-
-            daoLogin.insertPasswordReset(userId, passwordLevelTwo, formattedExpiryDate);
+            if (!daoLogin.isUserInPasswordReset(userId)) {
+                daoLogin.insertPasswordReset(userId, passwordLevelTwo, formattedExpiryDate);
+            } else {
+                daoLogin.updatePasswordReset(userId, passwordLevelTwo, formattedExpiryDate);
+            }
 
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com"); //smtp host
