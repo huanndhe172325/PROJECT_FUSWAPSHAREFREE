@@ -1,8 +1,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="en">
-
 
     <!-- Mirrored from friendkit.cssninja.io/navbar-v2-profile-main.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:39:09 GMT -->
     <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
@@ -14,6 +14,7 @@
 
         <title>Friendkit | Profile</title>
         <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
+        
         <style>
         .account-item {
             display: block;
@@ -436,7 +437,7 @@
                         <div class="nav-drop is-account-dropdown">
                             <div class="inner">
                                 <div class="nav-drop-header">
-                                    <span class="username">Jenna Davis</span>
+                                    <span class="username">${profile.getFull_Name()}</span>
                                     <label class="theme-toggle">
                                         <input type="checkbox" />
                                         <span class="toggler">
@@ -458,7 +459,7 @@
                                                 </div>
                                             </div>
                                             <div class="media-content">
-                                                <h3>Jenna Davis</h3>
+                                                <h3>${profile.getFull_Name()}</h3>
                                                 <small>Main account</small>
                                             </div>
                                             <div class="media-right">
@@ -467,7 +468,7 @@
                                         </div>
                                     </a>
                                     <hr class="account-divider" />
-                                    <a class="account-item">
+                                    <a href="editprofile?id=${sessionScope.userInfo.getUserID()}" class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
                                                 <i data-feather="map-pin"></i>
@@ -639,8 +640,8 @@
                                         <span>Friends</span>
                                     </div>
                                     <div class="subheader-middle">
-                                        <h2>Jenna Davis</h2>
-                                        <span>Media Influencer</span>
+                                        <h2>${profile.getFull_Name()}</h2>
+
                                     </div>
                                     <div class="subheader-end is-hidden-mobile">
 
@@ -654,7 +655,7 @@
                                 <!-- Basic Infos widget -->
                                 <!-- html/partials/pages/profile/timeline/widgets/basic-infos-widget.html -->
                                 <div class="box-heading">
-                                    <h4>Basic Infos</h4>
+                                    <h4>User details</h4>
                                     <div class="dropdown is-neutral is-spaced is-right dropdown-trigger">
                                         <div>
                                             <div class="button">
@@ -663,21 +664,12 @@
                                         </div>
                                         <div class="dropdown-menu" role="menu">
                                             <div class="dropdown-content">
-                                                <a href="profile-about.html" class="dropdown-item">
+                                                <a href="editprofile?id=${sessionScope.userInfo.getUserID()}" class="dropdown-item">
                                                     <div class="media">
-                                                        <i data-feather="eye"></i>
+                                                        <i data-feather="edit"></i>
                                                         <div class="media-content">
-                                                            <h3>View</h3>
-                                                            <small>View user details.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="search"></i>
-                                                        <div class="media-content">
-                                                            <h3>Related</h3>
-                                                            <small>Search for related users.</small>
+                                                            <h3>Edit</h3>
+                                                            <small>Change your profile here</small>
                                                         </div>
                                                     </div>
                                                 </a>
@@ -685,65 +677,43 @@
                                         </div>
                                     </div>
                                 </div>
+                                
 
                                 <div class="basic-infos-wrapper">
                                     <div class="card is-profile-info">
                                         <div class="info-row">
                                             <div>
-                                                <span>Studied at</span>
-                                                <a class="is-inverted">Georgetown University</a>
+                                                <span>Points</span>
+                                                <a class="is-inverted">${profile.getPoint()}</a>
                                             </div>
-                                            <i class="mdi mdi-school"></i>
+                                            <i class="mdi mdi-star"></i>
                                         </div>
                                         <div class="info-row">
                                             <div>
-                                                <span>Married to</span>
-                                                <a class="is-inverted">Dan Walker</a>
+                                                <span>Email</span>
+                                                <a class="is-inverted">${profile.getEmail()}</a>
                                             </div>
-                                            <i class="mdi mdi-heart"></i>
+                                            <i class="mdi mdi-mail"></i>
                                         </div>
                                         <div class="info-row">
                                             <div>
-                                                <span>From</span>
-                                                <a class="is-inverted">Melbourne, AU</a>
+                                                <span>Phone</span>
+                                                <a class="is-inverted">${profile.getPhone()}</a>
                                             </div>
-                                            <i class="mdi mdi-earth"></i>
+                                            <i class="mdi mdi-phone"></i>
                                         </div>
                                         <div class="info-row">
                                             <div>
-                                                <span>Lives in</span>
-                                                <a class="is-inverted">Los Angeles, CA</a>
+                                                <span>Address</span>
+                                                <a class="is-inverted">${profile.getDistrict()},${profile.getCommune()}, ${profile.getStreetNumber()} </a>
                                             </div>
                                             <i class="mdi mdi-map-marker"></i>
-                                        </div>
-                                        <div class="info-row">
-                                            <div>
-                                                <span>Followers</span>
-                                                <a class="is-muted">258 followers</a>
-                                            </div>
-                                            <i class="mdi mdi-bell-ring"></i>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Photos widget -->
                                 <!-- html/partials/pages/profile/timeline/widgets/photos-widget.html -->
-
-
-                                <div class="is-photos-widget">
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/1.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/2.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/3.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/4.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/5.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/6.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/7.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/8.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/9.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/10.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/11.jpg" alt="" />
-                                    <img src="https://via.placeholder.com/200x200" data-demo-src="assets/img/demo/widgets/photos/12.jpg" alt="" />
-                                </div>
 
                                 <!-- Star friends widget -->
                                 <!-- html/partials/pages/profile/timeline/widgets/star-friends-widget.html -->
@@ -785,7 +755,7 @@
                                                             <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" data-user-popover="0" alt="" />
                                                         </div>
                                                         <div class="user-info">
-                                                            <a href="#">Jenna Davis</a>
+                                                            <a href="#">${profile.getFull_Name()}</a>
                                                             <span class="time">October 17 2018, 11:03am</span>
                                                         </div>
                                                     </div>

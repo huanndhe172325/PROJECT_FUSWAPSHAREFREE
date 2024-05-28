@@ -4,6 +4,8 @@
  */
 package Model;
 
+import DAL.DAOManagePost;
+
 /**
  *
  * @author FPT
@@ -165,6 +167,17 @@ public class Post {
     public void setTypeID(int TypeID) {
         this.TypeID = TypeID;
     }
-
     
+    public User getUserOwner(){
+        DAOManagePost dao = new DAOManagePost();
+        User user = dao.getUserIdByUserId(UserID);
+        return user;
+    }
+    
+    public String getAvatarOwner(){
+        return getUserOwner().getAvatarUrl();
+    }
+    public String getFullNameOwner(){
+        return getUserOwner().getFull_Name();
+    }
 }

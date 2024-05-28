@@ -9,9 +9,11 @@ package Model;
  * @author FPT
  */
 public class User {
+
     private int UserID;
     private String Email;
     private String Phone;
+    private String avatarUrl;
     private String PassWord;
     private String JoinDate;
     private String UserName;
@@ -23,13 +25,11 @@ public class User {
     private int RoleID;
     private int StatusID;
 
-    public User() {
-    }
-
-    public User(int UserID, String Email, String Phone, String PassWord, String JoinDate, String UserName, String Full_Name, String District, String Commune, String StreetNumber, int Point, int RoleID, int StatusID) {
+    public User(int UserID, String Email, String Phone, String avatarUrl, String PassWord, String JoinDate, String UserName, String Full_Name, String District, String Commune, String StreetNumber, int Point, int RoleID, int StatusID) {
         this.UserID = UserID;
         this.Email = Email;
         this.Phone = Phone;
+        this.avatarUrl = avatarUrl;
         this.PassWord = PassWord;
         this.JoinDate = JoinDate;
         this.UserName = UserName;
@@ -42,13 +42,26 @@ public class User {
         this.StatusID = StatusID;
     }
 
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public User() {
+    }
+
     public int getUserID() {
         return UserID;
     }
 
-    public void setUserID(int UserID) {
-        this.UserID = UserID;
+    public void setUserID(int userID) {
+        this.UserID = userID;
     }
+
+    
 
     public String getEmail() {
         return Email;
@@ -144,6 +157,11 @@ public class User {
 
     public void setStatusID(int StatusID) {
         this.StatusID = StatusID;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "userID=" + UserID + ", Email=" + Email + ", Phone=" + Phone + ", PassWord=" + PassWord + ", JoinDate=" + JoinDate + ", UserName=" + UserName + ", Full_Name=" + Full_Name + ", District=" + District + ", Commune=" + Commune + ", StreetNumber=" + StreetNumber + ", Point=" + Point + ", RoleID=" + RoleID + ", StatusID=" + StatusID + '}';
     }
     
     

@@ -1,110 +1,110 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controllers.HomePage;
 
 import DAL.DAOManagePost;
+import Model.Post;
 import Model.Quanlity;
 import Model.Type;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
-/**
- *
- * @author FPT
- */
+@MultipartConfig
 public class CreatePost extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        DAOManagePost daoManagePost = new DAOManagePost();
+        String typeId_raw = request.getParameter("typePost");
+        String title = request.getParameter("title");
+        String description = request.getParameter("description");
+        String instructions = request.getParameter("instructions");
+        String expiresDate_raw = request.getParameter("expiresDate");
+        String commune = request.getParameter("ward");
+        String district = request.getParameter("district");
+        String streetNumber = request.getParameter("newAddress");
+        String quantityId_raw = request.getParameter("quanlity");
+
+        HttpSession session = request.getSession();
+        User userInfor = (User) session.getAttribute("userInfo");
+        int idPost = daoManagePost.getMaxIdPost();
+
+        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length()-10) + "web\\FolderImages\\ImagePost";
+        String imgFileName = idPost + "_image.jpg";
+        String imgFilePath = uploadDirectory + "\\" + imgFileName;
+        String linkDB = "FolderImages/ImagePost/" + imgFileName;
+        try {
+            Part imgPart = request.getPart("imgPath");
+
+            int type = Integer.parseInt(typeId_raw);
+            int quantity = Integer.parseInt(quantityId_raw);
+            int dateExpires = Integer.parseInt(expiresDate_raw);
+
+            Post newPost = new Post();
+            newPost.setTitle(title);
+            newPost.setDescription(description);
+            newPost.setIntructions(instructions);
+            newPost.setImageUrl(linkDB); 
+            newPost.setCommune(commune);
+            newPost.setDistrict(district);
+            newPost.setStreet_Number(streetNumber);
+            newPost.setStatusID(1);
+            newPost.setQuanlityID(quantity);
+            newPost.setTypeID(type);
+
+            if (daoManagePost.createPost(newPost, dateExpires, "", userInfor.getUserID())) {
+                imgPart.write(imgFilePath);
+                response.getWriter().write("success");
+            } else {
+                response.getWriter().write("failed");
+            }
+        } catch (Exception e) {
+            response.getWriter().write(" " + e);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+         DAOManagePost dao = new DAOManagePost();
+        ArrayList<Type> listType = dao.getAllType();
+        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
+        request.setAttribute("listQuanlity", listQuanlity);
+        request.setAttribute("listType", listType);
+        request.getRequestDispatcher("HomePage/createPost.jsp").forward(request, response);
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet CreatePost</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreatePost at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreatePost at " + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        String typeId_raw = request.getParameter("typePost");
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        String intructions = request.getParameter("instructions");
-        String expiresDate_raw = request.getParameter("expiresDate");
-        String Commune = request.getParameter("ward");
-        String District = request.getParameter("district");
-        String Street_Number = request.getParameter("newAddress");
-        
-        HttpSession session = request.getSession();
-        User userInfor = (User) session.getAttribute("userInfo");
-        
-        int statusId = 1;
-        String quanlityId_raw = request.getParameter("quanlity");
-
-
-        String uploadDirectory = "web/FolderImages/ImagePost";
-        
-
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

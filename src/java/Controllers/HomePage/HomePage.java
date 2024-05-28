@@ -45,7 +45,8 @@ public class HomePage extends HttpServlet {
             out.println("<title>Servlet HomePage</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomePage at " + request.getContextPath() + "</h1>");
+
+            out.println("<h1>Servlet HomePage at " + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,7 +64,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           DAOManageUser daoGetUserNearMe = new DAOManageUser();
+        DAOManageUser daoGetUserNearMe = new DAOManageUser();
         HttpSession session = request.getSession();
         User userInfo_raw = (User) session.getAttribute("userInfo");
         User user;
@@ -106,7 +107,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.getWriter().write("success");
+        processRequest(request, response);
     }
 
     /**

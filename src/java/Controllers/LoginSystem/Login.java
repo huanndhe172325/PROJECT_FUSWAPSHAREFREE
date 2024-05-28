@@ -5,6 +5,7 @@
 package Controllers.LoginSystem;
 
 import DAL.DAOLoginSystem;
+import Model.PasswordReset;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,10 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
- * @author mosdd
+ * @author BinhTran
  */
 public class Login extends HttpServlet {
 
@@ -74,21 +79,62 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userName = request.getParameter("username");
-        String passWord = request.getParameter("password");
+
+        String userName = request.getParameter("username").trim();
+//
+        String passWord = request.getParameter("password").trim();
+
         if (userName == null || passWord == null || userName.isEmpty() || passWord.isEmpty()) {
             request.setAttribute("mess", "Please enter both username or password");
             request.getRequestDispatcher("Login/login.jsp").forward(request, response);
         } else {
-            User userInfo = daoLogin.login(userName, passWord);
-            if (userInfo == null) {
-                request.setAttribute("mess", "Wrong username or password");
+            ArrayList<User> listUser = daoLogin.getAllUser();
+            if (!daoLogin.checkUserNameExits(userName, listUser)) {
+                request.setAttribute("mess", "username does not exist");
                 request.getRequestDispatcher("Login/login.jsp").forward(request, response);
             } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("userInfo", userInfo);
-                session.setAttribute("loginsuccess", true);
-                response.sendRedirect("HomePage");
+                int userID = daoLogin.getUserByUserName(userName).getUserID();
+
+                Boolean checkLogin = daoLogin.login(userName, passWord);
+                User userInfo = daoLogin.getUser(userName, passWord);
+                if (checkLogin == true) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("userInfo", userInfo);
+                    session.setAttribute("loginsuccess", true);
+                    response.sendRedirect("HomePage");
+                } else {
+                    PasswordReset passwordResetInfo = daoLogin.getPasswordResetByUserName(userName);
+                    User userInfoLoginByPassReset = daoLogin.getUserLoginByPassReset(userName, passWord);
+                    if (passwordResetInfo != null && passWord.equals(passwordResetInfo.getPassword())) {
+
+                        Date dateNow = new Date();
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(dateNow);
+                        Date CurrentDate = calendar.getTime();
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String formattedCurrentDate = dateFormat.format(CurrentDate);
+
+                        try {
+                            Date currentDate = dateFormat.parse(formattedCurrentDate);
+                            Date expiryDateTime = dateFormat.parse(passwordResetInfo.getExpiryDateTime());
+                            if (currentDate.before(expiryDateTime)) {
+                                HttpSession session = request.getSession();
+                                session.setAttribute("userInfo", userInfoLoginByPassReset);
+                                session.setAttribute("loginsuccess", true);
+                                response.sendRedirect("changepassword");
+                            } else {
+                                request.setAttribute("mess", "Password reset has expired");
+                                request.getRequestDispatcher("Login/login.jsp").forward(request, response);
+                            }
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    } else {
+                        request.setAttribute("mess", "Wrong username or password");
+                        request.getRequestDispatcher("Login/login.jsp").forward(request, response);
+                    }
+                }
+
             }
         }
     }
