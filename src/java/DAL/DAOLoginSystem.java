@@ -66,6 +66,37 @@ public class DAOLoginSystem extends DBContext {
         return null;
     }
 
+    public User getUserLoginByPassReset(String username, String passwordReset) {
+        String sql = "SELECT u.*\n"
+                + "FROM [User] u\n"
+                + "JOIN PasswordReset pr ON u.UserID = pr.UserID\n"
+                + "WHERE u.UserName = ? AND pr.Password = ?;";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, passwordReset);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public User getUserByUserName(String username) {
         String sql = "SELECT * FROM [User] \n"
                 + "WHERE UserName = ?\n";
@@ -201,7 +232,8 @@ public class DAOLoginSystem extends DBContext {
             e.printStackTrace();
         }
     }
-     public void updatePasswordReset(int userId, String password, String expiryDateTime) {
+
+    public void updatePasswordReset(int userId, String password, String expiryDateTime) {
         String sql = "UPDATE PasswordReset SET Password = ?, ExpiryDateTime = ? WHERE UserID = ?";
         try (PreparedStatement st = connect.prepareStatement(sql)) {
             st.setString(1, password);
@@ -212,6 +244,7 @@ public class DAOLoginSystem extends DBContext {
             System.out.println(e);
         }
     }
+
     public void updatePassword(String userName, String newPassword) {
         String sql = "UPDATE [User] SET PassWord = ? WHERE UserName = ?";
         try {
