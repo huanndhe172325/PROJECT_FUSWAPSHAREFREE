@@ -81,6 +81,7 @@ public class DAOLoginSystem extends DBContext {
                 return new User(rs.getInt("UserID"),
                         rs.getString("Email"),
                         rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
                         rs.getString("PassWord"),
                         rs.getString("JoinDate"),
                         rs.getString("UserName"),
