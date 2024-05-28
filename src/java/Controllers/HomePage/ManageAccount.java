@@ -4,27 +4,23 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOManageUser;
-import DAL.DAOManagePost;
-import Model.Post;
-import Model.Quanlity;
-import Model.Type;
+import DAL.DAOSignup;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author FPT
+ * @author admin
  */
-public class HomePage extends HttpServlet {
+@WebServlet(name = "ManageAccount", urlPatterns = {"/ManageAccount"})
+public class ManageAccount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,16 +36,10 @@ public class HomePage extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet HomePage</title>");
-            out.println("</head>");
-            out.println("<body>");
-
-            out.println("<h1>Servlet HomePage at " + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            DAOSignup dbs = new DAOSignup();
+            List<User> users = dbs.getAllAccount();
+            request.setAttribute("users", users);
+            request.getRequestDispatcher("HomePage/ManageAccount.jsp").forward(request, response);
         }
     }
 
@@ -65,41 +55,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManageUser daoGetUserNearMe = new DAOManageUser();
-        HttpSession session = request.getSession();
-        User userInfo_raw = (User) session.getAttribute("userInfo");
-        User user;
-        int id = -1;
-        List<User> usersInSameDistrict = null;
-
-        String district = "";
-        if (userInfo_raw != null) {
-            user = (User) userInfo_raw;
-            district = daoGetUserNearMe.getDistrict(user.getUserID());
-
-            if (district != null) {
-               usersInSameDistrict = daoGetUserNearMe.getUsersInSameDistrict(district);
-            }
-        }
-        DAOManageUser dao1 = new DAOManageUser();
-        List<User> listPoint = dao1.getAllUsersSortedByPoint();
-        
-        DAOManagePost dao = new DAOManagePost();
-        
-        User userInfor = dao.getUserIdByUserId(userInfo_raw.getUserID());
-        
-        ArrayList<Type> listType = dao.getAllType();
-        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
-        ArrayList<Post> listPost = dao.getAllPost();
-        request.setAttribute("i", district);
-        request.setAttribute("usersInSameDistrict", usersInSameDistrict);
-        request.setAttribute("listPoint", listPoint);
-        request.setAttribute("id", id);
-        request.setAttribute("listQuanlity", listQuanlity);
-        request.setAttribute("listType", listType);
-        request.setAttribute("user", userInfor);
-        request.setAttribute("listPost", listPost);
-        request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

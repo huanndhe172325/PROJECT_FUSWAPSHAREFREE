@@ -14,33 +14,33 @@
 
         <title>Friendkit | Profile</title>
         <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
-        
+
         <style>
-        .account-item {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-            cursor: pointer;
-        }
-        .media {
-            display: flex;
-            align-items: center;
-        }
-        .icon-wrap {
-            margin-right: 10px;
-        }
-        .button-link {
-            border: none;
-            background: none;
-            padding: 0;
-            cursor: pointer;
-            color: inherit;
-            font: inherit;
-            display: block;
-            width: 100%;
-            text-align: left;
-        }
-    </style>
+            .account-item {
+                display: block;
+                text-decoration: none;
+                color: inherit;
+                cursor: pointer;
+            }
+            .media {
+                display: flex;
+                align-items: center;
+            }
+            .icon-wrap {
+                margin-right: 10px;
+            }
+            .button-link {
+                border: none;
+                background: none;
+                padding: 0;
+                cursor: pointer;
+                color: inherit;
+                font: inherit;
+                display: block;
+                width: 100%;
+                text-align: left;
+            }
+        </style>
         <!-- Google Tag Manager -->
         <script>
             ;
@@ -427,10 +427,10 @@
                             </div>
                         </div>
                     </div>
-                 
+
                     <div id="account-dropdown" class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image">
-                            <img src="https://via.placeholder.com/400x400" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                            <img src="https://via.placeholder.com/400x400" data-demo-src="${profile.avatarUrl}" alt="" />
                             <span class="indicator"></span>
                         </div>
 
@@ -455,7 +455,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="image">
-                                                    <img src="https://via.placeholder.com/400x400" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                                                    <img src="https://via.placeholder.com/400x400" data-demo-src="${profile.avatarUrl}" alt="" />
                                                 </div>
                                             </div>
                                             <div class="media-content">
@@ -501,19 +501,19 @@
                                             </div>
                                         </div>
                                     </a>
-                                     <form action="logout" method="POST">
-                                            <button type="submit" class="button-link account-item">
-                                                <div class="media">
-                                                    <div class="icon-wrap">
-                                                        <i data-feather="power"></i>
-                                                    </div>
-                                                    <div class="media-content">
-                                                        <h3>Log out</h3>
-                                                        <small>Log out from your account.</small>
-                                                    </div>
+                                    <form action="logout" method="POST">
+                                        <button type="submit" class="button-link account-item">
+                                            <div class="media">
+                                                <div class="icon-wrap">
+                                                    <i data-feather="power"></i>
                                                 </div>
-                                            </button>
-                                        </form>
+                                                <div class="media-content">
+                                                    <h3>Log out</h3>
+                                                    <small>Log out from your account.</small>
+                                                </div>
+                                            </div>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -549,7 +549,7 @@
                                 <div class="cover-bg">
                                     <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />
                                     <div class="avatar" style="margin-bottom: 60px;">
-                                        <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                                        <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="${profile.avatarUrl}" alt="" />
                                         <div class="avatar-button">
                                             <i data-feather="plus"></i>
                                         </div>
@@ -677,7 +677,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="basic-infos-wrapper">
                                     <div class="card is-profile-info">
@@ -737,517 +737,142 @@
                                     <!-- Timeline post 1 -->
                                     <!-- html/partials/pages/profile/posts/timeline-post1.html -->
                                     <!-- Timeline POST #1 -->
-                                    <div class="profile-post">
-                                        <!-- Timeline -->
-                                        <div class="time is-hidden-mobile">
-                                            <div class="img-container">
-                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                            </div>
-                                        </div>
-                                        <!-- Post -->
-                                        <div class="card is-post">
-                                            <!-- Main wrap -->
-                                            <div class="content-wrap">
-                                                <!-- Header -->
-                                                <div class="card-heading">
-                                                    <div class="user-block">
-                                                        <div class="image">
-                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" data-user-popover="0" alt="" />
-                                                        </div>
-                                                        <div class="user-info">
-                                                            <a href="#">${profile.getFull_Name()}</a>
-                                                            <span class="time">October 17 2018, 11:03am</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                        <div>
-                                                            <div class="button">
-                                                                <i data-feather="more-vertical"></i>
+                                    <c:forEach var="post" items="${myPost}">
+                                        <div class="profile-post">
+                                            <div class="card is-post">
+                                                <!-- Main wrap -->
+                                                <div class="content-wrap">
+                                                    <!-- Header -->
+                                                    <div class="card-heading">
+                                                        <div class="user-block">
+                                                            <div class="image">
+                                                                <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="0" alt="" />
+                                                            </div>
+                                                            <div class="user-info">
+                                                                <a href="#">${post.getFullNameOwner()}</a>
+                                                                <span class="time">${post.createTime}</span>
                                                             </div>
                                                         </div>
-                                                        <div class="dropdown-menu" role="menu">
-                                                            <div class="dropdown-content">
-                                                                <a href="#" class="dropdown-item">
-                                                                    <div class="media">
-                                                                        <i data-feather="bookmark"></i>
-                                                                        <div class="media-content">
-                                                                            <h3>Bookmark</h3>
-                                                                            <small>Add this post to your bookmarks.</small>
+
+                                                        <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                            <div>
+                                                                <div class="button">
+                                                                    <i data-feather="more-vertical"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="dropdown-menu" role="menu">
+                                                                <div class="dropdown-content">
+                                                                    <a href="#" class="dropdown-item">
+                                                                        <div class="media">
+                                                                            <i data-feather="bookmark"></i>
+                                                                            <div class="media-content">
+                                                                                <h3>Bookmark</h3>
+                                                                                <small>Add this post to your bookmarks.</small>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </a>
-                                                                <a class="dropdown-item">
-                                                                    <div class="media">
-                                                                        <i data-feather="bell"></i>
-                                                                        <div class="media-content">
-                                                                            <h3>Notify me</h3>
-                                                                            <small>Send me the updates.</small>
+                                                                    </a>
+                                                                    <a class="dropdown-item">
+                                                                        <div class="media">
+                                                                            <i data-feather="bell"></i>
+                                                                            <div class="media-content">
+                                                                                <h3>Notify me</h3>
+                                                                                <small>Send me the updates.</small>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </a>
-                                                                <hr class="dropdown-divider" />
-                                                                <a href="#" class="dropdown-item">
-                                                                    <div class="media">
-                                                                        <i data-feather="flag"></i>
-                                                                        <div class="media-content">
-                                                                            <h3>Flag</h3>
-                                                                            <small>In case of inappropriate content.</small>
+                                                                    </a>
+                                                                    <hr class="dropdown-divider" />
+                                                                    <a href="#" class="dropdown-item">
+                                                                        <div class="media">
+                                                                            <i data-feather="flag"></i>
+                                                                            <div class="media-content">
+                                                                                <h3>Flag</h3>
+                                                                                <small>In case of inappropriate content.</small>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </a>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- /Header -->
+                                                    <!-- /Header -->
 
-                                                <!-- Post body -->
-                                                <div class="card-body">
-                                                    <!-- Post body text -->
-                                                    <div class="post-text">
-                                                        <p>
-                                                            Today i visited this amazing little fashion store in Church street.
-                                                            Everything is handmade, from skirts to bags. Their products really
-                                                            have an outstanding quality. If you don't know them already, well
-                                                            it's time to make your move!
-                                                        </p>
+                                                    <!-- Post body -->
+                                                    <div class="card-body">
+                                                        <!-- Post body text -->
+                                                        <div class="post-text">
+                                                            <p>
+                                                                ${post.description}
+                                                            </p>
 
-                                                        <p></p>
-                                                    </div>
-                                                    <!-- Featured image -->
-                                                    <div class="post-image">
-                                                        <a data-fancybox="profile-post1" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/8.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/8.jpg">
-                                                            <img src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/8.jpg" alt="" />
-                                                        </a>
-                                                        <!-- Post actions -->
-                                                        <div class="like-wrapper">
-                                                            <a href="javascript:void(0);" class="like-button">
-                                                                <i class="mdi mdi-heart not-liked bouncy"></i>
-                                                                <i class="mdi mdi-heart is-liked bouncy"></i>
-                                                                <span class="like-overlay"></span>
+                                                            <p></p>
+                                                        </div>
+                                                        <!-- Featured image -->
+                                                        <div class="post-image">
+                                                            <a data-fancybox="profile-post1" data-lightbox-type="comments" data-thumb="${post.imageUrl}" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/8.jpg">
+                                                                <img src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
                                                             </a>
-                                                        </div>
+                                                            <!-- Post actions -->
+                                                            <div class="like-wrapper">
+                                                                <a href="javascript:void(0);" class="like-button">
+                                                                    <i class="mdi mdi-heart not-liked bouncy"></i>
+                                                                    <i class="mdi mdi-heart is-liked bouncy"></i>
+                                                                    <span class="like-overlay"></span>
+                                                                </a>
+                                                            </div>
 
-                                                        <div class="fab-wrapper is-share">
-                                                            <a href="javascript:void(0);" class="small-fab share-fab modal-trigger" data-modal="share-modal">
+                                                            <div class="fab-wrapper is-share">
+                                                                <a href="javascript:void(0);" class="small-fab share-fab modal-trigger" data-modal="share-modal">
+                                                                    <i data-feather="link-2"></i>
+                                                                </a>
+                                                            </div>
+
+                                                            <div class="fab-wrapper is-comment">
+                                                                <a href="javascript:void(0);" class="small-fab">
+                                                                    <i data-feather="message-circle"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /Post body -->
+
+                                                    <!-- Post footer -->
+                                                    <div class="card-footer">
+                                                        <!-- Followers -->
+                                                        <div class="likers-group">
+                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" data-user-popover="7" alt="" />
+                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" data-user-popover="4" alt="" />
+                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
+                                                        </div>
+                                                        <div class="likers-text">
+                                                            <p>
+                                                                <a href="#">Milly</a>,
+                                                                <a href="#">David</a>
+                                                            </p>
+                                                            <p>and 1 more liked this</p>
+                                                        </div>
+                                                        <!-- Post statistics -->
+                                                        <div class="social-count">
+                                                            <div class="likes-count">
+                                                                <i data-feather="heart"></i>
+                                                                <span>32</span>
+                                                            </div>
+                                                            <div class="shares-count">
                                                                 <i data-feather="link-2"></i>
-                                                            </a>
-                                                        </div>
-
-                                                        <div class="fab-wrapper is-comment">
-                                                            <a href="javascript:void(0);" class="small-fab">
+                                                                <span>4</span>
+                                                            </div>
+                                                            <div class="comments-count">
                                                                 <i data-feather="message-circle"></i>
-                                                            </a>
+                                                                <span>5</span>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <!-- /Post footer -->
                                                 </div>
-                                                <!-- /Post body -->
-
-                                                <!-- Post footer -->
-                                                <div class="card-footer">
-                                                    <!-- Followers -->
-                                                    <div class="likers-group">
-                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" data-user-popover="7" alt="" />
-                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" data-user-popover="4" alt="" />
-                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
-                                                    </div>
-                                                    <div class="likers-text">
-                                                        <p>
-                                                            <a href="#">Milly</a>,
-                                                            <a href="#">David</a>
-                                                        </p>
-                                                        <p>and 1 more liked this</p>
-                                                    </div>
-                                                    <!-- Post statistics -->
-                                                    <div class="social-count">
-                                                        <div class="likes-count">
-                                                            <i data-feather="heart"></i>
-                                                            <span>32</span>
-                                                        </div>
-                                                        <div class="shares-count">
-                                                            <i data-feather="link-2"></i>
-                                                            <span>4</span>
-                                                        </div>
-                                                        <div class="comments-count">
-                                                            <i data-feather="message-circle"></i>
-                                                            <span>5</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Post footer -->
+                                                <!-- /Main wrap -->
                                             </div>
-                                            <!-- /Main wrap -->
-
-                                            <!-- Comments -->
-                                            <div class="comments-wrap is-hidden">
-                                                <!-- Header -->
-                                                <div class="comments-heading">
-                                                    <h4>Comments <small>(5)</small></h4>
-                                                    <div class="close-comments">
-                                                        <i data-feather="x"></i>
-                                                    </div>
-                                                </div>
-                                                <!-- Header -->
-
-                                                <!-- Comments body -->
-                                                <div class="comments-body has-slimscroll">
-                                                    <!-- Comment -->
-                                                    <div class="media is-comment">
-                                                        <!-- User image -->
-                                                        <div class="media-left">
-                                                            <div class="image">
-                                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/bobby.jpg" data-user-popover="8" alt="" />
-                                                            </div>
-                                                        </div>
-                                                        <!-- Content -->
-                                                        <div class="media-content">
-                                                            <a href="#">Bobby Brown</a>
-                                                            <span class="time">1 hour ago</span>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                                eiusmod tempo incididunt ut labore et dolore magna aliqua. Ut enim
-                                                                ad minim veniam, quis nostrud exercitation ullamco laboris
-                                                                consequat.
-                                                            </p>
-                                                            <!-- Comment actions -->
-                                                            <div class="controls">
-                                                                <div class="like-count">
-                                                                    <i data-feather="thumbs-up"></i>
-                                                                    <span>1</span>
-                                                                </div>
-                                                                <div class="reply">
-                                                                    <a href="#">Reply</a>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Nested Comment -->
-                                                            <div class="media is-comment">
-                                                                <!-- User image -->
-                                                                <div class="media-left">
-                                                                    <div class="image">
-                                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" data-user-popover="3" alt="" />
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Content -->
-                                                                <div class="media-content">
-                                                                    <a href="#">Daniel Wellington</a>
-                                                                    <span class="time">3 minutes ago</span>
-                                                                    <p>
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                                                                        do eiusmod tempo incididunt ut labore et dolore magna aliqua.
-                                                                    </p>
-                                                                    <!-- Comment actions -->
-                                                                    <div class="controls">
-                                                                        <div class="like-count">
-                                                                            <i data-feather="thumbs-up"></i>
-                                                                            <span>4</span>
-                                                                        </div>
-                                                                        <div class="reply">
-                                                                            <a href="#">Reply</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Right side dropdown -->
-                                                                <div class="media-right">
-                                                                    <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                                        <div>
-                                                                            <div class="button">
-                                                                                <i data-feather="more-vertical"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="dropdown-menu" role="menu">
-                                                                            <div class="dropdown-content">
-                                                                                <a class="dropdown-item">
-                                                                                    <div class="media">
-                                                                                        <i data-feather="x"></i>
-                                                                                        <div class="media-content">
-                                                                                            <h3>Hide</h3>
-                                                                                            <small>Hide this comment.</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                                <div class="dropdown-divider"></div>
-                                                                                <a href="#" class="dropdown-item">
-                                                                                    <div class="media">
-                                                                                        <i data-feather="flag"></i>
-                                                                                        <div class="media-content">
-                                                                                            <h3>Report</h3>
-                                                                                            <small>Report this comment.</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /Nested Comment -->
-                                                        </div>
-                                                        <!-- Right side dropdown -->
-                                                        <div class="media-right">
-                                                            <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                                <div>
-                                                                    <div class="button">
-                                                                        <i data-feather="more-vertical"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="dropdown-menu" role="menu">
-                                                                    <div class="dropdown-content">
-                                                                        <a class="dropdown-item">
-                                                                            <div class="media">
-                                                                                <i data-feather="x"></i>
-                                                                                <div class="media-content">
-                                                                                    <h3>Hide</h3>
-                                                                                    <small>Hide this comment.</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        </a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a href="#" class="dropdown-item">
-                                                                            <div class="media">
-                                                                                <i data-feather="flag"></i>
-                                                                                <div class="media-content">
-                                                                                    <h3>Report</h3>
-                                                                                    <small>Report this comment.</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /Comment -->
-
-                                                    <!-- Comment -->
-                                                    <div class="media is-comment">
-                                                        <!-- User image -->
-                                                        <div class="media-left">
-                                                            <div class="image">
-                                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/mike.jpg" data-user-popover="12" alt="" />
-                                                            </div>
-                                                        </div>
-                                                        <!-- Content -->
-                                                        <div class="media-content">
-                                                            <a href="#">Mike Lasalle</a>
-                                                            <span class="time">Yesterday</span>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                                eiusmod tempo incididunt ut labore et dolore magna aliqua.
-                                                            </p>
-                                                            <!-- Comment actions -->
-                                                            <div class="controls">
-                                                                <div class="like-count">
-                                                                    <i data-feather="thumbs-up"></i>
-                                                                    <span>3</span>
-                                                                </div>
-                                                                <div class="reply">
-                                                                    <a href="#">Reply</a>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Nested Comment -->
-                                                            <div class="media is-comment">
-                                                                <!-- User image -->
-                                                                <div class="media-left">
-                                                                    <div class="image">
-                                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/lana.jpeg" data-user-popover="10" alt="" />
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Content -->
-                                                                <div class="media-content">
-                                                                    <a href="#">Lana Henrikssen</a>
-                                                                    <span class="time">3 minutes ago</span>
-                                                                    <p>
-                                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                                                                        do eiusmod tempo incididunt ut labore et dolore magna aliqua.
-                                                                    </p>
-                                                                    <!-- Comment actions -->
-                                                                    <div class="controls">
-                                                                        <div class="like-count">
-                                                                            <i data-feather="thumbs-up"></i>
-                                                                            <span>4</span>
-                                                                        </div>
-                                                                        <div class="reply">
-                                                                            <a href="#">Reply</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Right side dropdown -->
-                                                                <div class="media-right">
-                                                                    <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                                        <div>
-                                                                            <div class="button">
-                                                                                <i data-feather="more-vertical"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="dropdown-menu" role="menu">
-                                                                            <div class="dropdown-content">
-                                                                                <a class="dropdown-item">
-                                                                                    <div class="media">
-                                                                                        <i data-feather="x"></i>
-                                                                                        <div class="media-content">
-                                                                                            <h3>Hide</h3>
-                                                                                            <small>Hide this comment.</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                                <div class="dropdown-divider"></div>
-                                                                                <a href="#" class="dropdown-item">
-                                                                                    <div class="media">
-                                                                                        <i data-feather="flag"></i>
-                                                                                        <div class="media-content">
-                                                                                            <h3>Report</h3>
-                                                                                            <small>Report this comment.</small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /Nested Comment -->
-                                                        </div>
-                                                        <!-- Right side dropdown -->
-                                                        <div class="media-right">
-                                                            <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                                <div>
-                                                                    <div class="button">
-                                                                        <i data-feather="more-vertical"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="dropdown-menu" role="menu">
-                                                                    <div class="dropdown-content">
-                                                                        <a class="dropdown-item">
-                                                                            <div class="media">
-                                                                                <i data-feather="x"></i>
-                                                                                <div class="media-content">
-                                                                                    <h3>Hide</h3>
-                                                                                    <small>Hide this comment.</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        </a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a href="#" class="dropdown-item">
-                                                                            <div class="media">
-                                                                                <i data-feather="flag"></i>
-                                                                                <div class="media-content">
-                                                                                    <h3>Report</h3>
-                                                                                    <small>Report this comment.</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /Comment -->
-
-                                                    <!-- Comment -->
-                                                    <div class="media is-comment">
-                                                        <!-- User image -->
-                                                        <div class="media-left">
-                                                            <div class="image">
-                                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
-                                                            </div>
-                                                        </div>
-                                                        <!-- Content -->
-                                                        <div class="media-content">
-                                                            <a href="#">Nelly Schwartz</a>
-                                                            <span class="time">2 days ago</span>
-                                                            <p>
-                                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                                eiusmod tempo incididunt ut labore et dolore magna aliqua.
-                                                            </p>
-                                                            <!-- Comment actions -->
-                                                            <div class="controls">
-                                                                <div class="like-count">
-                                                                    <i data-feather="thumbs-up"></i>
-                                                                    <span>1</span>
-                                                                </div>
-                                                                <div class="reply">
-                                                                    <a href="#">Reply</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Right side dropdown -->
-                                                        <div class="media-right">
-                                                            <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                                <div>
-                                                                    <div class="button">
-                                                                        <i data-feather="more-vertical"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="dropdown-menu" role="menu">
-                                                                    <div class="dropdown-content">
-                                                                        <a class="dropdown-item">
-                                                                            <div class="media">
-                                                                                <i data-feather="x"></i>
-                                                                                <div class="media-content">
-                                                                                    <h3>Hide</h3>
-                                                                                    <small>Hide this comment.</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        </a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a href="#" class="dropdown-item">
-                                                                            <div class="media">
-                                                                                <i data-feather="flag"></i>
-                                                                                <div class="media-content">
-                                                                                    <h3>Report</h3>
-                                                                                    <small>Report this comment.</small>
-                                                                                </div>
-                                                                            </div>
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /Comment -->
-                                                </div>
-                                                <!-- Comments body -->
-
-                                                <!-- Comments footer -->
-                                                <div class="card-footer">
-                                                    <div class="media post-comment has-emojis">
-                                                        <!-- Textarea -->
-                                                        <div class="media-content">
-                                                            <div class="field">
-                                                                <p class="control">
-                                                                    <textarea class="textarea comment-textarea" rows="5" placeholder="Write a comment..."></textarea>
-                                                                </p>
-                                                            </div>
-                                                            <!-- Additional actions -->
-                                                            <div class="actions">
-                                                                <div class="image is-32x32">
-                                                                    <img class="is-rounded" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" data-user-popover="0" alt="" />
-                                                                </div>
-                                                                <div class="toolbar">
-                                                                    <div class="action is-auto">
-                                                                        <i data-feather="at-sign"></i>
-                                                                    </div>
-                                                                    <div class="action is-emoji">
-                                                                        <i data-feather="smile"></i>
-                                                                    </div>
-                                                                    <div class="action is-upload">
-                                                                        <i data-feather="camera"></i>
-                                                                        <input type="file" />
-                                                                    </div>
-                                                                    <a class="button is-solid primary-button raised">Post Comment</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Comments footer -->
-                                            </div>
-                                            <!-- /Comments -->
+                                            <!-- /Post -->
                                         </div>
-                                        <!-- /Post -->
-                                    </div>
-
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>

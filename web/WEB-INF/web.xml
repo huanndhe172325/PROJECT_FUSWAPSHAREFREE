@@ -5,12 +5,12 @@
         <servlet-class>Controllers.LoginSystem.Login</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>HomePage</servlet-name>
-        <servlet-class>Controllers.HomePage.HomePage</servlet-class>
+        <servlet-name>Signup</servlet-name>
+        <servlet-class>Controllers.LoginSystem.Signup</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreatePost</servlet-name>
-        <servlet-class>Controllers.HomePage.CreatePost</servlet-class>
+        <servlet-name>HomePage</servlet-name>
+        <servlet-class>Controllers.HomePage.HomePage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
@@ -61,10 +61,6 @@
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CreatePost</servlet-name>
-        <url-pattern>/CreatePost</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
@@ -83,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Signup</servlet-name>
+        <url-pattern>/Signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageAccount</servlet-name>
+        <url-pattern>/ManageAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateProfileServlet</servlet-name>

@@ -2,29 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.HomePage;
+package Controllers.LoginSystem;
 
-import DAL.DAOManageUser;
-import DAL.DAOManagePost;
-import Model.Post;
-import Model.Quanlity;
-import Model.Type;
+import DAL.DAOSignup;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import org.eclipse.jdt.core.compiler.CharOperation;
 
 /**
  *
- * @author FPT
+ * @author admin
  */
-public class HomePage extends HttpServlet {
+@WebServlet(name = "Signup", urlPatterns = {"/Signup"})
+public class Signup extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,20 +36,21 @@ public class HomePage extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePage</title>");
+            out.println("<title>Servlet RegisterController</title>");
             out.println("</head>");
             out.println("<body>");
-
-            out.println("<h1>Servlet HomePage at " + "</h1>");
+            out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        }
+        
     }
+    }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -65,41 +64,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManageUser daoGetUserNearMe = new DAOManageUser();
-        HttpSession session = request.getSession();
-        User userInfo_raw = (User) session.getAttribute("userInfo");
-        User user;
-        int id = -1;
-        List<User> usersInSameDistrict = null;
-
-        String district = "";
-        if (userInfo_raw != null) {
-            user = (User) userInfo_raw;
-            district = daoGetUserNearMe.getDistrict(user.getUserID());
-
-            if (district != null) {
-               usersInSameDistrict = daoGetUserNearMe.getUsersInSameDistrict(district);
-            }
-        }
-        DAOManageUser dao1 = new DAOManageUser();
-        List<User> listPoint = dao1.getAllUsersSortedByPoint();
-        
-        DAOManagePost dao = new DAOManagePost();
-        
-        User userInfor = dao.getUserIdByUserId(userInfo_raw.getUserID());
-        
-        ArrayList<Type> listType = dao.getAllType();
-        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
-        ArrayList<Post> listPost = dao.getAllPost();
-        request.setAttribute("i", district);
-        request.setAttribute("usersInSameDistrict", usersInSameDistrict);
-        request.setAttribute("listPoint", listPoint);
-        request.setAttribute("id", id);
-        request.setAttribute("listQuanlity", listQuanlity);
-        request.setAttribute("listType", listType);
-        request.setAttribute("user", userInfor);
-        request.setAttribute("listPost", listPost);
-        request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
+        request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
     }
 
     /**
@@ -113,7 +78,39 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       
+            /* TODO output your page here. You may use following sample code. */
+            String email = request.getParameter("email").trim();
+            String Phone = request.getParameter("phone").trim();
+             String pass = request.getParameter("pass").trim();
+           String repass = request.getParameter("repass").trim();
+           String userName = request.getParameter("username").trim();
+           String Fname = request.getParameter("fname").trim();
+           String District = request.getParameter("district").trim();
+           String Commune = request.getParameter("commune").trim();
+           String StreetNumber = request.getParameter("streetnumber").trim();
+           
+           String joindate="";
+          
+           
+         
+           if(!pass.equals(repass)){
+               request.setAttribute("mess", "Pass and repass does not match!");
+               request.getRequestDispatcher("Login/SignUp.jsp").forward(request, response);
+           }else{
+               DAOSignup dar = new DAOSignup();
+               User u = new User();
+               if (u == null){
+
+                dar.insertAccount(email, Phone, pass, userName, Fname, District, Commune, StreetNumber, 0, 1, 1,joindate);
+                 request.setAttribute("mess", "SignUp successful please login!!");
+                request.getRequestDispatcher("Login/login.jsp").forward(request, response);
+               } else {
+                    request.setAttribute("mess", "Account already exists");
+                request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+               }
+           }
+        
     }
 
     /**
