@@ -5551,7 +5551,7 @@
 
                         <div class="card-body">
                             <div class="control">
-                                <form enctype="multipart/form-data" action="CreatePost" id="create-post" method="post" >
+                                <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
                                     <select id="type" name="typePost" required>
                                         <c:forEach items="${listType}" var="type">
                                             <option value="${type.typeID}" selected>${type.name}</option>
@@ -7618,9 +7618,8 @@
 
                                     $(document).ready(function () {
                                         $("#create-post").on("submit", function (event) {
-                                            event.preventDefault();
                                             $.ajax({
-                                                url: 'CreatePost',
+                                                url: 'CreatePost2',
                                                 type: 'POST',
                                                 data: $(this).serialize(),
                                                 success: function (response) {
@@ -7628,7 +7627,6 @@
                                                     modal.classList.remove('is-active');
                                                     var form = document.getElementById('create-post');
                                                     form.reset();
-                                                    console.log(response);
                                                     iziToast.show({
                                                             maxWidth: "280px",
                                                             class: "success-toast",

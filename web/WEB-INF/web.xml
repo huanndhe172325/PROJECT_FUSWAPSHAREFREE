@@ -44,6 +44,10 @@
         <servlet-name>ChangePassword</servlet-name>
         <servlet-class>Controllers.ForgotPassword.ChangePassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreatePost2</servlet-name>
+        <servlet-class>Controllers.HomePage.CreatePost2</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>ChangePassword</servlet-name>
         <url-pattern>/changepassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreatePost2</servlet-name>
+        <url-pattern>/CreatePost2</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>
