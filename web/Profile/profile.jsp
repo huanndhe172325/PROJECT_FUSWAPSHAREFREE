@@ -430,7 +430,7 @@
                  
                     <div id="account-dropdown" class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image">
-                            <img src="https://via.placeholder.com/400x400" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                            <img src="https://via.placeholder.com/400x400" data-demo-src="${profile.avatarUrl}" alt="" />
                             <span class="indicator"></span>
                         </div>
 
@@ -455,7 +455,7 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="image">
-                                                    <img src="https://via.placeholder.com/400x400" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                                                    <img src="https://via.placeholder.com/400x400" data-demo-src="${profile.avatarUrl}" alt="" />
                                                 </div>
                                             </div>
                                             <div class="media-content">
@@ -549,7 +549,7 @@
                                 <div class="cover-bg">
                                     <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />
                                     <div class="avatar" style="margin-bottom: 60px;">
-                                        <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                                        <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="${profile.avatarUrl}" alt="" />
                                         <div class="avatar-button">
                                             <i data-feather="plus"></i>
                                         </div>
@@ -741,7 +741,7 @@
                                         <!-- Timeline -->
                                         <div class="time is-hidden-mobile">
                                             <div class="img-container">
-                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                                                <img src="https://via.placeholder.com/300x300" data-demo-src="${profile.avatarUrl}" alt="" />
                                             </div>
                                         </div>
                                         <!-- Post -->

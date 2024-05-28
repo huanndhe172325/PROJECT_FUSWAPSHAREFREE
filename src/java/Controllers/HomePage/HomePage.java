@@ -6,6 +6,7 @@ package Controllers.HomePage;
 
 import DAL.DAOManageUser;
 import DAL.DAOManagePost;
+import Model.Post;
 import Model.Quanlity;
 import Model.Type;
 import Model.User;
@@ -84,15 +85,20 @@ public class HomePage extends HttpServlet {
         List<User> listPoint = dao1.getAllUsersSortedByPoint();
         
         DAOManagePost dao = new DAOManagePost();
+        
+        User userInfor = dao.getUserIdByUserId(userInfo_raw.getUserID());
+        
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
+        ArrayList<Post> listPost = dao.getAllPost();
         request.setAttribute("i", district);
         request.setAttribute("usersInSameDistrict", usersInSameDistrict);
         request.setAttribute("listPoint", listPoint);
         request.setAttribute("id", id);
         request.setAttribute("listQuanlity", listQuanlity);
         request.setAttribute("listType", listType);
-
+        request.setAttribute("user", userInfor);
+        request.setAttribute("listPost", listPost);
         request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
     }
 

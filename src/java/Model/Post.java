@@ -5,6 +5,9 @@
 package Model;
 
 import DAL.DAOManagePost;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  *
@@ -179,5 +182,17 @@ public class Post {
     }
     public String getFullNameOwner(){
         return getUserOwner().getFull_Name();
+    }
+    public String getDateFormat(){
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy, hh:mma");
+        String formattedDate = "";
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(CreateTime, inputFormatter);
+            formattedDate = dateTime.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+        }
+        return formattedDate;
     }
 }

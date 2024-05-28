@@ -60,6 +60,7 @@ public class ProfileServlet extends HttpServlet {
         String id = request.getParameter("id");
         DAOProfile db = new DAOProfile();
         User u = db.getUserbyId(Integer.parseInt(id));
+        
         request.setAttribute("profile", u);
         request.getRequestDispatcher("Profile/profile.jsp").forward(request, response);
     }
