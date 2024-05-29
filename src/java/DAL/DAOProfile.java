@@ -72,7 +72,7 @@ public class DAOProfile extends DBContext {
 
     public static void main(String[] args) {
         DAOProfile dao = new DAOProfile();
-        dao.UpdateProfile("Khuong Ngu", "haotvhe172558@fpt.edu.vn", "0987654321", "Ung Hoa", "Vien Noi", "12", "1");
+        dao.UpdateProfile("Vinh Hao", "haotvhe172558@fpt.edu.vn", "0987654321", "Ung Hoa", "Vien Noi", "12", "1");
         System.out.println();
     }
 }
