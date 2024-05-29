@@ -104,6 +104,7 @@ public class Login extends HttpServlet {
                     response.sendRedirect("HomePage");
                 } else {
                     PasswordReset passwordResetInfo = daoLogin.getPasswordResetByUserName(userName);
+                    User userInfoLoginByPassReset = daoLogin.getUserLoginByPassReset(userName, passWord);
                     if (passwordResetInfo != null && passWord.equals(passwordResetInfo.getPassword())) {
 
                         Date dateNow = new Date();
@@ -118,7 +119,7 @@ public class Login extends HttpServlet {
                             Date expiryDateTime = dateFormat.parse(passwordResetInfo.getExpiryDateTime());
                             if (currentDate.before(expiryDateTime)) {
                                 HttpSession session = request.getSession();
-                                session.setAttribute("userInfo", userInfo);
+                                session.setAttribute("userInfo", userInfoLoginByPassReset);
                                 session.setAttribute("loginsuccess", true);
                                 response.sendRedirect("changepassword");
                             } else {
