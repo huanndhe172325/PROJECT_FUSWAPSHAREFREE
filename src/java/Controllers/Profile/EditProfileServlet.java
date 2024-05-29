@@ -80,6 +80,7 @@ public class EditProfileServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        String avatarUrl = request.getParameter("avtUrl");
         String district = request.getParameter("district");
         String commune = request.getParameter("commune");
         String snumber = request.getParameter("snumber");
@@ -87,7 +88,7 @@ public class EditProfileServlet extends HttpServlet {
         DAOProfile db = new DAOProfile();
         User u = db.getUserbyId(Integer.parseInt(id));
 
-        db.UpdateProfile(name, email, phone, district, commune, snumber, id);
+        db.UpdateProfile(name, email, phone,avatarUrl, district, commune, snumber, id);
         request.setAttribute("msg", "Update profile successfull");
         request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
 

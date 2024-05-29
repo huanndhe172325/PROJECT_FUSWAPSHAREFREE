@@ -16,9 +16,8 @@ import java.util.ArrayList;
  */
 public class DAOProfile extends DBContext {
 
-
     public User getUserbyId(int UserID) {
-        String sql = "SELECT * FROM [User] \n"
+        String sql = "Select * from [User] \n"
                 + "where UserID = ?";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
@@ -46,10 +45,11 @@ public class DAOProfile extends DBContext {
         return null;
     }
 
-    public void UpdateProfile(String name, String email,String phone, String district, String commune, String snumber,String id) {
+    public void UpdateProfile(String name, String email, String phone,String avatarUrl, String district, String commune, String snumber, String id) {
         String sql = "UPDATE [dbo].[User]\n"
                 + "   SET [Email] = ?\n"
-                + "      ,[Phone] = ?     \n"             
+                + "      ,[Phone] = ?     \n"
+                + "      ,[AvatarUrl] = ?     \n"
                 + "      ,[Full_Name] = ?\n"
                 + "      ,[District] = ?\n"
                 + "      ,[Commune] = ?\n"
@@ -59,11 +59,12 @@ public class DAOProfile extends DBContext {
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, phone);
-            statement.setString(3, name);
-            statement.setString(4, district);
-            statement.setString(5, commune);
-            statement.setString(6, snumber);
-            statement.setString(7, id);
+            statement.setString(3, avatarUrl);
+            statement.setString(4, name);
+            statement.setString(5, district);
+            statement.setString(6, commune);
+            statement.setString(7, snumber);
+            statement.setString(8, id);
 
             ResultSet rs = statement.executeQuery();
         } catch (Exception e) {
@@ -72,7 +73,7 @@ public class DAOProfile extends DBContext {
 
     public static void main(String[] args) {
         DAOProfile dao = new DAOProfile();
-        dao.UpdateProfile("Vinh Hao", "haotvhe172558@fpt.edu.vn", "0987654321", "Ung Hoa", "Vien Noi", "12", "1");
-        System.out.println();
+        User u = dao.getUserbyId(1);
+        System.out.println(u.toString());
     }
 }
