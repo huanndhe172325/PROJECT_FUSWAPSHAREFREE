@@ -65,36 +65,22 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManageUser daoGetUserNearMe = new DAOManageUser();
+
+        DAOManageUser daoManagerUser = new DAOManageUser();
         HttpSession session = request.getSession();
         User userInfo_raw = (User) session.getAttribute("userInfo");
-        User user;
-        int id = -1;
-        List<User> usersInSameDistrict = null;
+        User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
+        String district = userInfor.getDistrict();
+        ArrayList<User> listUserDistrict = daoManagerUser.getUsersInSameDistrict(district);
+        ArrayList<User> listUserRanking = daoManagerUser.getListUserRanking();
 
-        String district = "";
-        if (userInfo_raw != null) {
-            user = (User) userInfo_raw;
-            district = daoGetUserNearMe.getDistrict(user.getUserID());
-
-            if (district != null) {
-               usersInSameDistrict = daoGetUserNearMe.getUsersInSameDistrict(district);
-            }
-        }
-        DAOManageUser dao1 = new DAOManageUser();
-        List<User> listPoint = dao1.getAllUsersSortedByPoint();
-        
         DAOManagePost dao = new DAOManagePost();
-        
-        User userInfor = dao.getUserIdByUserId(userInfo_raw.getUserID());
-        
+
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         ArrayList<Post> listPost = dao.getAllPost();
-        request.setAttribute("i", district);
-        request.setAttribute("usersInSameDistrict", usersInSameDistrict);
-        request.setAttribute("listPoint", listPoint);
-        request.setAttribute("id", id);
+        request.setAttribute("listUserDistrict", listUserDistrict);
+        request.setAttribute("listPoint", listUserRanking);
         request.setAttribute("listQuanlity", listQuanlity);
         request.setAttribute("listType", listType);
         request.setAttribute("user", userInfor);
