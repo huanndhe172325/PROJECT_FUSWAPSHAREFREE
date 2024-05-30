@@ -29,21 +29,23 @@ public class DAOSignup extends DBContext {
 
            
            
-        String sql = "INSERT INTO [User] (Email, Phone, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {   
+        
+        try {  
+            String sql = "INSERT INTO [User] (Email, Phone, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID)\n"
+                    + "VALUES (?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement stm = connect.prepareStatement(sql);
             stm.setString(1, email);
             stm.setString(2, phone);
             stm.setString(3, password);
-            stm.setString(4, "GETDATE()");
-            stm.setString(5, username);
-            stm.setString(6, fullname);
-            stm.setString(7, district);
-            stm.setString(8, commune);
-            stm.setString(9, streetnumber);
-            stm.setString(10, "0");
-            stm.setString(11, "1");
-            stm.setString(12, "1");
+            //stm.setString(4, "GETDATE()");
+            stm.setString(4, username);
+            stm.setString(5, fullname);
+            stm.setString(6, district);
+            stm.setString(7, commune);
+            stm.setString(8, streetnumber);
+            stm.setInt(9, 0);
+            stm.setInt(10, 1);
+            stm.setInt(11, 1);
             stm.executeUpdate();
         } catch (SQLException e) {
           e.printStackTrace();
