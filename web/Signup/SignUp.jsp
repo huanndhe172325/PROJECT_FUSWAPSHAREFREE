@@ -1,7 +1,7 @@
 <%-- 
     Document   : SignUp
     Created on : May 16, 2024, 2:58:44 PM
-    Author     : Binhtran
+    Author     : Anhnh
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -90,9 +90,9 @@
                                             <div class="columns is-multiline">
                                                 <div class="column is-6">
                                                     <div class="field">
-                                                        <label>Full Name</label>
+                                                        <label class="form-label" for="typeFullNameX">Full Name</label>
                                                         <div class="control">
-                                                            <input name="fname" type="text" class="input" placeholder="Enter your first name" />
+                                                            <input name="fname" type="fname" id="typeFullNameX" class="input" placeholder="Enter your Full Name" value=""/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -100,7 +100,7 @@
                                                     <div class="field">
                                                         <label>Username</label>
                                                         <div class="control">
-                                                            <input name="username" type="text" class="input" placeholder="Enter your last name" />
+                                                            <input name="username" type="username" id="typeUserNameX" class="input" placeholder="Enter your Username" value=""/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -108,7 +108,7 @@
                                                     <div class="field">
                                                         <label>Password</label>
                                                         <div class="control">
-                                                            <input name="pass" type="password" class="input" placeholder="Enter your password" />
+                                                            <input name="pass" type="password" id="TypePasswordX" class="input" placeholder="Enter your password" value=""/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -116,7 +116,7 @@
                                                     <div class="field">
                                                         <label>Re-password</label>
                                                         <div class="control">
-                                                            <input name="repass" type="password" class="input" placeholder="Enter your password" />
+                                                            <input name="repass" type="password" id="TypePasswordX" class="input" placeholder="Enter your Re-password" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -124,7 +124,7 @@
                                                     <div class="field">
                                                         <label>Email</label>
                                                         <div class="control">
-                                                            <input name="email"type="text" class="input" placeholder="Enter your email address" />
+                                                            <input name="email" type="email" id="typeEmailX" class="input" placeholder="Enter your email address" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -132,50 +132,43 @@
                                                     <div class="field">
                                                         <label>Phone</label>
                                                         <div class="control">
-                                                            <input name="phone"type="text" class="input" placeholder="Enter your email address" />
+                                                            <input name="phone"type="phone" id="typePhoneX" class="input" placeholder="Enter your Phone" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <select  name="commune" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
+                                                <select  name="city" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
                                                     <option value=""  selected>Chọn tỉnh thành</option>           
                                                 </select> 
-                                                <select name="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
+                                                <select name="district" type="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
                                                     <option value="" selected>Chọn quận huyện</option>
                                                 </select>  
+                                                <select name="commune" type="commune" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
+                                                    <option value="" selected>Chọn phường xã</option>
+                                                </select>   
+                                                
+
                                                 <div class="column is-12">
                                                     <div class="field">
                                                         <label>Streetnumber</label>
                                                         <div class="control">
-                                                            <input name="streetnumber"type="text" class="input" placeholder="Enter your email address" />
+                                                            <input name="streetnumber"type="streetnumber" id="typeStreetnumberX" class="input" placeholder="Enter your Streetnumber" />
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="column is-12">
-                                                    <div class="field is-flex">
-                                                        <div class="switch-block">
-                                                            <label class="f-switch">
-                                                                <input type="checkbox" class="is-switch" />
-                                                                <i></i>
-                                                            </label>
-                                                            <div class="meta">
-                                                                <p>Subscribe to Newsletter?</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
 
                                         <button class="buttons mt-2" type="submit">
                                             <a class="button is-solid primary-button is-fullwidth raised" >Create Account</a>
                                         </button>
-                                       
-                                        <div class="account-link has-text-centered">
-                                            <a href="Login">Have an account? Sign In</a>
-                                        </div>
+
+
                                     </div>
                                 </form>
+                                <div class="account-link has-text-centered">
+                                    <a href="Login">Have an account? Sign In</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -192,7 +185,7 @@
         <script>
             var cities = document.getElementById("city");
             var districts = document.getElementById("district");
-            //var wards = document.getElementById("ward");
+            var wards = document.getElementById("ward");
             var selectedCityValue = '${city}'; // Replace with the actual value of the selected city
 
             var Parameter = {
@@ -207,7 +200,7 @@
                 renderCity(result.data);
                 selectCityOption(result.data);
                 selectDistrictOption(result.data);
-                //  selectWardOption(result.data);
+                selectWardOption(result.data);
             });
 
             function selectCityOption(data) {
@@ -231,7 +224,17 @@
                 }
             }
 
-
+            function selectWardOption(data) {
+                const selectedCity = data.find((city) => city.Name === selectedCityValue);
+                const selectedDistrict = selectedCity.Districts.find((district) => district.Name === '${district}');
+                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                    if (selectedDistrict.Wards[i].Name === '${ward}') {
+                        wards.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn phường xã" option
+                        simulateEvent(wards, 'change');
+                        break;
+                    }
+                }
+            }
             function renderCity(data) {
                 for (const city of data) {
                     cities.options[cities.options.length] = new Option(city.Name, city.Name); // Use "Name" as both value and text.
@@ -239,7 +242,7 @@
 
                 cities.onchange = function () {
                     districts.length = 1;
-                    //    wards.length = 1;
+                    wards.length = 1;
 
                     if (this.value !== "") {
                         const selectedCity = data.find((city) => city.Name === this.value);
@@ -255,7 +258,11 @@
                     const selectedCity = data.find((city) => city.Name === cities.value);
                     const selectedDistrict = selectedCity.Districts.find((district) => district.Name === this.value);
 
-
+                    if (this.value !== "") {
+                        for (const ward of selectedDistrict.Wards) {
+                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name); // Use "Name" as both value and text.
+                        }
+                    }
                 };
             }
 

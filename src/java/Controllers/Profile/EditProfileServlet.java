@@ -76,31 +76,21 @@ public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("id");
-        String pass = request.getParameter("pass");
-        String npass = request.getParameter("newpass");
+
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
+        String avatarUrl = request.getParameter("avtUrl");
         String district = request.getParameter("district");
         String commune = request.getParameter("commune");
         String snumber = request.getParameter("snumber");
 
         DAOProfile db = new DAOProfile();
         User u = db.getUserbyId(Integer.parseInt(id));
-        if (!pass.equals(u.getPassWord())) {
-            request.setAttribute("error1", "Password incorrect");
-            request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
-        }
-        if (!pass.equals(npass)) {
-            request.setAttribute("error0", "PassWord giong nhau deo doi duoc");
-            request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
 
-        } else {
-            db.UpdateProfile(pass, name, email, phone, district, commune, snumber, id);
-            request.setAttribute("mess", "Update profile successfull");
-            request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
-
-        }
+        db.UpdateProfile(name, email, phone,avatarUrl, district, commune, snumber, id);
+        request.setAttribute("msg", "Update profile successfull");
+        request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
 
     }
 

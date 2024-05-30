@@ -24,27 +24,27 @@ import java.util.Date;
  */
 public class DAOSignup extends DBContext {
 
-    public void insertAccount(String email, String phone, String password, String username, String fullname, String district,String commune, String streetnumber, int Point, int RoleID, int StatusID,String joinDate) {
-        try {
+    public void insertAccount(String email, String phone, String password, String username, String fullname, String district,String commune, String streetnumber) {
 
-           
-            String sql = "INSERT INTO [User] (Email, Phone, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID) VALUES (?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, 0, 1, 1)";
-            PreparedStatement stm = connect.prepareStatement(sql);
+        try {  
+            String sql = "INSERT INTO [User] (Email, Phone, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID)\n"
+                    + "VALUES (?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?);";
+        PreparedStatement stm = connect.prepareStatement(sql);
             stm.setString(1, email);
             stm.setString(2, phone);
             stm.setString(3, password);
-            stm.setString(4, joinDate);
-            stm.setString(5, username);
-            stm.setString(6, fullname);
-            stm.setString(7, district);
-            stm.setString(8, commune);
-            stm.setString(9, streetnumber);
-            stm.setInt(10, Point);
-            stm.setInt(11, RoleID);
-            stm.setInt(12, StatusID);
+            //stm.setString(4, "GETDATE()");
+            stm.setString(4, username);
+            stm.setString(5, fullname);
+            stm.setString(6, district);
+            stm.setString(7, commune);
+            stm.setString(8, streetnumber);
+            stm.setInt(9, 0);
+            stm.setInt(10, 1);
+            stm.setInt(11, 1);
             stm.executeUpdate();
-        } catch (SQLException ex) {
-          
+        } catch (SQLException e) {
+          e.printStackTrace();
         }
 
     }
@@ -81,6 +81,30 @@ public class DAOSignup extends DBContext {
         }
         return list;
     }
+    public ArrayList<User> list() {
+        ArrayList<User> users = new ArrayList<>();
+        
+        try {
+            String sql = "select UserID, Email, RoleID, UserName, Phone, District, StatusID from User";
+            PreparedStatement stm = connect.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            
+            while (rs.next()) {
+                User u = new User();
+                u.setUserID(rs.getInt("id"));
+                u.setEmail(rs.getString("email"));
+                u.setRoleID(rs.getInt("role"));
+                u.setUserName(rs.getString("username"));
+                u.setPhone(rs.getString("phone"));
+                u.setDistrict(rs.getString("district"));
+                u.setStatusID(rs.getInt("status"));
+                users.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 
     public void updateAccount(User user) {
 
@@ -97,7 +121,7 @@ public class DAOSignup extends DBContext {
         }
 
     }
-    public User getUserIdByEmail(String UserName) {
+    public User getUserIdByUserName(String UserName) {
         String sql = "SELECT * FROM [User] \n"
                 + "WHERE UserName = ?";
         try {
@@ -121,7 +145,7 @@ public class DAOSignup extends DBContext {
                         rs.getInt("StatusID"));
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }

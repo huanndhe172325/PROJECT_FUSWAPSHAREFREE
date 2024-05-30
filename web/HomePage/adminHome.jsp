@@ -611,14 +611,14 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="options-settings.html" class="account-item">
+                                        <a href="manageUser" class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">
                                                     <i data-feather="settings"></i>
                                                 </div>
                                                 <div class="media-content">
-                                                    <h3>Settings</h3>
-                                                    <small>Access widget settings.</small>
+                                                    <h3>Manage</h3>
+                                                    <small>Manage Account.</small>
                                                 </div>
                                             </div>
                                         </a>

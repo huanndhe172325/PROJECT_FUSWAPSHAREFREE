@@ -4,6 +4,7 @@
  */
 package Controllers.LoginSystem;
 
+import DAL.DAOLoginSystem;
 import DAL.DAOSignup;
 import Model.User;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import org.eclipse.jdt.core.compiler.CharOperation;
 
 /**
@@ -36,7 +38,7 @@ public class Signup extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -47,10 +49,9 @@ public class Signup extends HttpServlet {
             out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        
-    }
-    }
 
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -75,42 +76,46 @@ public class Signup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOSignup dao = new DAOSignup();
+    DAOLoginSystem daoLogin = new DAOLoginSystem();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-            /* TODO output your page here. You may use following sample code. */
-            String email = request.getParameter("email").trim();
-            String Phone = request.getParameter("phone").trim();
-             String pass = request.getParameter("pass").trim();
-           String repass = request.getParameter("repass").trim();
-           String userName = request.getParameter("username").trim();
-           String Fname = request.getParameter("fname").trim();
-           String District = request.getParameter("district").trim();
-           String Commune = request.getParameter("commune").trim();
-           String StreetNumber = request.getParameter("streetnumber").trim();
-           
-           String joindate="";
-          
-           
-         
-           if(!pass.equals(repass)){
-               request.setAttribute("mess", "Pass and repass does not match!");
-               request.getRequestDispatcher("Login/SignUp.jsp").forward(request, response);
-           }else{
-               DAOSignup dar = new DAOSignup();
-               User u = new User();
-               if (u == null){
 
-                dar.insertAccount(email, Phone, pass, userName, Fname, District, Commune, StreetNumber, 0, 1, 1,joindate);
-                 request.setAttribute("mess", "SignUp successful please login!!");
-                request.getRequestDispatcher("Login/login.jsp").forward(request, response);
-               } else {
-                    request.setAttribute("mess", "Account already exists");
+        /* TODO output your page here. You may use following sample code. */
+        String email = request.getParameter("email");
+        String Phone = request.getParameter("phone");
+        String pass = request.getParameter("pass");
+        String repass = request.getParameter("repass");
+        String userName = request.getParameter("username");
+        String Fname = request.getParameter("fname");
+        String District = request.getParameter("district");
+        String Commune = request.getParameter("commune");
+        String StreetNumber = request.getParameter("streetnumber");
+
+        ArrayList<User> listUser = daoLogin.getAllUser();
+        if (Fname.equals("") || email.equals("") || pass.equals("") || repass.equals("") || userName.equals("") || Phone.equals("") || District.equals("") || Commune.equals("") || StreetNumber.equals("")) {
+            request.setAttribute("mess", "Please fill all blank");
+            request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+        } else {
+            if (!pass.equals(repass)) {
+                request.setAttribute("mess", "Pass and repass does not match!");
                 request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
-               }
-           }
-        
+            } else {
+                if (daoLogin.checkUserNameExits(userName, listUser)) {
+                    request.setAttribute("mess", "This username already exist");
+                    request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+                } else {
+                    if (pass.equals(repass)) {
+                        dao.insertAccount(email, Phone, pass, userName, Fname, District, Commune, StreetNumber);
+                        request.setAttribute("mess", "Register successful please login!!");
+                        request.getRequestDispatcher("Login/login.jsp").forward(request, response);
+                    }
+                }
+            }
+        }
+
     }
 
     /**

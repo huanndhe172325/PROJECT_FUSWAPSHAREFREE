@@ -4,12 +4,11 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOSignup;
+import DAL.DAOManageUser;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,8 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "EditAccount", urlPatterns = {"/EditAccount"})
-public class EditAccount extends HttpServlet {
+public class EditUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,24 +31,14 @@ public class EditAccount extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      User u = new User();
-       u.setUserID(Integer.parseInt(request.getParameter("id")));
-        u.setEmail(request.getParameter("email"));
-                u.setPhone(request.getParameter("phone"));
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String uid = request.getParameter("uid");
+            User user = new DAOManageUser().getUserByID(Integer.parseInt(uid));
+            request.setAttribute("user", user);
 
-                u.setPassWord(request.getParameter("pass"));
-                
-                u.setUserName(request.getParameter("user"));
-                u.setFull_Name(request.getParameter("fname"));
-                u.setDistrict(request.getParameter("district"));
-                u.setCommune(request.getParameter("commune"));
-                u.setStreetNumber(request.getParameter("Strnumbet"));
-                u.setPoint(Integer.parseInt(request.getParameter("point")));
-                u.setRoleID(2);
-                u.setStatusID(Integer.parseInt(request.getParameter("status")));
-                DAOSignup dbs = new DAOSignup();
-                dbs.updateAccount(u);
-                response.sendRedirect("ManageAcount");
+            request.getRequestDispatcher("HomePage/EditAccount.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,7 +53,14 @@ public class EditAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        /* TODO output your page here. You may use following sample code. */
+        String uid = request.getParameter("UserID");
+        User user = new DAOManageUser().getUserByID(Integer.parseInt(uid));
+        request.setAttribute("user", user);
+
+        request.getRequestDispatcher("HomePage/EditAccount.jsp").forward(request, response);
+
     }
 
     /**
@@ -79,7 +74,13 @@ public class EditAccount extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        User u = new User();
+        int stt = Integer.parseInt(request.getParameter("stt"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        DAOManageUser dao = new DAOManageUser();
+        dao.updateStatus(id, stt);
+        response.sendRedirect("manageUser");
     }
 
     /**
