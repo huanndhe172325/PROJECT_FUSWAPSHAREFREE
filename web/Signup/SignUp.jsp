@@ -90,9 +90,9 @@
                                             <div class="columns is-multiline">
                                                 <div class="column is-6">
                                                     <div class="field">
-                                                        <label>Full Name</label>
+                                                        <label class="form-label" for="typeFullNameX">Full Name</label>
                                                         <div class="control">
-                                                            <input name="fname" type="text" class="input" placeholder="Enter your first name" />
+                                                            <input name="fname" type="fname" id="typeFullNameX" class="input" placeholder="Enter your Full Name" value=""/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -100,7 +100,7 @@
                                                     <div class="field">
                                                         <label>Username</label>
                                                         <div class="control">
-                                                            <input name="username" type="text" class="input" placeholder="Enter your last name" />
+                                                            <input name="username" type="username" id="typeUserNameX" class="input" placeholder="Enter your Username" value=""/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -108,7 +108,7 @@
                                                     <div class="field">
                                                         <label>Password</label>
                                                         <div class="control">
-                                                            <input name="pass" type="password" class="input" placeholder="Enter your password" />
+                                                            <input name="pass" type="password" id="TypePasswordX" class="input" placeholder="Enter your password" value=""/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -116,7 +116,7 @@
                                                     <div class="field">
                                                         <label>Re-password</label>
                                                         <div class="control">
-                                                            <input name="repass" type="password" class="input" placeholder="Enter your password" />
+                                                            <input name="repass" type="password" id="TypePasswordX" class="input" placeholder="Enter your Re-password" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -124,7 +124,7 @@
                                                     <div class="field">
                                                         <label>Email</label>
                                                         <div class="control">
-                                                            <input name="email"type="text" class="input" placeholder="Enter your email address" />
+                                                            <input name="email" type="email" id="typeEmailX" class="input" placeholder="Enter your email address" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -132,50 +132,49 @@
                                                     <div class="field">
                                                         <label>Phone</label>
                                                         <div class="control">
-                                                            <input name="phone"type="text" class="input" placeholder="Enter your email address" />
+                                                            <input name="phone"type="phone" id="typePhoneX" class="input" placeholder="Enter your Phone" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <select  name="commune" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
-                                                    <option value=""  selected>Chọn tỉnh thành</option>           
-                                                </select> 
-                                                <select name="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-                                                    <option value="" selected>Chọn quận huyện</option>
-                                                </select>  
-                                                <div class="column is-12">
+                                                <div class="column is-6">
                                                     <div class="field">
-                                                        <label>Streetnumber</label>
+                                                        <label>District</label>
                                                         <div class="control">
-                                                            <input name="streetnumber"type="text" class="input" placeholder="Enter your email address" />
+                                                            <input name="district" type="district" id="typeDistrictX" class="input" placeholder="Enter your District" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="column is-6">
+                                                    <div class="field">
+                                                        <label>Commune</label>
+                                                        <div class="control">
+                                                            <input name="commune" type="commune" id="typeCommuneX" class="input" placeholder="Enter your Commune" />
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="column is-12">
-                                                    <div class="field is-flex">
-                                                        <div class="switch-block">
-                                                            <label class="f-switch">
-                                                                <input type="checkbox" class="is-switch" />
-                                                                <i></i>
-                                                            </label>
-                                                            <div class="meta">
-                                                                <p>Subscribe to Newsletter?</p>
-                                                            </div>
+                                                    <div class="field">
+                                                        <label>Streetnumber</label>
+                                                        <div class="control">
+                                                            <input name="streetnumber"type="streetnumber" id="typeStreetnumberX" class="input" placeholder="Enter your Streetnumber" />
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+
+                                                                                            </div>
                                         </div>
 
                                         <button class="buttons mt-2" type="submit">
                                             <a class="button is-solid primary-button is-fullwidth raised" >Create Account</a>
                                         </button>
                                        
+                                        
+                                    </div>
+                                </form>
                                         <div class="account-link has-text-centered">
                                             <a href="Login">Have an account? Sign In</a>
                                         </div>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
