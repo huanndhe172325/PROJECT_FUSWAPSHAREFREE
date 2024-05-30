@@ -88,14 +88,13 @@ public class ChangePassword extends HttpServlet {
 
         if (newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
             request.setAttribute("mess", "All fields are required.");
-            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            request.getRequestDispatcher("ForgotPassword/ChangePassword.jsp").forward(request, response);
             return;
         }
 
         if (!newPassword.equals(confirmNewPassword)) {
             request.setAttribute("mess", "New password and confirmation do not match.");
-            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
-            return;
+            request.getRequestDispatcher("ForgotPassword/ChangePassword.jsp").forward(request, response);        
         }
 
         daoLogin.updatePassword(userName, newPassword);
