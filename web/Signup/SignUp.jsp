@@ -136,22 +136,16 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="column is-6">
-                                                    <div class="field">
-                                                        <label>District</label>
-                                                        <div class="control">
-                                                            <input name="district" type="district" id="typeDistrictX" class="input" placeholder="Enter your District" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="column is-6">
-                                                    <div class="field">
-                                                        <label>Commune</label>
-                                                        <div class="control">
-                                                            <input name="commune" type="commune" id="typeCommuneX" class="input" placeholder="Enter your Commune" />
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <select  name="city" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
+                                                    <option value=""  selected>Chọn tỉnh thành</option>           
+                                                </select> 
+                                                <select name="district" type="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
+                                                    <option value="" selected>Chọn quận huyện</option>
+                                                </select>  
+                                                <select name="commune" type="commune" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
+                                                    <option value="" selected>Chọn phường xã</option>
+                                                </select>   
+                                                
 
                                                 <div class="column is-12">
                                                     <div class="field">
@@ -162,19 +156,19 @@
                                                     </div>
                                                 </div>
 
-                                                                                            </div>
+                                            </div>
                                         </div>
 
                                         <button class="buttons mt-2" type="submit">
                                             <a class="button is-solid primary-button is-fullwidth raised" >Create Account</a>
                                         </button>
-                                       
-                                        
+
+
                                     </div>
                                 </form>
-                                        <div class="account-link has-text-centered">
-                                            <a href="Login">Have an account? Sign In</a>
-                                        </div>
+                                <div class="account-link has-text-centered">
+                                    <a href="Login">Have an account? Sign In</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -191,7 +185,7 @@
         <script>
             var cities = document.getElementById("city");
             var districts = document.getElementById("district");
-            //var wards = document.getElementById("ward");
+            var wards = document.getElementById("ward");
             var selectedCityValue = '${city}'; // Replace with the actual value of the selected city
 
             var Parameter = {
@@ -206,7 +200,7 @@
                 renderCity(result.data);
                 selectCityOption(result.data);
                 selectDistrictOption(result.data);
-                //  selectWardOption(result.data);
+                selectWardOption(result.data);
             });
 
             function selectCityOption(data) {
@@ -230,7 +224,17 @@
                 }
             }
 
-
+            function selectWardOption(data) {
+                const selectedCity = data.find((city) => city.Name === selectedCityValue);
+                const selectedDistrict = selectedCity.Districts.find((district) => district.Name === '${district}');
+                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                    if (selectedDistrict.Wards[i].Name === '${ward}') {
+                        wards.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn phường xã" option
+                        simulateEvent(wards, 'change');
+                        break;
+                    }
+                }
+            }
             function renderCity(data) {
                 for (const city of data) {
                     cities.options[cities.options.length] = new Option(city.Name, city.Name); // Use "Name" as both value and text.
@@ -238,7 +242,7 @@
 
                 cities.onchange = function () {
                     districts.length = 1;
-                    //    wards.length = 1;
+                    wards.length = 1;
 
                     if (this.value !== "") {
                         const selectedCity = data.find((city) => city.Name === this.value);
@@ -254,7 +258,11 @@
                     const selectedCity = data.find((city) => city.Name === cities.value);
                     const selectedDistrict = selectedCity.Districts.find((district) => district.Name === this.value);
 
-
+                    if (this.value !== "") {
+                        for (const ward of selectedDistrict.Wards) {
+                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name); // Use "Name" as both value and text.
+                        }
+                    }
                 };
             }
 
