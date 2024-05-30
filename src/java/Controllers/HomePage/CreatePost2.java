@@ -73,7 +73,7 @@ public class CreatePost2 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-                DAOManagePost daoManagePost = new DAOManagePost();
+        DAOManagePost daoManagePost = new DAOManagePost();
         String typeId_raw = request.getParameter("typePost");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -86,7 +86,7 @@ public class CreatePost2 extends HttpServlet {
 
         HttpSession session = request.getSession();
         User userInfor = (User) session.getAttribute("userInfo");
-        int idPost = daoManagePost.getMaxIdPost();
+        int idPost = daoManagePost.getMaxIdPost() + 1;
 
         String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length()-10) + "web\\FolderImages\\ImagePost";
         String imgFileName = idPost + "_image.jpg";

@@ -4,7 +4,9 @@
  */
 package Controllers.Profile;
 
+import DAL.DAOManagePost;
 import DAL.DAOProfile;
+import Model.Post;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
  *
@@ -60,6 +63,10 @@ public class ProfileServlet extends HttpServlet {
         String id = request.getParameter("id");
         DAOProfile db = new DAOProfile();
         User u = db.getUserbyId(Integer.parseInt(id));
+        ArrayList<Post> myPost = new ArrayList<>();
+        DAOManagePost daoPost = new DAOManagePost();
+        myPost = daoPost.getAllPostByIdUser(Integer.parseInt(id));
+        request.setAttribute("myPost", myPost);
         request.setAttribute("profile", u);
         request.getRequestDispatcher("Profile/profile.jsp").forward(request, response);
     }

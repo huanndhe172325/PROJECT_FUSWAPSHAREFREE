@@ -1,5 +1,60 @@
 
-“	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò”8¸¾ßÖû1J$1b0d67c3-c2e5-42de-9e73-0a6885043c40
-“	java:S117""QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ùë¿˜8¸¾ßÖû1J$6a90677e-9e67-40a8-8abb-b58d8176a816
-˜	java:S117&"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÁÔÎıÿÿÿÿ8¸¾ßÖû1J$2a30e7cb-0be5-4bd1-ad73-b329cd9d6adc
-œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¨Îí€8º¾ßÖû1J$0f5f109f-bd53-48e5-aafa-4a0cd04b4c45
+f	java:S117O"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½Òï¿½
+f	java:S117S"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½ë¿˜
+k	java:S117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+k	java:S117U"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½É™ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+k	java:S117V"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
+f	java:S117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½ì›—
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ï¿½ï¿½ï¿½
+H
+java:S1135'"2Complete the task associated to this TODO comment.(ï¿½ï¿½ï¿½ï¿½
+Y
+java:S1854_"CRemove this useless assignment to local variable "uploadDirectory".(ï¿½ï¿½ÌŠ
+X
+java:S1854\"BRemove this useless assignment to local variable "quanlityId_raw".(ï¿½ì›—
+R
+java:S1854Y"=Remove this useless assignment to local variable "userInfor".(ï¿½ï¿½ï¿½$
+\
+java:S1854V"ARemove this useless assignment to local variable "Street_Number".(ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
+W
+java:S1854U"<Remove this useless assignment to local variable "District".(ï¿½É™ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+V
+java:S1854T";Remove this useless assignment to local variable "Commune".(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+Y
+java:S1854S"CRemove this useless assignment to local variable "expiresDate_raw".(ï¿½ë¿˜
+Z
+java:S1854R"?Remove this useless assignment to local variable "intructions".(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+U
+java:S1854Q"?Remove this useless assignment to local variable "description".(ï¿½ï¿½Ì¸
+T
+java:S1854P"9Remove this useless assignment to local variable "title".(ï¿½Â›ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+T
+java:S1854O">Remove this useless assignment to local variable "typeId_raw".(ï¿½Òï¿½
+E
+java:S1481O"/Remove this unused "typeId_raw" local variable.(ï¿½Òï¿½
+E
+java:S1481P"*Remove this unused "title" local variable.(ï¿½Â›ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+F
+java:S1481Q"0Remove this unused "description" local variable.(ï¿½ï¿½Ì¸
+K
+java:S1481R"0Remove this unused "intructions" local variable.(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+J
+java:S1481S"4Remove this unused "expiresDate_raw" local variable.(ï¿½ë¿˜
+G
+java:S1481T",Remove this unused "Commune" local variable.(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+H
+java:S1481U"-Remove this unused "District" local variable.(ï¿½É™ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+M
+java:S1481V"2Remove this unused "Street_Number" local variable.(ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
+C
+java:S1481Y".Remove this unused "userInfor" local variable.(ï¿½ï¿½ï¿½$
+C
+java:S1481["-Remove this unused "statusId" local variable.(ï¿½ï¿½ï¿½ï¿½
+I
+java:S1481\"3Remove this unused "quanlityId_raw" local variable.(ï¿½ì›—
+J
+java:S1481_"4Remove this unused "uploadDirectory" local variable.(ï¿½ï¿½ÌŠ
+ï¿½	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½Òï¿½8ï¿½ï¿½ï¿½ï¿½ï¿½1J$1b0d67c3-c2e5-42de-9e73-0a6885043c40
+ï¿½	java:S117""QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½ë¿˜8ï¿½ï¿½ï¿½ï¿½ï¿½1J$6a90677e-9e67-40a8-8abb-b58d8176a816
+ï¿½	java:S117&"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï¿½Ôï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½ï¿½1J$2a30e7cb-0be5-4bd1-ad73-b329cd9d6adc
+ï¿½	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½ï¿½1J$0f5f109f-bd53-48e5-aafa-4a0cd04b4c45

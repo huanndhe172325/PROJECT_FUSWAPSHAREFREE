@@ -2,22 +2,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.Profile;
+package Controllers.LoginSystem;
 
-import DAL.DAOProfile;
+import DAL.DAOLoginSystem;
+import DAL.DAOSignup;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import org.eclipse.jdt.core.compiler.CharOperation;
 
 /**
  *
- * @author haoto
+ * @author admin
  */
-public class EditProfileServlet extends HttpServlet {
+@WebServlet(name = "Signup", urlPatterns = {"/Signup"})
+public class Signup extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,12 +43,13 @@ public class EditProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditProfileServlet</title>");
+            out.println("<title>Servlet RegisterController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditProfileServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+
         }
     }
 
@@ -57,11 +65,7 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
-        DAOProfile db = new DAOProfile();
-        User u = db.getUserbyId(Integer.parseInt(id));
-        request.setAttribute("profile", u);
-        request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
+        request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
     }
 
     /**
@@ -72,25 +76,45 @@ public class EditProfileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOSignup dao = new DAOSignup();
+    DAOLoginSystem daoLogin = new DAOLoginSystem();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
 
-        String name = request.getParameter("name");
+        /* TODO output your page here. You may use following sample code. */
         String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String avatarUrl = request.getParameter("avtUrl");
-        String district = request.getParameter("district");
-        String commune = request.getParameter("commune");
-        String snumber = request.getParameter("snumber");
+        String Phone = request.getParameter("phone");
+        String pass = request.getParameter("pass");
+        String repass = request.getParameter("repass");
+        String userName = request.getParameter("username");
+        String Fname = request.getParameter("fname");
+        String District = request.getParameter("district");
+        String Commune = request.getParameter("commune");
+        String StreetNumber = request.getParameter("streetnumber");
 
-        DAOProfile db = new DAOProfile();
-        User u = db.getUserbyId(Integer.parseInt(id));
-
-        db.UpdateProfile(name, email, phone,avatarUrl, district, commune, snumber, id);
-        request.setAttribute("msg", "Update profile successfull");
-        request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
+        ArrayList<User> listUser = daoLogin.getAllUser();
+        if (Fname.equals("") || email.equals("") || pass.equals("") || repass.equals("") || userName.equals("") || Phone.equals("") || District.equals("") || Commune.equals("") || StreetNumber.equals("")) {
+            request.setAttribute("mess", "Please fill all blank");
+            request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+        } else {
+            if (!pass.equals(repass)) {
+                request.setAttribute("mess", "Pass and repass does not match!");
+                request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+            } else {
+                if (daoLogin.checkUserNameExits(userName, listUser)) {
+                    request.setAttribute("mess", "This username already exist");
+                    request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+                } else {
+                    if (pass.equals(repass)) {
+                        dao.insertAccount(email, Phone, pass, userName, Fname, District, Commune, StreetNumber);
+                        request.setAttribute("mess", "Register successful please login!!");
+                        request.getRequestDispatcher("Login/login.jsp").forward(request, response);
+                    }
+                }
+            }
+        }
 
     }
 

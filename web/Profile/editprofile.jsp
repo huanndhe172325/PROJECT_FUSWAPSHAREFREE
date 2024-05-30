@@ -80,7 +80,7 @@
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
                 <div class="col-md-3 border-right">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">${listAcc.name}</span><span class="text-black-50">${listAcc.email}</span><span> </span></div>
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="${profile.getAvatarUrl()}"><span class="font-weight-bold">${listAcc.name}</span><span class="text-black-50">${listAcc.email}</span><span> </span></div>
                 </div>
 
                 <div class="col-md-9 border-right">
@@ -92,9 +92,7 @@
                             <div class="row mt-3">
                                 <div class="col-md-12"><label class="labels">Points</label><input name="points" type="text" class="form-control" readonly value="${profile.getPoint()}"></div>
                                 <div class="col-md-12"><label class="labels">ID</label><input name="id" type="text" class="form-control" readonly value="${profile.getUserID()}"></div>
-                                <div class="col-md-12"><label class="labels">Username</label><input name="user" type="text" class="form-control" readonly value="${profile.getUserName()}"></div>
-                                <div class="col-md-12"><label class="labels">Password</label><input name="pass" type="password" class="form-control"  value=""></div>
-                                <div class="col-md-12"><label class="labels">New Password</label><input name="newpass" type="password" class="form-control"  value=""></div>
+                                <div class="col-md-12"><label class="labels">Username</label><input name="user" type="text" class="form-control" readonly value="${profile.getUserName()}"></div>                          
                                 <div class="col-md-12"><label class="labels">Name</label><input name="name" type="text" class="form-control"  value="${profile.getFull_Name()}"></div>
                                 <div class="col-md-12"><label class="labels">Email</label><input  name="email" type="text" class="form-control"  value="${profile.getEmail()}"></div>
                                 <div class="col-md-12"><label class="labels">Phone Number</label><input name="phone" type="text" class="form-control" value="${profile.getPhone()}"></div>
@@ -102,8 +100,7 @@
                                 <div class="col-md-12"><label class="labels">Commune</label><input name="commune" type="text" class="form-control" value="${profile.getCommune()}"></div>                 
                                 <div class="col-md-12"><label class="labels">StreetNumber</label><input name="snumber" type="text" class="form-control" value="${profile.getStreetNumber()}"></div>                 
                             </div>
-                            <p>${error0}</p>
-                            <p>${error1}</p>
+                            <p>${msg}</p>
                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
                         </form>
                     </div>
