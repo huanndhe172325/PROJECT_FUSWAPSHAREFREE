@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Signup.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/ForgotPassword/ForgotPassword.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/ForgotPassword/ChangePassword.java</file>
+        </group>
+        <group>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/CreatePost2.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Signup.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/ForgotPassword/ForgotPassword.java</file>
+            <file>file:/D:/SWP/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/ForgotPassword/ChangePassword.java</file>
+        </group>
         <group name="PRJ301">
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/ManageLocation.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/Profile/profile.jsp</file>
@@ -13,27 +24,12 @@
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOProfile.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/Profile/ProfileServlet.java</file>
+            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/EditAccount.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOSignup.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/Profile/EditProfileServlet.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/Profile/editprofile.jsp</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
-        </group>
-        <group>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOProfile.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/EditAccount.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManagePost.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Signup.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/ManageAccount.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DBContext.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/Preview/Preview.jsp</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Model/User.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/Signup/SignUp.jsp</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOSignup.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOLoginSystem.java</file>
         </group>
     </open-files>
 </project-private>

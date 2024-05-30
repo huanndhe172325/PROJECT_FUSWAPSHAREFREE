@@ -25,11 +25,7 @@ import java.util.Date;
 public class DAOSignup extends DBContext {
 
     public void insertAccount(String email, String phone, String password, String username, String fullname, String district,String commune, String streetnumber) {
-        
 
-           
-           
-        
         try {  
             String sql = "INSERT INTO [User] (Email, Phone, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID)\n"
                     + "VALUES (?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?);";
