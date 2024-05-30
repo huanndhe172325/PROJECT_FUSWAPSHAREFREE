@@ -1509,10 +1509,17 @@
 
                         <!-- Middle column -->
                         <div class="column is-6">
-
+                            <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
+                                <h4>Posts</h4>
+                                <div class="button-wrap">
+                                    <button type="button" class="button is-active">All</button>
+                                    <button type="button" class="button is-active">Newest</button>
+                                    <button type="button" class="button is-active">Closest</button>
+                                    <button type="button" class="button is-active">Availabe</button>
+                                    <button type="button" class="button is-active">Nearest</button>
+                                </div>
+                            </div>
                             <!-- Post 1 -->
-                            <!-- /partials/pages/feed/posts/feed-post1.html -->
-                            <!-- POST #1 -->
                             <c:forEach var="post" items="${listPost}"> 
 
                                 <div id="feed-post-1" class="card is-post">
@@ -1522,7 +1529,7 @@
                                         <div class="card-heading">
                                             <!-- User meta -->
                                             <div class="user-block">
-                                                <div class="image">
+                                                <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
                                                     <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
                                                 </div>
                                                 <div class="user-info">
@@ -4829,11 +4836,6 @@
                                             <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
                                         </div>
                                     </div>
-
-
-                                    <label for="instructions">Pick-up instructions</label>
-                                    <input type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
-
                                     <label>Expires Date<span class="required">*</span></label>
                                     <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
                                         <option value="1">1 Day</option>
@@ -4842,15 +4844,20 @@
                                         <option value="15">15 Days</option>
                                     </select>
 
+                                    <label for="instructions">Pick-up instructions</label>
+                                    <input type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+
+
+
 
                                     <input type="submit" id="submit-create-post" style="display : none;" value="Submit">
                                 </form>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <div class="button-wrap" style="width: 100%;">
+                            <div class="button-wrap" style="width: 98%;">
                                 <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
-                                    Publish
+                                    Post
                                 </button>
                             </div>
                         </div>
@@ -6788,134 +6795,134 @@
 
 
         <script>
-                                var districts = document.getElementById("district");
-                                var wards = document.getElementById("ward");
-                                var selectedCityValue = 'Thành phố Hà Nội';
+                                    var districts = document.getElementById("district");
+                                    var wards = document.getElementById("ward");
+                                    var selectedCityValue = 'Thành phố Hà Nội';
 
-                                var Parameter = {
-                                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                                    method: "GET",
-                                    responseType: "application/json",
-                                };
+                                    var Parameter = {
+                                        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                                        method: "GET",
+                                        responseType: "application/json",
+                                    };
 
-                                var promise = axios(Parameter);
+                                    var promise = axios(Parameter);
 
-                                promise.then(function (result) {
-                                    var data = result.data;
-                                    var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                                    renderDistricts(selectedCity.Districts);
-                                    selectDistrictOption(selectedCity.Districts);
-                                    selectWardOption(selectedCity.Districts);
-                                });
+                                    promise.then(function (result) {
+                                        var data = result.data;
+                                        var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                                        renderDistricts(selectedCity.Districts);
+                                        selectDistrictOption(selectedCity.Districts);
+                                        selectWardOption(selectedCity.Districts);
+                                    });
 
-                                function renderDistricts(districtsData) {
-                                    for (const district of districtsData) {
-                                        districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                                    function renderDistricts(districtsData) {
+                                        for (const district of districtsData) {
+                                            districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                                        }
+
+                                        districts.onchange = function () {
+                                            wards.length = 1;
+                                            const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                                            if (this.value !== "") {
+                                                for (const ward of selectedDistrict.Wards) {
+                                                    wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                                                }
+                                            }
+                                        };
                                     }
 
-                                    districts.onchange = function () {
-                                        wards.length = 1;
-                                        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
-                                        if (this.value !== "") {
-                                            for (const ward of selectedDistrict.Wards) {
-                                                wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                                    function selectDistrictOption(districtsData) {
+                                        for (let i = 0; i < districtsData.length; i++) {
+                                            if (districtsData[i].Name === 'Huyện Thạch Thất') {
+                                                districts.options[i + 1].selected = true;
+                                                simulateEvent(districts, 'change');
+                                                break;
                                             }
                                         }
-                                    };
-                                }
+                                    }
 
-                                function selectDistrictOption(districtsData) {
-                                    for (let i = 0; i < districtsData.length; i++) {
-                                        if (districtsData[i].Name === 'Huyện Thạch Thất') {
-                                            districts.options[i + 1].selected = true;
-                                            simulateEvent(districts, 'change');
-                                            break;
+                                    function selectWardOption(districtsData) {
+                                        const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+                                        for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                                            if (selectedDistrict.Wards[i].Name === '${ward}') {
+                                                wards.options[i + 1].selected = true;
+                                                simulateEvent(wards, 'change');
+                                                break;
+                                            }
                                         }
                                     }
-                                }
 
-                                function selectWardOption(districtsData) {
-                                    const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                                    for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                                        if (selectedDistrict.Wards[i].Name === '${ward}') {
-                                            wards.options[i + 1].selected = true;
-                                            simulateEvent(wards, 'change');
-                                            break;
-                                        }
+                                    function simulateEvent(element, eventName) {
+                                        var event = new Event(eventName);
+                                        element.dispatchEvent(event);
                                     }
-                                }
 
-                                function simulateEvent(element, eventName) {
-                                    var event = new Event(eventName);
-                                    element.dispatchEvent(event);
-                                }
+                                    var form = document.getElementById('create-post');
+                                    form.addEventListener('submit', function (event) {
+                                        event.preventDefault();
 
-                                var form = document.getElementById('create-post');
-                                form.addEventListener('submit', function (event) {
-                                    event.preventDefault();
+                                        var formData = new FormData(form);
 
-                                    var formData = new FormData(form);
+                                        var xhr = new XMLHttpRequest();
 
-                                    var xhr = new XMLHttpRequest();
+                                        xhr.open('POST', 'CreatePost2', true);
 
-                                    xhr.open('POST', 'CreatePost2', true);
+                                        xhr.onload = function () {
+                                            if (xhr.status >= 200 && xhr.status < 300) {
+                                                const modal = document.getElementById('create-post-modal');
+                                                modal.classList.remove('is-active');
+                                                console.log('Success', xhr.responseText);
+                                                var form = document.getElementById('create-post');
+                                                form.reset();
+                                                iziToast.show({
+                                                    maxWidth: "280px",
+                                                    class: "success-toast",
+                                                    icon: "mdi mdi-error",
+                                                    title: "",
+                                                    message: "Create post successfully",
+                                                    titleColor: "#fff",
+                                                    messageColor: "#fff",
+                                                    iconColor: "#fff",
+                                                    backgroundColor: "#60c032",
+                                                    progressBarColor: "#0062ff",
+                                                    position: "bottomRight",
+                                                    transitionIn: "fadeInUp",
+                                                    close: false,
+                                                    timeout: 1800,
+                                                    zindex: 99999
+                                                });
+                                            } else {
+                                                const modal = document.getElementById('create-post-modal');
+                                                modal.classList.remove('is-active');
+                                                console.log('Success', xhr.responseText);
+                                                var form = document.getElementById('create-post');
+                                                iziToast.show({
+                                                    maxWidth: "280px",
+                                                    class: "success-toast",
+                                                    icon: "mdi mdi-error",
+                                                    title: "",
+                                                    message: "Create post failed",
+                                                    titleColor: "#fff",
+                                                    messageColor: "#fff",
+                                                    iconColor: "#fff",
+                                                    backgroundColor: "#FF0000",
+                                                    progressBarColor: "#0062ff",
+                                                    position: "bottomRight",
+                                                    transitionIn: "fadeInUp",
+                                                    close: false,
+                                                    timeout: 1800,
+                                                    zindex: 99999
+                                                });
+                                            }
+                                        };
 
-                                    xhr.onload = function () {
-                                        if (xhr.status >= 200 && xhr.status < 300) {
-                                            const modal = document.getElementById('create-post-modal');
-                                            modal.classList.remove('is-active'); 
-                                            console.log('Success', xhr.responseText);
-                                            var form = document.getElementById('create-post');
-                                            form.reset();
-                                            iziToast.show({
-                                                maxWidth: "280px",
-                                                class: "success-toast",
-                                                icon: "mdi mdi-error",
-                                                title: "",
-                                                message: "Create post successfully",
-                                                titleColor: "#fff",
-                                                messageColor: "#fff",
-                                                iconColor: "#fff",
-                                                backgroundColor: "#60c032",
-                                                progressBarColor: "#0062ff",
-                                                position: "bottomRight",
-                                                transitionIn: "fadeInUp",
-                                                close: false,
-                                                timeout: 1800,
-                                                zindex: 99999
-                                            });
-                                        } else {
-                                            const modal = document.getElementById('create-post-modal');
-                                            modal.classList.remove('is-active'); 
-                                            console.log('Success', xhr.responseText);
-                                            var form = document.getElementById('create-post');
-                                            iziToast.show({
-                                                maxWidth: "280px",
-                                                class: "success-toast",
-                                                icon: "mdi mdi-error",
-                                                title: "",
-                                                message: "Create post failed",
-                                                titleColor: "#fff",
-                                                messageColor: "#fff",
-                                                iconColor: "#fff",
-                                                backgroundColor: "#60c032",
-                                                progressBarColor: "#0062ff",
-                                                position: "bottomRight",
-                                                transitionIn: "fadeInUp",
-                                                close: false,
-                                                timeout: 1800,
-                                                zindex: 99999
-                                            });
-                                        }
-                                    };
+                                        xhr.onerror = function () {
+                                            console.error('Request failed');
+                                        };
 
-                                    xhr.onerror = function () {
-                                        console.error('Request failed');
-                                    };
-
-                                    xhr.send(formData);
-                                });
+                                        xhr.send(formData);
+                                    });
 
 
 
