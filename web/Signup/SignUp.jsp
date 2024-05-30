@@ -1,7 +1,7 @@
 <%-- 
     Document   : SignUp
     Created on : May 16, 2024, 2:58:44 PM
-    Author     : Binhtran
+    Author     : Anhnh
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

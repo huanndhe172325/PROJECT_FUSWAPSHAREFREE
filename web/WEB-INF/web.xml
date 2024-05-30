@@ -8,6 +8,7 @@
         <servlet-name>Signup</servlet-name>
         <servlet-class>Controllers.LoginSystem.Signup</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>HomePage</servlet-name>
         <servlet-class>Controllers.HomePage.HomePage</servlet-class>
@@ -48,10 +49,28 @@
         <servlet-name>CreatePost2</servlet-name>
         <servlet-class>Controllers.HomePage.CreatePost2</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>manageUsers</servlet-name>
+        <servlet-class>Controllers.HomePage.ManageUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>Controllers.HomePage.EditUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>adminHome</servlet-name>
+        <servlet-class>Controllers.HomePage.adminHome</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>adminHome</servlet-name>
+        <url-pattern>/adminHome</url-pattern>
+    </servlet-mapping>
+    
+    
     <servlet-mapping>
         <servlet-name>Preview</servlet-name>
         <url-pattern>/Preview</url-pattern>
@@ -84,10 +103,7 @@
         <servlet-name>Signup</servlet-name>
         <url-pattern>/Signup</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ManageAccount</servlet-name>
-        <url-pattern>/ManageAccount</url-pattern>
-    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>UpdateProfileServlet</servlet-name>
         <url-pattern>/updateprofile</url-pattern>
@@ -99,6 +115,16 @@
     <servlet-mapping>
         <servlet-name>CreatePost2</servlet-name>
         <url-pattern>/CreatePost2</url-pattern>
+    </servlet-mapping>
+    `
+    
+    <servlet-mapping>
+        <servlet-name>manageUsers</servlet-name>
+        <url-pattern>/manageUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/EditAccount</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>
