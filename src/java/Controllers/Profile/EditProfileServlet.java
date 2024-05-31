@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -84,13 +85,18 @@ public class EditProfileServlet extends HttpServlet {
         String district = request.getParameter("district");
         String commune = request.getParameter("commune");
         String snumber = request.getParameter("snumber");
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser != null && Integer.parseInt(id) == currentUser.getUserID()) {
+            DAOProfile db = new DAOProfile();
+            User u = db.getUserbyId(Integer.parseInt(id));
 
-        DAOProfile db = new DAOProfile();
-        User u = db.getUserbyId(Integer.parseInt(id));
-
-        db.UpdateProfile(name, email, phone,avatarUrl, district, commune, snumber, id);
-        request.setAttribute("msg", "Update profile successfull");
-        request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
+            db.UpdateProfile(name, email, phone, avatarUrl, district, commune, snumber, id);
+            request.setAttribute("msg", "Update profile successfull");
+            request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "You are not authorized to edit this profile.");
+        }
 
     }
 
