@@ -4,6 +4,8 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOLoginSystem;
+import DAL.DAOManageUser;
 import DAL.DAOSignup;
 import Model.User;
 import java.io.IOException;
@@ -13,14 +15,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author admin
- */
+ */ 
 @WebServlet(name = "ManageAccount", urlPatterns = {"/ManageAccount"})
-public class ManageAccount extends HttpServlet {
+public class ManageUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,16 +34,11 @@ public class ManageAccount extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOLoginSystem dao= new DAOLoginSystem();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            DAOSignup dbs = new DAOSignup();
-            List<User> users = dbs.getAllAccount();
-            request.setAttribute("users", users);
-            request.getRequestDispatcher("HomePage/ManageAccount.jsp").forward(request, response);
-        }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -55,7 +53,14 @@ public class ManageAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       
+             
+ 
+       DAOManageUser dao = new DAOManageUser();
+       ArrayList<User> users = new ArrayList<>();
+       users = dao.getAllUsers();
+       request.setAttribute("users", users);
+       request.getRequestDispatcher("HomePage/manageUser.jsp").forward(request, response);
     }
 
     /**

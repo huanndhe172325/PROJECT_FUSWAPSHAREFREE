@@ -68,6 +68,80 @@
         <!-- Core CSS -->
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const openModalBtn = document.getElementById('open-modal-btn');
+                const modal = document.getElementById('create-post-modal');
+
+                openModalBtn.addEventListener('click', () => {
+                    modal.classList.add('is-active');
+                });
+            });
+            var districts = document.getElementById("district");
+            var wards = document.getElementById("ward");
+            var selectedCityValue = 'Thành phố Hà Nội';
+
+            var Parameter = {
+                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                method: "GET",
+                responseType: "application/json",
+            };
+
+            var promise = axios(Parameter);
+
+            promise.then(function (result) {
+                var data = result.data;
+                var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                renderDistricts(selectedCity.Districts);
+                selectDistrictOption(selectedCity.Districts);
+                selectWardOption(selectedCity.Districts);
+            });
+
+            function renderDistricts(districtsData) {
+                for (const district of districtsData) {
+                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                }
+
+                districts.onchange = function () {
+                    wards.length = 1;
+                    const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                    if (this.value !== "") {
+                        for (const ward of selectedDistrict.Wards) {
+                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                        }
+                    }
+                };
+            }
+
+            function selectDistrictOption(districtsData) {
+                for (let i = 0; i < districtsData.length; i++) {
+                    if (districtsData[i].Name === '${district}') {
+                        districts.options[i + 1].selected = true;
+                        simulateEvent(districts, 'change');
+                        break;
+                    }
+                }
+            }
+
+            function selectWardOption(districtsData) {
+                const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                    if (selectedDistrict.Wards[i].Name === '${ward}') {
+                        wards.options[i + 1].selected = true;
+                        simulateEvent(wards, 'change');
+                        break;
+                    }
+                }
+            }
+
+            // Function to simulate change event
+            function simulateEvent(element, eventName) {
+                var event = new Event(eventName);
+                element.dispatchEvent(event);
+            }
+
+        </script>
     </head>
 
     <body>
@@ -428,6 +502,56 @@
                         </div>
                     </div>
 
+                    <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
+                        <div class="modal-background"></div>
+                        <div class="modal-content">
+                            <div class="card">
+                                <div class="card-heading">
+
+                                    <!-- Close X button -->
+                                    <div class="close-wrap">
+                                        <span class="close-modal">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="control">
+                                        <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
+
+                                            <div id="addNewSnippet" style="margin-top: 10px;">
+                                                <div class="input-container" style="display: inline-block; width: 49%;">
+                                                    <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                                        <option value="" selected="">Select district</option>
+                                                        <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
+                                                </div>
+                                                <div class="input-container" style="display: inline-block; width: 50%;">
+                                                    <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                                        <option value="" selected="">Select Ward</option>
+                                                        <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
+                                                </div>
+                                                <div class="input-container">
+                                                    <label>Street number</label>
+                                                    <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
+                                                </div>
+                                            </div>
+
+                                            <input type="submit" id="submit-create-post" style="display : none;" value="Submit">
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="button-wrap" style="width: 98%;">
+                                        <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
+                                            Change Location
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="account-dropdown" class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image">
                             <img src="https://via.placeholder.com/400x400" data-demo-src="${profile.avatarUrl}" alt="" />
@@ -549,7 +673,7 @@
                                 <div class="cover-bg">
                                     <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />
                                     <div class="avatar" style="margin-bottom: 60px;">
-                                        <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="${profile.avatarUrl}" alt="" />
+                                        <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="${profile.getAvatarUrl()}" alt="" />
                                         <div class="avatar-button">
                                             <i data-feather="plus"></i>
                                         </div>
@@ -949,7 +1073,7 @@
         <!-- map page js -->
 
         <!-- elements page js -->
-
+       
     </body>
 
 

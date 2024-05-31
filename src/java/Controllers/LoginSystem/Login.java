@@ -102,7 +102,11 @@ public class Login extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("userInfo", userInfo);
                     session.setAttribute("loginsuccess", true);
+                    if(userInfo.getRoleID()==1){
                     response.sendRedirect("HomePage");
+                    } else if(userInfo.getRoleID() == 2){
+                        response.sendRedirect("adminHome");
+                    }
                 } else {
 
                     PasswordReset passwordResetInfo = daoLogin.getPasswordResetByUserName(userName);
