@@ -45,7 +45,7 @@
                         </div>
                         <div class="hero-body">
                             <div class="form-wrapper">
-                                <form action="changepassword" method="POST">
+                                <form action="changepassword" method="POST" onsubmit="return validatePassword()">
                                     <div class="login-form">
                                         <div class="field">
                                             <div class="control">
