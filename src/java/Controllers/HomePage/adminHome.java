@@ -4,8 +4,6 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOSignup;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,8 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name = "EditAccount", urlPatterns = {"/EditAccount"})
-public class EditAccount extends HttpServlet {
+@WebServlet(name = "adminHome", urlPatterns = {"/adminHome"})
+public class adminHome extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,24 +31,18 @@ public class EditAccount extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-      User u = new User();
-       u.setUserID(Integer.parseInt(request.getParameter("id")));
-        u.setEmail(request.getParameter("email"));
-                u.setPhone(request.getParameter("phone"));
-
-                u.setPassWord(request.getParameter("pass"));
-                
-                u.setUserName(request.getParameter("user"));
-                u.setFull_Name(request.getParameter("fname"));
-                u.setDistrict(request.getParameter("district"));
-                u.setCommune(request.getParameter("commune"));
-                u.setStreetNumber(request.getParameter("Strnumbet"));
-                u.setPoint(Integer.parseInt(request.getParameter("point")));
-                u.setRoleID(2);
-                u.setStatusID(Integer.parseInt(request.getParameter("status")));
-                DAOSignup dbs = new DAOSignup();
-                dbs.updateAccount(u);
-                response.sendRedirect("ManageAcount");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet adminHome</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet adminHome at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,7 +57,7 @@ public class EditAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       request.getRequestDispatcher("HomePage/adminHome.jsp").forward(request, response);
     }
 
     /**
