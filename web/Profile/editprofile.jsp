@@ -24,7 +24,25 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
-        <title>JSP Page</title>
+        
+        <script>
+            ;
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                })
+                var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s),
+                        dl = l != 'dataLayer' ? '&l=' + l : ''
+                j.async = true
+                j.src = '../www.googletagmanager.com/gtm5445.html?id=' + i + dl
+                f.parentNode.insertBefore(j, f)
+            })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
+        </script>
+
+        
         <style>
             body {
                 background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url(img/bg-hero.jpg);
@@ -93,12 +111,10 @@
                                 <div class="col-md-12"><label class="labels">Points</label><input name="points" type="text" class="form-control" readonly value="${profile.getPoint()}"></div>
                                 <div class="col-md-12"><label class="labels">ID</label><input name="id" type="text" class="form-control" readonly value="${profile.getUserID()}"></div>
                                 <div class="col-md-12"><label class="labels">Username</label><input name="user" type="text" class="form-control" readonly value="${profile.getUserName()}"></div>                          
-                                <div class="col-md-12"><label class="labels">Name</label><input name="name" type="text" class="form-control"  value="${profile.getFull_Name()}"></div>
+                                <div class="col-md-12"><label class="labels">Full Name</label><input name="name" type="text" class="form-control"  value="${profile.getFull_Name()}"></div>
                                 <div class="col-md-12"><label class="labels">Email</label><input  name="email" type="text" class="form-control"  value="${profile.getEmail()}"></div>
                                 <div class="col-md-12"><label class="labels">Phone Number</label><input name="phone" type="text" class="form-control" value="${profile.getPhone()}"></div>
-                                <div class="col-md-12"><label class="labels">District</label><input name="district" type="text" class="form-control" value="${profile.getDistrict()}"></div>                 
-                                <div class="col-md-12"><label class="labels">Commune</label><input name="commune" type="text" class="form-control" value="${profile.getCommune()}"></div>                 
-                                <div class="col-md-12"><label class="labels">StreetNumber</label><input name="snumber" type="text" class="form-control" value="${profile.getStreetNumber()}"></div>                 
+                                    
                             </div>
                             <p>${msg}</p>
                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
