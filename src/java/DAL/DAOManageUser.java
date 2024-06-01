@@ -22,7 +22,36 @@ import java.util.logging.Logger;
 public class DAOManageUser extends DBContext {
 
 
-
+     public ArrayList<User> getAllUser() {
+        ArrayList<User> listUser = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [User]";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setUserID(rs.getInt("UserID"));
+                user.setEmail(rs.getString("Email"));
+                user.setPhone(rs.getString("Phone"));
+                user.setAvatarUrl(rs.getString("AvatarUrl"));
+                user.setPassWord(rs.getString("PassWord"));
+                user.setJoinDate(rs.getString("JoinDate"));
+                user.setUserName(rs.getString("UserName"));
+                user.setFull_Name(rs.getString("Full_Name"));
+                user.setDistrict(rs.getString("District"));
+                user.setCommune(rs.getString("Commune"));
+                user.setStreetNumber(rs.getString("StreetNumber"));
+                user.setPoint(rs.getInt("Point"));
+                user.setRoleID(rs.getInt("RoleID"));
+                user.setStatusID(rs.getInt("StatusID"));
+                listUser.add(user);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listUser;
+    }
     public ArrayList<User> getUsersInSameDistrict(String district) {
     ArrayList<User> users = new ArrayList<>();
     String sql = "SELECT * FROM [User] WHERE District = ?";
