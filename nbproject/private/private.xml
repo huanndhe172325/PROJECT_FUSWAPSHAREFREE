@@ -15,17 +15,16 @@
         <group name="PRJ301">
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/ManageLocation.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/Profile/profile.jsp</file>
-            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
-            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/WEB-INF/web.xml</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Model/User.java</file>
-            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOLoginSystem.java</file>
+            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/Profile/test.jsp</file>
+            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/CreatePost2.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManagePost.java</file>
-            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOProfile.java</file>
+            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/Profile/ProfileServlet.java</file>
-            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/EditAccount.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOSignup.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
+            <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/ForgotPassword/ForgotPassword.jsp</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/Profile/EditProfileServlet.java</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/web/Profile/editprofile.jsp</file>
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>

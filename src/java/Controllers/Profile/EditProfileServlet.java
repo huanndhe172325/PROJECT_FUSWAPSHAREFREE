@@ -87,16 +87,14 @@ public class EditProfileServlet extends HttpServlet {
         String snumber = request.getParameter("snumber");
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("currentUser");
-        if (currentUser != null && Integer.parseInt(id) == currentUser.getUserID()) {
+        
             DAOProfile db = new DAOProfile();
             User u = db.getUserbyId(Integer.parseInt(id));
 
             db.UpdateProfile(name, email, phone, avatarUrl, district, commune, snumber, id);
             request.setAttribute("msg", "Update profile successfull");
-            request.getRequestDispatcher("Profile/editprofile.jsp").forward(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "You are not authorized to edit this profile.");
-        }
+            response.sendRedirect("HomePage");
+        
 
     }
 

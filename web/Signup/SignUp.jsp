@@ -136,16 +136,18 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <select  name="city" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
-                                                    <option value=""  selected>Chọn tỉnh thành</option>           
-                                                </select> 
+
                                                 <select name="district" type="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-                                                    <option value="" selected>Chọn quận huyện</option>
+                                                    <option value="" selected="">Select district</option>
+                                                    <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option>
                                                 </select>  
+                                                  
                                                 <select name="commune" type="commune" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
-                                                    <option value="" selected>Chọn phường xã</option>
-                                                </select>   
+                                                    <option value="" selected="">Select Ward</option>
+                                                    <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option>
+                                                </select>
                                                 
+
 
                                                 <div class="column is-12">
                                                     <div class="field">
@@ -183,10 +185,9 @@
 
 
         <script>
-            var cities = document.getElementById("city");
             var districts = document.getElementById("district");
             var wards = document.getElementById("ward");
-            var selectedCityValue = '${city}'; // Replace with the actual value of the selected city
+            var selectedCityValue = 'Thành phố Hà Nội';
 
             var Parameter = {
                 url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
@@ -197,73 +198,49 @@
             var promise = axios(Parameter);
 
             promise.then(function (result) {
-                renderCity(result.data);
-                selectCityOption(result.data);
-                selectDistrictOption(result.data);
-                selectWardOption(result.data);
+                var data = result.data;
+                var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                renderDistricts(selectedCity.Districts);
+                selectDistrictOption(selectedCity.Districts);
+                selectWardOption(selectedCity.Districts);
             });
 
-            function selectCityOption(data) {
-                for (let i = 0; i < cities.options.length; i++) {
-                    if (cities.options[i].value === selectedCityValue) {
-                        cities.options[i].selected = true;
-                        // Trigger change event to populate districts and wards
-                        simulateEvent(cities, 'change');
-                        break;
-                    }
+            function renderDistricts(districtsData) {
+                for (const district of districtsData) {
+                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
                 }
+
+                districts.onchange = function () {
+                    wards.length = 1;
+                    const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                    if (this.value !== "") {
+                        for (const ward of selectedDistrict.Wards) {
+                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                        }
+                    }
+                };
             }
-            function selectDistrictOption(data) {
-                const selectedCity = data.find((city) => city.Name === selectedCityValue);
-                for (let i = 0; i < selectedCity.Districts.length; i++) {
-                    if (selectedCity.Districts[i].Name === '${district}') {
-                        districts.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn quận huyện" option
+
+            function selectDistrictOption(districtsData) {
+                for (let i = 0; i < districtsData.length; i++) {
+                    if (districtsData[i].Name === '${district}') {
+                        districts.options[i + 1].selected = true;
                         simulateEvent(districts, 'change');
                         break;
                     }
                 }
             }
 
-            function selectWardOption(data) {
-                const selectedCity = data.find((city) => city.Name === selectedCityValue);
-                const selectedDistrict = selectedCity.Districts.find((district) => district.Name === '${district}');
+            function selectWardOption(districtsData) {
+                const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
                 for (let i = 0; i < selectedDistrict.Wards.length; i++) {
                     if (selectedDistrict.Wards[i].Name === '${ward}') {
-                        wards.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn phường xã" option
+                        wards.options[i + 1].selected = true;
                         simulateEvent(wards, 'change');
                         break;
                     }
                 }
-            }
-            function renderCity(data) {
-                for (const city of data) {
-                    cities.options[cities.options.length] = new Option(city.Name, city.Name); // Use "Name" as both value and text.
-                }
-
-                cities.onchange = function () {
-                    districts.length = 1;
-                    wards.length = 1;
-
-                    if (this.value !== "") {
-                        const selectedCity = data.find((city) => city.Name === this.value);
-
-                        for (const district of selectedCity.Districts) {
-                            districts.options[districts.options.length] = new Option(district.Name, district.Name); // Use "Name" as both value and text.
-                        }
-                    }
-                };
-
-                districts.onchange = function () {
-                    wards.length = 1;
-                    const selectedCity = data.find((city) => city.Name === cities.value);
-                    const selectedDistrict = selectedCity.Districts.find((district) => district.Name === this.value);
-
-                    if (this.value !== "") {
-                        for (const ward of selectedDistrict.Wards) {
-                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name); // Use "Name" as both value and text.
-                        }
-                    }
-                };
             }
 
             // Function to simulate change event
