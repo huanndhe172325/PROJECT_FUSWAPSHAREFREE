@@ -73,23 +73,7 @@ public class HomePage extends HttpServlet {
         String district = userInfor.getDistrict();
         ArrayList<User> listUserDistrict = daoManagerUser.getUsersInSameDistrict(district);
         ArrayList<User> listUserRanking = daoManagerUser.getListUserRanking();
-
-        String district = "";
-        if (userInfo_raw != null) {
-            user = (User) userInfo_raw;
-            district = daoGetUserNearMe.getDistrict(user.getUserID());
-
-            if (district != null) {
-                usersInSameDistrict = daoGetUserNearMe.getUsersInSameDistrict(district);
-            }
-        }
-        DAOManageUser dao1 = new DAOManageUser();
-        List<User> listPoint = dao1.getAllUsersSortedByPoint();
-
         DAOManagePost dao = new DAOManagePost();
-
-        User userInfor = dao.getUserIdByUserId(userInfo_raw.getUserID());
-
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         ArrayList<Post> listPost = dao.getAllPost();
