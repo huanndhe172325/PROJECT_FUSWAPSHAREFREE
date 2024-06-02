@@ -4,26 +4,17 @@
  */
 package Controllers.LoginSystem;
 
-import DAL.DAOLoginSystem;
-import DAL.DAOSignup;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import org.eclipse.jdt.core.compiler.CharOperation;
 
 /**
  *
- * @author admin
+ * @author Binhtran
  */
-@WebServlet(name = "Signup", urlPatterns = {"/Signup"})
 public class Signup extends HttpServlet {
 
     /**
@@ -43,13 +34,12 @@ public class Signup extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterController</title>");
+            out.println("<title>Servlet Signup</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Signup at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-
         }
     }
 
@@ -76,46 +66,20 @@ public class Signup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    DAOSignup dao = new DAOSignup();
-    DAOLoginSystem daoLogin = new DAOLoginSystem();
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        /* TODO output your page here. You may use following sample code. */
+        String fullname = request.getParameter("fullname");
+        String username = request.getParameter("username");
+        String district = request.getParameter("district");
+        String ward = request.getParameter("ward");
+        String streetnumber = request.getParameter("streetnumber");
         String email = request.getParameter("email");
-        String Phone = request.getParameter("phone");
-        String pass = request.getParameter("pass");
-        String repass = request.getParameter("repass");
-        String userName = request.getParameter("username");
-        String Fname = request.getParameter("fname");
-        String District = request.getParameter("district");
-        String Commune = request.getParameter("commune");
-        String StreetNumber = request.getParameter("streetnumber");
+        String password = request.getParameter("password");
+        String repeatpassword = request.getParameter("repeatpassword");
+        String phone = request.getParameter("phone");
 
-        ArrayList<User> listUser = daoLogin.getAllUser();
-        if (Fname.equals("") || email.equals("") || pass.equals("") || repass.equals("") || userName.equals("") || Phone.equals("") || District.equals("") || Commune.equals("") || StreetNumber.equals("")) {
-            request.setAttribute("mess", "Please fill all blank");
-            request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
-        } else {
-            if (!pass.equals(repass)) {
-                request.setAttribute("mess", "Pass and repass does not match!");
-                request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
-            } else {
-                if (daoLogin.checkUserNameExits(userName, listUser)) {
-                    request.setAttribute("mess", "This username already exist");
-                    request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
-                } else {
-                    if (pass.equals(repass)) {
-                        dao.insertAccount(email, Phone, pass, userName, Fname, District, Commune, StreetNumber);
-                        request.setAttribute("mess", "Register successful please login!!");
-                        request.getRequestDispatcher("Login/login.jsp").forward(request, response);
-                    }
-                }
-            }
-        }
-
+        
     }
 
     /**

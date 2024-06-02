@@ -1,7 +1,7 @@
 <%-- 
     Document   : SignUp
     Created on : May 16, 2024, 2:58:44 PM
-    Author     : Anhnh
+    Author     : Binhtran
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,7 +20,42 @@
 
         <title>Friendkit | Sign Up</title>
         <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
+        <style>
+            @media screen and (min-width: 769px), print {
+                .columns:not(.is-desktop) {
+                    display: flex;
+                    justify-content: center;
+                }
+            }
 
+            .form-select {
+                width: 100%;
+                padding: 0.5rem;
+                font-size: 1rem;
+                line-height: 1.5;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #d1d5db;
+                border-radius: 0.375rem;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+            .form-select:focus {
+                border-color: #6366f1;
+                outline: 0;
+                box-shadow: 0 0 0 0.25rem rgba(66, 153, 225, 0.25);
+            }
+
+            .form-select option {
+                padding: 0.5rem;
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
+            .input-container {
+                margin-bottom: 1rem;
+            }
+        </style>
         <!-- Google Tag Manager -->
         <script>
             ;
@@ -39,8 +74,10 @@
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
 
 
-            }
+
         </script>
+
+
 
         <!-- End Google Tag Manager -->
 
@@ -63,219 +100,199 @@
 
         <div class="signup-wrapper">
             <div class="fake-nav">
-                <a href="Preview" class="logo">
+                <a href="index.html" class="logo">
                     <img src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
                 </a>
             </div>
 
-            <div class="signup-wrapper">
-                <!--Fake navigation-->
-
-
-                <div class="container">
-                    <!--Container-->
-                    <div class="login-container is-centered">
-                        <div class="columns is-vcentered">
-                            <div class="column">
-
-                                <h3 class="form-subtitle has-text-centered">
-                                    Lets create your account.
-                                </h3>
-
-                                <!--Form-->
-                                <form action="Signup" method="POST">
-                                    <div class="login-form">
-                                        <p class="text-white-50 mb-5"><%=request.getAttribute("mess")!=null?request.getAttribute("mess"):""%></p>
-                                        <div class="form-panel">
-                                            <div class="columns is-multiline">
-                                                <div class="column is-6">
-                                                    <div class="field">
-                                                        <label class="form-label" for="typeFullNameX">Full Name</label>
-                                                        <div class="control">
-                                                            <input name="fname" type="fname" id="typeFullNameX" class="input" placeholder="Enter your Full Name" value=""/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="column is-6">
-                                                    <div class="field">
-                                                        <label>Username</label>
-                                                        <div class="control">
-                                                            <input name="username" type="username" id="typeUserNameX" class="input" placeholder="Enter your Username" value=""/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="column is-6">
-                                                    <div class="field">
-                                                        <label>Password</label>
-                                                        <div class="control">
-                                                            <input name="pass" type="password" id="TypePasswordX" class="input" placeholder="Enter your password" value=""/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="column is-6">
-                                                    <div class="field">
-                                                        <label>Re-password</label>
-                                                        <div class="control">
-                                                            <input name="repass" type="password" id="TypePasswordX" class="input" placeholder="Enter your Re-password" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="column is-12">
-                                                    <div class="field">
-                                                        <label>Email</label>
-                                                        <div class="control">
-                                                            <input name="email" type="email" id="typeEmailX" class="input" placeholder="Enter your email address" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="column is-12">
-                                                    <div class="field">
-                                                        <label>Phone</label>
-                                                        <div class="control">
-                                                            <input name="phone"type="phone" id="typePhoneX" class="input" placeholder="Enter your Phone" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <select  name="city" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
-                                                    <option value=""  selected>Chọn tỉnh thành</option>           
-                                                </select> 
-                                                <select name="district" type="district"  class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-                                                    <option value="" selected>Chọn quận huyện</option>
-                                                </select>  
-                                                <select name="commune" type="commune" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
-                                                    <option value="" selected>Chọn phường xã</option>
-                                                </select>   
-                                                
-
-                                                <div class="column is-12">
-                                                    <div class="field">
-                                                        <label>Streetnumber</label>
-                                                        <div class="control">
-                                                            <input name="streetnumber"type="streetnumber" id="typeStreetnumberX" class="input" placeholder="Enter your Streetnumber" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <button class="buttons mt-2" type="submit">
-                                            <a class="button is-solid primary-button is-fullwidth raised" >Create Account</a>
-                                        </button>
-
-
-                                    </div>
-                                </form>
-                                <div class="account-link has-text-centered">
-                                    <a href="Login">Have an account? Sign In</a>
-                                </div>
-                            </div>
+            <div class="process-bar-wrap">
+                <div class="process-bar">
+                    <div class="progress-wrap">
+                        <div class="track"></div>
+                        <div class="bar"></div>
+                        <div id="step-dot-1" class="dot is-first is-active is-current" data-step="0">
+                            <i data-feather="smile"></i>
+                        </div>
+                        <div id="step-dot-2" class="dot is-second" data-step="25">
+                            <i data-feather="user"></i>
+                        </div>
+                        <div id="step-dot-3" class="dot is-third" data-step="50">
+                            <i data-feather="image"></i>
+                        </div>
+                        <div id="step-dot-4" class="dot is-fourth" data-step="75">
+                            <i data-feather="lock"></i>
+                        </div>
+                        <div id="step-dot-5" class="dot is-fifth" data-step="100">
+                            <i data-feather="flag"></i>
                         </div>
                     </div>
                 </div>
-
             </div>
+            <form action="signup" method="POST">
+                <div class="outer-panel">
+                    <div class="outer-panel-inner">
+                        <div class="process-title">
+                            <h2 id="step-title-1" class="step-title is-active">
+                                Welcome, select an account type.
+                            </h2>
+                            <h2 id="step-title-2" class="step-title">Tell us more about you.</h2>
+                            <h2 id="step-title-3" class="step-title">Upload a profile picture.</h2>
+                            <h2 id="step-title-4" class="step-title">Secure your account.</h2>
+                            <h2 id="step-title-5" class="step-title">You're all set. Ready?</h2>
+                        </div>
+
+                        <div id="signup-panel-1" class="process-panel-wrap is-active">
+                            <div class="columns mt-4">
+
+                                <div class="column is-4">
+                                    <div class="account-type">
+                                        <div class="type-image">
+                                            <img class="type-illustration" src="assets/img/illustrations/signup/type-2.svg" alt="" />
+                                            <img class="type-bg light-image" src="assets/img/illustrations/signup/type-2-bg.svg" alt="" />
+                                            <img class="type-bg dark-image" src="assets/img/illustrations/signup/type-2-bg-dark.svg" alt="" />
+                                        </div>
+                                        <h3>Public Person</h3>
+                                        <p>Create a public account to be able to do some awesome things.</p>
+                                        <a class="button is-fullwidth process-button" data-step="step-dot-2">
+                                            Continue
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="signup-panel-2" class="process-panel-wrap is-narrow">
+                            <div class="form-panel">
+                                <div class="field">
+                                    <label>Full Name</label>
+                                    <div class="control">
+                                        <input name="fullname"type="text" class="input" placeholder="Enter your full name" required=""/>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>User name</label>
+                                    <div class="control">
+                                        <input name="username" type="text" class="input" placeholder="Enter user name" required=""/>
+                                    </div>
+                                </div>
+                                <div id="addNewSnippet">
+                                    <div class="input-container">
+                                        <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                            <option value="" selected="">Select district</option>
+                                            <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
+                                    </div>
+                                    <div class="input-container">
+                                        <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                            <option value="" selected="">Select Ward</option>
+                                            <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Street Number</label>
+                                    <div class="control">
+                                        <input name="streetnumber" type="text" class="input" placeholder="Enter the street number" required=""/>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Email</label>
+                                    <div class="control">
+                                        <input name="streetnumber" type="text" class="input" placeholder="Enter email" required=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons">
+                                <a class="button process-button" data-step="step-dot-1">Back</a>
+                                <a class="button process-button is-next" data-step="step-dot-3">Next</a>
+                            </div>
+                        </div>
+                        <div id="signup-panel-3" class="process-panel-wrap is-narrow">
+                            <div class="form-panel">
+                                <div class="photo-upload">
+                                    <div class="preview">
+                                        <label for="imgPath" class="upload-button">
+                                            <i data-feather="plus"></i>
+                                        </label>
+                                        <input type="file" id="imgPath" name="imgPath" accept="image/*" class="is-hidden" required>
+                                        <img id="upload-preview" src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/avatar-w.png" alt="" />
+                                    </div>
+                                    <div class="limitation">
+                                        <small>Only images with a size lower than 3MB are allowed.</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="buttons">
+                                <a class="button process-button" data-step="step-dot-2">Back</a>
+                                <a class="button process-button is-next" data-step="step-dot-4">Next</a>
+                            </div>
+                        </div>
+
+                        <div id="signup-panel-4" class="process-panel-wrap is-narrow">
+                            <div class="form-panel">
+                                <div class="field">
+                                    <label>Password</label>
+                                    <div class="control">
+                                        <input type="password" class="input" placeholder="Choose a password" />
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Repeat Password</label>
+                                    <div class="control">
+                                        <input type="password" class="input" placeholder="Repeat your password" />
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Phone Number</label>
+                                    <div class="control">
+                                        <input type="text" class="input" placeholder="Enter your phone number" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="buttons">
+                                <a class="button process-button" data-step="step-dot-3">Back</a>
+                                <a class="button process-button is-next" data-step="step-dot-5">Next</a>
+                            </div>
+                        </div>
+
+                        <div id="signup-panel-5" class="process-panel-wrap is-narrow">
+                            <div class="form-panel">
+                                <img class="success-image" src="assets/img/illustrations/signup/mailbox.svg" alt="" />
+                                <div class="success-text">
+                                    <h3>Congratz, you successfully created your account.</h3>
+                                    <p>
+                                        We just sent you a confirmation email. PLease confirm your account
+                                        within 24 hours.
+                                    </p>
+                                    <button type="submit" class="button is-fullwidth">Let Me In</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+            <!--Edit Credit card Modal-->
+            <div id="crop-modal" class="modal is-small crop-modal is-animated">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="modal-card">
+                        <header class="modal-card-head">
+                            <h3>Crop your picture</h3>
+                            <div class="close-wrap">
+                                <button class="close-modal" aria-label="close">
+                                    <i data-feather="x"></i>
+                                </button>
+                            </div>
+                        </header>
+                        <div class="modal-card-body">
+                            <div id="cropper-wrapper" class="cropper-wrapper"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-
-        <!--Edit Credit card Modal-->
-
-
-
-        <script>
-            var cities = document.getElementById("city");
-            var districts = document.getElementById("district");
-            var wards = document.getElementById("ward");
-            var selectedCityValue = '${city}'; // Replace with the actual value of the selected city
-
-            var Parameter = {
-                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                method: "GET",
-                responseType: "application/json",
-            };
-
-            var promise = axios(Parameter);
-
-            promise.then(function (result) {
-                renderCity(result.data);
-                selectCityOption(result.data);
-                selectDistrictOption(result.data);
-                selectWardOption(result.data);
-            });
-
-            function selectCityOption(data) {
-                for (let i = 0; i < cities.options.length; i++) {
-                    if (cities.options[i].value === selectedCityValue) {
-                        cities.options[i].selected = true;
-                        // Trigger change event to populate districts and wards
-                        simulateEvent(cities, 'change');
-                        break;
-                    }
-                }
-            }
-            function selectDistrictOption(data) {
-                const selectedCity = data.find((city) => city.Name === selectedCityValue);
-                for (let i = 0; i < selectedCity.Districts.length; i++) {
-                    if (selectedCity.Districts[i].Name === '${district}') {
-                        districts.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn quận huyện" option
-                        simulateEvent(districts, 'change');
-                        break;
-                    }
-                }
-            }
-
-            function selectWardOption(data) {
-                const selectedCity = data.find((city) => city.Name === selectedCityValue);
-                const selectedDistrict = selectedCity.Districts.find((district) => district.Name === '${district}');
-                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                    if (selectedDistrict.Wards[i].Name === '${ward}') {
-                        wards.options[i + 1].selected = true; // Plus 1 to account for the initial "Chọn phường xã" option
-                        simulateEvent(wards, 'change');
-                        break;
-                    }
-                }
-            }
-            function renderCity(data) {
-                for (const city of data) {
-                    cities.options[cities.options.length] = new Option(city.Name, city.Name); // Use "Name" as both value and text.
-                }
-
-                cities.onchange = function () {
-                    districts.length = 1;
-                    wards.length = 1;
-
-                    if (this.value !== "") {
-                        const selectedCity = data.find((city) => city.Name === this.value);
-
-                        for (const district of selectedCity.Districts) {
-                            districts.options[districts.options.length] = new Option(district.Name, district.Name); // Use "Name" as both value and text.
-                        }
-                    }
-                };
-
-                districts.onchange = function () {
-                    wards.length = 1;
-                    const selectedCity = data.find((city) => city.Name === cities.value);
-                    const selectedDistrict = selectedCity.Districts.find((district) => district.Name === this.value);
-
-                    if (this.value !== "") {
-                        for (const ward of selectedDistrict.Wards) {
-                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name); // Use "Name" as both value and text.
-                        }
-                    }
-                };
-            }
-
-            // Function to simulate change event
-            function simulateEvent(element, eventName) {
-                var event = new Event(eventName);
-                element.dispatchEvent(event);
-            }
-            function sendback() {
-                window.location.href = "Preview";
-            }
-
-        </script>
         <!-- Concatenated js plugins and jQuery -->
         <script src="assets/js/app.js"></script>
         <script src="https://js.stripe.com/v3/"></script>
@@ -308,7 +325,83 @@
 
         <!-- Signup page js -->
         <script src="assets/js/signup.js"></script>
+        <script>
+            var districts = document.getElementById("district");
+            var wards = document.getElementById("ward");
+            var selectedCityValue = 'Thành phố Hà Nội';
 
+            var Parameter = {
+                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                method: "GET",
+                responseType: "application/json",
+            };
+
+            var promise = axios(Parameter);
+
+            promise.then(function (result) {
+                var data = result.data;
+                var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                renderDistricts(selectedCity.Districts);
+                selectDistrictOption(selectedCity.Districts);
+                selectWardOption(selectedCity.Districts);
+            });
+
+            function renderDistricts(districtsData) {
+                for (const district of districtsData) {
+                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                }
+
+                districts.onchange = function () {
+                    wards.length = 1;
+                    const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                    if (this.value !== "") {
+                        for (const ward of selectedDistrict.Wards) {
+                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                        }
+                    }
+                };
+            }
+
+            function selectDistrictOption(districtsData) {
+                for (let i = 0; i < districtsData.length; i++) {
+                    if (districtsData[i].Name === 'Huyện Thạch Thất') {
+                        districts.options[i + 1].selected = true;
+                        simulateEvent(districts, 'change');
+                        break;
+                    }
+                }
+            }
+
+            function selectWardOption(districtsData) {
+                const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                    if (selectedDistrict.Wards[i].Name === '${ward}') {
+                        wards.options[i + 1].selected = true;
+                        simulateEvent(wards, 'change');
+                        break;
+                    }
+                }
+            }
+
+            function simulateEvent(element, eventName) {
+                var event = new Event(eventName);
+                element.dispatchEvent(event);
+            }
+
+
+            document.getElementById('imgPath').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById('upload-preview').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+        </script>
         <!-- Feed pages js -->
 
         <!-- profile js -->
