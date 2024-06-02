@@ -113,8 +113,8 @@
                 </a>
             </div>
             <div class="dashboard-aside-end">
-                <a href="navbar-v1-profile-main.html" class="dashboard-aside-link">
-                    <img class="link-avatar" src="https://via.placeholder.com/400x400" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                <a href="Preview" class="dashboard-aside-link">
+                    <img class="link-avatar" src="https://via.placeholder.com/400x400" data-demo-src="${user.avatarUrl}" alt="" />
                 </a>
             </div>
         </div>
@@ -129,12 +129,8 @@
                     <thead>
                         <tr>
                             <th>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="selectAll">
-                                    <label for="selectAll"></label>
-                                </span>
+                                ID
                             </th>
-                            <th>ID</th>
                             <th>UserName</th>
                             <th>PassWord</th>
                             <th>Email</th>
@@ -142,6 +138,7 @@
                             <th>Full_Name</th>
                             <th>District</th>
                             <th>Point</th>
+                            <th>Status</th>
                             
               
                         </tr>
@@ -159,7 +156,19 @@
                                 <td>${c.district}</td>
                                 <td>${c.point}</td>
                               
-                                
+                                <td>
+
+                                    <c:choose>
+                                        <c:when test="${c.getStatusID()==1}">
+                                            <i class="bi bi-toggle-on"></i>
+                                        </c:when>    
+                                        <c:otherwise>
+                                            <i class="bi bi-toggle2-off"></i>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                <td>
+                                    <a href="EditAccount?UserID=${c.getUserID()}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                </tr>
                         </c:forEach>
                     </tbody>
@@ -167,7 +176,7 @@
                 
             </div>
             <a href="#">
-                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+               
 
 
 
