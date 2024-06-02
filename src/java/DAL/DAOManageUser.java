@@ -22,36 +22,6 @@ import java.util.logging.Logger;
 public class DAOManageUser extends DBContext {
 
 
-     public ArrayList<User> getAllUser() {
-        ArrayList<User> listUser = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM [User]";
-            PreparedStatement statement = connect.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
-                User user = new User();
-                user.setUserID(rs.getInt("UserID"));
-                user.setEmail(rs.getString("Email"));
-                user.setPhone(rs.getString("Phone"));
-                user.setAvatarUrl(rs.getString("AvatarUrl"));
-                user.setPassWord(rs.getString("PassWord"));
-                user.setJoinDate(rs.getString("JoinDate"));
-                user.setUserName(rs.getString("UserName"));
-                user.setFull_Name(rs.getString("Full_Name"));
-                user.setDistrict(rs.getString("District"));
-                user.setCommune(rs.getString("Commune"));
-                user.setStreetNumber(rs.getString("StreetNumber"));
-                user.setPoint(rs.getInt("Point"));
-                user.setRoleID(rs.getInt("RoleID"));
-                user.setStatusID(rs.getInt("StatusID"));
-                listUser.add(user);
-            }
-            rs.close();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return listUser;
-    }
     public ArrayList<User> getUsersInSameDistrict(String district) {
     ArrayList<User> users = new ArrayList<>();
     String sql = "SELECT * FROM [User] WHERE District = ?";
@@ -127,15 +97,24 @@ public class DAOManageUser extends DBContext {
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                User user = new User();
-                user.setUserID(rs.getInt("UserID"));
-                user.setUserName(rs.getString("UserName"));
-                user.setEmail(rs.getString("Email"));
-                user.setDistrict(rs.getString("District"));
-                user.setRoleID(rs.getInt("RoleID"));
-                user.setStatusID(rs.getInt("StatusID"));
-                users.add(user);
-            }
+            User user = new User(
+                rs.getInt("UserID"),
+                rs.getString("Email"),
+                rs.getString("Phone"),
+                rs.getString("AvatarUrl"),
+                rs.getString("PassWord"),
+                rs.getString("JoinDate"),
+                rs.getString("UserName"),
+                rs.getString("Full_Name"),
+                rs.getString("District"),
+                rs.getString("Commune"),
+                rs.getString("StreetNumber"),
+                rs.getInt("Point"),
+                rs.getInt("RoleID"),
+                rs.getInt("StatusID")
+            );
+            users.add(user);
+        }
 
             // Sắp xếp danh sách users theo thuộc tính Point
         } catch (Exception e) {
@@ -205,5 +184,26 @@ public class DAOManageUser extends DBContext {
         return null;
     }
 
+   public static void main(String[] args) {
+        DAOManageUser userDAO = new DAOManageUser();
+        ArrayList<User> users = userDAO.getAllUsers();
 
+        for (User user : users) {
+            System.out.println("UserID: " + user.getUserID());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Phone: " + user.getPhone());
+            System.out.println("AvatarUrl: " + user.getAvatarUrl());
+            System.out.println("PassWord: " + user.getPassWord());
+            System.out.println("JoinDate: " + user.getJoinDate());
+            System.out.println("UserName: " + user.getUserName());
+            System.out.println("Full_Name: " + user.getFull_Name());
+            System.out.println("District: " + user.getDistrict());
+            System.out.println("Commune: " + user.getCommune());
+            System.out.println("StreetNumber: " + user.getStreetNumber());
+            System.out.println("Point: " + user.getPoint());
+            System.out.println("RoleID: " + user.getRoleID());
+            System.out.println("StatusID: " + user.getStatusID());
+            System.out.println("--------------------------------");
+        }
+    }
 }

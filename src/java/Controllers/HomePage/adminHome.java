@@ -61,8 +61,8 @@ public class adminHome extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAOManageUser daoListUser = new DAOManageUser();
-        ArrayList<User> listUser = daoListUser.getAllUser();
-        request.setAttribute("listName", listUser);
+        ArrayList<User> listUser = daoListUser.getAllUsers();
+        request.setAttribute("listUser", listUser);
        request.getRequestDispatcher("HomePage/adminHome.jsp").forward(request, response);
     }
 
