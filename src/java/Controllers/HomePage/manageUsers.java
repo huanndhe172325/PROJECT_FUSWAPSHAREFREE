@@ -4,26 +4,21 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOLoginSystem;
 import DAL.DAOManageUser;
-import DAL.DAOSignup;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author admin
- */ 
-@WebServlet(name = "ManageAccount", urlPatterns = {"/ManageAccount"})
-public class ManageUser extends HttpServlet {
+ */
+public class manageUsers extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,11 +29,21 @@ public class ManageUser extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    DAOLoginSystem dao= new DAOLoginSystem();
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet manageUsers</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet manageUsers at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,14 +58,11 @@ public class ManageUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-             
- 
-       DAOManageUser dao = new DAOManageUser();
+  DAOManageUser dao = new DAOManageUser();
        ArrayList<User> users = new ArrayList<>();
        users = dao.getAllUsers();
        request.setAttribute("users", users);
-       request.getRequestDispatcher("HomePage/manageUser.jsp").forward(request, response);
+       request.getRequestDispatcher("HomePage/manageUsers.jsp").forward(request, response);
     }
 
     /**

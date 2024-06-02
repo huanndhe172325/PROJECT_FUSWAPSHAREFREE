@@ -97,7 +97,7 @@ public class Login extends HttpServlet {
                 int userID = daoLogin.getUserByUserName(userName).getUserID();
                 Boolean checkLogin = daoLogin.login(userName, passWord);
                 User userInfo = daoLogin.getUser(userName, passWord);
-
+               
                 if (checkLogin == true) {
                     HttpSession session = request.getSession();
                     session.setAttribute("userInfo", userInfo);
@@ -106,7 +106,7 @@ public class Login extends HttpServlet {
                     response.sendRedirect("HomePage");
                     } else if(userInfo.getRoleID() == 2){
                         response.sendRedirect("adminHome");
-                    }
+                    } 
                 } else {
 
                     PasswordReset passwordResetInfo = daoLogin.getPasswordResetByUserName(userName);
