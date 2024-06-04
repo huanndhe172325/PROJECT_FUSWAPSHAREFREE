@@ -77,7 +77,7 @@ public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("id");
-
+        
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
@@ -85,16 +85,13 @@ public class EditProfileServlet extends HttpServlet {
         String district = request.getParameter("district");
         String commune = request.getParameter("commune");
         String snumber = request.getParameter("snumber");
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("currentUser");
-        
-            DAOProfile db = new DAOProfile();
-            User u = db.getUserbyId(Integer.parseInt(id));
 
-            db.UpdateProfile(name, email, phone, avatarUrl, district, commune, snumber, id);
-            request.setAttribute("msg", "Update profile successfull");
-            response.sendRedirect("HomePage");
-        
+        DAOProfile db = new DAOProfile();
+        User u = db.getUserbyId(Integer.parseInt(id));
+
+        db.UpdateProfile(name, email, phone, avatarUrl, district, commune, snumber, id);
+        request.setAttribute("msg", "Update profile successfull");
+        response.sendRedirect("profile?id=" + u.getUserID());
 
     }
 
