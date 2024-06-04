@@ -55,6 +55,19 @@
             .input-container {
                 margin-bottom: 1rem;
             }
+            .error-message {
+                color: red;
+            }
+            /* Màu viền đỏ */
+            .input-error {
+                border-color: red !important; /* !important để ghi đè các quy tắc CSS khác */
+            }
+
+            /* Màu viền xanh */
+            .input-success {
+                border-color: #00FF00 !important;
+            }
+
         </style>
         <!-- Google Tag Manager -->
         <script>
@@ -128,8 +141,9 @@
                     </div>
                 </div>
             </div>
-            <form action="signup" method="POST">
+            <form action="SignUp" method="post"  onsubmit="return formValidate();">
                 <div class="outer-panel">
+
                     <div class="outer-panel-inner">
                         <div class="process-title">
                             <h2 id="step-title-1" class="step-title is-active">
@@ -166,15 +180,18 @@
                                 <div class="field">
                                     <label>Full Name</label>
                                     <div class="control">
-                                        <input name="fullname"type="text" class="input" placeholder="Enter your full name" required=""/>
+                                        <input oninput="checkFullName()" id="fullname" name="fullname" type="text" class="input" placeholder="Enter your full name" required=""/>
                                     </div>
                                 </div>
+                                <p class="error-message" id="fullname-error"></p>
                                 <div class="field">
                                     <label>User name</label>
                                     <div class="control">
-                                        <input name="username" type="text" class="input" placeholder="Enter user name" required=""/>
+                                        <input oninput="checkUserName()" id="username" name="username" type="text" class="input" placeholder="Enter user name" required=""/>
                                     </div>
+
                                 </div>
+                                <p class="error-message" id="username-error">${mess1}</p>
                                 <div id="addNewSnippet">
                                     <div class="input-container">
                                         <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
@@ -196,9 +213,10 @@
                                 <div class="field">
                                     <label>Email</label>
                                     <div class="control">
-                                        <input name="streetnumber" type="text" class="input" placeholder="Enter email" required=""/>
+                                        <input oninput="checkEmail()"  id="email" name="email" type="text" class="input" placeholder="Enter email" required=""/>
                                     </div>
                                 </div>
+                                <p class="error-message" id="email-error">${mess2}</p>
                             </div>
                             <div class="buttons">
                                 <a class="button process-button" data-step="step-dot-1">Back</a>
@@ -212,7 +230,7 @@
                                         <label for="imgPath" class="upload-button">
                                             <i data-feather="plus"></i>
                                         </label>
-                                        <input type="file" id="imgPath" name="imgPath" accept="image/*" class="is-hidden" required>
+                                        <!--                                        <input type="file" id="imgPath" name="imgPath" accept="image/*" class="is-hidden" required>-->
                                         <img id="upload-preview" src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/avatar-w.png" alt="" />
                                     </div>
                                     <div class="limitation">
@@ -232,21 +250,26 @@
                                 <div class="field">
                                     <label>Password</label>
                                     <div class="control">
-                                        <input type="password" class="input" placeholder="Choose a password" />
+                                        <input oninput="checkPassword()" name="password" id="password" type="password" class="input" placeholder="Choose a password" />
+
                                     </div>
                                 </div>
+                                <p class="error-message" id="password-error"></p>
                                 <div class="field">
                                     <label>Repeat Password</label>
                                     <div class="control">
-                                        <input type="password" class="input" placeholder="Repeat your password" />
+                                        <input oninput="checkPassword()" id="repeatpassword" type="password" class="input" placeholder="Repeat your password" />
+
                                     </div>
                                 </div>
+                                <p class="error-message" id="repeatpassword-error"></p>
                                 <div class="field">
                                     <label>Phone Number</label>
                                     <div class="control">
-                                        <input type="text" class="input" placeholder="Enter your phone number" />
+                                        <input  oninput="checkPhoneNumber()" id="phone" name="phone" type="text" class="input" placeholder="Enter your phone number" />
                                     </div>
                                 </div>
+                                <p class="error-message" id="phone-error">${mess3}</p>
                             </div>
 
                             <div class="buttons">
@@ -265,33 +288,14 @@
                                         within 24 hours.
                                     </p>
                                     <button type="submit" class="button is-fullwidth">Let Me In</button>
+                                    <a class="button process-button" data-step="step-dot-4">Back</a>
                                 </div>
                             </div>
                         </div>
+                    </div> 
 
-                    </div>
                 </div>
-            </form>
-            <!--Edit Credit card Modal-->
-            <div id="crop-modal" class="modal is-small crop-modal is-animated">
-                <div class="modal-background"></div>
-                <div class="modal-content">
-                    <div class="modal-card">
-                        <header class="modal-card-head">
-                            <h3>Crop your picture</h3>
-                            <div class="close-wrap">
-                                <button class="close-modal" aria-label="close">
-                                    <i data-feather="x"></i>
-                                </button>
-                            </div>
-                        </header>
-                        <div class="modal-card-body">
-                            <div id="cropper-wrapper" class="cropper-wrapper"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </form>  
         </div>
         <!-- Concatenated js plugins and jQuery -->
         <script src="assets/js/app.js"></script>
@@ -322,113 +326,85 @@
         <script src="assets/js/lightbox.js"></script>
 
         <!-- Landing page js -->
-
+        <script src="assets/js/validation.js"></script>
         <!-- Signup page js -->
         <script src="assets/js/signup.js"></script>
         <script>
-            var districts = document.getElementById("district");
-            var wards = document.getElementById("ward");
-            var selectedCityValue = 'Thành phố Hà Nội';
+                var districts = document.getElementById("district");
+                var wards = document.getElementById("ward");
+                var selectedCityValue = 'Thành phố Hà Nội';
 
-            var Parameter = {
-                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                method: "GET",
-                responseType: "application/json",
-            };
+                var Parameter = {
+                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                    method: "GET",
+                    responseType: "application/json",
+                };
 
-            var promise = axios(Parameter);
+                var promise = axios(Parameter);
 
-            promise.then(function (result) {
-                var data = result.data;
-                var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                renderDistricts(selectedCity.Districts);
-                selectDistrictOption(selectedCity.Districts);
-                selectWardOption(selectedCity.Districts);
-            });
+                promise.then(function (result) {
+                    var data = result.data;
+                    var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                    renderDistricts(selectedCity.Districts);
+                    selectDistrictOption(selectedCity.Districts);
+                    selectWardOption(selectedCity.Districts);
+                });
 
-            function renderDistricts(districtsData) {
-                for (const district of districtsData) {
-                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                function renderDistricts(districtsData) {
+                    for (const district of districtsData) {
+                        districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                    }
+
+                    districts.onchange = function () {
+                        wards.length = 1;
+                        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                        if (this.value !== "") {
+                            for (const ward of selectedDistrict.Wards) {
+                                wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                            }
+                        }
+                    };
                 }
 
-                districts.onchange = function () {
-                    wards.length = 1;
-                    const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
-                    if (this.value !== "") {
-                        for (const ward of selectedDistrict.Wards) {
-                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                function selectDistrictOption(districtsData) {
+                    for (let i = 0; i < districtsData.length; i++) {
+                        if (districtsData[i].Name === 'Huyện Thạch Thất') {
+                            districts.options[i + 1].selected = true;
+                            simulateEvent(districts, 'change');
+                            break;
                         }
                     }
-                };
-            }
+                }
 
-            function selectDistrictOption(districtsData) {
-                for (let i = 0; i < districtsData.length; i++) {
-                    if (districtsData[i].Name === 'Huyện Thạch Thất') {
-                        districts.options[i + 1].selected = true;
-                        simulateEvent(districts, 'change');
-                        break;
+                function selectWardOption(districtsData) {
+                    const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+                    for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                        if (selectedDistrict.Wards[i].Name === '${ward}') {
+                            wards.options[i + 1].selected = true;
+                            simulateEvent(wards, 'change');
+                            break;
+                        }
                     }
                 }
-            }
 
-            function selectWardOption(districtsData) {
-                const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                    if (selectedDistrict.Wards[i].Name === '${ward}') {
-                        wards.options[i + 1].selected = true;
-                        simulateEvent(wards, 'change');
-                        break;
+                function simulateEvent(element, eventName) {
+                    var event = new Event(eventName);
+                    element.dispatchEvent(event);
+                }
+
+
+                document.getElementById('imgPath').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.getElementById('upload-preview').src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
                     }
-                }
-            }
-
-            function simulateEvent(element, eventName) {
-                var event = new Event(eventName);
-                element.dispatchEvent(event);
-            }
-
-
-            document.getElementById('imgPath').addEventListener('change', function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        document.getElementById('upload-preview').src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
+                });
 
         </script>
-        <!-- Feed pages js -->
-
-        <!-- profile js -->
-
-        <!-- stories js -->
-
-        <!-- friends js -->
-
-        <!-- questions js -->
-
-        <!-- video js -->
-
-        <!-- events js -->
-
-        <!-- news js -->
-
-        <!-- shop js -->
-
-        <!-- inbox js -->
-
-        <!-- settings js -->
-
-        <!-- map page js -->
-
-        <!-- elements page js -->
     </body>
-
-
-    <!-- Mirrored from friendkit.cssninja.io/signup.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:35:55 GMT -->
 </html>
