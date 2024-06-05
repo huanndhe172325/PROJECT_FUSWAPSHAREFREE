@@ -61,7 +61,7 @@ public class Post {
     }
 
     public String getTitle() {
-        return Title;
+        return Title.substring(0, 1).toUpperCase()+Title.substring(1).toLowerCase();
     }
 
     public void setTitle(String Title) {
@@ -207,5 +207,12 @@ public class Post {
     public String getTypeName() {
         DAOManagePost dao = new DAOManagePost();
         return dao.getTypePostByTypeID(TypeID);
+    }
+    public String getAddress(){
+        return Street_Number +", " + Commune + ", " + District;
+    }
+    public String getQuanlityName(){
+         DAOManagePost dao = new DAOManagePost();
+        return dao.getQuanlityNameByIdQuanlity(QuanlityID);
     }
 }

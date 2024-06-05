@@ -98,18 +98,18 @@
             .detail-row {
                 display: flex;
                 align-items: center;
-                margin-bottom: 10px; 
+                margin-bottom: 10px;
             }
 
             .detail-row h2 {
                 margin: 0;
-                padding-right: 10px; 
-                font-size: 16px; 
+                padding-right: 10px;
+                font-size: 16px;
             }
 
             .detail-row p {
                 margin: 0;
-                font-size: 16px; 
+                font-size: 16px;
             }
         </style>
         <!-- End Google Tag Manager -->
@@ -1445,10 +1445,14 @@
                                                     <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
                                                 </div>
                                                 <div class="user-info" style="width: 100%;">
-                                                    <a href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
-                                                    <span class="time" style="display: inline-block">${post.getDateFormat()}</span>
+                                                    <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                    <span class="time" style="display: inline-block">${post.createTime}</span>
                                                     <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
                                                     <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                    <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                    <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                    <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+
                                                 </div>
                                             </div>
                                             <!-- Right side dropdown -->
@@ -1500,14 +1504,14 @@
                                                 </h3>
                                             </div>
                                             <div class="post-text">
-                                                <p>
+                                                <p class="post-text-description">
                                                     ${post.description}
                                                 </p>
                                             </div>
 
                                             <!-- Featured image -->
                                             <div class="post-image">
-                                                <a data-fancybox="post1" data-lightbox-type="comments" data-thumb="${post.imageUrl}" href="https://via.placeholder.com/1600x900" data-demo-href="${post.imageUrl}">
+                                                <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
                                                     <img src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
                                                 </a>
                                                 <div class="fab-wrapper is-share" style=" padding-top: 31px; ">
@@ -1605,7 +1609,7 @@
                                         </div>
                                         <!-- Featured image -->
                                         <div class="post-image">
-                                            <a data-fancybox="post2" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/2.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/2.jpg">
+                                            <a data-thumb="assets/img/demo/unsplash/2.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/2.jpg">
                                                 <img src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/2.jpg" alt="" />
                                             </a>
                                             <!-- Post actions -->
@@ -2094,22 +2098,22 @@
                                             <div class="masonry-grid">
                                                 <!-- Left column -->
                                                 <div class="masonry-column-left">
-                                                    <a data-fancybox="post3" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/3.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/3.jpg">
+                                                    <a data-thumb="assets/img/demo/unsplash/3.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/3.jpg">
                                                         <img src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/3.jpg" alt="" />
                                                     </a>
-                                                    <a data-fancybox="post3" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/4.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/4.jpg">
+                                                    <a data-thumb="assets/img/demo/unsplash/4.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/4.jpg">
                                                         <img src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/4.jpg" alt="" />
                                                     </a>
                                                 </div>
                                                 <!-- Right column -->
                                                 <div class="masonry-column-right">
-                                                    <a data-fancybox="post3" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/5.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/5.jpg">
+                                                    <a data-thumb="assets/img/demo/unsplash/5.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/5.jpg">
                                                         <img src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/5.jpg" alt="" />
                                                     </a>
-                                                    <a data-fancybox="post3" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/6.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/6.jpg">
+                                                    <a data-thumb="assets/img/demo/unsplash/6.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/6.jpg">
                                                         <img src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/6.jpg" alt="" />
                                                     </a>
-                                                    <a data-fancybox="post3" data-lightbox-type="comments" data-thumb="assets/img/demo/unsplash/7.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/7.jpg">
+                                                    <a data-thumb="assets/img/demo/unsplash/7.jpg" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/7.jpg">
                                                         <img src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/7.jpg" alt="" />
                                                     </a>
                                                 </div>
@@ -3838,21 +3842,21 @@
                             <div class="publication-meta">
                                 <div class="inner-flex" style="align-items: center; margin-bottom: 10px;">
                                     <div class="detail-post-header-left">
-                                        <img id="share-modal-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
+                                        <img style="cursor: pointer;" id="share-modal-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
                                     </div>
                                     <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
                                         <div class="detail-post-header-infor-owner">
-                                            <h2>Danh Huan</h2>
-                                            <p style="padding: 0;">2024-06-08</p>
+                                            <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;">Danh Huan</h2>
+                                            <p style="padding-left: 0;" id="share-modal-date">2024-06-08</p>
                                         </div>
                                         <div class="detail-post-header-infor-post" style="margin-top: 16px;">
-                                            <span class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Available</span>
-                                            <span class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">Free</span>
+                                            <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Available</span>
+                                            <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">Free</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
-                                    <h2 style=" color: rgb(107, 164, 233); padding-bottom: 3px;">Title</h2>
+                                    <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">Title</h2>
                                     <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
                                         Ảnh màn hình là của trang chủ một trang web tin tức nổi tiếng.
                                         Phần trên cùng là thanh điều hướng màu xanh đậm với logo của trang web nằm ở góc trái và các liên kết đến các chuyên mục khác nhau như Tin Tức, Thế Giới, Kinh Doanh, Thể Thao, Giải Trí, và Công Nghệ nằm ngang hàng.
@@ -3865,15 +3869,15 @@
                             <div class="footer-detail-post" style="margin-top: 10px;">
                                 <div class="detail-row">
                                     <h2 style="font-weight: 500;">Quanlity:</h2>
-                                    <p>Needs Repair</p>
+                                    <p id="share-modal-quanlity">Needs Repair</p>
                                 </div>
                                 <div class="detail-row">
                                     <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                    <p>Số nhà 123, Xã Hữu Bằng, Huyện Thạch Thất</p>
+                                    <p id="share-modal-address">Số nhà 123, Xã Hữu Bằng, Huyện Thạch Thất</p>
                                 </div>
                                 <div class="detail-row">
                                     <h2 style="font-weight: 500;">Instructions:</h2>
-                                    <p>Pick up today from 4 - 6pm</p>
+                                    <p id="share-modal-intruc">Pick up today from 4 - 6pm</p>
                                 </div>
                             </div>
                         </div>

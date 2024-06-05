@@ -217,6 +217,25 @@ public class DAOManagePost extends DBContext {
         return type;
     }
 
+    public String getQuanlityNameByIdQuanlity(int idQuanlity) {
+        String quanlity = "";
+        try {
+            String sql = "Select [Name] From Quanlity\n"
+                    + "where QuanlityID = ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, idQuanlity);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                quanlity = rs.getString("Name");
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException e) {
+            return quanlity;
+        }
+        return quanlity;
+    }
+
     public User getUserIdByUserId(int UserID) {
         String sql = "SELECT * FROM [User] \n"
                 + "where UserID = ?";
