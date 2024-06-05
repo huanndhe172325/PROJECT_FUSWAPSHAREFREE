@@ -102,7 +102,7 @@ public class DAOManagePost extends DBContext {
         }
         return listPost;
     }
-        
+
     public ArrayList<Quanlity> getAllQuanlity() {
         ArrayList<Quanlity> listQuanlity = new ArrayList<>();
         try {
@@ -177,6 +177,44 @@ public class DAOManagePost extends DBContext {
             return maxId;
         }
         return maxId;
+    }
+
+    public String getStatusPostByIdStatus(int idStatus) {
+        String status = "";
+        try {
+            String sql = "select [Name] from StatusPost\n"
+                    + "where StatusID = ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, idStatus);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                status = rs.getString("Name");
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException e) {
+            return status;
+        }
+        return status;
+    }
+
+    public String getTypePostByTypeID(int idType) {
+        String type = "";
+        try {
+            String sql = "select [Name] from [Type]\n"
+                    + "where TypeID = ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, idType);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                type = rs.getString("Name");
+            }
+            rs.close();
+            statement.close();
+        } catch (SQLException e) {
+            return type;
+        }
+        return type;
     }
 
     public User getUserIdByUserId(int UserID) {
