@@ -57,6 +57,10 @@
         <servlet-name>EditUser</servlet-name>
         <servlet-class>Controllers.HomePage.EditUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>manageUsers</servlet-name>
+        <servlet-class>Controllers.HomePage.manageUsers</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -125,6 +129,10 @@
     <servlet-mapping>
         <servlet-name>EditUser</servlet-name>
         <url-pattern>/EditAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageUsers</servlet-name>
+        <url-pattern>/manageUsers</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>
