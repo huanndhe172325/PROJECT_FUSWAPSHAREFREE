@@ -125,7 +125,7 @@ public class SignUp extends HttpServlet {
             msg.setContent("OTP : " + otp, "text/HTML; charset=UTF-8");
             //gửi email
             Transport.send(msg);
-            response.sendRedirect("verifyemail");
+            response.sendRedirect("verifyemail?userId=" + userId);
         } catch (Exception e) {
             request.setAttribute("mess", "Can't send otp for your email");
             request.getRequestDispatcher("Login").forward(request, response);
