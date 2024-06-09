@@ -4,12 +4,18 @@
  */
 package Controllers.LoginSystem;
 
+import DAL.DAOSignup;
+import Model.EmailVerification;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -66,12 +72,43 @@ public class VerifyEmail extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOSignup daoSignUp = new DAOSignup();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String otp = request.getParameter("otp");
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        
+
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("userID");
+
+        EmailVerification emailVerificationInfo = daoSignUp.getEmailVerificationByUserID(userId);
+        if (emailVerificationInfo != null && otp.equals(emailVerificationInfo.getOtp())) {
+            Date dateNow = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateNow);
+            Date CurrentDate = calendar.getTime();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String formattedCurrentDate = dateFormat.format(CurrentDate);
+
+            try {
+                Date currentDate = dateFormat.parse(formattedCurrentDate);
+                Date expiryDateTime = dateFormat.parse(emailVerificationInfo.getExpiryDateTime());
+                if (currentDate.before(expiryDateTime)) {
+                    daoSignUp.updateUserStatusToActive(userId);
+                    session.removeAttribute("userID");
+                    response.sendRedirect("Login");
+                } else {
+                    request.setAttribute("mess", "OTP reset has expired");
+                    request.getRequestDispatcher("Signup/VerifyEmail.jsp").forward(request, response);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        } else {
+            request.setAttribute("mess", "OTP is incorrect");
+            request.getRequestDispatcher("Signup/VerifyEmail.jsp").forward(request, response);
+        }
     }
 
     /**

@@ -80,10 +80,11 @@
     <body>
         <div class="container">
             <h2>Verify Your Email</h2>
-            <form action="verifymmail" method="post">
+            <form action="verifyemail" method="post">
                 <label for="otp">Enter OTP:</label>
                 <input type="text" id="otp" name="otp" required pattern="[0-9]{6}" maxlength="6" oninput="checkOtpFormat()">
                 <span id="otpError" style="color: red;"></span>
+                <p style="color: red">${mess}</p>  
                 <br>
                 <button type="submit">Verify</button>
             </form>

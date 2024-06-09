@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -89,8 +90,18 @@ public class SignUp extends HttpServlet {
         Date expiryDate = calendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedExpiryDate = dateFormat.format(expiryDate);
-
-        daoSignUp.insertEmailVerification(userId, otp, formattedExpiryDate);
+        try {
+            if (!daoSignUp.isUserEmailVerification(userId)) {
+                daoSignUp.insertEmailVerification(userId, otp, formattedExpiryDate);
+            } else {
+                daoSignUp.updateEmailVerification(userId, otp, formattedExpiryDate);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("mess", "An error occurred while saving your verification information. Please try again.");
+            request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+            return;
+        }
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); //smtp host
@@ -125,7 +136,9 @@ public class SignUp extends HttpServlet {
             msg.setContent("OTP : " + otp, "text/HTML; charset=UTF-8");
             //gửi email
             Transport.send(msg);
-            response.sendRedirect("verifyemail?userId=" + userId);
+            HttpSession sess = request.getSession();
+            sess.setAttribute("userID", userId);
+            response.sendRedirect("verifyemail");
         } catch (Exception e) {
             request.setAttribute("mess", "Can't send otp for your email");
             request.getRequestDispatcher("Login").forward(request, response);

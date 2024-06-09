@@ -5,6 +5,7 @@
 package DAL;
 
 import DAL.DBContext;
+import Model.EmailVerification;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,6 +78,61 @@ public class DAOSignup extends DBContext {
             st.setInt(1, idUser);
             st.setString(2, otp);
             st.setString(3, expiryTime);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateEmailVerification(int userId, String otp, String expiryTime) {
+        String sql = "UPDATE PasswordReset SET OTP = ?, ExpiryDateTime = ? WHERE UserID = ?";
+        try (PreparedStatement st = connect.prepareStatement(sql)) {
+            st.setString(1, otp);
+            st.setString(2, expiryTime);
+            st.setInt(3, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public boolean isUserEmailVerification(int userId) {
+        String sql = "SELECT 1 FROM EmailVerification WHERE UserID = ?";
+        try (PreparedStatement st = connect.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            try (ResultSet rs = st.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public EmailVerification getEmailVerificationByUserID(int userId) {
+        String sql = "SELECT * FROM EmailVerification WHERE UserID = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new EmailVerification(
+                        rs.getInt("UserID"),
+                        rs.getString("OTP"),
+                        rs.getString("ExpiryDateTime")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public void updateUserStatusToActive(int userId) {
+        String sql = "UPDATE [User] SET StatusID = 1 WHERE UserID = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, userId);
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
