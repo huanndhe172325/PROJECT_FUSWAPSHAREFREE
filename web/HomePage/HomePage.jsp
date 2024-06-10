@@ -3827,7 +3827,7 @@
         <!-- /partials/pages/feed/modals/share-modal.html -->
         <div id="share-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
-            <div class="modal-content">
+            <div class="modal-content" style="width: 800px;">
                 <div class="card">
                     <div class="card-heading">
                         <!-- Close X button -->
@@ -3882,13 +3882,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <div class="button-wrap">
-                            <button type="button" class="button is-solid dark-grey-button close-modal">
-                                Cancel
-                            </button>
-                            <button type="button" class="button is-solid primary-button close-modal">
-                                Publish
+                    <div class="card-footer" style="width: 100%;">
+                        <div class="button-wrap" style="width: 100%;">
+                            <button style="width: 100%;" type="button" class="button is-solid primary-button close-modal">
+                                Request This
                             </button>
                         </div>
                     </div>
