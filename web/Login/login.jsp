@@ -83,13 +83,6 @@
                         <!--Login Form-->
                         <div class="hero-body">
                             <div class="form-wrapper">
-                                <!--Avatar-->
-                                <div class="avatar">
-                                    <div class="badge">
-                                        <i data-feather="check"></i>
-                                    </div>
-                                    <img src="https://placehold.it/128x128" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                </div>
                                 <!--Form-->
                                 <form action="Login" method="POST">
                                     <div class="login-form">

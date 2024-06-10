@@ -5,18 +5,13 @@
 package DAL;
 
 import DAL.DBContext;
+import Model.EmailVerification;
+import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import Model.User;
-import static java.lang.String.format;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.Random;
 
 /**
  *
@@ -24,130 +19,171 @@ import java.util.Date;
  */
 public class DAOSignup extends DBContext {
 
-    public void insertAccount(String email, String phone, String password, String username, String fullname, String district,String commune, String streetnumber) {
-
-        try {  
-            String sql = "INSERT INTO [User] (Email, Phone, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID)\n"
-                    + "VALUES (?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, ?, ?, ?);";
-        PreparedStatement stm = connect.prepareStatement(sql);
-            stm.setString(1, email);
-            stm.setString(2, phone);
-            stm.setString(3, password);
-            //stm.setString(4, "GETDATE()");
-            stm.setString(4, username);
-            stm.setString(5, fullname);
-            stm.setString(6, district);
-            stm.setString(7, commune);
-            stm.setString(8, streetnumber);
-            stm.setInt(9, 0);
-            stm.setInt(10, 1);
-            stm.setInt(11, 1);
-            stm.executeUpdate();
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
-
-    }
-
-   
-
-    public List<User> getAllAccount() {
-        List<User> list = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM User where isAdmin != 1";
-            PreparedStatement stm = connect.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                User u = new User();
-                u.setUserID(rs.getInt(1));
-                u.setEmail(rs.getString(2));
-                u.setPhone(rs.getString(3));
-
-                u.setPassWord(rs.getString(4));
-               // rs.getDate(u.getJoinDate());
-                u.setUserName(rs.getString(6));
-                u.setFull_Name(rs.getString(7));
-                u.setDistrict(rs.getString(8));
-                u.setCommune(rs.getString(9));
-                u.setStreetNumber(rs.getString(10));
-                u.setPoint(rs.getInt(11));
-                u.setRoleID(rs.getInt(12));
-                u.setStatusID(rs.getInt(13));
-
-                list.add(u);
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(DAOSignup.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return list;
-    }
-    public ArrayList<User> list() {
-        ArrayList<User> users = new ArrayList<>();
-        
-        try {
-            String sql = "select UserID, Email, RoleID, UserName, Phone, District, StatusID from User";
-            PreparedStatement stm = connect.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
-            
-            while (rs.next()) {
-                User u = new User();
-                u.setUserID(rs.getInt("id"));
-                u.setEmail(rs.getString("email"));
-                u.setRoleID(rs.getInt("role"));
-                u.setUserName(rs.getString("username"));
-                u.setPhone(rs.getString("phone"));
-                u.setDistrict(rs.getString("district"));
-                u.setStatusID(rs.getInt("status"));
-                users.add(u);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
-
-    public void updateAccount(User user) {
-
-        try {
-            String sql = "UPDATE [User]\n"
-                    + "   SET [StatusID] = ?\n"
-                    + " WHERE UserID = ?";
-            PreparedStatement stm = connect.prepareStatement(sql);
-            stm.setInt(1, user.getStatusID());
-            stm.setInt(2, user.getUserID());
-            stm.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOSignup.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-    public User getUserIdByUserName(String UserName) {
-        String sql = "SELECT * FROM [User] \n"
-                + "WHERE UserName = ?";
+    public void insertAccount(User user) {
+        String sql = "INSERT INTO [User] (Email, Phone, AvatarUrl, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID) "
+                + "VALUES (?, ?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, 0, 1, 1002)";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
-            st.setString(1, UserName);
-            ResultSet rs = st.executeQuery();
+            st.setString(1, user.getEmail());
+            st.setString(2, "");
+            st.setString(3, "FolderImages/ImageUser/pngtree-userpeoplelinear-iconuser-png-image_1859764.jpg");
+            st.setString(4, user.getPassWord());
+            st.setString(5, user.getUserName());
+            st.setString(6, "USERFUSWAPSHAREFREE");
+            st.setString(7, "-");
+            st.setString(8, "-");
+            st.setString(9, "-");
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<User> getAllUser() {
+        ArrayList<User> listUser = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [User]";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                return new User(rs.getInt("UserID"),
-                        rs.getString("Email"),
-                        rs.getString("Phone"),
-                        rs.getString("AvatarUrl"),
-                        rs.getString("PassWord"),
-                        rs.getString("JoinDate"),
-                        rs.getString("UserName"),
-                        rs.getString("Full_Name"),
-                        rs.getString("District"),
-                        rs.getString("Commune"),
-                        rs.getString("StreetNumber"),
-                        rs.getInt("Point"),
-                        rs.getInt("RoleID"),
-                        rs.getInt("StatusID"));
+                User user = new User();
+                user.setUserID(rs.getInt("UserID"));
+                user.setEmail(rs.getString("Email"));
+                user.setPhone(rs.getString("Phone"));
+                user.setAvatarUrl(rs.getString("AvatarUrl"));
+                user.setPassWord(rs.getString("PassWord"));
+                user.setJoinDate(rs.getString("JoinDate"));
+                user.setUserName(rs.getString("UserName"));
+                user.setFull_Name(rs.getString("Full_Name"));
+                user.setDistrict(rs.getString("District"));
+                user.setCommune(rs.getString("Commune"));
+                user.setStreetNumber(rs.getString("StreetNumber"));
+                user.setPoint(rs.getInt("Point"));
+                user.setRoleID(rs.getInt("RoleID"));
+                user.setStatusID(rs.getInt("StatusID"));
+                listUser.add(user);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listUser;
+    }
+
+    public void insertEmailVerification(int idUser, String otp, String expiryTime) {
+        String sql = "INSERT INTO EmailVerification (UserID, OTP, ExpiryDateTime) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, idUser);
+            st.setString(2, otp);
+            st.setString(3, expiryTime);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateEmailVerification(int userId, String otp, String expiryTime) {
+        String sql = "UPDATE PasswordReset SET OTP = ?, ExpiryDateTime = ? WHERE UserID = ?";
+        try (PreparedStatement st = connect.prepareStatement(sql)) {
+            st.setString(1, otp);
+            st.setString(2, expiryTime);
+            st.setInt(3, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public boolean isUserEmailVerification(int userId) {
+        String sql = "SELECT 1 FROM EmailVerification WHERE UserID = ?";
+        try (PreparedStatement st = connect.prepareStatement(sql)) {
+            st.setInt(1, userId);
+            try (ResultSet rs = st.executeQuery()) {
+                return rs.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+
+    public EmailVerification getEmailVerificationByUserID(int userId) {
+        String sql = "SELECT * FROM EmailVerification WHERE UserID = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new EmailVerification(
+                        rs.getInt("UserID"),
+                        rs.getString("OTP"),
+                        rs.getString("ExpiryDateTime")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return null;
     }
 
+    public void updateUserStatusToActive(int userId) {
+        String sql = "UPDATE [User] SET StatusID = 1 WHERE UserID = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkUserNameExits(String username, ArrayList<User> list) {
+        for (User user : list) {
+            if (user.getUserName().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkEmailExits(String email, ArrayList<User> list) {
+        for (User user : list) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String generateOTP() {
+        Random random = new Random();
+        int otp = 100000 + random.nextInt(900000);
+        return String.valueOf(otp);
+    }
+
+    public boolean checkPhoneExits(String phone, ArrayList<User> list) {
+        for (User user : list) {
+            if (user.getPhone().equals(phone)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        DAOSignup daoSignup = new DAOSignup();
+        User user = new User();
+        user.setEmail("Haitac.com");
+        user.setPhone("0123");
+        user.setAvatarUrl("123");
+        user.setPassWord("123");
+        user.setUserName("Binh");
+        user.setFull_Name("Binh tRAN");
+        user.setDistrict("Thach That");
+        user.setCommune("Thach hoa");
+        user.setStreetNumber("123");
+        daoSignup.insertAccount(user);
+    }
 }
