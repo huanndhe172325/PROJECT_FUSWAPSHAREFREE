@@ -92,13 +92,12 @@ public class Login extends HttpServlet {
             if (!daoLogin.checkUserNameExits(userName, listUser)) {
                 request.setAttribute("mess", "username does not exist");
                 request.getRequestDispatcher("Login/login.jsp").forward(request, response);
-            } 
-            else {
+            } else {
 
                 int userID = daoLogin.getUserByUserName(userName).getUserID();
                 Boolean checkLogin = daoLogin.login(userName, passWord);
                 User userInfo = daoLogin.getUser(userName, passWord);
-                 if (checkLogin == true) {
+                if (checkLogin == true) {
                     HttpSession session = request.getSession();
                     session.setAttribute("userInfo", userInfo);
                     session.setAttribute("loginsuccess", true);
