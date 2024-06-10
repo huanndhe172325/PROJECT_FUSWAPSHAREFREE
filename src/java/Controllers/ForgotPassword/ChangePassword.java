@@ -4,6 +4,7 @@
  */
 package Controllers.ForgotPassword;
 
+import Controllers.LoginSystem.PassworDencryption;
 import DAL.DAOLoginSystem;
 import Model.User;
 import java.io.IOException;
@@ -94,10 +95,10 @@ public class ChangePassword extends HttpServlet {
 
         if (!newPassword.equals(confirmNewPassword)) {
             request.setAttribute("mess", "New password and confirmation do not match.");
-            request.getRequestDispatcher("ForgotPassword/ChangePassword.jsp").forward(request, response);        
+            request.getRequestDispatcher("ForgotPassword/ChangePassword.jsp").forward(request, response);
         }
 
-        daoLogin.updatePassword(userName, newPassword);
+        daoLogin.updatePassword(userName, PassworDencryption.toSHA1(newPassword));
         session.setAttribute("mess", "Password changed successfully.");
         response.sendRedirect("HomePage");
     }

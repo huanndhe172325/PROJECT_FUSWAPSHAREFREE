@@ -88,7 +88,8 @@
                                     <div class="login-form">
                                         <div class="field">
                                             <div class="control">
-                                                <input name="username" class="input email-input" type="text" placeholder="username" required=""/>
+                                                <input oninput="checkEmail()" id="email" name="email" class="input email-input" type="text" placeholder="email" required=""/>
+                                                <p class="error-message" id="email-error"></p>
                                                 <div class="input-icon">
                                                     <i data-feather="user"></i>
                                                 </div>
@@ -154,7 +155,7 @@
         <script src="assets/js/popovers-users.js"></script>
         <script src="assets/js/popovers-pages.js"></script>
         <script src="assets/js/lightbox.js"></script>
-
+        <script src="assets/js/validation.js"></script>
         <!-- Landing page js -->
 
         <!-- Signup page js -->

@@ -75,28 +75,26 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     DAOLoginSystem daoLogin = new DAOLoginSystem();
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String userName = request.getParameter("username").trim();
+
+        String email = request.getParameter("email").trim();
 //
         String passWord = request.getParameter("password").trim();
-        
-        if (userName == null || passWord == null || userName.isEmpty() || passWord.isEmpty()) {
+
+        if (email == null || passWord == null || email.isEmpty() || passWord.isEmpty()) {
             request.setAttribute("mess", "Please enter both username or password");
             request.getRequestDispatcher("Login/login.jsp").forward(request, response);
         } else {
             ArrayList<User> listUser = daoLogin.getAllUser();
-            if (!daoLogin.checkUserNameExits(userName, listUser)) {
-                request.setAttribute("mess", "username does not exist");
+            if (!daoLogin.checkEmailExits(email, listUser)) {
+                request.setAttribute("mess", "email does not exist");
                 request.getRequestDispatcher("Login/login.jsp").forward(request, response);
             } else {
-                
-                int userID = daoLogin.getUserByUserName(userName).getUserID();
-                Boolean checkLogin = daoLogin.login(userName, PassworDencryption.toSHA1(passWord));
-                User userInfo = daoLogin.getUser(userName, PassworDencryption.toSHA1(passWord));
+                Boolean checkLogin = daoLogin.login(email, PassworDencryption.toSHA1(passWord));
+                User userInfo = daoLogin.getUser(email, PassworDencryption.toSHA1(passWord));
                 if (checkLogin == true) {
                     HttpSession session = request.getSession();
                     session.setAttribute("userInfo", userInfo);
@@ -107,19 +105,19 @@ public class Login extends HttpServlet {
                         response.sendRedirect("adminHome");
                     }
                 } else {
-                    
-                    PasswordReset passwordResetInfo = daoLogin.getPasswordResetByUserName(userName);
-                    User userInfoLoginByPassReset = daoLogin.getUserLoginByPassReset(userName, passWord);
-                    
+
+                    PasswordReset passwordResetInfo = daoLogin.getPasswordResetByEmail(email);
+                    User userInfoLoginByPassReset = daoLogin.getUserLoginByPassReset(email, passWord);
+
                     if (passwordResetInfo != null && passWord.equals(passwordResetInfo.getPassword())) {
-                        
+
                         Date dateNow = new Date();
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTime(dateNow);
                         Date CurrentDate = calendar.getTime();
                         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         String formattedCurrentDate = dateFormat.format(CurrentDate);
-                        
+
                         try {
                             Date currentDate = dateFormat.parse(formattedCurrentDate);
                             Date expiryDateTime = dateFormat.parse(passwordResetInfo.getExpiryDateTime());
@@ -140,7 +138,7 @@ public class Login extends HttpServlet {
                         request.getRequestDispatcher("Login/login.jsp").forward(request, response);
                     }
                 }
-                
+
             }
         }
     }
