@@ -133,7 +133,7 @@
                     </div>
                 </div>
 
-                <form action="SignUp" method="post">
+                <form id="myForm" action="SignUp" method="post" onsubmit="return validateForm()">
                     <div class="outer-panel">
                         <div class="outer-panel-inner">
                             <div class="process-title">
@@ -185,7 +185,7 @@
                                     <div class="field">
                                         <label>Repeat Password</label>
                                         <div class="control">
-                                            <input oninput="checkPassword()" id="repeatpassword" type="password" class="input" placeholder="Repeat your password" required />
+                                            <input oninput="checkRepeatPassword()" id="repeatpassword" type="password" class="input" placeholder="Repeat your password" required />
                                         </div>
                                         <p class="error-message" id="repeatpassword-error"></p>
                                     </div>
