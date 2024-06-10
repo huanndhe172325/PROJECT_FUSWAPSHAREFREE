@@ -959,7 +959,7 @@
                                 <div id="profile-timeline-posts" class="box-heading">
                                     <h4>Posts</h4>
                                     <div class="button-wrap">
-                                        <button type="button" class="button is-active">List Product</button>
+                                        <button type="button" class="button is-active">List Posts</button>
                                         <button type="button" class="button is-active">History</button>
                                     </div>
                                 </div>
