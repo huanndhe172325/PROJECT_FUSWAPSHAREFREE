@@ -1042,47 +1042,15 @@
                                                             <a data-fancybox="profile-post1" data-lightbox-type="comments" data-thumb="${post.imageUrl}" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/8.jpg">
                                                                 <img src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
                                                             </a>
-                                                            <!-- Post actions -->
-                                                            <div class="like-wrapper">
-                                                                <a href="javascript:void(0);" class="like-button">
-                                                                    <i class="mdi mdi-heart not-liked bouncy"></i>
-                                                                    <i class="mdi mdi-heart is-liked bouncy"></i>
-                                                                    <span class="like-overlay"></span>
-                                                                </a>
-                                                            </div>
 
-                                                            <div class="fab-wrapper is-share">
-                                                                <a href="javascript:void(0);" class="small-fab share-fab modal-trigger" data-modal="share-modal">
-                                                                    <i data-feather="link-2"></i>
-                                                                </a>
-                                                            </div>
-
-                                                            <div class="fab-wrapper is-comment">
-                                                                <a href="javascript:void(0);" class="small-fab">
-                                                                    <i data-feather="message-circle"></i>
-                                                                </a>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                     <!-- /Post body -->
 
                                                     <!-- Post footer -->
                                                     <div class="card-footer">
-                                                        <!-- Followers -->
-                                                        <div class="likers-group">
-                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" data-user-popover="7" alt="" />
-                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" data-user-popover="4" alt="" />
-                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
-                                                        </div>
-                                                        <div class="likers-text">
-                                                            <p>
-                                                                <a href="#">Milly</a>,
-                                                                <a href="#">David</a>
-                                                            </p>
-                                                            <p>and 1 more liked this</p>
-                                                        </div>
                                                         <!-- Post statistics -->
-                                                        <div class="social-count">
+                                                        <div class="social-count" style="margin-left: 0px;">
                                                             <div class="likes-count">
                                                                 <i data-feather="heart"></i>
                                                                 <span>32</span>
