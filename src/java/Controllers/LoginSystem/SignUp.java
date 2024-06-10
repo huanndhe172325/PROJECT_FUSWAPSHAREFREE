@@ -66,9 +66,10 @@ public class SignUp extends HttpServlet {
             request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
             return;
         }
+        String newPassword = PassworDencryption.toSHA1(password);
         User user = new User();
         user.setEmail(email);
-        user.setPassWord(password);
+        user.setPassWord(newPassword);
         user.setUserName(userName);
         //create account
         daoSignUp.insertAccount(user);
