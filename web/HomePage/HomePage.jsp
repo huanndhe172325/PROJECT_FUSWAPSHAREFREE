@@ -38,16 +38,52 @@
                 f.parentNode.insertBefore(j, f)
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
         </script>
-        
-         <!-- Fonts -->
+
+        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700,800,900" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
         <link href="../cdn.jsdelivr.net/npm/fontisto%40v3.0.4/css/fontisto/fontisto-brands.min.css" rel="stylesheet" />
         <!-- Core CSS -->
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
-        
+        <link rel="stylesheet" href="assets/css/mainstyle.css" /> 
         <style>
+            .post-image {
+                overflow: hidden;
+                position: relative;
+                width: 100%;
+            }
+            .style-img-post {
+                display: flex;
+                transition: transform 0.5s ease;
+            }
+            .style-img-post a {
+                flex-shrink: 0;
+                width: 100%;
+            }
+            .image-btn {
+                position: absolute;
+                top: 41%;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                transform: translateY(-50%);
+                z-index: 1000;
+            }
+            .btn-image {
+                font-size: 40px;
+                color: white;
+                cursor: pointer;
+                user-select: none;
+                position: absolute;
+            }
+            .btn-image-pre {
+                left: 10px;
+            }
+            .btn-image-next {
+                right: 10px;
+            }
+
             form {
                 max-width: 500px;
                 margin: 0 auto;
@@ -123,7 +159,7 @@
         </style>
         <!-- End Google Tag Manager -->
 
-       
+
         <script>
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('open-modal-btn');
@@ -1514,15 +1550,26 @@
 
                                             <!-- Featured image -->
                                             <div class="post-image">
-                                                <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                    <img src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                </a>
-                                                <div class="fab-wrapper is-share" style=" padding-top: 31px; ">
-                                                    <a href="javascript:void(0);" class="small-fab share-fab modal-trigger" data-modal="share-modal">
-                                                        <i data-feather="link-2"></i>
+                                                <div class="style-img-post">
+                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
                                                     </a>
                                                 </div>
+                                                <div class="image-btn">
+                                                    <div class="btn-image-next btn-image">&gt;</div>
+                                                    <div class="btn-image-pre btn-image">&lt;</div>
+                                                </div>
                                             </div>
+
                                         </div>
 
                                         <div class="card-footer">
@@ -5914,6 +5961,7 @@
 
     <!-- elements page js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="assets/js/jsslideimage.js"></script>
 
 
     <script>
@@ -6068,7 +6116,7 @@
                                     xhr.send(formData);
                                 });
 
-
+                                
 
     </script>
 </body>
