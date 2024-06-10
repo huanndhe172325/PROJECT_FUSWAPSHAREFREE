@@ -49,10 +49,7 @@
         <servlet-name>CreatePost2</servlet-name>
         <servlet-class>Controllers.HomePage.CreatePost2</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>manageUsers</servlet-name>
-        <servlet-class>Controllers.HomePage.ManageUser</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>EditUser</servlet-name>
         <servlet-class>Controllers.HomePage.EditUser</servlet-class>
@@ -122,10 +119,7 @@
     </servlet-mapping>
     `
     
-    <servlet-mapping>
-        <servlet-name>manageUsers</servlet-name>
-        <url-pattern>/manageUser</url-pattern>
-    </servlet-mapping>
+   
     <servlet-mapping>
         <servlet-name>EditUser</servlet-name>
         <url-pattern>/EditAccount</url-pattern>
