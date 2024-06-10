@@ -1,18 +1,18 @@
 
-Œ
-java:S1192>"KDefine a constant instead of duplicating this literal "QuanlityID" 3 times.(“Ô×ÎþÿÿÿÿJ$d9ef44c3-923e-4164-ae91-cee0952fa6f5
-„
-java:S11928"HDefine a constant instead of duplicating this literal "Commune" 3 times.(ð³Æ¨J$c02b5db8-4bc5-48e7-965a-2aeb26cdfcb7
-…
-java:S11929"IDefine a constant instead of duplicating this literal "District" 3 times.(äÉéäJ$d67d6809-3e7c-4110-b632-55ea55f7e9a3
+Œ	java:S117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áœ‹J$0b8ec01c-0e39-4394-94f5-de042d7ffd55
+•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(”Ç¨†J$782e3d77-57ab-4d09-af88-26f4f5b53d0f
 ƒ
 java:S1192"GDefine a constant instead of duplicating this literal "TypeID" 3 times.(Ôõ°J$ab242a7d-271d-410e-93a8-014b6640042d
+Œ
+java:S1192>"KDefine a constant instead of duplicating this literal "QuanlityID" 3 times.(“Ô×ÎþÿÿÿÿJ$d9ef44c3-923e-4164-ae91-cee0952fa6f5
 ƒ
 java:S1192<"GDefine a constant instead of duplicating this literal "UserID" 3 times.(–çøJ$dd50070e-d379-4c66-827a-34f7d9c28ffc
 „
 java:S1192="IDefine a constant instead of duplicating this literal "StatusID" 3 times.(ñ›FJ$88f2fa52-910e-49e3-9c57-90aa65a81d29
-Œ	java:S117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áœ‹J$0b8ec01c-0e39-4394-94f5-de042d7ffd55
-•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(”Ç¨†J$782e3d77-57ab-4d09-af88-26f4f5b53d0f
+„
+java:S11928"HDefine a constant instead of duplicating this literal "Commune" 3 times.(ð³Æ¨J$c02b5db8-4bc5-48e7-965a-2aeb26cdfcb7
+…
+java:S11929"IDefine a constant instead of duplicating this literal "District" 3 times.(äÉéäJ$d67d6809-3e7c-4110-b632-55ea55f7e9a3
 k	java:S106$"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$f1dad8f6-0557-4153-8160-b69bbfd1c54a
 k	java:S106D"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$fb8c2fd4-80f3-4506-b1d0-2f1cf2a0c6af
 k	java:S106e"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$454629d7-a2a3-4729-9a92-e9b8cf5b0276

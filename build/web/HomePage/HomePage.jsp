@@ -38,6 +38,15 @@
                 f.parentNode.insertBefore(j, f)
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
         </script>
+        
+         <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700,800,900" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
+        <link href="../cdn.jsdelivr.net/npm/fontisto%40v3.0.4/css/fontisto/fontisto-brands.min.css" rel="stylesheet" />
+        <!-- Core CSS -->
+        <link rel="stylesheet" href="assets/css/app.css" />
+        <link rel="stylesheet" href="assets/css/core.css" />
+        
         <style>
             form {
                 max-width: 500px;
@@ -98,13 +107,7 @@
         </style>
         <!-- End Google Tag Manager -->
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700,800,900" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
-        <link href="../cdn.jsdelivr.net/npm/fontisto%40v3.0.4/css/fontisto/fontisto-brands.min.css" rel="stylesheet" />
-        <!-- Core CSS -->
-        <link rel="stylesheet" href="assets/css/app.css" />
-        <link rel="stylesheet" href="assets/css/core.css" />
+       
         <script>
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('open-modal-btn');
