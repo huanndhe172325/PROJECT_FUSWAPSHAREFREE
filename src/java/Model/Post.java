@@ -14,6 +14,7 @@ import java.time.format.DateTimeParseException;
  * @author FPT
  */
 public class Post {
+
     private int PostID;
     private String Title;
     private String Description;
@@ -60,7 +61,7 @@ public class Post {
     }
 
     public String getTitle() {
-        return Title;
+        return Title.substring(0, 1).toUpperCase()+Title.substring(1).toLowerCase();
     }
 
     public void setTitle(String Title) {
@@ -170,20 +171,22 @@ public class Post {
     public void setTypeID(int TypeID) {
         this.TypeID = TypeID;
     }
-    
-    public User getUserOwner(){
+
+    public User getUserOwner() {
         DAOManagePost dao = new DAOManagePost();
         User user = dao.getUserIdByUserId(UserID);
         return user;
     }
-    
-    public String getAvatarOwner(){
+
+    public String getAvatarOwner() {
         return getUserOwner().getAvatarUrl();
     }
-    public String getFullNameOwner(){
+
+    public String getFullNameOwner() {
         return getUserOwner().getFull_Name();
     }
-    public String getDateFormat(){
+
+    public String getDateFormat() {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy, hh:mma");
         String formattedDate = "";
@@ -194,5 +197,22 @@ public class Post {
             e.printStackTrace();
         }
         return formattedDate;
+    }
+
+    public String getStatusName() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getStatusPostByIdStatus(StatusID);
+    }
+
+    public String getTypeName() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getTypePostByTypeID(TypeID);
+    }
+    public String getAddress(){
+        return Street_Number +", " + Commune + ", " + District;
+    }
+    public String getQuanlityName(){
+         DAOManagePost dao = new DAOManagePost();
+        return dao.getQuanlityNameByIdQuanlity(QuanlityID);
     }
 }

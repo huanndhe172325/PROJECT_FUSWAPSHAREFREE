@@ -1,6 +1,8 @@
 
+”	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ïÕ{J$70cfe67e-3d6b-4ec0-99c0-955342885cd2
 
 java:S1192J"bDefine a constant instead of duplicating this literal "ForgotPassword/ForgotPassword.jsp" 3 times.(ú±´ğJ$59e9dfaf-096b-425f-90f3-ab54f7061071
-”	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ïÕ{J$70cfe67e-3d6b-4ec0-99c0-955342885cd2
 n
 java:S11351"2Complete the task associated to this TODO comment.(¢§‰J$9deafb91-e0bb-4b6d-9e26-6f1ed5f94741
+T
+java:S6437†"6Revoke and change this password, as it is compromised.(íşû¸8ƒñİêı1
