@@ -784,7 +784,9 @@
 
                                                     <i data-feather="camera"></i>
                                                 </label>
-                                                <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" >
+                                                 <form action="editprofile" method="POST" enctype="multipart/form-data" id="uploadForm">
+                                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" onchange="submitForm()" >
+                                                </form>
                                             </a>
 
 
@@ -1096,11 +1098,22 @@
 
                             <div class="card-body">
                                 <div class="control">
-                                    <form action="editprofile" id="edit-profile-modal" method="post">
-                                        <div class="col-md-12"><label class="labels">Full Name</label><input id="fname" name="name" type="text" class="form-control"  value="${profile.getFull_Name()}"> <div style="color: red" id="errorFname"> </div></div>                                   
-                                        <div class="col-md-12"><label class="labels">Email</label><input id="email"  name="email" type="text" class="form-control"  value="${profile.getEmail()}"> <div style="color: red" id="errorEmail"></div> </div>
-                                        <div class="col-md-12"><label class="labels">Phone Number</label><input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}"> <div style="color: red" id="errorPhone"></div>  </div>
-
+                                    <form action="editprofile" id="edit-profile-modal" method="post" onsubmit="return FormValidate();">
+                                        <div class="col-md-12">
+                                            <label class="labels">Full Name</label>
+                                            <input id="fname" name="name" type="text" class="form-control" value="${profile.getFull_Name()}">
+                                            <div style="color: red" id="errorFname"></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Email</label>
+                                            <input id="email" name="email" type="text" class="form-control" value="${profile.getEmail()}">
+                                            <div style="color: red" id="errorEmail"></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Phone Number</label>
+                                            <input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
+                                            <div style="color: red" id="errorPhone"></div>
+                                        </div>
                                         <input type="submit" id="submit-update-profile1" style="display : none;" value="Submit">
                                     </form>
                                 </div>
@@ -1436,6 +1449,59 @@
 
                     xhr.send(formData);
                 });
+            </script>
+
+            <script>
+                function FormValidate() {
+                    var isValid = true;
+
+                    // Validate Full Name
+                    var fname = document.getElementById('fname').value.trim();
+                    var errorFname = document.getElementById('errorFname');
+                    if (fname === "") {
+                        errorFname.textContent = "Full Name is required";
+                        isValid = false;
+                    } else {
+                        errorFname.textContent = "";
+                    }
+
+                    // Validate Email
+                    var email = document.getElementById('email').value.trim();
+                    var errorEmail = document.getElementById('errorEmail');
+                    var reGexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (email === "") {
+                        errorEmail.textContent = "Email is required";
+                        isValid = false;
+                    } else if (!reGexEmail.test(email)) {
+                        errorEmail.textContent = "Please enter a valid email address";
+                        isValid = false;
+                    } else {
+                        errorEmail.textContent = "";
+                    }
+
+                    // Validate Phone Number
+                    var phoneNum = document.getElementById('phoneNum').value.trim();
+                    var errorPhone = document.getElementById('errorPhone');
+                    var reGexPhone = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+                    if (phoneNum === "") {
+                        errorPhone.textContent = "Phone Number is required";
+                        isValid = false;
+                    } else if (!reGexPhone.test(phoneNum)) {
+                        errorPhone.textContent = "Please enter a valid phone number";
+                        isValid = false;
+                    } else {
+                        errorPhone.textContent = "";
+                    }
+
+                    return isValid;
+                }
+
+            </script>
+
+            <script>
+                function submitForm() {
+                    document.getElementById('uploadForm').submit();
+                }
             </script>
     </body>
 
