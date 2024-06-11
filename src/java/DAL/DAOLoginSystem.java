@@ -18,13 +18,13 @@ import java.util.Date;
 
 public class DAOLoginSystem extends DBContext {
 
-    public boolean login(String username, String password) {
+    public boolean login(String email, String password) {
         String sql = "SELECT * FROM [User] \n"
-                + "WHERE UserName = ?\n"
+                + "WHERE Email = ?\n"
                 + "AND PassWord = ?";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
-            st.setString(1, username);
+            st.setString(1, email);
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -36,13 +36,13 @@ public class DAOLoginSystem extends DBContext {
         return false;
     }
 
-    public User getUser(String username, String password) {
+    public User getUser(String email, String password) {
         String sql = "SELECT * FROM [User] \n"
-                + "WHERE UserName = ?\n"
+                + "WHERE Email = ?\n"
                 + "AND PassWord = ?";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
-            st.setString(1, username);
+            st.setString(1, email);
             st.setString(2, password);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -67,14 +67,14 @@ public class DAOLoginSystem extends DBContext {
         return null;
     }
 
-    public User getUserLoginByPassReset(String username, String passwordReset) {
+    public User getUserLoginByPassReset(String email, String passwordReset) {
         String sql = "SELECT u.*\n"
                 + "FROM [User] u\n"
                 + "JOIN PasswordReset pr ON u.UserID = pr.UserID\n"
-                + "WHERE u.UserName = ? AND pr.Password = ?;";
+                + "WHERE u.Email = ? AND pr.Password = ?;";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
-            st.setString(1, username);
+            st.setString(1, email);
             st.setString(2, passwordReset);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -98,7 +98,7 @@ public class DAOLoginSystem extends DBContext {
         }
         return null;
     }
-    
+
     public User getUserByUserName(String username) {
         String sql = "SELECT * FROM [User] \n"
                 + "WHERE UserName = ?\n";
@@ -128,9 +128,9 @@ public class DAOLoginSystem extends DBContext {
         return null;
     }
 
-    public PasswordReset getPasswordResetByUserName(String username) {
+    public PasswordReset getPasswordResetByEmail(String username) {
         String sql = "SELECT * FROM PasswordReset \n"
-                + "WHERE UserID = (SELECT UserID FROM [User] WHERE UserName = ?)";
+                + "WHERE UserID = (SELECT UserID FROM [User] WHERE Email = ?)";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
             st.setString(1, username);
@@ -274,18 +274,5 @@ public class DAOLoginSystem extends DBContext {
             return false;
         }
     }
-
-    public static void main(String[] args) {
-        DAOLoginSystem dao = new DAOLoginSystem();
-        PasswordReset passwordResetInfo = dao.getPasswordResetByUserName("BinhTran");
-        String expiryDateTimeStr = passwordResetInfo.getExpiryDateTime();
-        Date dateNow = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateNow);
-        Date CurrentDate = calendar.getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedCurrentDate = dateFormat.format(CurrentDate);
-        System.out.println(formattedCurrentDate);
-    }
-
+  
 }

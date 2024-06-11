@@ -54,8 +54,8 @@
         <servlet-class>Controllers.HomePage.EditUser</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Signup</servlet-name>
-        <servlet-class>Controllers.LoginSystem.Signup</servlet-class>
+        <servlet-name>SignUp</servlet-name>
+        <servlet-class>Controllers.LoginSystem.SignUp</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>TestProfile</servlet-name>
@@ -68,6 +68,10 @@
     <servlet>
         <servlet-name>adminHome</servlet-name>
         <servlet-class>Controllers.HomePage.adminHome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyEmail</servlet-name>
+        <servlet-class>Controllers.LoginSystem.VerifyEmail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>adminHome</servlet-name>
@@ -127,8 +131,12 @@
         <url-pattern>/EditAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Signup</servlet-name>
-        <url-pattern>/signup</url-pattern>
+        <servlet-name>SignUp</servlet-name>
+        <url-pattern>/SignUp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyEmail</servlet-name>
+        <url-pattern>/verifyemail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TestProfile</servlet-name>

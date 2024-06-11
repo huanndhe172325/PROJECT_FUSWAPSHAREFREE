@@ -80,23 +80,21 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String userName = request.getParameter("username").trim();
+        String email = request.getParameter("email").trim();
 //
         String passWord = request.getParameter("password").trim();
 
-        if (userName == null || passWord == null || userName.isEmpty() || passWord.isEmpty()) {
+        if (email == null || passWord == null || email.isEmpty() || passWord.isEmpty()) {
             request.setAttribute("mess", "Please enter both username or password");
             request.getRequestDispatcher("Login/login.jsp").forward(request, response);
         } else {
             ArrayList<User> listUser = daoLogin.getAllUser();
-            if (!daoLogin.checkUserNameExits(userName, listUser)) {
-                request.setAttribute("mess", "username does not exist");
+            if (!daoLogin.checkEmailExits(email, listUser)) {
+                request.setAttribute("mess", "email does not exist");
                 request.getRequestDispatcher("Login/login.jsp").forward(request, response);
             } else {
-
-                int userID = daoLogin.getUserByUserName(userName).getUserID();
-                Boolean checkLogin = daoLogin.login(userName, passWord);
-                User userInfo = daoLogin.getUser(userName, passWord);
+                Boolean checkLogin = daoLogin.login(email, PassworDencryption.toSHA1(passWord));
+                User userInfo = daoLogin.getUser(email, PassworDencryption.toSHA1(passWord));
                 if (checkLogin == true) {
                     HttpSession session = request.getSession();
                     session.setAttribute("userInfo", userInfo);
@@ -108,8 +106,8 @@ public class Login extends HttpServlet {
                     }
                 } else {
 
-                    PasswordReset passwordResetInfo = daoLogin.getPasswordResetByUserName(userName);
-                    User userInfoLoginByPassReset = daoLogin.getUserLoginByPassReset(userName, passWord);
+                    PasswordReset passwordResetInfo = daoLogin.getPasswordResetByEmail(email);
+                    User userInfoLoginByPassReset = daoLogin.getUserLoginByPassReset(email, passWord);
 
                     if (passwordResetInfo != null && passWord.equals(passwordResetInfo.getPassword())) {
 
