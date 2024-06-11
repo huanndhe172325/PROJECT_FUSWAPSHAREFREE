@@ -82,26 +82,28 @@ public class EditProfileServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
-        
+
         
         DAOProfile db = new DAOProfile();
         User userId =(User) session.getAttribute("userInfo");
         int id = userId.getUserID();
         User u = db.getUserbyId(id);
-        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length()-10) + "web\\FolderImages\\ImagePost";
-        String imgFileName = id + "_image.jpg";
-        String imgFilePath = uploadDirectory + "\\" + imgFileName;
-        String linkDB = "FolderImages/ImagePost/" + imgFileName;
-        try {
-            Part imgPart = request.getPart("imgPath");
-                imgPart.write(imgFilePath);
-                response.getWriter().write("success");
-           
-        } catch (Exception e) {
-            response.getWriter().write(" " + e);
-        }
+//        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length()-10) + "web\\FolderImages\\ImagePost";
+//        String imgFileName = id + "_image.jpg";
+//        String imgFilePath = uploadDirectory + "\\" + imgFileName;
+//        String linkDB = "FolderImages/ImagePost/" + imgFileName;
+//        try {
+//            Part imgPart = request.getPart("imgPath");
+//
+//          
+//                imgPart.write(imgFilePath);
+//                response.getWriter().write("success");
+//           
+//        } catch (Exception e) {
+//            response.getWriter().write(" " + e);
+//        }
                 
-        db.UpdateProfile(name, email, phone,linkDB,u.getUserID());
+        db.UpdateProfile(name, email, phone,u.getUserID());
         request.setAttribute("msg", "Update profile successfull");
         response.sendRedirect("profile");
 
