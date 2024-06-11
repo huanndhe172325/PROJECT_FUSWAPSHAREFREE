@@ -45,27 +45,36 @@ public class DAOProfile extends DBContext {
         return null;
     }
 
-    public void UpdateProfile(String name, String email, String phone,String avatarUrl, String district, String commune, String snumber, String id) {
+    public void UpdateProfile(String name, String email, String phone,String avtUrl , int id) {
         String sql = "UPDATE [dbo].[User]\n"
                 + "   SET [Email] = ?\n"
                 + "      ,[Phone] = ?     \n"
-                + "      ,[AvatarUrl] = ?     \n"
                 + "      ,[Full_Name] = ?\n"
-                + "      ,[District] = ?\n"
-                + "      ,[Commune] = ?\n"
-                + "      ,[StreetNumber] = ?\n"
+                + "      ,[AvatarUrl] = ?\n"
                 + " WHERE UserID = ?";
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, phone);
-            statement.setString(3, avatarUrl);
-            statement.setString(4, name);
-            statement.setString(5, district);
-            statement.setString(6, commune);
-            statement.setString(7, snumber);
-            statement.setString(8, id);
+            statement.setString(3, name);
+            statement.setString(4, avtUrl);
+            statement.setInt(5, id);
+            ResultSet rs = statement.executeQuery();
+        } catch (Exception e) {
+        }
+    }
+    
+        public void UpdateLocation(String district, String commune,  int id) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [District] = ?\n"
+                + "      ,[Commune] = ?     \n"
+                + " WHERE UserID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, district);
+            statement.setString(2, commune);
 
+            statement.setInt(3, id);
             ResultSet rs = statement.executeQuery();
         } catch (Exception e) {
         }
@@ -73,7 +82,8 @@ public class DAOProfile extends DBContext {
 
     public static void main(String[] args) {
         DAOProfile dao = new DAOProfile();
-//        dao.UpdateProfile("vinhhao", "123@123", "01234567", "https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg", "thanh oai", "kim bai", "12", "1");
+        dao.UpdateProfile("kals", "abc@gmail.com", "0347118739", "https://scontent.fhan2-5.fna.fbcdn.net/v/t39.30808-6/448152857_878979460941300_8967125799885603723_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=5f2048&_nc_ohc=iGpJCON0t2MQ7kNvgHQ9mz0&_nc_ht=scontent.fhan2-5.fna&oh=00_AYCOsfZn8JGDW-KKADvWIbfEyadT509DDVJoeAjG4xDZvw&oe=666DBA04", 1);
+//        dao.UpdateLocation("Thanh o", "Kim Bai", 1);
         
     }
 }
