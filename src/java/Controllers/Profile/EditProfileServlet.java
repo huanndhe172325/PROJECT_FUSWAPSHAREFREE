@@ -5,6 +5,7 @@
 package Controllers.Profile;
 
 import DAL.DAOProfile;
+import Model.Post;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 /**
  *
@@ -76,25 +78,34 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
-
+        HttpSession session = request.getSession();
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
-        String avatarUrl = request.getParameter("avtUrl");
-        String district = request.getParameter("district");
-        String commune = request.getParameter("commune");
-        String snumber = request.getParameter("snumber");
-        HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("currentUser");
-        
-            DAOProfile db = new DAOProfile();
-            User u = db.getUserbyId(Integer.parseInt(id));
 
-            db.UpdateProfile(name, email, phone, avatarUrl, district, commune, snumber, id);
-            request.setAttribute("msg", "Update profile successfull");
-            response.sendRedirect("HomePage");
         
+        DAOProfile db = new DAOProfile();
+        User userId =(User) session.getAttribute("userInfo");
+        int id = userId.getUserID();
+        User u = db.getUserbyId(id);
+//        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length()-10) + "web\\FolderImages\\ImagePost";
+//        String imgFileName = id + "_image.jpg";
+//        String imgFilePath = uploadDirectory + "\\" + imgFileName;
+//        String linkDB = "FolderImages/ImagePost/" + imgFileName;
+//        try {
+//            Part imgPart = request.getPart("imgPath");
+//
+//          
+//                imgPart.write(imgFilePath);
+//                response.getWriter().write("success");
+//           
+//        } catch (Exception e) {
+//            response.getWriter().write(" " + e);
+//        }
+                
+        db.UpdateProfile(name, email, phone,u.getUserID());
+        request.setAttribute("msg", "Update profile successfull");
+        response.sendRedirect("profile");
 
     }
 

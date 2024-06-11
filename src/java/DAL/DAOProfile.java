@@ -45,27 +45,34 @@ public class DAOProfile extends DBContext {
         return null;
     }
 
-    public void UpdateProfile(String name, String email, String phone,String avatarUrl, String district, String commune, String snumber, String id) {
+    public void UpdateProfile(String name, String email, String phone, int id) {
         String sql = "UPDATE [dbo].[User]\n"
                 + "   SET [Email] = ?\n"
                 + "      ,[Phone] = ?     \n"
-                + "      ,[AvatarUrl] = ?     \n"
                 + "      ,[Full_Name] = ?\n"
-                + "      ,[District] = ?\n"
-                + "      ,[Commune] = ?\n"
-                + "      ,[StreetNumber] = ?\n"
                 + " WHERE UserID = ?";
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, email);
             statement.setString(2, phone);
-            statement.setString(3, avatarUrl);
-            statement.setString(4, name);
-            statement.setString(5, district);
-            statement.setString(6, commune);
-            statement.setString(7, snumber);
-            statement.setString(8, id);
+            statement.setString(3, name);
+            statement.setInt(4, id);
+            ResultSet rs = statement.executeQuery();
+        } catch (Exception e) {
+        }
+    }
+    
+        public void UpdateLocation(String district, String commune,  int id) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [District] = ?\n"
+                + "      ,[Commune] = ?     \n"
+                + " WHERE UserID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, district);
+            statement.setString(2, commune);
 
+            statement.setInt(3, id);
             ResultSet rs = statement.executeQuery();
         } catch (Exception e) {
         }
@@ -73,7 +80,8 @@ public class DAOProfile extends DBContext {
 
     public static void main(String[] args) {
         DAOProfile dao = new DAOProfile();
-        User u = dao.getUserbyId(1);
-        System.out.println(u.toString());
+        
+        dao.UpdateLocation("Thanh o", "Kim Bai", 1);
+        
     }
 }

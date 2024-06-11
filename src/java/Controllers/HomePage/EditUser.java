@@ -80,7 +80,7 @@ public class EditUser extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         DAOManageUser dao = new DAOManageUser();
         dao.updateStatus(id, stt);
-        response.sendRedirect("manageUser");
+        response.sendRedirect("manageUsers");
     }
 
     /**
