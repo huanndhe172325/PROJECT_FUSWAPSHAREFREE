@@ -112,8 +112,8 @@
                 </a>
             </div>
             <div class="dashboard-aside-end">
-                <a href="navbar-v1-profile-main.html" class="dashboard-aside-link">
-                    <img class="link-avatar" src="https://via.placeholder.com/400x400" data-demo-src="assets/img/avatars/jenna.png" alt="" />
+                <a href="Preview" class="dashboard-aside-link">
+                    <img class="link-avatar" src="https://via.placeholder.com/400x400" data-demo-src="${user.avatarUrl}" alt="" />
                 </a>
             </div>
         </div>

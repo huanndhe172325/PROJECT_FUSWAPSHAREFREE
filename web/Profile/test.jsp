@@ -38,9 +38,7 @@ Add new Address-->
 
     </div>  
 </div>
-        <div class="col-md-12"><label class="labels">District</label><input name="district" type="text" class="form-control" value="${profile.getDistrict()}"></div>                 
-                                <div class="col-md-12"><label class="labels">Commune</label><input name="commune" type="text" class="form-control" value="${profile.getCommune()}"></div>                 
-                                <div class="col-md-12"><label class="labels">StreetNumber</label><input name="snumber" type="text" class="form-control" value="${profile.getStreetNumber()}"></div>             
+       
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script>

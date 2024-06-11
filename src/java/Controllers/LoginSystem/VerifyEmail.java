@@ -4,27 +4,24 @@
  */
 package Controllers.LoginSystem;
 
-import DAL.DAOLoginSystem;
 import DAL.DAOSignup;
-import Model.User;
+import Model.EmailVerification;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import org.eclipse.jdt.core.compiler.CharOperation;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
- * @author admin
+ * @author Binhtran
  */
-@WebServlet(name = "Signup", urlPatterns = {"/Signup"})
-public class Signup extends HttpServlet {
+public class VerifyEmail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,13 +40,12 @@ public class Signup extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterController</title>");
+            out.println("<title>Servlet VerifyEmail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet VerifyEmail at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-
         }
     }
 
@@ -65,7 +61,7 @@ public class Signup extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+        request.getRequestDispatcher("Signup/VerifyEmail.jsp").forward(request, response);
     }
 
     /**
@@ -76,46 +72,43 @@ public class Signup extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    DAOSignup dao = new DAOSignup();
-    DAOLoginSystem daoLogin = new DAOLoginSystem();
+    DAOSignup daoSignUp = new DAOSignup();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String otp = request.getParameter("otp");
 
-        /* TODO output your page here. You may use following sample code. */
-        String email = request.getParameter("email");
-        String Phone = request.getParameter("phone");
-        String pass = request.getParameter("pass");
-        String repass = request.getParameter("repass");
-        String userName = request.getParameter("username");
-        String Fname = request.getParameter("fname");
-        String District = request.getParameter("district");
-        String Commune = request.getParameter("commune");
-        String StreetNumber = request.getParameter("streetnumber");
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("userID");
 
-        ArrayList<User> listUser = daoLogin.getAllUser();
-        if (Fname.equals("") || email.equals("") || pass.equals("") || repass.equals("") || userName.equals("") || Phone.equals("") || District.equals("") || Commune.equals("") || StreetNumber.equals("")) {
-            request.setAttribute("mess", "Please fill all blank");
-            request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
-        } else {
-            if (!pass.equals(repass)) {
-                request.setAttribute("mess", "Pass and repass does not match!");
-                request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
-            } else {
-                if (daoLogin.checkUserNameExits(userName, listUser)) {
-                    request.setAttribute("mess", "This username already exist");
-                    request.getRequestDispatcher("Signup/SignUp.jsp").forward(request, response);
+        EmailVerification emailVerificationInfo = daoSignUp.getEmailVerificationByUserID(userId);
+        if (emailVerificationInfo != null && otp.equals(emailVerificationInfo.getOtp())) {
+            Date dateNow = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(dateNow);
+            Date CurrentDate = calendar.getTime();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String formattedCurrentDate = dateFormat.format(CurrentDate);
+
+            try {
+                Date currentDate = dateFormat.parse(formattedCurrentDate);
+                Date expiryDateTime = dateFormat.parse(emailVerificationInfo.getExpiryDateTime());
+                if (currentDate.before(expiryDateTime)) {
+                    daoSignUp.updateUserStatusToActive(userId);
+                    session.removeAttribute("userID");
+                    response.sendRedirect("Login");
                 } else {
-                    if (pass.equals(repass)) {
-                        dao.insertAccount(email, Phone, pass, userName, Fname, District, Commune, StreetNumber);
-                        request.setAttribute("mess", "Register successful please login!!");
-                        request.getRequestDispatcher("Login/login.jsp").forward(request, response);
-                    }
+                    request.setAttribute("mess", "OTP reset has expired");
+                    request.getRequestDispatcher("Signup/VerifyEmail.jsp").forward(request, response);
                 }
+            } catch (Exception e) {
+                System.out.println(e);
             }
+        } else {
+            request.setAttribute("mess", "OTP is incorrect");
+            request.getRequestDispatcher("Signup/VerifyEmail.jsp").forward(request, response);
         }
-
     }
 
     /**

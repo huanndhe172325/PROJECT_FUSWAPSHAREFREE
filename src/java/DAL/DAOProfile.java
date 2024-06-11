@@ -73,7 +73,7 @@ public class DAOProfile extends DBContext {
 
     public static void main(String[] args) {
         DAOProfile dao = new DAOProfile();
-        User u = dao.getUserbyId(1);
-        System.out.println(u.toString());
+//        dao.UpdateProfile("vinhhao", "123@123", "01234567", "https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg", "thanh oai", "kim bai", "12", "1");
+        
     }
 }
