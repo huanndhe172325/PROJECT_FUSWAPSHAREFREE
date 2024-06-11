@@ -784,7 +784,9 @@
 
                                                     <i data-feather="camera"></i>
                                                 </label>
-                                                <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" >
+                                                <form action="editprofile" method="POST" enctype="multipart/form-data" id="uploadForm">
+                                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" onchange="submitForm()" >
+                                                </form>
                                             </a>
 
 
@@ -1096,11 +1098,22 @@
 
                             <div class="card-body">
                                 <div class="control">
-                                    <form action="editprofile" id="edit-profile-modal" method="post">
-                                        <div class="col-md-12"><label class="labels">Full Name</label><input id="fname" name="name" type="text" class="form-control"  value="${profile.getFull_Name()}"> <div style="color: red" id="errorFname"> </div></div>                                   
-                                        <div class="col-md-12"><label class="labels">Email</label><input id="email"  name="email" type="text" class="form-control"  value="${profile.getEmail()}"> <div style="color: red" id="errorEmail"></div> </div>
-                                        <div class="col-md-12"><label class="labels">Phone Number</label><input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}"> <div style="color: red" id="errorPhone"></div>  </div>
-
+                                    <form action="editprofile" id="edit-profile-modal" method="post" onsubmit="return FormValidate();">
+                                        <div class="col-md-12">
+                                            <label class="labels">Full Name</label>
+                                            <input id="fname" name="name" type="text" class="form-control" value="${profile.getFull_Name()}">
+                                            <div style="color: red" id="errorFname"></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Email</label>
+                                            <input id="email" name="email" type="text" class="form-control" value="${profile.getEmail()}">
+                                            <div style="color: red" id="errorEmail"></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Phone Number</label>
+                                            <input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
+                                            <div style="color: red" id="errorPhone"></div>
+                                        </div>
                                         <input type="submit" id="submit-update-profile1" style="display : none;" value="Submit">
                                     </form>
                                 </div>
@@ -1121,6 +1134,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!-- Edit location -->
             <div id="edit-location-modal" class="modal share-modal is-xsmall has-light-bg" >
@@ -1244,69 +1258,116 @@
             <!-- elements page js -->
 
             <script>
-                                        var form1 = document.getElementById('edit-profile');
-                                        form1.addEventListener('submit', function (event) {
-                                            event.preventDefault();
+                                        function FormValidate() {
+                                            var isValid = true;
 
-                                            var formData = new FormData(form1);
+                                            // Validate Full Name
+                                            var fname = document.getElementById('fname').value.trim();
+                                            var errorFname = document.getElementById('errorFname');
+                                            if (fname === "") {
+                                                errorFname.textContent = "Full Name is required";
+                                                isValid = false;
+                                            } else {
+                                                errorFname.textContent = "";
+                                            }
 
-                                            var xhr = new XMLHttpRequest();
+                                            // Validate Email
+                                            var email = document.getElementById('email').value.trim();
+                                            var errorEmail = document.getElementById('errorEmail');
+                                            var reGexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                                            if (email === "") {
+                                                errorEmail.textContent = "Email is required";
+                                                isValid = false;
+                                            } else if (!reGexEmail.test(email)) {
+                                                errorEmail.textContent = "Please enter a valid email address";
+                                                isValid = false;
+                                            } else {
+                                                errorEmail.textContent = "";
+                                            }
 
-                                            xhr.open('POST', 'editprofile', true);
+                                            // Validate Phone Number
+                                            var phoneNum = document.getElementById('phoneNum').value.trim();
+                                            var errorPhone = document.getElementById('errorPhone');
+                                            var reGexPhone = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+                                            if (phoneNum === "") {
+                                                errorPhone.textContent = "Phone Number is required";
+                                                isValid = false;
+                                            } else if (!reGexPhone.test(phoneNum)) {
+                                                errorPhone.textContent = "Please enter a valid phone number";
+                                                isValid = false;
+                                            } else {
+                                                errorPhone.textContent = "";
+                                            }
 
-                                            xhr.onload = function () {
-                                                if (xhr.status >= 200 && xhr.status < 300) {
-                                                    const modal = document.getElementById('edit-profile-modal');
-                                                    modal.classList.remove('is-active');
+                                            return isValid;
+                                        }
 
-                                                    iziToast.show({
-                                                        maxWidth: "280px",
-                                                        class: "success-toast",
-                                                        icon: "mdi mdi-error",
-                                                        title: "",
-                                                        message: "Edit profile successfully",
-                                                        titleColor: "#fff",
-                                                        messageColor: "#fff",
-                                                        iconColor: "#fff",
-                                                        backgroundColor: "#60c032",
-                                                        progressBarColor: "#0062ff",
-                                                        position: "bottomRight",
-                                                        transitionIn: "fadeInUp",
-                                                        close: false,
-                                                        timeout: 1800,
-                                                        zindex: 99999
-                                                    });
-                                                } else {
-                                                    const modal = document.getElementById('edit-profile-modal');
-                                                    modal.classList.remove('is-active');
-                                                    console.log('Success', xhr.responseText);
+            </script>
+
+            <script>
+                var form1 = document.getElementById('edit-profile');
+                form1.addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    var formData = new FormData(form1);
+
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('POST', 'editprofile', true);
+
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            const modal = document.getElementById('edit-profile-modal');
+                            modal.classList.remove('is-active');
+
+                            iziToast.show({
+                                maxWidth: "280px",
+                                class: "success-toast",
+                                icon: "mdi mdi-error",
+                                title: "",
+                                message: "Edit profile successfully",
+                                titleColor: "#fff",
+                                messageColor: "#fff",
+                                iconColor: "#fff",
+                                backgroundColor: "#60c032",
+                                progressBarColor: "#0062ff",
+                                position: "bottomRight",
+                                transitionIn: "fadeInUp",
+                                close: false,
+                                timeout: 1800,
+                                zindex: 99999
+                            });
+                        } else {
+                            const modal = document.getElementById('edit-profile-modal');
+                            modal.classList.remove('is-active');
+                            console.log('Success', xhr.responseText);
 //                            var form = document.getElementById('edit-location');
-                                                    iziToast.show({
-                                                        maxWidth: "280px",
-                                                        class: "success-toast",
-                                                        icon: "mdi mdi-error",
-                                                        title: "",
-                                                        message: "Edit profile failed",
-                                                        titleColor: "#fff",
-                                                        messageColor: "#fff",
-                                                        iconColor: "#fff",
-                                                        backgroundColor: "#FF0000",
-                                                        progressBarColor: "#0062ff",
-                                                        position: "bottomRight",
-                                                        transitionIn: "fadeInUp",
-                                                        close: false,
-                                                        timeout: 1800,
-                                                        zindex: 99999
-                                                    });
-                                                }
-                                            };
+                            iziToast.show({
+                                maxWidth: "280px",
+                                class: "success-toast",
+                                icon: "mdi mdi-error",
+                                title: "",
+                                message: "Edit profile failed",
+                                titleColor: "#fff",
+                                messageColor: "#fff",
+                                iconColor: "#fff",
+                                backgroundColor: "#FF0000",
+                                progressBarColor: "#0062ff",
+                                position: "bottomRight",
+                                transitionIn: "fadeInUp",
+                                close: false,
+                                timeout: 1800,
+                                zindex: 99999
+                            });
+                        }
+                    };
 
-                                            xhr.onerror = function () {
-                                                console.error('Request failed');
-                                            };
+                    xhr.onerror = function () {
+                        console.error('Request failed');
+                    };
 
-                                            xhr.send(formData);
-                                        });
+                    xhr.send(formData);
+                });
             </script>
 
             <script>
@@ -1436,6 +1497,11 @@
 
                     xhr.send(formData);
                 });
+            </script>
+            <script>
+                function submitForm() {
+                    document.getElementById('uploadForm').submit();
+                }
             </script>
     </body>
 
