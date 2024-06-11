@@ -14,7 +14,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -61,14 +60,12 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        String id = request.getParameter("id");
         DAOProfile db = new DAOProfile();
-        User userId = (User) session.getAttribute("userInfo");
-        int id = userId.getUserID();
-        User u = db.getUserbyId(id);
+        User u = db.getUserbyId(Integer.parseInt(id));
         ArrayList<Post> myPost = new ArrayList<>();
         DAOManagePost daoPost = new DAOManagePost();
-        myPost = daoPost.getAllPostByIdUser(u.getUserID());
+        myPost = daoPost.getAllPostByIdUser(Integer.parseInt(id));
         request.setAttribute("myPost", myPost);
         request.setAttribute("profile", u);
         request.getRequestDispatcher("Profile/profile.jsp").forward(request, response);

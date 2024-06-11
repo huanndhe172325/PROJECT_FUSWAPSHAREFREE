@@ -28,15 +28,10 @@
 
 
         <style>
-            html, body {
-                height: 100%;
-                margin: 0;
-            }
             body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url('img/bg-hero.jpg') no-repeat center center fixed;
+                background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url(img/bg-hero.jpg);
+                background-position: center center;
+                background-repeat: no-repeat;
                 background-size: cover;
             }
 
@@ -44,7 +39,7 @@
                 box-shadow: none;
                 border-color: #BA68C8
             }
-
+            
             .profile-button {
                 background: rgb(99, 39, 120);
                 box-shadow: none;
@@ -102,12 +97,12 @@
                                 <div class="col-md-12"><label hidden="" class="labels">ID</label><input hidden="" name="id" type="text" class="form-control" readonly value="${profile.getUserID()}"></div>
                                 <div class="col-md-12"><label hidden="" class="labels">Username</label><input hidden="" name="user" type="text" class="form-control" readonly value="${profile.getUserName()}"></div>                          
                                 <div class="col-md-12"><label class="labels">Full Name</label><input id="fname" name="name" type="text" class="form-control"  value="${profile.getFull_Name()}"> <div style="color: red" id="errorFname"> </div>
-                                </div>
+                                    </div>
                                 <div class="col-md-12"><label class="labels">Email</label><input id="email"  name="email" type="text" class="form-control"  value="${profile.getEmail()}"> <div style="color: red" id="errorEmail"></div> </div>
                                 <div class="col-md-12"><label class="labels">Phone Number</label><input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}"> <div style="color: red" id="errorPhone"></div>  </div>
-                                <div class="col-md-12"><label hidden="" class="labels">District</label><input hidden="" id="district" name="district" type="text" class="form-control" value="${profile.getDistrict()}"> <div style="color: red" id="errorDistrict"></div> </div>                 
-                                <div class="col-md-12"><label hidden="" class="labels">Commune</label><input hidden="" id="commnue" name="commune" type="text" class="form-control" value="${profile.getCommune()}"> <div style="color: red" id="errorCommune"></div> </div>                 
-                                <div class="col-md-12"><label hidden="" class="labels">StreetNumber</label><input hidden="" id="snumber" name="snumber" type="text" class="form-control" value="${profile.getStreetNumber()}"> <div style="color: red" id="errorSnumber"></div> </div>             
+                                <div class="col-md-12"><label class="labels">District</label><input id="district" name="district" type="text" class="form-control" value="${profile.getDistrict()}"> <div style="color: red" id="errorDistrict"></div> </div>                 
+                                <div class="col-md-12"><label class="labels">Commune</label><input id="commnue" name="commune" type="text" class="form-control" value="${profile.getCommune()}"> <div style="color: red" id="errorCommune"></div> </div>                 
+                                <div class="col-md-12"><label class="labels">StreetNumber</label><input id="snumber" name="snumber" type="text" class="form-control" value="${profile.getStreetNumber()}"> <div style="color: red" id="errorSnumber"></div> </div>             
                             </div>
                             <p>${msg}</p>
                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
@@ -119,6 +114,6 @@
             </div>
         </div>
 
-        <<script src="assets/js/checkValidateProfile.js" type="text/javascript"></script>
+                            <<script src="assets/js/checkValidateProfile.js" type="text/javascript"></script>
     </body>
 </html>
