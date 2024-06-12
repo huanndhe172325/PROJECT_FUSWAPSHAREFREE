@@ -1390,8 +1390,6 @@
                             <!-- Weather widget -->
                             <!-- /partials/widgets/weather-widget.html -->
 
-
-
                             <!-- Fake Ad -->
                             <!-- /partials/widgets/fake-add-widget.html -->
 
@@ -1440,13 +1438,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card-body no-padding">
+                                <div class="card-body no-padding scrollable-content">
                                     <!-- Recommended Page -->
                                     <c:forEach var="user" items="${requestScope.listPoint}">
                                         <div class="page-block">
                                             <img src="https://via.placeholder.com/300x300" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
                                             <div class="page-meta">
-                                                <span>${user.userName}</span>
+                                                <span>${user.full_Name}</span>
                                                 <span>${user.point}</span>
                                             </div>
                                             <div class="add-page">
@@ -1457,6 +1455,34 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Add some CSS for the scrollable content -->
+                        <style>
+                            .scrollable-content {
+                                max-height: 400px; /* Set the maximum height for the scrollable content */
+                                overflow-y: auto;  /* Enable vertical scrolling */
+                            }
+                            .page-block {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                padding: 10px;
+                                border-bottom: 1px solid #ddd; /* Optional: add a bottom border for separation */
+                            }
+                            .page-block img {
+                                border-radius: 50%;
+                                width: 50px;
+                                height: 50px;
+                                object-fit: cover;
+                            }
+                            .page-meta {
+                                margin-left: 10px;
+                            }
+                            .add-page {
+                                cursor: pointer;
+                            }
+                        </style>
+
                         <!-- /Left side column -->
 
                         <!-- Middle column -->
@@ -3018,7 +3044,6 @@
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
-
                             <!-- Suggested friends widget -->
                             <!-- /partials/widgets/suggested-friends-1-widget.html -->
                             <div class="card">
@@ -3026,62 +3051,63 @@
                                     <h4>User near me</h4>
                                     <div class="dropdown is-spaced is-right dropdown-trigger">
                                         <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
-                                            </div>
+
                                         </div>
                                         <div class="dropdown-menu" role="menu">
                                             <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="users"></i>
-                                                        <div class="media-content">
-                                                            <h3>All Suggestions</h3>
-                                                            <small>View all friend suggestions.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="settings"></i>
-                                                        <div class="media-content">
-                                                            <h3>Settings</h3>
-                                                            <small>Access widget settings.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
+
                                                 <hr class="dropdown-divider" />
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="trash-2"></i>
-                                                        <div class="media-content">
-                                                            <h3>Remove</h3>
-                                                            <small>Removes this widget from your feed.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <c:forEach var="user" items="${requestScope.listUserDistrict}">
-                                    <div class="card-body no-padding">
+                                <div class="card-body no-padding scrollable-content">
+                                    <c:forEach var="user" items="${requestScope.listUserDistrict}">
                                         <div class="add-friend-block transition-block">
-
                                             <img src="https://via.placeholder.com/300x300" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
                                             <div class="page-meta">
-                                                <span>${user.userName}</span>
+                                                <span>${user.full_Name}</span>
                                                 <span>${user.district}</span>
                                             </div>
                                             <div class="add-friend add-transition">
                                                 <i data-feather="user-plus"></i>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:forEach>  
-
+                                    </c:forEach>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Add some CSS for the scrollable content -->
+                        <style>
+                            .scrollable-content {
+                                max-height: 400px; /* Set the maximum height for the scrollable content */
+                                overflow-y: auto;  /* Enable vertical scrolling */
+                                padding: 10px;
+                                border: 1px solid #ddd; /* Optional: add a border for better visibility */
+                            }
+                            .add-friend-block {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                padding: 10px;
+                                border-bottom: 1px solid #ddd; /* Optional: add a bottom border */
+                            }
+                            .add-friend-block img {
+                                border-radius: 50%;
+                                width: 50px;
+                                height: 50px;
+                                object-fit: cover;
+                            }
+                            .page-meta {
+                                margin-left: 10px;
+                            }
+                            .add-friend {
+                                cursor: pointer;
+                            }
+                        </style>
+
 
                         <!-- New job widget -->
                     </div>
@@ -6116,7 +6142,7 @@
                                     xhr.send(formData);
                                 });
 
-                                
+
 
     </script>
 </body>
