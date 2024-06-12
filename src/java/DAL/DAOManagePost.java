@@ -69,6 +69,22 @@ public class DAOManagePost extends DBContext {
         }
         return listPost;
     }
+    public int countPostsByUserId(int idUser) {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM Post WHERE UserID = ?";
+        PreparedStatement statement = connect.prepareStatement(sql);
+        statement.setInt(1, idUser);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        }
+        rs.close();
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return count;
+}
 
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
         ArrayList<Post> listPost = new ArrayList<>();

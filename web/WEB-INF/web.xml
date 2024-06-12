@@ -47,7 +47,7 @@
     </servlet>
     <servlet>
         <servlet-name>manageUsers</servlet-name>
-        <servlet-class>Controllers.HomePage.ManageUser</servlet-class>
+        <servlet-class>Controllers.HomePage.manageUsers</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditUser</servlet-name>
@@ -124,7 +124,7 @@
     
     <servlet-mapping>
         <servlet-name>manageUsers</servlet-name>
-        <url-pattern>/manageUser</url-pattern>
+        <url-pattern>/manageUsers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>EditUser</servlet-name>

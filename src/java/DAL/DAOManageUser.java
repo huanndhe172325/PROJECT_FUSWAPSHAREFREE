@@ -112,6 +112,7 @@ public class DAOManageUser extends DBContext {
                 rs.getInt("Point"),
                 rs.getInt("RoleID"),
                 rs.getInt("StatusID")
+                 
             );
             users.add(user);
         }
