@@ -1549,10 +1549,11 @@
                             xhr.onreadystatechange = function () {
                                 if (xhr.readyState === 4 && xhr.status === 200) {
                                     console.log(currentPostId);
+                                    console.log(xhr.responseText);
                                     iziToast.show({
                                         maxWidth: "280px",
                                         class: "success-toast",
-                                        icon: "mdi mdi-error",
+                                        icon: "mdi mdi-check",
                                         title: "",
                                         message: "Archive post successfully",
                                         titleColor: "#fff",
@@ -1569,7 +1570,7 @@
                                     modalArchive.classList.remove('is-active');
                                 }
                             };
-                            xhr.send('postId=' + encodeURIComponent(currentPostId));
+                            xhr.send('id=' + currentPostId);
                         }
                     });
                 });
