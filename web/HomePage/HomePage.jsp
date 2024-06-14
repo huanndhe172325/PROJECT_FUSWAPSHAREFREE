@@ -6159,18 +6159,20 @@
 
 
     </script>
+    <!-- Thêm đoạn mã JavaScript vào cuối phần body của trang -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Lắng nghe sự kiện click vào nút "Flag"
             document.getElementById('flag-link').addEventListener('click', function (event) {
                 event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
 
-                // Hiển thị modal
+                // Hiển thị modal báo cáo bài đăng
                 var modal = document.getElementById('report-post-modal');
-                modal.classList.add('is-active');
+                modal.classList.add('is-active'); // Thêm lớp 'is-active' để hiển thị modal
             });
         });
     </script>
+
 </body>
 
 
