@@ -36,6 +36,59 @@ public class DAOLoginSystem extends DBContext {
         return false;
     }
 
+    public void addUser(User user) {
+        String sql = "INSERT INTO [User] (Email, Phone, AvatarUrl, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, user.getEmail());
+            st.setString(2, user.getPhone());
+            st.setString(3, user.getAvatarUrl());
+            st.setString(4, user.getPassWord());
+            st.setString(5, user.getJoinDate());
+            st.setString(6, user.getUserName());
+            st.setString(7, user.getFull_Name());
+            st.setString(8, user.getDistrict());
+            st.setString(9, user.getCommune());
+            st.setString(10, user.getStreetNumber());
+            st.setInt(11, user.getPoint());
+            st.setInt(12, user.getRoleID());
+            st.setInt(13, user.getStatusID());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public User getUserByEmail(String email) {
+        String sql = "SELECT * FROM [User] WHERE Email = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID"));
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public User getUser(String email, String password) {
         String sql = "SELECT * FROM [User] \n"
                 + "WHERE Email = ?\n"
@@ -274,5 +327,5 @@ public class DAOLoginSystem extends DBContext {
             return false;
         }
     }
-  
+
 }

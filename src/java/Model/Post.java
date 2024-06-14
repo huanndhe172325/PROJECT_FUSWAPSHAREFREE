@@ -212,7 +212,14 @@ public class Post {
         return Street_Number +", " + Commune + ", " + District;
     }
     public String getQuanlityName(){
-         DAOManagePost dao = new DAOManagePost();
+        DAOManagePost dao = new DAOManagePost();
         return dao.getQuanlityNameByIdQuanlity(QuanlityID);
+    }
+    
+    public boolean isMyPost(int idUser){
+        if(idUser == UserID){
+            return true;
+        }
+        return false;
     }
 }

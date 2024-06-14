@@ -62,8 +62,13 @@
         <servlet-class>Controllers.Profile.TestProfile</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>manageReportUser</servlet-name>
         <servlet-class>Controllers.HomePage.manageReportUser</servlet-class>
+
+        <servlet-name>ArchivePost</servlet-name>
+        <servlet-class>Controllers.Profile.ArchivePost</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>

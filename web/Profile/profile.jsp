@@ -784,7 +784,7 @@
 
                                                     <i data-feather="camera"></i>
                                                 </label>
-                                                 <form action="editprofile" method="POST" enctype="multipart/form-data" id="uploadForm">
+                                                <form action="editprofile" method="POST" enctype="multipart/form-data" id="uploadForm">
                                                     <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" onchange="submitForm()" >
                                                 </form>
                                             </a>
@@ -997,29 +997,19 @@
                                                                 <div class="dropdown-content">
                                                                     <a href="#" class="dropdown-item">
                                                                         <div class="media">
-                                                                            <i data-feather="bookmark"></i>
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
                                                                             <div class="media-content">
-                                                                                <h3>Bookmark</h3>
-                                                                                <small>Add this post to your bookmarks.</small>
+                                                                                <h3>Edit</h3>
+                                                                                <small>Edit your post.</small>
                                                                             </div>
                                                                         </div>
                                                                     </a>
-                                                                    <a class="dropdown-item">
+                                                                    <a class="dropdown-item open-modal-archive" data-post-id="${post.postID}">
                                                                         <div class="media">
-                                                                            <i data-feather="bell"></i>
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M21 6a3 3 0 0 0-3-3H6a3 3 0 0 0-2 5.22V18a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8.22A3 3 0 0 0 21 6M6 5h12a1 1 0 0 1 0 2H6a1 1 0 0 1 0-2m12 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h12Z"/><rect width="6" height="2" x="9" y="12" fill="currentColor" rx=".87" ry=".87"/></svg>
                                                                             <div class="media-content">
-                                                                                <h3>Notify me</h3>
-                                                                                <small>Send me the updates.</small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </a>
-                                                                    <hr class="dropdown-divider" />
-                                                                    <a href="#" class="dropdown-item">
-                                                                        <div class="media">
-                                                                            <i data-feather="flag"></i>
-                                                                            <div class="media-content">
-                                                                                <h3>Flag</h3>
-                                                                                <small>In case of inappropriate content.</small>
+                                                                                <h3>Archive</h3>
+                                                                                <small>Archive this post, others cannot see it</small>
                                                                             </div>
                                                                         </div>
                                                                     </a>
@@ -1184,6 +1174,40 @@
                                 </div>
 
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="archive-post" class="modal albums-help-modal is-xsmall has-light-bg">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-heading">
+                            <h3>Archive Post?</h3>
+                            <!-- Close X button -->
+                            <div class="close-wrap">
+                                <span class="close-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="content-archive-post" style="margin: 20px 5px;">
+                                <div class="help-text">
+                                    <h3>Do you want to archive this post ?</h3>
+                                </div>
+                            </div>
+
+                            <div class="action" style="text-align: right;">
+                                <button type="button" class="button is-solid accent-button next-modal raised close-modal" data-modal="albums-modal" style="background-color: white; color: #5596e6; border: none;">
+                                    Cancel
+                                </button>
+                                <button id="archivePostButton" type="button" class="button is-solid accent-button next-modal raised close-modal" data-modal="albums-modal">
+                                    Archive Post
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -1502,6 +1526,54 @@
                 function submitForm() {
                     document.getElementById('uploadForm').submit();
                 }
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    const openModalArchives = document.querySelectorAll('.open-modal-archive');
+                    const modalArchive = document.getElementById('archive-post');
+                    const archivePostButton = document.getElementById('archivePostButton');
+                    let currentPostId = null;
+
+                    openModalArchives.forEach(openModalArchive => {
+                        openModalArchive.addEventListener('click', () => {
+                            const postId = openModalArchive.getAttribute('data-post-id');
+                            currentPostId = postId;
+                            modalArchive.setAttribute('data-post-id', postId);
+                            modalArchive.classList.add('is-active');
+                        });
+                    });
+
+                    archivePostButton.addEventListener('click', () => {
+                        if (currentPostId) {
+                            const xhr = new XMLHttpRequest();
+                            xhr.open('POST', 'ArchivePost', true);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === 4 && xhr.status === 200) {
+                                    console.log(currentPostId);
+                                    console.log(xhr.responseText);
+                                    iziToast.show({
+                                        maxWidth: "280px",
+                                        class: "success-toast",
+                                        icon: "mdi mdi-check",
+                                        title: "",
+                                        message: "Archive post successfully",
+                                        titleColor: "#fff",
+                                        messageColor: "#fff",
+                                        iconColor: "#fff",
+                                        backgroundColor: "#60c032",
+                                        progressBarColor: "#0062ff",
+                                        position: "bottomRight",
+                                        transitionIn: "fadeInUp",
+                                        close: false,
+                                        timeout: 1800,
+                                        zindex: 99999
+                                    });
+                                    modalArchive.classList.remove('is-active');
+                                }
+                            };
+                            xhr.send('id=' + currentPostId);
+                        }
+                    });
+                });
             </script>
     </body>
 
