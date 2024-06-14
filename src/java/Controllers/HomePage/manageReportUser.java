@@ -4,12 +4,13 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManageReport;
 import DAL.DAOManageUser;
+import Model.ReportUser;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,8 +21,7 @@ import java.util.ArrayList;
  *
  * @author admin
  */
-@WebServlet(name = "adminHome", urlPatterns = {"/adminHome"})
-public class adminHome extends HttpServlet {
+public class manageReportUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class adminHome extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet adminHome</title>");            
+            out.println("<title>Servlet manageReportUser</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet adminHome at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet manageReportUser at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,16 +61,15 @@ public class adminHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         DAOManageUser daoManagerUser = new DAOManageUser();
-        
-        ArrayList<User> listUser = daoManagerUser.getAllUsers();
         HttpSession session = request.getSession();
-        User userInfo_raw = (User) session.getAttribute("userInfo");
-        User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
-        session.setAttribute("listUser", listUser);
-         session.setAttribute("user", userInfor);
+        DAOManageReport dao = new DAOManageReport();
+       ArrayList<ReportUser> reportUser = new ArrayList<>();
+       reportUser = dao.getAllReportUsers();
+//       int id = Integer.parseInt(request.getParameter(LEGACY_DO_HEAD));
+//       reportUser = dao.getFullNameReceiveById(0);
+//       session.setAttribute("users", reportUser);
        
-         request.getRequestDispatcher("HomePage/adminHome.jsp").forward(request, response);
+       request.getRequestDispatcher("HomePage/manageUsers.jsp").forward(request, response);
     }
 
     /**

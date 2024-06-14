@@ -61,6 +61,10 @@
         <servlet-name>TestProfile</servlet-name>
         <servlet-class>Controllers.Profile.TestProfile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>manageReportUser</servlet-name>
+        <servlet-class>Controllers.HomePage.manageReportUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -141,6 +145,10 @@
     <servlet-mapping>
         <servlet-name>TestProfile</servlet-name>
         <url-pattern>/testp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageReportUser</servlet-name>
+        <url-pattern>/manageReportUser</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>

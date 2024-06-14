@@ -4,6 +4,8 @@
  */
 package Model;
 
+import DAL.DAOManageReport;
+
 /**
  *
  * @author admin
@@ -48,8 +50,8 @@ public class ReportUser {
     public int getIdUserReceive() {
         return idUserReceive;
     }
-
     public void setIdUserReceive(int idUserReceive) {
         this.idUserReceive = idUserReceive;
     }
+    
 }
