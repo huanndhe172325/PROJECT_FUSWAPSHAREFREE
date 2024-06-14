@@ -5913,7 +5913,16 @@
                 <div class="card-body">
                     <form action="submit_report" id="report-post-form" method="post">
                         <div class="control">
-                            <textarea name="report_reason" class="textarea" rows="5" placeholder="Reason for reporting..." required></textarea>
+                            <label for="report_reason">Select a reason for reporting:</label><br>
+                            <input type="radio" id="reason_spam" name="report_reason" value="Spam">
+                            <label for="reason_spam">Spam</label><br>
+                            <input type="radio" id="reason_inappropriate" name="report_reason" value="Inappropriate content">
+                            <label for="reason_inappropriate">Inappropriate content</label><br>
+                            <input type="radio" id="reason_abuse" name="report_reason" value="Abuse">
+                            <label for="reason_abuse">Abuse</label><br>
+                            <input type="radio" id="reason_other" name="report_reason" value="Other">
+                            <label for="reason_other">Other</label><br>
+                            <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)"></textarea>
                             <input type="hidden" name="post_id" value="123"> <!-- Replace with actual post ID -->
                         </div>
                     </form>
@@ -5934,6 +5943,7 @@
             </div>
         </div>
     </div>
+
 
 
 
@@ -6159,7 +6169,6 @@
 
 
     </script>
-    <!-- Thêm đoạn mã JavaScript vào cuối phần body của trang -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Lắng nghe sự kiện click vào nút "Flag"
