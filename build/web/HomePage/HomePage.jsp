@@ -1523,10 +1523,10 @@
                                                             </div>
                                                         </a>
                                                         <hr class="dropdown-divider" />
-                                                        <a href="#" class="dropdown-item">
+                                                        <a id="flag-link" data-modal="report-post-modal" class="dropdown-item">
                                                             <div class="media">
                                                                 <i data-feather="flag"></i>
-                                                                <div class="media-content">
+                                                                <div class="media-content" >
                                                                     <h3>Flag</h3>
                                                                     <small>In case of inappropriate content.</small>
                                                                 </div>
@@ -5894,6 +5894,46 @@
         </div>
 
     </div>
+    <div id="report-post-modal" class="modal share-modal is-xsmall has-light-bg">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-heading">
+                    <!-- Close X button -->
+                    <div class="close-wrap">
+                        <span class="close-modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form action="submit_report" id="report-post-form" method="post">
+                        <div class="control">
+                            <textarea name="report_reason" class="textarea" rows="5" placeholder="Reason for reporting..." required></textarea>
+                            <input type="hidden" name="post_id" value="123"> <!-- Replace with actual post ID -->
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card-footer">
+                    <div class="close-modal" style="width: 98%;">
+                        <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="button-wrap" style="width: 98%;">
+                        <button type="submit" form="report-post-form" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;">
+                            Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -6116,8 +6156,20 @@
                                     xhr.send(formData);
                                 });
 
-                                
 
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lắng nghe sự kiện click vào nút "Flag"
+            document.getElementById('flag-link').addEventListener('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+
+                // Hiển thị modal
+                var modal = document.getElementById('report-post-modal');
+                modal.classList.add('is-active');
+            });
+        });
     </script>
 </body>
 
