@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -58,10 +59,12 @@ public class manageUsers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
   DAOManageUser dao = new DAOManageUser();
        ArrayList<User> users = new ArrayList<>();
        users = dao.getAllUsers();
-       request.setAttribute("users", users);
+       session.setAttribute("users", users);
+       
        request.getRequestDispatcher("HomePage/manageUsers.jsp").forward(request, response);
     }
 

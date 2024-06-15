@@ -269,7 +269,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="#">
+                <a href="adminHome">
                     <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                 </a>
             </div>

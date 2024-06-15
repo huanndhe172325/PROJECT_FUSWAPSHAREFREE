@@ -4,24 +4,21 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOManageUser;
+import DAL.DAOManagePost;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 
 /**
  *
- * @author admin
+ * @author Binhtran
  */
-@WebServlet(name = "adminHome", urlPatterns = {"/adminHome"})
-public class adminHome extends HttpServlet {
+public class ReportPost extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class adminHome extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet adminHome</title>");            
+            out.println("<title>Servlet ReportPost</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet adminHome at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReportPost at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,16 +58,7 @@ public class adminHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         DAOManageUser daoManagerUser = new DAOManageUser();
-        
-        ArrayList<User> listUser = daoManagerUser.getAllUsers();
-        HttpSession session = request.getSession();
-        User userInfo_raw = (User) session.getAttribute("userInfo");
-        User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
-        session.setAttribute("listUser", listUser);
-         session.setAttribute("user", userInfor);
-       
-         request.getRequestDispatcher("HomePage/adminHome.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -81,10 +69,30 @@ public class adminHome extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOManagePost dmnPost = new DAOManagePost();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int postId = Integer.parseInt(request.getParameter("post_id"));
+        String reportReason = request.getParameter("report_reason");
+        String reportReasonOther = request.getParameter("report_reason_other");
+        HttpSession session = request.getSession();
+        User userInfo = (User) session.getAttribute("userInfo");
+        int userIDReport = userInfo.getUserID();
+        String actualReportReason;
+
+        if ("Other".equals(reportReason)) {
+            actualReportReason = reportReasonOther;
+        } else {
+            actualReportReason = reportReason;
+        }
+        if (dmnPost.ReportPost(actualReportReason, userIDReport, postId)) {
+            response.getWriter().write("success");
+        } else {
+            response.getWriter().write("failed");
+
+        }
     }
 
     /**
