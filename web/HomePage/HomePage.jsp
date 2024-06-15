@@ -1550,10 +1550,10 @@
                                                             </div>
                                                         </a>
                                                         <hr class="dropdown-divider" />
-                                                        <a id="flag-link" data-modal="report-post-modal" class="dropdown-item">
+                                                        <a href="#" class="dropdown-item flag-link" post-id="${post.postID}">
                                                             <div class="media">
                                                                 <i data-feather="flag"></i>
-                                                                <div class="media-content" >
+                                                                <div class="media-content">
                                                                     <h3>Flag</h3>
                                                                     <small>In case of inappropriate content.</small>
                                                                 </div>
@@ -4525,6 +4525,7 @@
         </div>
 
     </div>
+    <!-- report form -->
     <div id="report-post-modal" class="modal share-modal is-xsmall has-light-bg">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -4540,9 +4541,8 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="card-body">
-                    <form action="submit_report" id="report-post-form" method="post">
+                    <form action="reportpost" id="report-post-form" method="post">
                         <div class="control">
                             <label for="report_reason">Select a reason for reporting:</label><br>
                             <input type="radio" id="reason_spam" name="report_reason" value="Spam">
@@ -4553,12 +4553,12 @@
                             <label for="reason_abuse">Abuse</label><br>
                             <input type="radio" id="reason_other" name="report_reason" value="Other">
                             <label for="reason_other">Other</label><br>
-                            <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)"></textarea>
-                            <input type="hidden" name="post_id" value="123"> <!-- Replace with actual post ID -->
+                            <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
+                            <input type="hidden" id="post_id" name="post_id"> <!-- Hidden input to store post_id -->
+                            <input type="submit" id="submit-report-post" style="display:none;" value="Submit"> <!-- Hidden submit button -->
                         </div>
                     </form>
                 </div>
-
                 <div class="card-footer">
                     <div class="close-modal" style="width: 98%;">
                         <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
@@ -4566,7 +4566,7 @@
                         </button>
                     </div>
                     <div class="button-wrap" style="width: 98%;">
-                        <button type="submit" form="report-post-form" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;">
+                        <button class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-report-post').click();">
                             Report
                         </button>
                     </div>
@@ -4801,46 +4801,80 @@
 
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Lắng nghe sự kiện click vào nút "Flag"
-            document.getElementById('flag-link').addEventListener('click', function (event) {
-                event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+        document.addEventListener("DOMContentLoaded", function () {
+            const openReportLinks = document.querySelectorAll('.flag-link');
+            const modalReport = document.getElementById('report-post-modal');
+            const reportPostButton = document.getElementById('reportButton');
+            let currentPostId = null;
 
-                // Hiển thị modal báo cáo bài đăng
-                var modal = document.getElementById('report-post-modal');
-                modal.classList.add('is-active'); // Thêm lớp 'is-active' để hiển thị modal
+            openReportLinks.forEach(openReportLink => {
+                openReportLink.addEventListener('click', () => {
+                    const postId = openReportLink.getAttribute('post-id');
+                    currentPostId = postId;
+                    modalReport.setAttribute('data-post-id', postId);
+                    modalReport.classList.add('is-active');
+                });
             });
-        });
 
-        document.getElementById('imgPath').addEventListener('change', function (event) {
-            const files = event.target.files;
-            const blockImg = document.querySelector('.post-image.preview-img');
-            const imageContainer = blockImg.querySelector('.style-img-post');
+            reportPostButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent the default form submission
 
-            imageContainer.innerHTML = '';
+                if (currentPostId) {
+                    const formData = new FormData(document.getElementById('report-post-form'));
+                    formData.append('post_id', currentPostId); // Add currentPostId to form data
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const imageURL = URL.createObjectURL(file);
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'reportpost', true);
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            console.log(xhr.responseText);
+                            iziToast.show({
+                                maxWidth: "280px",
+                                class: "success-toast",
+                                icon: "mdi mdi-check",
+                                title: "",
+                                message: "Report post successfully",
+                                titleColor: "#fff",
+                                messageColor: "#fff",
+                                iconColor: "#fff",
+                                backgroundColor: "#60c032",
+                                progressBarColor: "#0062ff",
+                                position: "bottomRight",
+                                transitionIn: "fadeInUp",
+                                close: false,
+                                timeout: 1800,
+                                zindex: 99999
+                            });
+                            modalReport.classList.remove('is-active');
+                        } else {
+                            console.error('Request failed with status', xhr.status);
+                            iziToast.show({
+                                maxWidth: "280px",
+                                class: "error-toast",
+                                icon: "mdi mdi-close",
+                                title: "",
+                                message: "Failed to report post",
+                                titleColor: "#fff",
+                                messageColor: "#fff",
+                                iconColor: "#fff",
+                                backgroundColor: "#FF0000",
+                                progressBarColor: "#0062ff",
+                                position: "bottomRight",
+                                transitionIn: "fadeInUp",
+                                close: false,
+                                timeout: 1800,
+                                zindex: 99999
+                            });
+                        }
+                    };
 
-                const imgElement = document.createElement('img');
-                imgElement.classList.add('element-img-post');
-                imgElement.src = imageURL;
-                imgElement.alt = 'Preview Image';
+                    xhr.onerror = function () {
+                        console.error('Request failed');
+                    };
 
-                imageContainer.appendChild(imgElement);
-
-                imgElement.onload = function () {
-                    URL.revokeObjectURL(imageURL);
-                };
-            }
-            if(files.length >= 2){
-                blockImg.querySelector('.image-btn').style.display = 'block';
-            } else {
-                blockImg.querySelector('.image-btn').style.display = 'none';
-            }
-            blockImg.style.display = 'block';
-            imageContainer.style.transform = 'translateX(0px)';
+                    xhr.send(formData);
+                }
+            });
         });
 
     </script>
