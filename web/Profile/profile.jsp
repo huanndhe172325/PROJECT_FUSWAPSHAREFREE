@@ -23,6 +23,41 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
         <style>
+            .post-image {
+                overflow: hidden;
+                position: relative;
+                width: 100%;
+            }
+            .style-img-post {
+                display: flex;
+                transition: transform 0.5s ease;
+            }
+            .style-img-post a {
+                flex-shrink: 0;
+                width: 100%;
+            }
+            .image-btn {
+                position: absolute;
+                top: 41%;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                transform: translateY(-50%);
+                z-index: 1000;
+            }
+            .btn-image {
+                font-size: 40px;
+                color: white;
+                cursor: pointer;
+                user-select: none;
+                position: absolute;
+            }
+            .btn-image-pre {
+                left: 10px;
+            }
+            .btn-image-next {
+                right: 10px;
+            }
             form {
                 max-width: 500px;
                 margin: 0 auto;
@@ -105,6 +140,22 @@
                 display: block;
                 width: 100%;
                 text-align: left;
+            }
+            .detail-row {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .detail-row h2 {
+                margin: 0;
+                padding-right: 10px;
+                font-size: 16px;
+            }
+
+            .detail-row p {
+                margin: 0;
+                font-size: 16px;
             }
         </style>
 
@@ -965,106 +1016,119 @@
                                         <button type="button" class="button is-active">History</button>
                                     </div>
                                 </div>
-
-                                <div class="profile-timeline">
-                                    <!-- Timeline post 1 -->
-                                    <!-- html/partials/pages/profile/posts/timeline-post1.html -->
-                                    <!-- Timeline POST #1 -->
-                                    <c:forEach var="post" items="${myPost}">
-                                        <div class="profile-post">
-                                            <div class="card is-post">
-                                                <!-- Main wrap -->
-                                                <div class="content-wrap">
-                                                    <!-- Header -->
-                                                    <div class="card-heading">
-                                                        <div class="user-block">
-                                                            <div class="image">
-                                                                <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="0" alt="" />
-                                                            </div>
-                                                            <div class="user-info">
-                                                                <a href="#">${post.getFullNameOwner()}</a>
-                                                                <span class="time">${post.createTime}</span>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                            <div>
-                                                                <div class="button">
-                                                                    <i data-feather="more-vertical"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown-menu" role="menu">
-                                                                <div class="dropdown-content">
-                                                                    <a href="#" class="dropdown-item">
-                                                                        <div class="media">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
-                                                                            <div class="media-content">
-                                                                                <h3>Edit</h3>
-                                                                                <small>Edit your post.</small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </a>
-                                                                    <a class="dropdown-item open-modal-archive" data-post-id="${post.postID}">
-                                                                        <div class="media">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M21 6a3 3 0 0 0-3-3H6a3 3 0 0 0-2 5.22V18a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8.22A3 3 0 0 0 21 6M6 5h12a1 1 0 0 1 0 2H6a1 1 0 0 1 0-2m12 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h12Z"/><rect width="6" height="2" x="9" y="12" fill="currentColor" rx=".87" ry=".87"/></svg>
-                                                                            <div class="media-content">
-                                                                                <h3>Archive</h3>
-                                                                                <small>Archive this post, others cannot see it</small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                <c:forEach var="post" items="${myPost}"> 
+                                    <div id="feed-post-1" class="card is-post">
+                                        <!-- Main wrap -->
+                                        <div class="content-wrap">
+                                            <!-- Post header -->
+                                            <div class="card-heading">
+                                                <!-- User meta -->
+                                                <div class="user-block" style="width: 100%;">
+                                                    <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
                                                     </div>
-                                                    <!-- /Header -->
+                                                    <div class="user-info" style="width: 100%;">
+                                                        <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                        <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                        <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                        <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                        <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                        <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                        <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
 
-                                                    <!-- Post body -->
-                                                    <div class="card-body">
-                                                        <!-- Post body text -->
-                                                        <div class="post-text">
-                                                            <p>
-                                                                ${post.description}
-                                                            </p>
-
-                                                            <p></p>
-                                                        </div>
-                                                        <!-- Featured image -->
-                                                        <div class="post-image">
-                                                            <a data-fancybox="profile-post1" data-lightbox-type="comments" data-thumb="${post.imageUrl}" href="https://via.placeholder.com/1600x900" data-demo-href="assets/img/demo/unsplash/8.jpg">
-                                                                <img src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                            </a>
-
-                                                        </div>
                                                     </div>
-                                                    <!-- /Post body -->
-
-                                                    <!-- Post footer -->
-                                                    <div class="card-footer">
-                                                        <!-- Post statistics -->
-                                                        <div class="social-count" style="margin-left: 0px;">
-                                                            <div class="likes-count">
-                                                                <i data-feather="heart"></i>
-                                                                <span>32</span>
-                                                            </div>
-                                                            <div class="shares-count">
-                                                                <i data-feather="link-2"></i>
-                                                                <span>4</span>
-                                                            </div>
-                                                            <div class="comments-count">
-                                                                <i data-feather="message-circle"></i>
-                                                                <span>5</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /Post footer -->
                                                 </div>
-                                                <!-- /Main wrap -->
+                                                <!-- Right side dropdown -->
+                                                <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                    <div>
+                                                        <div class="button">
+                                                            <i data-feather="more-vertical"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <div class="dropdown-content">
+                                                            <c:if test="${post.avaiableEditPost(profile.userID)}">
+                                                                <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-img="${post.imageUrl}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" >
+                                                                    <div class="media">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
+                                                                        <div class="media-content">
+                                                                            <h3>Edit</h3>
+                                                                            <small>Edit your post.</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                            <c:if test="${post.avaiableArchivePost(profile.userID)}">
+                                                                <a class="dropdown-item open-modal-archive" data-post-id="${post.postID}">
+                                                                    <div class="media">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                        <path fill="currentColor" d="M21 6a3 3 0 0 0-3-3H6a3 3 0 0 0-2 5.22V18a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8.22A3 3 0 0 0 21 6M6 5h12a1 1 0 0 1 0 2H6a1 1 0 0 1 0-2m12 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h12Z"/>
+                                                                        <rect width="6" height="2" x="9" y="12" fill="currentColor" rx=".87" ry=".87"/>
+                                                                        </svg>
+                                                                        <div class="media-content">
+                                                                            <h3>Archive</h3>
+                                                                            <small>Archive this post, others cannot see it</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            </c:if>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <!-- /Post -->
+                                            <div class="card-body">
+                                                <div class="post-text">
+                                                    <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                        ${post.title}
+                                                    </h3>
+                                                </div>
+                                                <div class="post-text">
+                                                    <p class="post-text-description">
+                                                        ${post.description}
+                                                    </p>
+                                                </div>
+
+                                                <!-- Featured image -->
+                                                <div class="post-image">
+                                                    <div class="style-img-post">
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="image-btn">
+                                                        <div class="btn-image-next btn-image">&gt;</div>
+                                                        <div class="btn-image-pre btn-image">&lt;</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="card-footer">
+                                                <div class="social-count" style="margin-left: 0px;">
+                                                    <div class="likes-count">
+                                                        <i data-feather="heart"></i>
+                                                        <span>27</span>
+                                                    </div>
+                                                    <div class="shares-count">
+                                                        <i data-feather="link-2"></i>
+                                                        <span>9</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </c:forEach>
-                                </div>
+                                    </div>
+                                </c:forEach> 
+
                             </div>
                         </div>
                     </div>
@@ -1219,6 +1283,241 @@
             </div>
             <!-- /Load more images -->
 
+            <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-heading">
+
+                            <!-- Close X button -->
+                            <div class="close-wrap">
+                                <span class="close-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="control">
+                                <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
+                                    <select id="type" name="typePost" required="">
+
+                                        <option value="1" selected="">Exchange</option>
+
+                                        <option value="2" selected="">Free</option>
+
+                                    </select>
+                                    <label for="imgPath">Image:</label>
+                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
+
+                                    <label for="Title">Title:</label>
+                                    <input type="text" id="title" name="title" required="">
+                                    <label for="Title">Description: </label>
+                                    <textarea class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+
+
+                                    <label for="quanlity">Quanlity</label>
+                                    <select id="quanlity" name="quanlity" required="">
+
+                                        <option value="1">Used</option>
+
+                                        <option value="2">Needs Repair</option>
+
+                                        <option value="3">New</option>
+
+                                    </select>
+
+
+                                    <div id="addNewSnippet" style="margin-top: 10px;">
+                                        <div class="input-container" style="display: inline-block; width: 49%;">
+                                            <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                                <option value="" selected="">Select district</option>
+                                                <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
+                                        </div>
+                                        <div class="input-container" style="display: inline-block; width: 50%;">
+                                            <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                                <option value="" selected="">Select Ward</option>
+                                                <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
+                                        </div>
+                                        <div class="input-container">
+                                            <label>Street number</label>
+                                            <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
+                                        </div>
+                                    </div>
+                                    <label>Expires Date<span class="required">*</span></label>
+                                    <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
+                                        <option value="1">1 Day</option>
+                                        <option value="3" selected="">3 Days</option>
+                                        <option value="7">7 Days</option>
+                                        <option value="15">15 Days</option>
+                                    </select>
+
+                                    <label for="instructions">Pick-up instructions</label>
+                                    <input type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+
+
+
+
+                                    <input type="submit" id="submit-create-post" style="display : none;" value="Submit">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="button-wrap" style="width: 98%;">
+                                <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
+                                    Post
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="edit-post-modal" class="modal share-modal is-xsmall has-light-bg">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-heading">
+                            <div class="close-wrap">
+                                <span class="close-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="control">
+                                <form enctype="multipart/form-data" action="editPost" id="create-post" method="post">
+                                    <select id="type" name="typePost" required="">
+                                        <option value="1" selected="">Exchange</option>
+                                        <option value="2" selected="">Free</option>
+                                    </select>
+                                    <label for="imgPath">Image:</label>
+                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
+                                    <div class="post-image">
+                                        <div class="style-img-post">
+                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                        </div>
+                                        <div class="image-btn">
+                                            <div class="btn-image-next btn-image">&gt;</div>
+                                            <div class="btn-image-pre btn-image">&lt;</div>
+                                        </div>
+                                    </div>
+                                    <label for="Title">Title:</label>
+                                    <input type="text" id="title" name="title" required="">
+                                    <label for="Title">Description: </label>
+                                    <textarea  id="edit-post-desc"class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+
+
+                                    <label for="quanlity">Quanlity</label>
+                                    <select id="quanlity" name="quanlity" required="">
+                                        <option value="1">Used</option>
+                                        <option value="2">Needs Repair</option>
+                                        <option value="3">New</option>
+                                    </select>
+                                    <div id="addNewSnippet" style="margin-top: 10px;">
+                                        <div class="input-container" style="display: inline-block; width: 49%;">
+                                            <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                                <option value="" selected="">Select district</option>
+                                                <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
+                                        </div>
+                                        <div class="input-container" style="display: inline-block; width: 50%;">
+                                            <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                                <option value="" selected="">Select Ward</option>
+                                                <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
+                                        </div>
+                                        <div class="input-container">
+                                            <label>Street number</label>
+                                            <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
+                                        </div>
+                                    </div>
+                                    <label for="instructions">Pick-up instructions</label>
+                                    <input id="edit-post-inst" type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+                                    <input type="submit" id="submit-edit-post" style="display : none;" value="Submit">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="button-wrap" style="width: 98%;">
+                                <button id="saveEditPostButton" type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-edit-post').click();">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="share-modal" class="modal share-modal is-xsmall has-light-bg">
+                <div class="modal-background"></div>
+                <div class="modal-content" style="width: 800px;">
+                    <div class="card">
+                        <div class="card-heading">
+                            <!-- Close X button -->
+                            <div class="close-wrap">
+                                <span class="close-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="shared-publication" style="margin-top: 0px;">
+                                <div class="publication-meta">
+                                    <div class="inner-flex" style="align-items: center; margin-bottom: 10px;">
+                                        <div class="detail-post-header-left">
+                                            <img style="cursor: pointer;" id="share-modal-avatar" src="http://example.com/avatar1.jpg" data-demo-src="http://example.com/avatar1.jpg" data-user-popover="1" alt="" onclick="window.location.href = 'profile?id=2'">
+                                        </div>
+                                        <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
+                                            <div class="detail-post-header-infor-owner">
+                                                <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;" onclick="window.location.href = 'profile?id=2'">Nguyen Quang Trung</h2>
+                                                <p style="padding-left: 0;" id="share-modal-date">2024-06-06 03:00:58.06</p>
+                                            </div>
+                                            <div class="detail-post-header-infor-post" style="margin-top: 16px;">
+                                                <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Expired</span>
+                                                <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">Free</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
+                                        <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">
+                                            Bài tập
+                                        </h2>
+                                        <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
+                                            Initiate the construction of the blog HTML template using our advanced AI system, which produces template HTML code, CSS, and JS according to your input. Subsequently, you have the option to modify the template within the AI application.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="featured-image">
+                                    <img id="share-modal-image" src="FolderImages/ImagePost/70_image.jpg" data-demo-src="assets/img/demo/unsplash/1.jpg" alt="">
+                                </div>
+                                <div class="footer-detail-post" style="margin-top: 10px;">
+                                    <div class="detail-row">
+                                        <h2 style="font-weight: 500;">Quanlity:</h2>
+                                        <p id="share-modal-quanlity">Used</p>
+                                    </div>
+                                    <div class="detail-row">
+                                        <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                        <p id="share-modal-address">Trọ Tuấn Cường, Xã Thạch Xá, Huyện Thạch Thất</p>
+                                    </div>
+                                    <div class="detail-row">
+                                        <h2 style="font-weight: 500;">Instructions:</h2>
+                                        <p id="share-modal-intruc">8-9pm</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" style="width: 100%;">
+                            <div class="button-wrap" style="width: 100%;">
+                                <button style="width: 100%;" type="button" class="button is-solid primary-button close-modal">
+                                    Request This
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Concatenated js plugins and jQuery -->
             <script src="assets/js/app.js"></script>
@@ -1257,6 +1556,7 @@
 
             <!-- profile js -->
             <script src="assets/js/profile.js"></script>
+            <script src="assets/js/jsslideimage.js"></script>
 
             <!-- stories js -->
 
@@ -1281,69 +1581,69 @@
             <!-- elements page js -->
 
             <script>
-                                        var form1 = document.getElementById('edit-profile');
-                                        form1.addEventListener('submit', function (event) {
-                                            event.preventDefault();
+                                                    var form1 = document.getElementById('edit-profile');
+                                                    form1.addEventListener('submit', function (event) {
+                                                        event.preventDefault();
 
-                                            var formData = new FormData(form1);
+                                                        var formData = new FormData(form1);
 
-                                            var xhr = new XMLHttpRequest();
+                                                        var xhr = new XMLHttpRequest();
 
-                                            xhr.open('POST', 'editprofile', true);
+                                                        xhr.open('POST', 'editprofile', true);
 
-                                            xhr.onload = function () {
-                                                if (xhr.status >= 200 && xhr.status < 300) {
-                                                    const modal = document.getElementById('edit-profile-modal');
-                                                    modal.classList.remove('is-active');
+                                                        xhr.onload = function () {
+                                                            if (xhr.status >= 200 && xhr.status < 300) {
+                                                                const modal = document.getElementById('edit-profile-modal');
+                                                                modal.classList.remove('is-active');
 
-                                                    iziToast.show({
-                                                        maxWidth: "280px",
-                                                        class: "success-toast",
-                                                        icon: "mdi mdi-error",
-                                                        title: "",
-                                                        message: "Edit profile successfully",
-                                                        titleColor: "#fff",
-                                                        messageColor: "#fff",
-                                                        iconColor: "#fff",
-                                                        backgroundColor: "#60c032",
-                                                        progressBarColor: "#0062ff",
-                                                        position: "bottomRight",
-                                                        transitionIn: "fadeInUp",
-                                                        close: false,
-                                                        timeout: 1800,
-                                                        zindex: 99999
+                                                                iziToast.show({
+                                                                    maxWidth: "280px",
+                                                                    class: "success-toast",
+                                                                    icon: "mdi mdi-error",
+                                                                    title: "",
+                                                                    message: "Edit profile successfully",
+                                                                    titleColor: "#fff",
+                                                                    messageColor: "#fff",
+                                                                    iconColor: "#fff",
+                                                                    backgroundColor: "#60c032",
+                                                                    progressBarColor: "#0062ff",
+                                                                    position: "bottomRight",
+                                                                    transitionIn: "fadeInUp",
+                                                                    close: false,
+                                                                    timeout: 1800,
+                                                                    zindex: 99999
+                                                                });
+                                                            } else {
+                                                                const modal = document.getElementById('edit-profile-modal');
+                                                                modal.classList.remove('is-active');
+                                                                console.log('Success', xhr.responseText);
+                                                                //                            var form = document.getElementById('edit-location');
+                                                                iziToast.show({
+                                                                    maxWidth: "280px",
+                                                                    class: "success-toast",
+                                                                    icon: "mdi mdi-error",
+                                                                    title: "",
+                                                                    message: "Edit profile failed",
+                                                                    titleColor: "#fff",
+                                                                    messageColor: "#fff",
+                                                                    iconColor: "#fff",
+                                                                    backgroundColor: "#FF0000",
+                                                                    progressBarColor: "#0062ff",
+                                                                    position: "bottomRight",
+                                                                    transitionIn: "fadeInUp",
+                                                                    close: false,
+                                                                    timeout: 1800,
+                                                                    zindex: 99999
+                                                                });
+                                                            }
+                                                        };
+
+                                                        xhr.onerror = function () {
+                                                            console.error('Request failed');
+                                                        };
+
+                                                        xhr.send(formData);
                                                     });
-                                                } else {
-                                                    const modal = document.getElementById('edit-profile-modal');
-                                                    modal.classList.remove('is-active');
-                                                    console.log('Success', xhr.responseText);
-//                            var form = document.getElementById('edit-location');
-                                                    iziToast.show({
-                                                        maxWidth: "280px",
-                                                        class: "success-toast",
-                                                        icon: "mdi mdi-error",
-                                                        title: "",
-                                                        message: "Edit profile failed",
-                                                        titleColor: "#fff",
-                                                        messageColor: "#fff",
-                                                        iconColor: "#fff",
-                                                        backgroundColor: "#FF0000",
-                                                        progressBarColor: "#0062ff",
-                                                        position: "bottomRight",
-                                                        transitionIn: "fadeInUp",
-                                                        close: false,
-                                                        timeout: 1800,
-                                                        zindex: 99999
-                                                    });
-                                                }
-                                            };
-
-                                            xhr.onerror = function () {
-                                                console.error('Request failed');
-                                            };
-
-                                            xhr.send(formData);
-                                        });
             </script>
 
             <script>
@@ -1446,7 +1746,7 @@
                             const modal = document.getElementById('edit-location-modal');
                             modal.classList.remove('is-active');
                             console.log('Success', xhr.responseText);
-//                            var form = document.getElementById('edit-location');
+                            //                            var form = document.getElementById('edit-location');
                             iziToast.show({
                                 maxWidth: "280px",
                                 class: "success-toast",
@@ -1523,6 +1823,28 @@
             </script>
 
             <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const statusElements = document.querySelectorAll('.status-post-name');
+                    const typeElements = document.querySelectorAll('.type-post-name');
+                    statusElements.forEach(function (element) {
+                        const statusName = element.textContent.trim().toLowerCase();
+
+                        if (statusName === 'available') {
+                            element.style.color = '#36a955';
+                        } else {
+                            element.style.color = 'red';
+                        }
+                    });
+                    typeElements.forEach(function (element) {
+                        const statusName = element.textContent.trim().toLowerCase();
+
+                        if (statusName === 'free') {
+                            element.style.color = '#6ba4e9';
+                        } else {
+                            element.style.color = 'red';
+                        }
+                    });
+                });
                 function submitForm() {
                     document.getElementById('uploadForm').submit();
                 }
@@ -1545,10 +1867,10 @@
                     archivePostButton.addEventListener('click', () => {
                         if (currentPostId) {
                             const xhr = new XMLHttpRequest();
-                            xhr.open('POST', 'ArchivePost', true);
+                            xhr.open('POST', 'PostArchive', true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                             xhr.onreadystatechange = function () {
                                 if (xhr.readyState === 4 && xhr.status === 200) {
-                                    console.log(currentPostId);
                                     console.log(xhr.responseText);
                                     iziToast.show({
                                         maxWidth: "280px",
@@ -1572,6 +1894,52 @@
                             };
                             xhr.send('id=' + currentPostId);
                         }
+                    });
+                });
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    const openModalEditPost = document.querySelectorAll('.open-modal-edit');
+                    const modalEditPost = document.getElementById('edit-post-modal');
+                    const saveEditPostButton = document.getElementById('saveEditPostButton');
+
+                    openModalEditPost.forEach(openModalEdit => {
+                        openModalEdit.addEventListener('click', () => {
+                            modalEditPost.setAttribute('data-post-id', openModalEdit.getAttribute('data-post-id'));
+                            modalEditPost.querySelector('input[name="title"]').value = openModalEdit.getAttribute('data-post-title');
+                            const selectQuanlity = modalEditPost.querySelector('select[name="quanlity"]');
+                            const optionQuanlity = selectQuanlity.querySelectorAll('option');
+                            optionQuanlity.forEach(option => {
+                                if (option.value === openModalEdit.getAttribute('data-post-quanlity')) {
+                                    option.selected = true;
+                                } else {
+                                    option.selected = false;
+                                }
+                            });
+                            modalEditPost.querySelector('textarea[name="description"]').value = openModalEdit.getAttribute('data-post-desc');
+                            const selectDistrict = modalEditPost.querySelector('select[name="district"]');
+                            const optionDistrict = selectDistrict.querySelectorAll('option');
+                            optionDistrict.forEach(option => {
+                                if (option.value === openModalEdit.getAttribute('data-post-district')) {
+                                    option.selected = true;
+                                } else {
+                                    option.selected = false;
+                                }
+                            });
+                            const selectWard = modalEditPost.querySelector('select[name="ward"]');
+                            const optionWard = selectWard.querySelectorAll('option');
+                            optionWard.forEach(option => {
+                                if (option.value === openModalEdit.getAttribute('data-post-commune')) {
+                                    option.selected = true;
+                                } else {
+                                    option.selected = false;
+                                }
+                            });
+                            modalEditPost.querySelector('input[name="newAddress"]').value = openModalEdit.getAttribute('data-post-street_Number');
+                            modalEditPost.querySelector('input[name="instructions"]').value = openModalEdit.getAttribute('data-post-intr');
+
+
+                            modalEditPost.classList.add('is-active');
+                        });
                     });
                 });
             </script>
