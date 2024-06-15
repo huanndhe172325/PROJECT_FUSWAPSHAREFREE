@@ -156,13 +156,8 @@
         <url-pattern>/testp</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>manageReportUser</servlet-name>
         <url-pattern>/manageReportUser</url-pattern>
-
-        <servlet-name>ArchivePost</servlet-name>
-        <url-pattern>/ArchivePost</url-pattern>
-
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ReportPost</servlet-name>
