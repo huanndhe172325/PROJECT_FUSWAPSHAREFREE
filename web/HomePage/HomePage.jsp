@@ -2557,8 +2557,6 @@
             <div class="modal-content">
                 <div class="card">
                     <div class="card-heading">
-
-                        <!-- Close X button -->
                         <div class="close-wrap">
                             <span class="close-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -4747,7 +4745,7 @@
                                             iziToast.show({
                                                 maxWidth: "280px",
                                                 class: "success-toast",
-                                                icon: "mdi mdi-error",
+                                                icon: "mdi mdi-check",
                                                 title: "",
                                                 message: "Create post successfully",
                                                 titleColor: "#fff",
@@ -4803,7 +4801,6 @@
                 const imgElement = document.createElement('img');
                 imgElement.classList.add('element-img-post');
                 imgElement.src = imageURL;
-                imgElement.alt = 'Preview Image';
                 imageContainer.appendChild(imgElement);
                 imgElement.onload = function () {
                     URL.revokeObjectURL(imageURL);
