@@ -47,6 +47,7 @@
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
         <link rel="stylesheet" href="assets/css/mainstyle.css" /> 
+
         <style>
             .post-image {
                 overflow: hidden;
@@ -1549,7 +1550,7 @@
                                                             </div>
                                                         </a>
                                                         <hr class="dropdown-divider" />
-                                                        <a id="flag-link" data-modal="report-post-modal" class="dropdown-item">
+                                                        <a href="javascript:void(0);" class="dropdown-item flag-link" post-id ="${post.postID}">
                                                             <div class="media">
                                                                 <i data-feather="flag"></i>
                                                                 <div class="media-content" >
@@ -1557,7 +1558,7 @@
                                                                     <small>In case of inappropriate content.</small>
                                                                 </div>
                                                             </div>
-                                                        </a>
+                                                        </a>                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -5920,6 +5921,8 @@
         </div>
 
     </div>
+
+    <!--    report form-->
     <div id="report-post-modal" class="modal share-modal is-xsmall has-light-bg">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -5935,9 +5938,8 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="card-body">
-                    <form action="submit_report" id="report-post-form" method="post">
+                    <form action="reportpost" id="report-post-form" method="post">
                         <div class="control">
                             <label for="report_reason">Select a reason for reporting:</label><br>
                             <input type="radio" id="reason_spam" name="report_reason" value="Spam">
@@ -5948,12 +5950,12 @@
                             <label for="reason_abuse">Abuse</label><br>
                             <input type="radio" id="reason_other" name="report_reason" value="Other">
                             <label for="reason_other">Other</label><br>
-                            <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)"></textarea>
-                            <input type="hidden" name="post_id" value="123"> <!-- Replace with actual post ID -->
+                            <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
+                            <input type="hidden" id="post_id" name="post_id"> <!-- Hidden input to store post_id -->
+                            <input type="submit" id="submit-report-post" style="display:none;" value="Submit"> <!-- Hidden submit button -->
                         </div>
                     </form>
                 </div>
-
                 <div class="card-footer">
                     <div class="close-modal" style="width: 98%;">
                         <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
@@ -5961,7 +5963,7 @@
                         </button>
                     </div>
                     <div class="button-wrap" style="width: 98%;">
-                        <button type="submit" form="report-post-form" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;">
+                        <button class="button is-solid primary-button" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-report-post').click();">
                             Report
                         </button>
                     </div>
@@ -5969,6 +5971,7 @@
             </div>
         </div>
     </div>
+
 
 
 
@@ -6012,6 +6015,7 @@
     <script src="assets/js/webcam.js"></script>
     <script src="assets/js/compose.js"></script>
     <script src="assets/js/autocompletes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- profile js -->
 
@@ -6039,174 +6043,286 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="assets/js/jsslideimage.js"></script>
 
-
     <script>
+                                function openReportModal(postId) {
+                                    // Set giá trị cho post_id
+                                    document.getElementById('report-post-form').post_id.value = postId;
+                                    document.getElementById('report-post-modal').classList.add('is-active');
+                                }
+
+                                // Đóng modal khi nhấn vào nút "Cancel" hoặc biểu tượng đóng
+                                document.querySelectorAll('.close-modal').forEach(function (element) {
+                                    element.addEventListener('click', function () {
+                                        document.getElementById('report-post-modal').classList.remove('is-active');
+                                    });
+                                });
+
+                                var reportReasonOtherTextarea = document.getElementById('report_reason_other');
+                                var reportReasonRadioButtons = document.querySelectorAll('input[name="report_reason"]');
+
+                                reportReasonOtherTextarea.style.display = 'none';
+
+
+                                reportReasonRadioButtons.forEach(function (radio) {
+                                    radio.addEventListener('change', function () {
+                                        if (radio.id === 'reason_other' && radio.checked) {
+                                            reportReasonOtherTextarea.style.display = 'block';
+                                        } else {
+                                            reportReasonOtherTextarea.style.display = 'none';
+                                        }
+                                    });
+                                });
+
                                 document.addEventListener('DOMContentLoaded', function () {
-                                    const statusElements = document.querySelectorAll('.status-post-name');
-                                    const typeElements = document.querySelectorAll('.type-post-name');
-                                    statusElements.forEach(function (element) {
-                                        const statusName = element.textContent.trim().toLowerCase();
 
-                                        if (statusName === 'available') {
-                                            element.style.color = '#36a955';
-                                        } else {
-                                            element.style.color = 'red';
-                                        }
+                                    var flagLinks = document.querySelectorAll('.flag-link');
+                                    flagLinks.forEach(function (flagLink) {
+                                        flagLink.addEventListener('click', function (event) {
+                                            event.preventDefault();
+
+                                            // Lấy ID bài viết từ thuộc tính post-id
+                                            var postId = this.getAttribute('post-id');
+                                            openReportModal(postId);
+                                        });
                                     });
-                                    typeElements.forEach(function (element) {
-                                        const statusName = element.textContent.trim().toLowerCase();
 
-                                        if (statusName === 'free') {
-                                            element.style.color = '#6ba4e9';
-                                        } else {
-                                            element.style.color = 'red';
-                                        }
+
+                                    var cancelBtn = document.querySelector('#report-post-modal .close-modal button');
+                                    cancelBtn.addEventListener('click', function () {
+                                        var modal = document.getElementById('report-post-modal');
+                                        modal.classList.remove('is-active');
                                     });
-                                });
-                                var districts = document.getElementById("district");
-                                var wards = document.getElementById("ward");
-                                var selectedCityValue = 'Thành phố Hà Nội';
 
-                                var Parameter = {
-                                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                                    method: "GET",
-                                    responseType: "application/json",
-                                };
 
-                                var promise = axios(Parameter);
+                                    var reportForm = document.getElementById('report-post-form');
+                                    reportForm.addEventListener('submit', function (event) {
+                                        event.preventDefault();
 
-                                promise.then(function (result) {
-                                    var data = result.data;
-                                    var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                                    renderDistricts(selectedCity.Districts);
-                                    selectDistrictOption(selectedCity.Districts);
-                                    selectWardOption(selectedCity.Districts);
-                                });
+                                        var formData = new FormData(this);
 
-                                function renderDistricts(districtsData) {
-                                    for (const district of districtsData) {
-                                        districts.options[districts.options.length] = new Option(district.Name, district.Name);
-                                    }
 
-                                    districts.onchange = function () {
-                                        wards.length = 1;
-                                        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open('POST', 'reportpost', true);
 
-                                        if (this.value !== "") {
-                                            for (const ward of selectedDistrict.Wards) {
-                                                wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                                        xhr.onload = function () {
+                                            if (xhr.status >= 200 && xhr.status < 300) {
+                                                var response = xhr.responseText;
+                                                console.log(response);
+                                                iziToast.show({
+                                                    maxWidth: "280px",
+                                                    class: "success-toast",
+                                                    icon: "mdi mdi-check",
+                                                    title: "",
+                                                    message: "Report post successfully",
+                                                    titleColor: "#fff",
+                                                    messageColor: "#fff",
+                                                    iconColor: "#fff",
+                                                    backgroundColor: "#60c032",
+                                                    progressBarColor: "#0062ff",
+                                                    position: "bottomRight",
+                                                    transitionIn: "fadeInUp",
+                                                    close: false,
+                                                    timeout: 1800,
+                                                    zindex: 99999
+                                                });
+                                                document.getElementById('report-post-modal').classList.remove('is-active');
+                                                reportForm.reset();
+                                            } else {
+                                                console.error('Request failed with status', xhr.status);
+                                                iziToast.show({
+                                                    maxWidth: "280px",
+                                                    class: "error-toast",
+                                                    icon: "mdi mdi-close",
+                                                    title: "",
+                                                    message: "Failed to report post",
+                                                    titleColor: "#fff",
+                                                    messageColor: "#fff",
+                                                    iconColor: "#fff",
+                                                    backgroundColor: "#FF0000",
+                                                    progressBarColor: "#0062ff",
+                                                    position: "bottomRight",
+                                                    transitionIn: "fadeInUp",
+                                                    close: false,
+                                                    timeout: 1800,
+                                                    zindex: 99999
+                                                });
                                             }
-                                        }
-                                    };
-                                }
+                                        };
 
-                                function selectDistrictOption(districtsData) {
-                                    for (let i = 0; i < districtsData.length; i++) {
-                                        if (districtsData[i].Name === 'Huyện Thạch Thất') {
-                                            districts.options[i + 1].selected = true;
-                                            simulateEvent(districts, 'change');
-                                            break;
-                                        }
-                                    }
-                                }
+                                        xhr.onerror = function () {
+                                            console.error('Request failed');
+                                        };
 
-                                function selectWardOption(districtsData) {
-                                    const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                                    for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                                        if (selectedDistrict.Wards[i].Name === '${ward}') {
-                                            wards.options[i + 1].selected = true;
-                                            simulateEvent(wards, 'change');
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                function simulateEvent(element, eventName) {
-                                    var event = new Event(eventName);
-                                    element.dispatchEvent(event);
-                                }
-
-                                var form = document.getElementById('create-post');
-                                form.addEventListener('submit', function (event) {
-                                    event.preventDefault();
-
-                                    var formData = new FormData(form);
-
-                                    var xhr = new XMLHttpRequest();
-
-                                    xhr.open('POST', 'CreatePost2', true);
-
-                                    xhr.onload = function () {
-                                        if (xhr.status >= 200 && xhr.status < 300) {
-                                            const modal = document.getElementById('create-post-modal');
-                                            modal.classList.remove('is-active');
-                                            console.log('Success', xhr.responseText);
-                                            var form = document.getElementById('create-post');
-                                            form.reset();
-                                            iziToast.show({
-                                                maxWidth: "280px",
-                                                class: "success-toast",
-                                                icon: "mdi mdi-error",
-                                                title: "",
-                                                message: "Create post successfully",
-                                                titleColor: "#fff",
-                                                messageColor: "#fff",
-                                                iconColor: "#fff",
-                                                backgroundColor: "#60c032",
-                                                progressBarColor: "#0062ff",
-                                                position: "bottomRight",
-                                                transitionIn: "fadeInUp",
-                                                close: false,
-                                                timeout: 1800,
-                                                zindex: 99999
-                                            });
-                                        } else {
-                                            const modal = document.getElementById('create-post-modal');
-                                            modal.classList.remove('is-active');
-                                            console.log('Success', xhr.responseText);
-                                            var form = document.getElementById('create-post');
-                                            iziToast.show({
-                                                maxWidth: "280px",
-                                                class: "success-toast",
-                                                icon: "mdi mdi-error",
-                                                title: "",
-                                                message: "Create post failed",
-                                                titleColor: "#fff",
-                                                messageColor: "#fff",
-                                                iconColor: "#fff",
-                                                backgroundColor: "#FF0000",
-                                                progressBarColor: "#0062ff",
-                                                position: "bottomRight",
-                                                transitionIn: "fadeInUp",
-                                                close: false,
-                                                timeout: 1800,
-                                                zindex: 99999
-                                            });
-                                        }
-                                    };
-
-                                    xhr.onerror = function () {
-                                        console.error('Request failed');
-                                    };
-
-                                    xhr.send(formData);
+                                        xhr.send(formData);
+                                    });
                                 });
-
-
-
     </script>
+
+
+
+
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Lắng nghe sự kiện click vào nút "Flag"
-            document.getElementById('flag-link').addEventListener('click', function (event) {
-                event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+            const statusElements = document.querySelectorAll('.status-post-name');
+            const typeElements = document.querySelectorAll('.type-post-name');
+            statusElements.forEach(function (element) {
+                const statusName = element.textContent.trim().toLowerCase();
 
-                // Hiển thị modal báo cáo bài đăng
-                var modal = document.getElementById('report-post-modal');
-                modal.classList.add('is-active'); // Thêm lớp 'is-active' để hiển thị modal
+                if (statusName === 'available') {
+                    element.style.color = '#36a955';
+                } else {
+                    element.style.color = 'red';
+                }
+            });
+            typeElements.forEach(function (element) {
+                const statusName = element.textContent.trim().toLowerCase();
+
+                if (statusName === 'free') {
+                    element.style.color = '#6ba4e9';
+                } else {
+                    element.style.color = 'red';
+                }
             });
         });
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var selectedCityValue = 'Thành phố Hà Nội';
+
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+
+        var promise = axios(Parameter);
+
+        promise.then(function (result) {
+            var data = result.data;
+            var selectedCity = data.find((city) => city.Name === selectedCityValue);
+            renderDistricts(selectedCity.Districts);
+            selectDistrictOption(selectedCity.Districts);
+            selectWardOption(selectedCity.Districts);
+        });
+
+        function renderDistricts(districtsData) {
+            for (const district of districtsData) {
+                districts.options[districts.options.length] = new Option(district.Name, district.Name);
+            }
+
+            districts.onchange = function () {
+                wards.length = 1;
+                const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                if (this.value !== "") {
+                    for (const ward of selectedDistrict.Wards) {
+                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                    }
+                }
+            };
+        }
+
+        function selectDistrictOption(districtsData) {
+            for (let i = 0; i < districtsData.length; i++) {
+                if (districtsData[i].Name === 'Huyện Thạch Thất') {
+                    districts.options[i + 1].selected = true;
+                    simulateEvent(districts, 'change');
+                    break;
+                }
+            }
+        }
+
+        function selectWardOption(districtsData) {
+            const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+            for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                if (selectedDistrict.Wards[i].Name === '${ward}') {
+                    wards.options[i + 1].selected = true;
+                    simulateEvent(wards, 'change');
+                    break;
+                }
+            }
+        }
+
+        function simulateEvent(element, eventName) {
+            var event = new Event(eventName);
+            element.dispatchEvent(event);
+        }
+
+        var form = document.getElementById('create-post');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var formData = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'CreatePost2', true);
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    const modal = document.getElementById('create-post-modal');
+                    modal.classList.remove('is-active');
+                    console.log('Success', xhr.responseText);
+                    var form = document.getElementById('create-post');
+                    form.reset();
+                    iziToast.show({
+                        maxWidth: "280px",
+                        class: "success-toast",
+                        icon: "mdi mdi-error",
+                        title: "",
+                        message: "Create post successfully",
+                        titleColor: "#fff",
+                        messageColor: "#fff",
+                        iconColor: "#fff",
+                        backgroundColor: "#60c032",
+                        progressBarColor: "#0062ff",
+                        position: "bottomRight",
+                        transitionIn: "fadeInUp",
+                        close: false,
+                        timeout: 1800,
+                        zindex: 99999
+                    });
+                } else {
+                    const modal = document.getElementById('create-post-modal');
+                    modal.classList.remove('is-active');
+                    console.log('Success', xhr.responseText);
+                    var form = document.getElementById('create-post');
+                    iziToast.show({
+                        maxWidth: "280px",
+                        class: "success-toast",
+                        icon: "mdi mdi-error",
+                        title: "",
+                        message: "Create post failed",
+                        titleColor: "#fff",
+                        messageColor: "#fff",
+                        iconColor: "#fff",
+                        backgroundColor: "#FF0000",
+                        progressBarColor: "#0062ff",
+                        position: "bottomRight",
+                        transitionIn: "fadeInUp",
+                        close: false,
+                        timeout: 1800,
+                        zindex: 99999
+                    });
+                }
+            };
+
+            xhr.onerror = function () {
+                console.error('Request failed');
+            };
+
+            xhr.send(formData);
+        });
+
+
+
     </script>
+
+
+
+
+
+
 
 </body>
 
