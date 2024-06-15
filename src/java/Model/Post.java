@@ -216,7 +216,14 @@ public class Post {
         return dao.getQuanlityNameByIdQuanlity(QuanlityID);
     }
     
-    public boolean isMyPost(int idUser){
+    public boolean avaiableArchivePost(int idUser){
+        if(idUser == UserID && StatusID == 1){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean avaiableEditPost(int idUser){
         if(idUser == UserID){
             return true;
         }

@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 Add new Address-->
 <div id="addNewSnippet" >
-    
     <div class="input-container">
         <label>Tỉnh/Thành Phố    <span class="required">*</span></label>
         <select  name="city" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
@@ -35,8 +34,8 @@ Add new Address-->
 
     <div class="input-container">   <label>Số Điện thoại </label> 
         <input name="newPhonenumber" id="Order_phone" type="text" maxlength="255" value="${phonenumber}"> <br>
-
     </div>  
+                                                               
 </div>
  
 
