@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import java.util.Collection;
 
 /**
  *
@@ -74,6 +75,7 @@ public class CreatePost2 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         DAOManagePost daoManagePost = new DAOManagePost();
+        Collection<Part> parts = request.getParts();
         String typeId_raw = request.getParameter("typePost");
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -82,28 +84,47 @@ public class CreatePost2 extends HttpServlet {
         String commune = request.getParameter("ward");
         String district = request.getParameter("district");
         String streetNumber = request.getParameter("newAddress");
-        String quantityId_raw = request.getParameter("quanlity");
+        String quantityId_raw = request.getParameter("quality");
 
         HttpSession session = request.getSession();
         User userInfor = (User) session.getAttribute("userInfo");
         int idPost = daoManagePost.getMaxIdPost() + 1;
 
-        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length()-10) + "web\\FolderImages\\ImagePost";
-        String imgFileName = idPost + "_image.jpg";
-        String imgFilePath = uploadDirectory + "\\" + imgFileName;
-        String linkDB = "FolderImages/ImagePost/" + imgFileName;
-        try {
-            Part imgPart = request.getPart("imgPath");
+        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length() - 10) + "web\\FolderImages\\ImagePost";
+        StringBuilder linkDBBuilder = new StringBuilder();
 
+        try {
             int type = Integer.parseInt(typeId_raw);
             int quantity = Integer.parseInt(quantityId_raw);
             int dateExpires = Integer.parseInt(expiresDate_raw);
+
+            // Iterate through parts and handle image uploads
+            int partIndex = 0; // Initialize part index
+
+            for (Part part : parts) {
+                if (part.getName().equals("imgPath") && part.getSize() > 0) {
+                    String imgFileName = idPost + "_image_" + partIndex + ".jpg";
+                    String imgFilePath = uploadDirectory + "\\" + imgFileName;
+                    String linkDB = "FolderImages/ImagePost/" + imgFileName;
+
+                    // Write the image file to the server
+                    part.write(imgFilePath);
+
+                    // Append the link to the database link builder
+                    if (linkDBBuilder.length() > 0) {
+                        linkDBBuilder.append(",");
+                    }
+                    linkDBBuilder.append(linkDB);
+
+                    partIndex++; // Increment part index
+                }
+            }
 
             Post newPost = new Post();
             newPost.setTitle(title);
             newPost.setDescription(description);
             newPost.setIntructions(instructions);
-            newPost.setImageUrl(linkDB); 
+            newPost.setImageUrl(linkDBBuilder.toString()); // Save image links to database
             newPost.setCommune(commune);
             newPost.setDistrict(district);
             newPost.setStreet_Number(streetNumber);
@@ -112,13 +133,12 @@ public class CreatePost2 extends HttpServlet {
             newPost.setTypeID(type);
 
             if (daoManagePost.createPost(newPost, dateExpires, "", userInfor.getUserID())) {
-                imgPart.write(imgFilePath);
                 response.getWriter().write("success");
             } else {
                 response.getWriter().write("failed");
             }
         } catch (Exception e) {
-            response.getWriter().write(" " + e);
+            response.getWriter().write("Error: " + e.getMessage());
         }
     }
 
