@@ -79,11 +79,6 @@ public class ReportPost extends HttpServlet {
         String reportReasonOther = request.getParameter("report_reason_other");
         HttpSession session = request.getSession();
         User userInfo = (User) session.getAttribute("userInfo");
-        if (userInfo == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
         int userIDReport = userInfo.getUserID();
         String actualReportReason;
 

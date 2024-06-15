@@ -1550,7 +1550,7 @@
                                                             </div>
                                                         </a>
                                                         <hr class="dropdown-divider" />
-                                                        <a href="javascript:void(0);" class="dropdown-item flag-link" post-id ="${post.postID}">
+                                                        <a class="dropdown-item flag-link" post-id ="${post.postID}">
                                                             <div class="media">
                                                                 <i data-feather="flag"></i>
                                                                 <div class="media-content" >
@@ -6092,70 +6092,70 @@
                                         var modal = document.getElementById('report-post-modal');
                                         modal.classList.remove('is-active');
                                     });
-
-
-                                    var reportForm = document.getElementById('report-post-form');
-                                    reportForm.addEventListener('submit', function (event) {
-                                        event.preventDefault();
-
-                                        var formData = new FormData(this);
-
-
-                                        var xhr = new XMLHttpRequest();
-                                        xhr.open('POST', 'reportpost', true);
-
-                                        xhr.onload = function () {
-                                            if (xhr.status >= 200 && xhr.status < 300) {
-                                                var response = xhr.responseText;
-                                                console.log(response);
-                                                iziToast.show({
-                                                    maxWidth: "280px",
-                                                    class: "success-toast",
-                                                    icon: "mdi mdi-check",
-                                                    title: "",
-                                                    message: "Report post successfully",
-                                                    titleColor: "#fff",
-                                                    messageColor: "#fff",
-                                                    iconColor: "#fff",
-                                                    backgroundColor: "#60c032",
-                                                    progressBarColor: "#0062ff",
-                                                    position: "bottomRight",
-                                                    transitionIn: "fadeInUp",
-                                                    close: false,
-                                                    timeout: 1800,
-                                                    zindex: 99999
-                                                });
-                                                document.getElementById('report-post-modal').classList.remove('is-active');
-                                                reportForm.reset();
-                                            } else {
-                                                console.error('Request failed with status', xhr.status);
-                                                iziToast.show({
-                                                    maxWidth: "280px",
-                                                    class: "error-toast",
-                                                    icon: "mdi mdi-close",
-                                                    title: "",
-                                                    message: "Failed to report post",
-                                                    titleColor: "#fff",
-                                                    messageColor: "#fff",
-                                                    iconColor: "#fff",
-                                                    backgroundColor: "#FF0000",
-                                                    progressBarColor: "#0062ff",
-                                                    position: "bottomRight",
-                                                    transitionIn: "fadeInUp",
-                                                    close: false,
-                                                    timeout: 1800,
-                                                    zindex: 99999
-                                                });
-                                            }
-                                        };
-
-                                        xhr.onerror = function () {
-                                            console.error('Request failed');
-                                        };
-
-                                        xhr.send(formData);
-                                    });
                                 });
+
+                                var reportForm = document.getElementById('report-post-form');
+                                reportForm.addEventListener('submit', function (event) {
+                                    event.preventDefault();
+
+                                    var formData = new FormData(reportForm);
+
+
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('post', 'reportpost', true);
+
+                                    xhr.onload = function () {
+                                        if (xhr.status >= 200 && xhr.status < 300) {
+                                            var response = xhr.responseText;
+                                            console.log(response);
+                                            iziToast.show({
+                                                maxWidth: "280px",
+                                                class: "success-toast",
+                                                icon: "mdi mdi-check",
+                                                title: "",
+                                                message: "Report post successfully",
+                                                titleColor: "#fff",
+                                                messageColor: "#fff",
+                                                iconColor: "#fff",
+                                                backgroundColor: "#60c032",
+                                                progressBarColor: "#0062ff",
+                                                position: "bottomRight",
+                                                transitionIn: "fadeInUp",
+                                                close: false,
+                                                timeout: 1800,
+                                                zindex: 99999
+                                            });
+                                            document.getElementById('report-post-modal').classList.remove('is-active');
+                                            reportForm.reset();
+                                        } else {
+                                            console.error('Request failed with status', xhr.status);
+                                            iziToast.show({
+                                                maxWidth: "280px",
+                                                class: "error-toast",
+                                                icon: "mdi mdi-close",
+                                                title: "",
+                                                message: "Failed to report post",
+                                                titleColor: "#fff",
+                                                messageColor: "#fff",
+                                                iconColor: "#fff",
+                                                backgroundColor: "#FF0000",
+                                                progressBarColor: "#0062ff",
+                                                position: "bottomRight",
+                                                transitionIn: "fadeInUp",
+                                                close: false,
+                                                timeout: 1800,
+                                                zindex: 99999
+                                            });
+                                        }
+                                    };
+
+                                    xhr.onerror = function () {
+                                        console.error('Request failed');
+                                    };
+
+                                    xhr.send(formData);
+                                });
+
     </script>
 
 
