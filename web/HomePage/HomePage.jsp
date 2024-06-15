@@ -1551,7 +1551,7 @@
                                                             </div>
                                                         </a>
                                                         <hr class="dropdown-divider" />
-                                                        <a href="#" class="dropdown-item flag-link" post-id="${post.postID}">
+                                                        <a class="dropdown-item flag-link" post-id="${post.postID}">
                                                             <div class="media">
                                                                 <i data-feather="flag"></i>
                                                                 <div class="media-content">
@@ -4521,54 +4521,55 @@
     </div>
     <!-- report form -->
     <div id="report-post-modal" class="modal share-modal is-xsmall has-light-bg">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="card">
-                <div class="card-heading">
-                    <!-- Close X button -->
-                    <div class="close-wrap">
-                        <span class="close-modal">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="card">
+            <div class="card-heading">
+                <!-- Close X button -->
+                <div class="close-wrap">
+                    <span class="close-modal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        </span>
-                    </div>
+                        </svg>
+                    </span>
                 </div>
-                <div class="card-body">
-                    <form action="reportpost" id="report-post-form" method="post">
-                        <div class="control">
-                            <label for="report_reason">Select a reason for reporting:</label><br>
-                            <input type="radio" id="reason_spam" name="report_reason" value="Spam">
-                            <label for="reason_spam">Spam</label><br>
-                            <input type="radio" id="reason_inappropriate" name="report_reason" value="Inappropriate content">
-                            <label for="reason_inappropriate">Inappropriate content</label><br>
-                            <input type="radio" id="reason_abuse" name="report_reason" value="Abuse">
-                            <label for="reason_abuse">Abuse</label><br>
-                            <input type="radio" id="reason_other" name="report_reason" value="Other">
-                            <label for="reason_other">Other</label><br>
-                            <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
-                            <input type="hidden" id="post_id" name="post_id"> <!-- Hidden input to store post_id -->
-                            <input type="submit" id="submit-report-post" style="display:none;" value="Submit"> <!-- Hidden submit button -->
-                        </div>
-                    </form>
+            </div>
+            <div class="card-body">
+                <form action="ReportPost" id="report-post-form" method="post">
+                    <div class="control">
+                        <label for="report_reason">Select a reason for reporting:</label><br>
+                        <input type="radio" id="reason_spam" name="report_reason" value="Spam">
+                        <label for="reason_spam">Spam</label><br>
+                        <input type="radio" id="reason_inappropriate" name="report_reason" value="Inappropriate content">
+                        <label for="reason_inappropriate">Inappropriate content</label><br>
+                        <input type="radio" id="reason_abuse" name="report_reason" value="Abuse">
+                        <label for="reason_abuse">Abuse</label><br>
+                        <input type="radio" id="reason_other" name="report_reason" value="Other">
+                        <label for="reason_other">Other</label><br>
+                        <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
+                        <input type="hidden" id="post_id" name="post_id"> <!-- Hidden input to store post_id -->
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="close-modal" style="width: 98%;">
+                    <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
+                        Cancel
+                    </button>
                 </div>
-                <div class="card-footer">
-                    <div class="close-modal" style="width: 98%;">
-                        <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
-                            Cancel
-                        </button>
-                    </div>
-                    <div class="button-wrap" style="width: 98%;">
-                        <button type="submit" form="report-post-form" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;">
-                        <button class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-report-post').click();">
-                            Report
-                        </button>
-                    </div>
+                <div class="button-wrap" style="width: 98%;">
+                    <button class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;">
+                        Report
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
 
 
 
@@ -4638,7 +4639,7 @@
     <!-- elements page js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="assets/js/jsslideimage.js"></script>
-
+    <script src="assets/js/ReportPost.js" ></script>
 
     <script>
                                 document.addEventListener('DOMContentLoaded', function () {
@@ -4816,84 +4817,8 @@
         });
 
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const openReportLinks = document.querySelectorAll('.flag-link');
-            const modalReport = document.getElementById('report-post-modal');
-            const reportPostButton = document.getElementById('reportButton');
-            let currentPostId = null;
 
-            openReportLinks.forEach(openReportLink => {
-                openReportLink.addEventListener('click', () => {
-                    const postId = openReportLink.getAttribute('post-id');
-                    currentPostId = postId;
-                    modalReport.setAttribute('data-post-id', postId);
-                    modalReport.classList.add('is-active');
-                });
-            });
 
-            reportPostButton.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent the default form submission
-
-                if (currentPostId) {
-                    const formData = new FormData(document.getElementById('report-post-form'));
-                    formData.append('post_id', currentPostId); // Add currentPostId to form data
-
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'reportpost', true);
-                    xhr.onload = function () {
-                        if (xhr.status >= 200 && xhr.status < 300) {
-                            console.log(xhr.responseText);
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "success-toast",
-                                icon: "mdi mdi-check",
-                                title: "",
-                                message: "Report post successfully",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#60c032",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                            modalReport.classList.remove('is-active');
-                        } else {
-                            console.error('Request failed with status', xhr.status);
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "error-toast",
-                                icon: "mdi mdi-close",
-                                title: "",
-                                message: "Failed to report post",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#FF0000",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                        }
-                    };
-
-                    xhr.onerror = function () {
-                        console.error('Request failed');
-                    };
-
-                    xhr.send(formData);
-                }
-            });
-        });
-
-    </script>
 
 </body>
 
