@@ -1551,7 +1551,7 @@
                                                             </div>
                                                         </a>
                                                         <hr class="dropdown-divider" />
-                                                        <a href="#" class="dropdown-item flag-link" post-id="${post.postID}">
+                                                        <a class="dropdown-item flag-link" post-id="${post.postID}">
                                                             <div class="media">
                                                                 <i data-feather="flag"></i>
                                                                 <div class="media-content">
@@ -1580,15 +1580,23 @@
                                             <div class="post-image">
                                                 <div class="style-img-post">
                                                     <c:forEach var="img" items="${post.getListImg()}">
-                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                        <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
                                                             <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
                                                         </a>
                                                     </c:forEach>     
                                                 </div>
                                                 <c:if test="${fn:length(post.listImg) >= 2}">
                                                     <div class="image-btn">
-                                                        <div class="btn-image-next btn-image">&gt;</div>
-                                                        <div class="btn-image-pre btn-image">&lt;</div>
+                                                        <div class="btn-image-next btn-image">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="btn-image-pre btn-image">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                            </svg>
+                                                        </div>
                                                     </div>
                                                 </c:if>
                                             </div>
@@ -2557,8 +2565,6 @@
             <div class="modal-content">
                 <div class="card">
                     <div class="card-heading">
-
-                        <!-- Close X button -->
                         <div class="close-wrap">
                             <span class="close-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -2571,8 +2577,10 @@
                             <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
                                 <label for="Title">Title:</label>
                                 <input type="text" id="title" name="title" required="">
+                                <span id="title-error" class="error-message" style="display: none; color: red;">Please input title!!!</span>
                                 <label for="Title">Description: </label>
-                                <textarea class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+                                <textarea id="description" required class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full">Món đồ này đã có một vài năm sử dụng nhưng vẫn đáp ứng tốt nhu cầu sử dụng hàng ngày.</textarea>
+                                <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input description!!!</span>
 
                                 <label for="imgPath">Image:</label>
                                 <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" multiple>
@@ -2630,18 +2638,20 @@
                                     <div class="input-container">
                                         <label>Street number</label>
                                         <input name="newAddress" id="Order_name" type="text" maxlength="255" value="Số nhà ...." required="">
+                                        <span id="title-error-add" class="error-message" style="display: none; color: red;">Please input street number!!!</span>
                                     </div>
                                 </div>
                                 <label>Expires Date<span class="required">*</span></label>
                                 <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
                                     <option value="1">1 Day</option>
-                                    <option value="3"="">3 Days</option>
+                                    <option value="3">3 Days</option>
                                     <option value="7">7 Days</option>
                                     <option value="15" selected>15 Days</option>
                                 </select>
 
                                 <label for="instructions">Pick-up instructions</label>
                                 <input type="text" value="4-6pm khi tới nơi hãy gọi cho tôi" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+                                <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions!!!</span>
 
 
 
@@ -2652,7 +2662,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="button-wrap" style="width: 98%;">
-                            <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
+                            <button type="button" id="postButton" class="button is-solid primary-button" style="width: 100%;">
                                 Post
                             </button>
                         </div>
@@ -4538,7 +4548,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="reportpost" id="report-post-form" method="post">
+                    <form action="ReportPost" id="report-post-form" method="post">
                         <div class="control">
                             <label for="report_reason">Select a reason for reporting:</label><br>
                             <input type="radio" id="reason_spam" name="report_reason" value="Spam">
@@ -4551,7 +4561,6 @@
                             <label for="reason_other">Other</label><br>
                             <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
                             <input type="hidden" id="post_id" name="post_id"> <!-- Hidden input to store post_id -->
-                            <input type="submit" id="submit-report-post" style="display:none;" value="Submit"> <!-- Hidden submit button -->
                         </div>
                     </form>
                 </div>
@@ -4562,8 +4571,7 @@
                         </button>
                     </div>
                     <div class="button-wrap" style="width: 98%;">
-                        <button type="submit" form="report-post-form" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;">
-                        <button class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-report-post').click();">
+                        <button class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;">
                             Report
                         </button>
                     </div>
@@ -4571,6 +4579,9 @@
             </div>
         </div>
     </div>
+
+
+
 
 
 
@@ -4640,159 +4651,247 @@
     <!-- elements page js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="assets/js/jsslideimage.js"></script>
+    <script src="assets/js/ReportPost.js" ></script>
+    <script>
+                            document.getElementById('postButton').addEventListener('click', function () {
+                                if (validateForm()) {
+                                    document.getElementById('submit-create-post').click();
+                                }
+                            });
+                            const titleInput = document.getElementById('title');
+                            const errorMessage = document.getElementById('title-error');
 
+                            titleInput.addEventListener('input', function () {
+                                const inputValue = titleInput.value.trim(); 
+
+                                if (inputValue.length > 0) {
+                                    errorMessage.style.display = 'none';
+                                } else {
+                                    errorMessage.style.display = 'block';
+                                }
+                            });
+                            
+                            const descInput = document.getElementById('description');
+                            const errorMessageDesc = document.getElementById('title-error-desc');
+
+                            descInput.addEventListener('input', function () {
+                                var inputValueDesc = descInput.value.trim(); 
+
+                                if (inputValueDesc.length > 0) {
+                                    errorMessageDesc.style.display = 'none';
+                                } else {
+                                    errorMessageDesc.style.display = 'block';
+                                }
+                            });
+                            
+                            
+                            const addInput = document.getElementById('Order_name');
+                            const errorMessageAdd = document.getElementById('title-error-add');
+                            addInput.addEventListener('input', function () {
+                                const inputValueAdd = addInput.value.trim(); 
+
+                                if (inputValueAdd.length > 0) {
+                                    errorMessageAdd.style.display = 'none';
+                                } else {
+                                    errorMessageAdd.style.display = 'block';
+                                }
+                            });
+                            
+                            const instInput = document.getElementById('instructions');
+                            const errorMessageInst = document.getElementById('title-error-inst');
+                            instInput.addEventListener('input', function () {
+                                const inputValueInst = instInput.value.trim(); 
+
+                                if (inputValueInst.length > 0) {
+                                    errorMessageInst.style.display = 'none';
+                                } else {
+                                    errorMessageInst.style.display = 'block';
+                                }
+                            });
+                            function validateForm() {
+                                var title = document.getElementById('title').value.trim();
+                                var description = document.querySelector('textarea[name="description"]').value.trim();
+                                var newAddress = document.getElementById('Order_name').value.trim();
+                                var instructions = document.getElementById('instructions').value.trim();
+                                
+                                if (title === '') {
+                                    var titleError = document.getElementById('title-error');
+                                    titleError.style.display = 'block';
+                                    return false;
+                                }
+
+                                if (description === '') {
+                                    var titleError = document.getElementById('title-error-desc');
+                                    titleError.style.display = 'block';
+                                    return false;
+                                }
+
+                                if (newAddress === '') {
+                                    var titleError = document.getElementById('title-error-add');
+                                    titleError.style.display = 'block';
+                                    return false;
+                                }
+                                
+                                if (instructions === '') {
+                                    var titleError = document.getElementById('title-error-inst');
+                                    titleError.style.display = 'block';
+                                    return false;
+                                }
+                                return true;
+                            }
+    </script>
 
     <script>
-                                document.addEventListener('DOMContentLoaded', function () {
-                                    const statusElements = document.querySelectorAll('.status-post-name');
-                                    const typeElements = document.querySelectorAll('.type-post-name');
-                                    statusElements.forEach(function (element) {
-                                        const statusName = element.textContent.trim().toLowerCase();
+        document.addEventListener('DOMContentLoaded', function () {
+            const statusElements = document.querySelectorAll('.status-post-name');
+            const typeElements = document.querySelectorAll('.type-post-name');
+            statusElements.forEach(function (element) {
+                const statusName = element.textContent.trim().toLowerCase();
 
-                                        if (statusName === 'available') {
-                                            element.style.color = '#36a955';
-                                        } else {
-                                            element.style.color = 'red';
-                                        }
-                                    });
-                                    typeElements.forEach(function (element) {
-                                        const statusName = element.textContent.trim().toLowerCase();
+                if (statusName === 'available') {
+                    element.style.color = '#36a955';
+                } else {
+                    element.style.color = 'red';
+                }
+            });
+            typeElements.forEach(function (element) {
+                const statusName = element.textContent.trim().toLowerCase();
 
-                                        if (statusName === 'free') {
-                                            element.style.color = '#6ba4e9';
-                                        } else {
-                                            element.style.color = 'red';
-                                        }
-                                    });
-                                });
-                                var districts = document.getElementById("district");
-                                var wards = document.getElementById("ward");
-                                var selectedCityValue = 'Thành phố Hà Nội';
+                if (statusName === 'free') {
+                    element.style.color = '#6ba4e9';
+                } else {
+                    element.style.color = 'red';
+                }
+            });
+        });
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var selectedCityValue = 'Thành phố Hà Nội';
 
-                                var Parameter = {
-                                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                                    method: "GET",
-                                    responseType: "application/json",
-                                };
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
 
-                                var promise = axios(Parameter);
+        var promise = axios(Parameter);
 
-                                promise.then(function (result) {
-                                    var data = result.data;
-                                    var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                                    renderDistricts(selectedCity.Districts);
-                                    selectDistrictOption(selectedCity.Districts);
-                                    selectWardOption(selectedCity.Districts);
-                                });
+        promise.then(function (result) {
+            var data = result.data;
+            var selectedCity = data.find((city) => city.Name === selectedCityValue);
+            renderDistricts(selectedCity.Districts);
+            selectDistrictOption(selectedCity.Districts);
+            selectWardOption(selectedCity.Districts);
+        });
 
-                                function renderDistricts(districtsData) {
-                                    for (const district of districtsData) {
-                                        districts.options[districts.options.length] = new Option(district.Name, district.Name);
-                                    }
+        function renderDistricts(districtsData) {
+            for (const district of districtsData) {
+                districts.options[districts.options.length] = new Option(district.Name, district.Name);
+            }
 
-                                    districts.onchange = function () {
-                                        wards.length = 1;
-                                        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+            districts.onchange = function () {
+                wards.length = 1;
+                const selectedDistrict = districtsData.find((district) => district.Name === this.value);
 
-                                        if (this.value !== "") {
-                                            for (const ward of selectedDistrict.Wards) {
-                                                wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
-                                            }
-                                        }
-                                    };
-                                }
+                if (this.value !== "") {
+                    for (const ward of selectedDistrict.Wards) {
+                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                    }
+                }
+            };
+        }
 
-                                function selectDistrictOption(districtsData) {
-                                    for (let i = 0; i < districtsData.length; i++) {
-                                        if (districtsData[i].Name === 'Huyện Thạch Thất') {
-                                            districts.options[i + 1].selected = true;
-                                            simulateEvent(districts, 'change');
-                                            break;
-                                        }
-                                    }
-                                }
+        function selectDistrictOption(districtsData) {
+            for (let i = 0; i < districtsData.length; i++) {
+                if (districtsData[i].Name === 'Huyện Thạch Thất') {
+                    districts.options[i + 1].selected = true;
+                    simulateEvent(districts, 'change');
+                    break;
+                }
+            }
+        }
 
-                                function selectWardOption(districtsData) {
-                                    const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                                    for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                                        if (selectedDistrict.Wards[i].Name === '${ward}') {
-                                            wards.options[i + 1].selected = true;
-                                            simulateEvent(wards, 'change');
-                                            break;
-                                        }
-                                    }
-                                }
+        function selectWardOption(districtsData) {
+            const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+            for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                if (selectedDistrict.Wards[i].Name === '${ward}') {
+                    wards.options[i + 1].selected = true;
+                    simulateEvent(wards, 'change');
+                    break;
+                }
+            }
+        }
 
-                                function simulateEvent(element, eventName) {
-                                    var event = new Event(eventName);
-                                    element.dispatchEvent(event);
-                                }
+        function simulateEvent(element, eventName) {
+            var event = new Event(eventName);
+            element.dispatchEvent(event);
+        }
 
-                                var form = document.getElementById('create-post');
-                                form.addEventListener('submit', function (event) {
-                                    event.preventDefault();
+        var form = document.getElementById('create-post');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-                                    var formData = new FormData(form);
+            var formData = new FormData(form);
 
-                                    var xhr = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
 
-                                    xhr.open('POST', 'CreatePost2', true);
+            xhr.open('POST', 'CreatePost2', true);
 
-                                    xhr.onload = function () {
-                                        if (xhr.responseText === "success") {
-                                            const modal = document.getElementById('create-post-modal');
-                                            modal.classList.remove('is-active');
-                                            var form = document.getElementById('create-post');
-                                            form.reset();
-                                            iziToast.show({
-                                                maxWidth: "280px",
-                                                class: "success-toast",
-                                                icon: "mdi mdi-error",
-                                                title: "",
-                                                message: "Create post successfully",
-                                                titleColor: "#fff",
-                                                messageColor: "#fff",
-                                                iconColor: "#fff",
-                                                backgroundColor: "#60c032",
-                                                progressBarColor: "#0062ff",
-                                                position: "bottomRight",
-                                                transitionIn: "fadeInUp",
-                                                close: false,
-                                                timeout: 1800,
-                                                zindex: 99999
-                                            });
-                                        } else {
-                                            const modal = document.getElementById('create-post-modal');
-                                            modal.classList.remove('is-active');
-                                            var form = document.getElementById('create-post');
-                                            iziToast.show({
-                                                maxWidth: "280px",
-                                                class: "success-toast",
-                                                icon: "mdi mdi-error",
-                                                title: "",
-                                                message: "Create post failed",
-                                                titleColor: "#fff",
-                                                messageColor: "#fff",
-                                                iconColor: "#fff",
-                                                backgroundColor: "#FF0000",
-                                                progressBarColor: "#0062ff",
-                                                position: "bottomRight",
-                                                transitionIn: "fadeInUp",
-                                                close: false,
-                                                timeout: 1800,
-                                                zindex: 99999
-                                            });
-                                        }
-                                    };
+            xhr.onload = function () {
+                if (xhr.responseText === "success") {
+                    const modal = document.getElementById('create-post-modal');
+                    modal.classList.remove('is-active');
+                    var form = document.getElementById('create-post');
+                    form.reset();
+                    iziToast.show({
+                        maxWidth: "280px",
+                        class: "success-toast",
+                        icon: "mdi mdi-check",
+                        title: "",
+                        message: "Create post successfully",
+                        titleColor: "#fff",
+                        messageColor: "#fff",
+                        iconColor: "#fff",
+                        backgroundColor: "#60c032",
+                        progressBarColor: "#0062ff",
+                        position: "bottomRight",
+                        transitionIn: "fadeInUp",
+                        close: false,
+                        timeout: 1800,
+                        zindex: 99999
+                    });
+                } else {
+                    const modal = document.getElementById('create-post-modal');
+                    modal.classList.remove('is-active');
+                    var form = document.getElementById('create-post');
+                    iziToast.show({
+                        maxWidth: "280px",
+                        class: "success-toast",
+                        icon: "mdi mdi-error",
+                        title: "",
+                        message: "Create post failed",
+                        titleColor: "#fff",
+                        messageColor: "#fff",
+                        iconColor: "#fff",
+                        backgroundColor: "#FF0000",
+                        progressBarColor: "#0062ff",
+                        position: "bottomRight",
+                        transitionIn: "fadeInUp",
+                        close: false,
+                        timeout: 1800,
+                        zindex: 99999
+                    });
+                }
+            };
 
-                                    xhr.onerror = function () {
-                                        console.error('Request failed');
-                                    };
+            xhr.onerror = function () {
+                console.error('Request failed');
+            };
 
-                                    xhr.send(formData);
-                                });
+            xhr.send(formData);
+        });
 
-            document.getElementById('imgPath').addEventListener('change', function (event) {
+        document.getElementById('imgPath').addEventListener('change', function (event) {
             const files = event.target.files;
             const blockImg = document.querySelector('.post-image.preview-img');
             const imageContainer = blockImg.querySelector('.style-img-post');
@@ -4803,13 +4902,12 @@
                 const imgElement = document.createElement('img');
                 imgElement.classList.add('element-img-post');
                 imgElement.src = imageURL;
-                imgElement.alt = 'Preview Image';
                 imageContainer.appendChild(imgElement);
                 imgElement.onload = function () {
                     URL.revokeObjectURL(imageURL);
                 };
             }
-            if(files.length >= 2){
+            if (files.length >= 2) {
                 blockImg.querySelector('.image-btn').style.display = 'block';
             } else {
                 blockImg.querySelector('.image-btn').style.display = 'none';
@@ -4819,84 +4917,8 @@
         });
 
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const openReportLinks = document.querySelectorAll('.flag-link');
-            const modalReport = document.getElementById('report-post-modal');
-            const reportPostButton = document.getElementById('reportButton');
-            let currentPostId = null;
 
-            openReportLinks.forEach(openReportLink => {
-                openReportLink.addEventListener('click', () => {
-                    const postId = openReportLink.getAttribute('post-id');
-                    currentPostId = postId;
-                    modalReport.setAttribute('data-post-id', postId);
-                    modalReport.classList.add('is-active');
-                });
-            });
 
-            reportPostButton.addEventListener('click', (event) => {
-                event.preventDefault(); // Prevent the default form submission
-
-                if (currentPostId) {
-                    const formData = new FormData(document.getElementById('report-post-form'));
-                    formData.append('post_id', currentPostId); // Add currentPostId to form data
-
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'reportpost', true);
-                    xhr.onload = function () {
-                        if (xhr.status >= 200 && xhr.status < 300) {
-                            console.log(xhr.responseText);
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "success-toast",
-                                icon: "mdi mdi-check",
-                                title: "",
-                                message: "Report post successfully",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#60c032",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                            modalReport.classList.remove('is-active');
-                        } else {
-                            console.error('Request failed with status', xhr.status);
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "error-toast",
-                                icon: "mdi mdi-close",
-                                title: "",
-                                message: "Failed to report post",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#FF0000",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                        }
-                    };
-
-                    xhr.onerror = function () {
-                        console.error('Request failed');
-                    };
-
-                    xhr.send(formData);
-                }
-            });
-        });
-
-    </script>
 
 </body>
 

@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!doctype html>
 <html lang="en">
 
@@ -1092,23 +1094,18 @@
                                                 <!-- Featured image -->
                                                 <div class="post-image">
                                                     <div class="style-img-post">
-                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                        </a>
+                                                        <c:forEach var="img" items="${post.getListImg()}">
+                                                            <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                            </a>
+                                                        </c:forEach>     
                                                     </div>
-                                                    <div class="image-btn">
-                                                        <div class="btn-image-next btn-image">&gt;</div>
-                                                        <div class="btn-image-pre btn-image">&lt;</div>
-                                                    </div>
+                                                    <c:if test="${fn:length(post.listImg) >= 2}">
+                                                        <div class="image-btn">
+                                                            <div class="btn-image-next btn-image">&gt;</div>
+                                                            <div class="btn-image-pre btn-image">&lt;</div>
+                                                        </div>
+                                                    </c:if>
                                                 </div>
 
                                             </div>
@@ -1395,10 +1392,10 @@
                                     <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
                                     <div class="post-image">
                                         <div class="style-img-post">
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                         </div>
                                         <div class="image-btn">
                                             <div class="btn-image-next btn-image">&gt;</div>
