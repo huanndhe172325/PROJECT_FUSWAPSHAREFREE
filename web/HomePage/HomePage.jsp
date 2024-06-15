@@ -4792,7 +4792,31 @@
                                     xhr.send(formData);
                                 });
 
-
+            document.getElementById('imgPath').addEventListener('change', function (event) {
+            const files = event.target.files;
+            const blockImg = document.querySelector('.post-image.preview-img');
+            const imageContainer = blockImg.querySelector('.style-img-post');
+            imageContainer.innerHTML = '';
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const imageURL = URL.createObjectURL(file);
+                const imgElement = document.createElement('img');
+                imgElement.classList.add('element-img-post');
+                imgElement.src = imageURL;
+                imgElement.alt = 'Preview Image';
+                imageContainer.appendChild(imgElement);
+                imgElement.onload = function () {
+                    URL.revokeObjectURL(imageURL);
+                };
+            }
+            if(files.length >= 2){
+                blockImg.querySelector('.image-btn').style.display = 'block';
+            } else {
+                blockImg.querySelector('.image-btn').style.display = 'none';
+            }
+            blockImg.style.display = 'block';
+            imageContainer.style.transform = 'translateX(0px)';
+        });
 
     </script>
     <script>
