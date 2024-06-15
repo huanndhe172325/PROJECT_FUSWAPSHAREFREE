@@ -1395,10 +1395,10 @@
                                     <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
                                     <div class="post-image">
                                         <div class="style-img-post">
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                         </div>
                                         <div class="image-btn">
                                             <div class="btn-image-next btn-image">&gt;</div>
