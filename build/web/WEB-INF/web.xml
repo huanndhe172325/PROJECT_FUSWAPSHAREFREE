@@ -70,6 +70,10 @@
         <servlet-class>Controllers.Profile.ArchivePost</servlet-class>
 
     </servlet>
+    <servlet>
+        <servlet-name>ReportPost</servlet-name>
+        <servlet-class>Controllers.HomePage.ReportPost</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -159,6 +163,10 @@
         <servlet-name>ArchivePost</servlet-name>
         <url-pattern>/ArchivePost</url-pattern>
 
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportPost</servlet-name>
+        <url-pattern>/reportpost</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>
