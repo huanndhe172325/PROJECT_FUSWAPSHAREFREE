@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html lang="en">
 
@@ -1578,23 +1579,18 @@
                                             <!-- Featured image -->
                                             <div class="post-image">
                                                 <div class="style-img-post">
-                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                    </a>
-                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                    </a>
-                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                    </a>
-                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                    </a>
+                                                    <c:forEach var="img" items="${post.getListImg()}">
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                        </a>
+                                                    </c:forEach>     
                                                 </div>
-                                                <div class="image-btn">
-                                                    <div class="btn-image-next btn-image">&gt;</div>
-                                                    <div class="btn-image-pre btn-image">&lt;</div>
-                                                </div>
+                                                <c:if test="${fn:length(post.listImg) >= 2}">
+                                                    <div class="image-btn">
+                                                        <div class="btn-image-next btn-image">&gt;</div>
+                                                        <div class="btn-image-pre btn-image">&lt;</div>
+                                                    </div>
+                                                </c:if>
                                             </div>
 
                                         </div>
@@ -2588,7 +2584,7 @@
                                         <div class="btn-image-next btn-image">&gt;</div>
                                         <div class="btn-image-pre btn-image">&lt;</div>
                                     </div>
-                                </div>
+                                </div> 
 
                                 <table style="margin-top: 15px;">
                                     <tr>
@@ -4744,10 +4740,9 @@
                                     xhr.open('POST', 'CreatePost2', true);
 
                                     xhr.onload = function () {
-                                        if (xhr.status >= 200 && xhr.status < 300) {
+                                        if (xhr.responseText === "success") {
                                             const modal = document.getElementById('create-post-modal');
                                             modal.classList.remove('is-active');
-                                            console.log('Success', xhr.responseText);
                                             var form = document.getElementById('create-post');
                                             form.reset();
                                             iziToast.show({
@@ -4770,7 +4765,6 @@
                                         } else {
                                             const modal = document.getElementById('create-post-modal');
                                             modal.classList.remove('is-active');
-                                            console.log('Success', xhr.responseText);
                                             var form = document.getElementById('create-post');
                                             iziToast.show({
                                                 maxWidth: "280px",
@@ -4799,7 +4793,31 @@
                                     xhr.send(formData);
                                 });
 
-
+            document.getElementById('imgPath').addEventListener('change', function (event) {
+            const files = event.target.files;
+            const blockImg = document.querySelector('.post-image.preview-img');
+            const imageContainer = blockImg.querySelector('.style-img-post');
+            imageContainer.innerHTML = '';
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const imageURL = URL.createObjectURL(file);
+                const imgElement = document.createElement('img');
+                imgElement.classList.add('element-img-post');
+                imgElement.src = imageURL;
+                imgElement.alt = 'Preview Image';
+                imageContainer.appendChild(imgElement);
+                imgElement.onload = function () {
+                    URL.revokeObjectURL(imageURL);
+                };
+            }
+            if(files.length >= 2){
+                blockImg.querySelector('.image-btn').style.display = 'block';
+            } else {
+                blockImg.querySelector('.image-btn').style.display = 'none';
+            }
+            blockImg.style.display = 'block';
+            imageContainer.style.transform = 'translateX(0px)';
+        });
 
     </script>
 
