@@ -200,6 +200,9 @@
                     modal.classList.add('is-active');
                 });
             });
+
+
+
             var districts = document.getElementById("district");
             var wards = document.getElementById("ward");
             var selectedCityValue = 'Thành phố Hà Nội';
@@ -1051,7 +1054,7 @@
                                                     <div class="dropdown-menu" role="menu">
                                                         <div class="dropdown-content">
                                                             <c:if test="${post.avaiableEditPost(profile.userID)}">
-                                                                <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" data-all-img="${post.getListImg()}">
+                                                                <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" data-all-img="${post.imageUrl}">
                                                                     <div class="media">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
                                                                         <div class="media-content">
@@ -1294,7 +1297,7 @@
                     <div class="card">
                         <div class="card-heading">
                             <div class="close-wrap">
-                                <span class="close-modal">
+                                <span class="close-modal" onclick="document.getElementById('edit-post').reset();">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                 </span>
                             </div>
@@ -1311,22 +1314,7 @@
 
                                     <label for="imgPath">Image:</label>
                                     <input type="file" id="imgPathEditPost" name="imgPath" accept="image/*" required="" multiple>
-                                    <div class="post-image preview-img" style="display: none;">
-                                        <div class="style-img-post">
-                                            <img id="previewImage" class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                        </div>
-                                        <div class="image-btn" style="display: none;">
-                                            <div class="btn-image-next btn-image" style="font-size: 26px;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
-                                                </svg>
-                                            </div>
-                                            <div class="btn-image-pre btn-image" style="font-size: 26px;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
-                                                </svg>
-                                            </div>
-                                        </div>
+                                    <div class="post-image preview-img" style="display: block;">
                                     </div> 
 
                                     <table style="margin-top: 15px;">
@@ -1511,7 +1499,6 @@
 
             <!-- profile js -->
             <script src="assets/js/profile.js"></script>
-            <script src="assets/js/jsslideimage.js"></script>
 
             <!-- stories js -->
 
@@ -1893,10 +1880,12 @@
                             modalEditPost.querySelector('input[name="newAddress"]').value = openModalEdit.getAttribute('data-post-street_Number');
                             modalEditPost.querySelector('input[name="instructions"]').value = openModalEdit.getAttribute('data-post-intr');
                             var allImg = openModalEdit.getAttribute('data-all-img');
-                            var imageSlider = createImageContainer(allImg);
+                            const {styleImgPostDiv, imageBtnDiv} = createImageContainer(allImg);
                             var modalBody = modalEditPost.querySelector('.post-image.preview-img');
                             modalBody.innerHTML = '';
-                            modalBody.appendChild(imageSlider);
+                            modalBody.appendChild(styleImgPostDiv);
+                            modalBody.appendChild(imageBtnDiv);
+                            initializeSliders();
                             modalEditPost.classList.add('is-active');
                         });
                     });
@@ -1905,7 +1894,6 @@
                 function createImageContainer(imageUrls) {
                     const styleImgPostDiv = document.createElement('div');
                     styleImgPostDiv.classList.add('style-img-post');
-                    styleImgPostDiv.style.transform = 'translateX(0px)';
 
                     const imageArray = imageUrls.split(',');
 
@@ -1916,7 +1904,28 @@
                         styleImgPostDiv.appendChild(img);
                     });
 
-                    return styleImgPostDiv;
+                    const imageBtnDiv = document.createElement('div');
+                    imageBtnDiv.classList.add('image-btn');
+                    imageBtnDiv.style.display = 'block';
+
+                    const btnNextDiv = document.createElement('div');
+                    btnNextDiv.classList.add('btn-image-next', 'btn-image');
+                    btnNextDiv.style.fontSize = '26px';
+                    btnNextDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                            </svg>`;
+
+                    const btnPreDiv = document.createElement('div');
+                    btnPreDiv.classList.add('btn-image-pre', 'btn-image');
+                    btnPreDiv.style.fontSize = '26px';
+                    btnPreDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                            </svg>`;
+
+                    imageBtnDiv.appendChild(btnNextDiv);
+                    imageBtnDiv.appendChild(btnPreDiv);
+
+                    return {styleImgPostDiv, imageBtnDiv};
                 }
 
 
@@ -1942,10 +1951,9 @@
                         blockImg.querySelector('.image-btn').style.display = 'none';
                     }
                     blockImg.style.display = 'block';
-                    imageContainer.style.transform = 'translateX(0px)';
                 });
-
             </script>
+            <script src="assets/js/jsslideimage.js"></script>
     </body>
 
 

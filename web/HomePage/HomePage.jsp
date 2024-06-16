@@ -2586,7 +2586,6 @@
                                 <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" multiple>
                                 <div class="post-image preview-img" style="display: none;">
                                     <div class="style-img-post">
-                                        <img id="previewImage" class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                     </div>
                                     <div class="image-btn" style="display: none;">
                                         <div class="btn-image-next btn-image" style="font-size: 26px;">
@@ -2601,6 +2600,7 @@
                                         </div>
                                     </div>
                                 </div> 
+                                
 
                                 <table style="margin-top: 15px;">
                                     <tr>
@@ -4545,7 +4545,6 @@
         <div class="modal-content">
             <div class="card">
                 <div class="card-heading">
-                    <!-- Close X button -->
                     <div class="close-wrap">
                         <span class="close-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -4556,7 +4555,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="ReportPost" id="report-post-form" method="post">
+                    <form id="report-post-form" action="ReportPost" method="POST">
                         <div class="control">
                             <label for="report_reason">Select a reason for reporting:</label><br>
                             <input type="radio" id="reason_spam" name="report_reason" value="Spam">
@@ -4567,26 +4566,28 @@
                             <label for="reason_abuse">Abuse</label><br>
                             <input type="radio" id="reason_other" name="report_reason" value="Other">
                             <label for="reason_other">Other</label><br>
-                            <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
-                            <input type="hidden" id="post_id" name="post_id"> <!-- Hidden input to store post_id -->
+                            <textarea id="report_reason_others" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
+                            <input type="hidden" id="post_id_value" name="post_id"> <!-- Hidden input to store post_id -->
+                            <input type="submit" id="submit-report-form" style="display : none;" value="Submit">
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
-                    <div class="close-modal" style="width: 98%;">
+                    <div class="close-modal-report" style="width: 98%;">
                         <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
                             Cancel
                         </button>
                     </div>
                     <div class="button-wrap" style="width: 98%;">
-                        <button class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;">
-                            Report
+                        <button type="button" class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-report-form').click();">
+                            Report 
                         </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
 
 
@@ -4849,8 +4850,9 @@
                 if (xhr.responseText === "success") {
                     const modal = document.getElementById('create-post-modal');
                     modal.classList.remove('is-active');
-                    var form = document.getElementById('create-post');
-                    form.reset();
+                    document.getElementById('create-post').reset();
+                    var form2 = document.getElementById('create-post');
+                    form2.querySelector('.post-image.preview-img').style.display = 'none';
                     iziToast.show({
                         maxWidth: "280px",
                         class: "success-toast",
@@ -4898,7 +4900,6 @@
 
             xhr.send(formData);
         });
-
         document.getElementById('imgPath').addEventListener('change', function (event) {
             const files = event.target.files;
             const blockImg = document.querySelector('.post-image.preview-img');
