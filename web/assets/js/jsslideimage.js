@@ -36,5 +36,29 @@ function initSlider(container) {
     });
 }
 
-const sliders = document.querySelectorAll('.post-image');
-sliders.forEach(initSlider);
+
+function initializeSliders() {
+    const sliders = document.querySelectorAll('.post-image');
+    sliders.forEach(initSlider);
+}
+
+initializeSliders();
+
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length > 0) {
+            mutation.addedNodes.forEach((node) => {
+                if (node.classList && node.classList.contains('post-image')) {
+                    initSlider(node);
+                } else if (node.querySelectorAll) {
+                    node.querySelectorAll('.post-image').forEach(initSlider);
+                }
+            });
+        }
+    });
+});
+
+observer.observe(document.body, {
+    childList: true,
+    subtree: true
+});
