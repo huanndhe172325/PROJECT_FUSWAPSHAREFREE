@@ -2589,8 +2589,16 @@
                                         <img id="previewImage" class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                     </div>
                                     <div class="image-btn" style="display: none;">
-                                        <div class="btn-image-next btn-image">&gt;</div>
-                                        <div class="btn-image-pre btn-image">&lt;</div>
+                                        <div class="btn-image-next btn-image" style="font-size: 26px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                            </svg>
+                                        </div>
+                                        <div class="btn-image-pre btn-image" style="font-size: 26px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                            </svg>
+                                        </div>
                                     </div>
                                 </div> 
 
@@ -4662,7 +4670,7 @@
                             const errorMessage = document.getElementById('title-error');
 
                             titleInput.addEventListener('input', function () {
-                                const inputValue = titleInput.value.trim(); 
+                                const inputValue = titleInput.value.trim();
 
                                 if (inputValue.length > 0) {
                                     errorMessage.style.display = 'none';
@@ -4670,12 +4678,12 @@
                                     errorMessage.style.display = 'block';
                                 }
                             });
-                            
+
                             const descInput = document.getElementById('description');
                             const errorMessageDesc = document.getElementById('title-error-desc');
 
                             descInput.addEventListener('input', function () {
-                                var inputValueDesc = descInput.value.trim(); 
+                                var inputValueDesc = descInput.value.trim();
 
                                 if (inputValueDesc.length > 0) {
                                     errorMessageDesc.style.display = 'none';
@@ -4683,12 +4691,12 @@
                                     errorMessageDesc.style.display = 'block';
                                 }
                             });
-                            
-                            
+
+
                             const addInput = document.getElementById('Order_name');
                             const errorMessageAdd = document.getElementById('title-error-add');
                             addInput.addEventListener('input', function () {
-                                const inputValueAdd = addInput.value.trim(); 
+                                const inputValueAdd = addInput.value.trim();
 
                                 if (inputValueAdd.length > 0) {
                                     errorMessageAdd.style.display = 'none';
@@ -4696,11 +4704,11 @@
                                     errorMessageAdd.style.display = 'block';
                                 }
                             });
-                            
+
                             const instInput = document.getElementById('instructions');
                             const errorMessageInst = document.getElementById('title-error-inst');
                             instInput.addEventListener('input', function () {
-                                const inputValueInst = instInput.value.trim(); 
+                                const inputValueInst = instInput.value.trim();
 
                                 if (inputValueInst.length > 0) {
                                     errorMessageInst.style.display = 'none';
@@ -4713,7 +4721,7 @@
                                 var description = document.querySelector('textarea[name="description"]').value.trim();
                                 var newAddress = document.getElementById('Order_name').value.trim();
                                 var instructions = document.getElementById('instructions').value.trim();
-                                
+
                                 if (title === '') {
                                     var titleError = document.getElementById('title-error');
                                     titleError.style.display = 'block';
@@ -4731,7 +4739,7 @@
                                     titleError.style.display = 'block';
                                     return false;
                                 }
-                                
+
                                 if (instructions === '') {
                                     var titleError = document.getElementById('title-error-inst');
                                     titleError.style.display = 'block';
