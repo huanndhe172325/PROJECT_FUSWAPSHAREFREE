@@ -107,16 +107,14 @@ public class CreatePost2 extends HttpServlet {
                     String imgFilePath = uploadDirectory + "\\" + imgFileName;
                     String linkDB = "FolderImages/ImagePost/" + imgFileName;
 
-                    // Write the image file to the server
                     part.write(imgFilePath);
 
-                    // Append the link to the database link builder
                     if (linkDBBuilder.length() > 0) {
                         linkDBBuilder.append(",");
                     }
                     linkDBBuilder.append(linkDB);
 
-                    partIndex++; // Increment part index
+                    partIndex++; 
                 }
             }
 
@@ -124,7 +122,7 @@ public class CreatePost2 extends HttpServlet {
             newPost.setTitle(title);
             newPost.setDescription(description);
             newPost.setIntructions(instructions);
-            newPost.setImageUrl(linkDBBuilder.toString()); // Save image links to database
+            newPost.setImageUrl(linkDBBuilder.toString()); 
             newPost.setCommune(commune);
             newPost.setDistrict(district);
             newPost.setStreet_Number(streetNumber);

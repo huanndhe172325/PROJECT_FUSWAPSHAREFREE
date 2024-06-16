@@ -1948,19 +1948,11 @@
                 editPostForm.addEventListener('submit', function (event) {
                     event.preventDefault();
                     var formDataForEditPost = new FormData(editPostForm);
-                    var requestBody = "";
-                    for (var pair of formDataForEditPost.entries()) {
-                        if (requestBody !== "") {
-                            requestBody += "&";
-                        }
-                        requestBody += encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1]);
-                    }
+
                     var xhr = new XMLHttpRequest();
                     xhr.open('POST', 'editPost', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                     xhr.onload = function () {
                         console.log('Response:', xhr.responseText);
-
                         if (xhr.responseText === "success") {
                             document.getElementById('edit-post-modal').classList.remove('is-active');
                             editPostForm.reset();
@@ -2007,7 +1999,7 @@
                     xhr.onerror = function () {
                         console.error('Request failed');
                     };
-                    xhr.send(requestBody);
+                    xhr.send(formDataForEditPost);
                 });
 
 

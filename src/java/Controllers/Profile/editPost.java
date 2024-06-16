@@ -5,20 +5,24 @@
 package Controllers.Profile;
 
 import DAL.DAOManagePost;
+import Model.Post;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import java.io.InputStream;
 import java.util.Collection;
 
 /**
  *
  * @author FPT
  */
+@MultipartConfig
 public class editPost extends HttpServlet {
 
     /**
@@ -73,14 +77,62 @@ public class editPost extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        DAOManagePost daoManagePost = new DAOManagePost();
+        Collection<Part> parts = request.getParts();
+        String typeId_raw = request.getParameter("typePostEdit");
         String title = request.getParameter("titleEdit");
         String description = request.getParameter("descriptionEdit");
         String instructions = request.getParameter("instructionsEdit");
         String expiresDate_raw = request.getParameter("expiresDateEdit");
-        try (PrintWriter out = response.getWriter()) {
-            out.print(title + description + instructions + expiresDate_raw);
-        } catch (IOException e) {
-            e.printStackTrace();
+        String commune = request.getParameter("wardEdit");
+        String district = request.getParameter("districtEdit");
+        String streetNumber = request.getParameter("newAddressEdit");
+        String quantityId_raw = request.getParameter("qualityEdit");
+
+        HttpSession session = request.getSession();
+        User userInfor = (User) session.getAttribute("userInfo");
+        int idPost = daoManagePost.getMaxIdPost() + 1;
+
+        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length() - 10) + "web\\FolderImages\\ImagePost";
+        StringBuilder linkDBBuilder = new StringBuilder();
+
+        try {
+            int quantity = Integer.parseInt(quantityId_raw);
+            int dateExpires = Integer.parseInt(expiresDate_raw);
+
+            int partIndex = 0; 
+
+            for (Part part : parts) {
+                if (part.getName().equals("imgPathEdit") && part.getSize() > 0) {
+                    String imgFileName = idPost + "_image_" + partIndex + ".jpg";
+                    String imgFilePath = uploadDirectory + "\\" + imgFileName;
+                    String linkDB = "FolderImages/ImagePost/" + imgFileName;
+
+                    part.write(imgFilePath);
+
+                    if (linkDBBuilder.length() > 0) {
+                        linkDBBuilder.append(",");
+                    }
+                    linkDBBuilder.append(linkDB);
+
+                    partIndex++; 
+                }
+            }
+
+            Post newPost = new Post();
+            newPost.setTitle(title);
+            newPost.setDescription(description);
+            newPost.setIntructions(instructions);
+            newPost.setImageUrl(linkDBBuilder.toString()); 
+            newPost.setCommune(commune);
+            newPost.setDistrict(district);
+            newPost.setStreet_Number(streetNumber);
+            newPost.setStatusID(1);
+            newPost.setQuanlityID(quantity);
+
+            response.getWriter().write(title);
+        } catch (Exception e) {
+            response.getWriter().write("Error: " + e.getMessage());
         }
     }
 
