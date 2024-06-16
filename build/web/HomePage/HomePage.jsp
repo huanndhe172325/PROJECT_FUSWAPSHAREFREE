@@ -605,7 +605,7 @@
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div id="global-search" class="control">
-                                <input id="tipue_drop_input" class="input is-rounded" type="text" placeholder="Search" required />
+                                <input oninput="searchByTitle(this)" name="txt" id="tipue_drop_input" class="input is-rounded" type="text" placeholder="Search" required />
                                 <span id="clear-search" class="reset-search">
                                     <i data-feather="x"></i>
                                 </span>
@@ -1500,125 +1500,126 @@
                                 </div>
                             </div>
                             <!-- Post 1 -->
-                            <c:forEach var="post" items="${listPost}"> 
-                                <div id="feed-post-1" class="card is-post">
-                                    <!-- Main wrap -->
-                                    <div class="content-wrap">
-                                        <!-- Post header -->
-                                        <div class="card-heading">
-                                            <!-- User meta -->
-                                            <div class="user-block" style="width: 100%;">
-                                                <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
-                                                </div>
-                                                <div class="user-info" style="width: 100%;">
-                                                    <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
-                                                    <span class="time" style="display: inline-block">${post.createTime}</span>
-                                                    <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
-                                                    <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
-                                                    <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
-                                                    <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
-                                                    <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+                            <div id="post-content">
+                                <c:forEach var="post" items="${listPost}"> 
+                                    <div id="feed-post-1" class="card is-post">
+                                        <!-- Main wrap -->
+                                        <div  class="content-wrap">
+                                            <!-- Post header -->
+                                            <div class="card-heading">
+                                                <!-- User meta -->
+                                                <div class="user-block" style="width: 100%;">
+                                                    <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
+                                                    </div>
+                                                    <div class="user-info" style="width: 100%;">
+                                                        <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                        <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                        <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                        <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                        <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                        <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                        <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
 
-                                                </div>
-                                            </div>
-                                            <!-- Right side dropdown -->
-                                            <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
-                                            <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                <div>
-                                                    <div class="button">
-                                                        <i data-feather="more-vertical"></i>
                                                     </div>
                                                 </div>
-                                                <div class="dropdown-menu" role="menu">
-                                                    <div class="dropdown-content">
-                                                        <a href="#" class="dropdown-item">
-                                                            <div class="media">
-                                                                <i data-feather="bookmark"></i>
-                                                                <div class="media-content">
-                                                                    <h3>Bookmark</h3>
-                                                                    <small>Add this post to your bookmarks.</small>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <a class="dropdown-item">
-                                                            <div class="media">
-                                                                <i data-feather="bell"></i>
-                                                                <div class="media-content">
-                                                                    <h3>Notify me</h3>
-                                                                    <small>Send me the updates.</small>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <hr class="dropdown-divider" />
-                                                        <a class="dropdown-item flag-link" post-id="${post.postID}">
-                                                            <div class="media">
-                                                                <i data-feather="flag"></i>
-                                                                <div class="media-content">
-                                                                    <h3>Flag</h3>
-                                                                    <small>In case of inappropriate content.</small>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="post-text">
-                                                <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
-                                                    ${post.title}
-                                                </h3>
-                                            </div>
-                                            <div class="post-text">
-                                                <p class="post-text-description">
-                                                    ${post.description}
-                                                </p>
-                                            </div>
-
-                                            <!-- Featured image -->
-                                            <div class="post-image">
-                                                <div class="style-img-post">
-                                                    <c:forEach var="img" items="${post.getListImg()}">
-                                                        <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
-                                                        </a>
-                                                    </c:forEach>     
-                                                </div>
-                                                <c:if test="${fn:length(post.listImg) >= 2}">
-                                                    <div class="image-btn">
-                                                        <div class="btn-image-next btn-image">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
-                                                            </svg>
-                                                        </div>
-                                                        <div class="btn-image-pre btn-image">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
-                                                            </svg>
+                                                <!-- Right side dropdown -->
+                                                <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                    <div>
+                                                        <div class="button">
+                                                            <i data-feather="more-vertical"></i>
                                                         </div>
                                                     </div>
-                                                </c:if>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <div class="dropdown-content">
+                                                            <a href="#" class="dropdown-item">
+                                                                <div class="media">
+                                                                    <i data-feather="bookmark"></i>
+                                                                    <div class="media-content">
+                                                                        <h3>Bookmark</h3>
+                                                                        <small>Add this post to your bookmarks.</small>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <a class="dropdown-item">
+                                                                <div class="media">
+                                                                    <i data-feather="bell"></i>
+                                                                    <div class="media-content">
+                                                                        <h3>Notify me</h3>
+                                                                        <small>Send me the updates.</small>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <hr class="dropdown-divider" />
+                                                            <a class="dropdown-item flag-link" post-id="${post.postID}">
+                                                                <div class="media">
+                                                                    <i data-feather="flag"></i>
+                                                                    <div class="media-content">
+                                                                        <h3>Flag</h3>
+                                                                        <small>In case of inappropriate content.</small>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="post-text">
+                                                    <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                        ${post.title}
+                                                    </h3>
+                                                </div>
+                                                <div class="post-text">
+                                                    <p class="post-text-description">
+                                                        ${post.description}
+                                                    </p>
+                                                </div>
+
+                                                <!-- Featured image -->
+                                                <div class="post-image">
+                                                    <div class="style-img-post">
+                                                        <c:forEach var="img" items="${post.getListImg()}">
+                                                            <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                            </a>
+                                                        </c:forEach>     
+                                                    </div>
+                                                    <c:if test="${fn:length(post.listImg) >= 2}">
+                                                        <div class="image-btn">
+                                                            <div class="btn-image-next btn-image">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                </svg>
+                                                            </div>
+                                                            <div class="btn-image-pre btn-image">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </c:if>
+                                                </div>
+
                                             </div>
 
-                                        </div>
-
-                                        <div class="card-footer">
-                                            <div class="social-count" style="margin-left: 0px;">
-                                                <div class="likes-count">
-                                                    <i data-feather="heart"></i>
-                                                    <span>27</span>
-                                                </div>
-                                                <div class="shares-count">
-                                                    <i data-feather="link-2"></i>
-                                                    <span>9</span>
+                                            <div class="card-footer">
+                                                <div class="social-count" style="margin-left: 0px;">
+                                                    <div class="likes-count">
+                                                        <i data-feather="heart"></i>
+                                                        <span>27</span>
+                                                    </div>
+                                                    <div class="shares-count">
+                                                        <i data-feather="link-2"></i>
+                                                        <span>9</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </c:forEach> 
-
+                                </c:forEach> 
+                            </div>
 
                             <!-- Load more posts -->
                             <div class="load-more-wrap narrow-top has-text-centered">
@@ -1741,7 +1742,7 @@
                             <div class="left-section">
                                 <div class="search-subheader">
                                     <div class="control">
-                                        <input type="text" class="input" placeholder="Search for friends to add" />
+                                        <input  type="text" class="input" placeholder="Search for friends to add" />
                                         <span class="icon">
                                             <i data-feather="search"></i>
                                         </span>
@@ -2600,7 +2601,7 @@
                                         </div>
                                     </div>
                                 </div> 
-                                
+
 
                                 <table style="margin-top: 15px;">
                                     <tr>
@@ -4661,93 +4662,137 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-                            document.getElementById('postButton').addEventListener('click', function () {
-                                if (validateForm()) {
-                                    document.getElementById('submit-create-post').click();
-                                }
-                            });
-                            const titleInput = document.getElementById('title');
-                            const errorMessage = document.getElementById('title-error');
+                            function searchByTitle(param) {
+                                var txtSearch = param.value.trim(); // Lấy giá trị từ ô tìm kiếm và loại bỏ khoảng trắng thừa
 
-                            titleInput.addEventListener('input', function () {
-                                const inputValue = titleInput.value.trim();
-
-                                if (inputValue.length > 0) {
-                                    errorMessage.style.display = 'none';
-                                } else {
-                                    errorMessage.style.display = 'block';
-                                }
-                            });
-
-                            const descInput = document.getElementById('description');
-                            const errorMessageDesc = document.getElementById('title-error-desc');
-
-                            descInput.addEventListener('input', function () {
-                                var inputValueDesc = descInput.value.trim();
-
-                                if (inputValueDesc.length > 0) {
-                                    errorMessageDesc.style.display = 'none';
-                                } else {
-                                    errorMessageDesc.style.display = 'block';
-                                }
-                            });
-
-
-                            const addInput = document.getElementById('Order_name');
-                            const errorMessageAdd = document.getElementById('title-error-add');
-                            addInput.addEventListener('input', function () {
-                                const inputValueAdd = addInput.value.trim();
-
-                                if (inputValueAdd.length > 0) {
-                                    errorMessageAdd.style.display = 'none';
-                                } else {
-                                    errorMessageAdd.style.display = 'block';
-                                }
-                            });
-
-                            const instInput = document.getElementById('instructions');
-                            const errorMessageInst = document.getElementById('title-error-inst');
-                            instInput.addEventListener('input', function () {
-                                const inputValueInst = instInput.value.trim();
-
-                                if (inputValueInst.length > 0) {
-                                    errorMessageInst.style.display = 'none';
-                                } else {
-                                    errorMessageInst.style.display = 'block';
-                                }
-                            });
-                            function validateForm() {
-                                var title = document.getElementById('title').value.trim();
-                                var description = document.querySelector('textarea[name="description"]').value.trim();
-                                var newAddress = document.getElementById('Order_name').value.trim();
-                                var instructions = document.getElementById('instructions').value.trim();
-
-                                if (title === '') {
-                                    var titleError = document.getElementById('title-error');
-                                    titleError.style.display = 'block';
-                                    return false;
+                                // Kiểm tra nếu ô tìm kiếm trống
+                                if (txtSearch === '') {
+                                    resetPostContent(); // Reset lại nội dung post-content về nội dung ban đầu
+                                    return; // Dừng hàm và không gửi AJAX request
                                 }
 
-                                if (description === '') {
-                                    var titleError = document.getElementById('title-error-desc');
-                                    titleError.style.display = 'block';
-                                    return false;
-                                }
-
-                                if (newAddress === '') {
-                                    var titleError = document.getElementById('title-error-add');
-                                    titleError.style.display = 'block';
-                                    return false;
-                                }
-
-                                if (instructions === '') {
-                                    var titleError = document.getElementById('title-error-inst');
-                                    titleError.style.display = 'block';
-                                    return false;
-                                }
-                                return true;
+                                $.ajax({
+                                    url: "/FUSWAPSHAREFREE/searchpost",
+                                    type: 'get',
+                                    data: {
+                                        txt: txtSearch
+                                    },
+                                    success: function (data) {
+                                        var row = $('#post-content'); // Sử dụng jQuery để lấy element post-content
+                                        row.html(data); // Cập nhật nội dung post-content với kết quả tìm kiếm
+                                    },
+                                    error: function (xhr) {
+                                        // Xử lý lỗi nếu có
+                                    }
+                                });
                             }
+
+                            // Hàm reset nội dung post-content về nội dung ban đầu
+                            function resetPostContent() {
+                                $.ajax({
+                                    url: "/FUSWAPSHAREFREE/originalpost",
+                                    type: 'get',
+                                    success: function (data) {
+                                        var row = $('#post-content'); // Sử dụng jQuery để lấy element post-content
+                                        row.html(data); // Cập nhật nội dung post-content với nội dung ban đầu
+                                    },
+                                    error: function (xhr) {
+                                        // Xử lý lỗi nếu có
+                                    }
+                                });
+                            }
+    </script>
+
+
+    <script>
+        document.getElementById('postButton').addEventListener('click', function () {
+            if (validateForm()) {
+                document.getElementById('submit-create-post').click();
+            }
+        });
+        const titleInput = document.getElementById('title');
+        const errorMessage = document.getElementById('title-error');
+
+        titleInput.addEventListener('input', function () {
+            const inputValue = titleInput.value.trim();
+
+            if (inputValue.length > 0) {
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        });
+
+        const descInput = document.getElementById('description');
+        const errorMessageDesc = document.getElementById('title-error-desc');
+
+        descInput.addEventListener('input', function () {
+            var inputValueDesc = descInput.value.trim();
+
+            if (inputValueDesc.length > 0) {
+                errorMessageDesc.style.display = 'none';
+            } else {
+                errorMessageDesc.style.display = 'block';
+            }
+        });
+
+
+        const addInput = document.getElementById('Order_name');
+        const errorMessageAdd = document.getElementById('title-error-add');
+        addInput.addEventListener('input', function () {
+            const inputValueAdd = addInput.value.trim();
+
+            if (inputValueAdd.length > 0) {
+                errorMessageAdd.style.display = 'none';
+            } else {
+                errorMessageAdd.style.display = 'block';
+            }
+        });
+
+        const instInput = document.getElementById('instructions');
+        const errorMessageInst = document.getElementById('title-error-inst');
+        instInput.addEventListener('input', function () {
+            const inputValueInst = instInput.value.trim();
+
+            if (inputValueInst.length > 0) {
+                errorMessageInst.style.display = 'none';
+            } else {
+                errorMessageInst.style.display = 'block';
+            }
+        });
+        function validateForm() {
+            var title = document.getElementById('title').value.trim();
+            var description = document.querySelector('textarea[name="description"]').value.trim();
+            var newAddress = document.getElementById('Order_name').value.trim();
+            var instructions = document.getElementById('instructions').value.trim();
+
+            if (title === '') {
+                var titleError = document.getElementById('title-error');
+                titleError.style.display = 'block';
+                return false;
+            }
+
+            if (description === '') {
+                var titleError = document.getElementById('title-error-desc');
+                titleError.style.display = 'block';
+                return false;
+            }
+
+            if (newAddress === '') {
+                var titleError = document.getElementById('title-error-add');
+                titleError.style.display = 'block';
+                return false;
+            }
+
+            if (instructions === '') {
+                var titleError = document.getElementById('title-error-inst');
+                titleError.style.display = 'block';
+                return false;
+            }
+            return true;
+        }
     </script>
 
     <script>
