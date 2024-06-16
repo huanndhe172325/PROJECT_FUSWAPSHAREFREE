@@ -1304,7 +1304,7 @@
                         </div>
                         <div class="card-body">
                             <div class="control">
-                                <form enctype="multipart/form-data" action="editPost" id="edit-post" method="post">
+                                <form enctype="multipart/form-data" id="edit-post" method="post">
                                     <label for="Title">Title:</label>
                                     <input type="text" id="title" name="title" required="">
                                     <span id="title-error" class="error-message" style="display: none; color: red;">Please input title!!!</span>
@@ -1323,7 +1323,7 @@
                                                 <label for="quality">Quanlity:</label>
                                             </td>
                                             <td style="padding: 5px;">
-                                                <label><input type="radio" name="quality" value="1" required checked> Used</label>
+                                                <label><input type="radio" name="quality" value="1" required checked>Used</label>
                                             </td>
                                             <td style="padding: 5px;">
                                                 <label><input type="radio" name="quality" value="2" required> Needs Repair</label>
@@ -1332,18 +1332,6 @@
                                                 <label><input type="radio" name="quality" value="3" required> New</label>
                                             </td>
                                         </tr>
-                                        <!--                                        <tr>
-                                                                                    <td style="padding: 5px;">
-                                                                                        <label for="typePost">Type:</label>
-                                                                                    </td>
-                                                                                    <td style="padding: 5px;">
-                                                                                        <label><input type="radio" name="typePost" value="1" required> Exchange</label>
-                                                                                    </td>
-                                                                                    <td style="padding: 5px;">
-                                                                                        <label><input type="radio" name="typePost" value="2" checked required> Free</label>
-                                                                                    </td>
-                                                                                    <td></td>
-                                                                                </tr>-->
                                     </table>
 
 
@@ -1465,7 +1453,7 @@
             <!-- Concatenated js plugins and jQuery -->
             <script src="assets/js/app.js"></script>
             <script src="https://js.stripe.com/v3/"></script>
-
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <!-- Core js -->
             <script src="assets/js/global.js"></script>
 
@@ -1951,9 +1939,13 @@
                         blockImg.querySelector('.image-btn').style.display = 'none';
                     }
                     blockImg.style.display = 'block';
+                    imageContainer.style.transform = 'translateX(0px)';
                 });
+                
+                
             </script>
             <script src="assets/js/jsslideimage.js"></script>
+            <script src="assets/js/huanndhe172325.js"></script>
     </body>
 
 
