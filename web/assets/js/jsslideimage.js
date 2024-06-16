@@ -38,7 +38,7 @@ function initSlider(container) {
 
 
 function initializeSliders() {
-    const sliders = document.querySelectorAll('.post-image');
+    var sliders = document.querySelectorAll('.post-image');
     sliders.forEach(initSlider);
 }
 
@@ -62,3 +62,4 @@ observer.observe(document.body, {
     childList: true,
     subtree: true
 });
+
