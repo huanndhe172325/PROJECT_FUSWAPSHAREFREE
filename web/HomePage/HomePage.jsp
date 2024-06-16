@@ -2586,7 +2586,6 @@
                                 <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" multiple>
                                 <div class="post-image preview-img" style="display: none;">
                                     <div class="style-img-post">
-                                        <img id="previewImage" class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                     </div>
                                     <div class="image-btn" style="display: none;">
                                         <div class="btn-image-next btn-image" style="font-size: 26px;">
@@ -2601,6 +2600,7 @@
                                         </div>
                                     </div>
                                 </div> 
+                                
 
                                 <table style="margin-top: 15px;">
                                     <tr>
@@ -4545,7 +4545,10 @@
         <div class="modal-content">
             <div class="card">
                 <div class="card-heading">
+<<<<<<< HEAD
                     <!-- Close X button -->
+=======
+>>>>>>> f0ae783e39c89628465cd9ab465a23b9a198a096
                     <div class="close-wrap">
                         <span class="close-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -4556,7 +4559,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+<<<<<<< HEAD
                     <form action="ReportPost" id="report-post-form" method="post">
+=======
+                    <form id="report-post-form" action="ReportPost" method="POST">
+>>>>>>> f0ae783e39c89628465cd9ab465a23b9a198a096
                         <div class="control">
                             <label for="report_reason">Select a reason for reporting:</label><br>
                             <input type="radio" id="reason_spam" name="report_reason" value="Spam">
@@ -4567,26 +4574,46 @@
                             <label for="reason_abuse">Abuse</label><br>
                             <input type="radio" id="reason_other" name="report_reason" value="Other">
                             <label for="reason_other">Other</label><br>
+<<<<<<< HEAD
                             <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
                             <input type="hidden" id="post_id" name="post_id"> <!-- Hidden input to store post_id -->
+=======
+                            <textarea id="report_reason_others" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
+                            <input type="hidden" id="post_id_value" name="post_id"> <!-- Hidden input to store post_id -->
+                            <input type="submit" id="submit-report-form" style="display : none;" value="Submit">
+>>>>>>> f0ae783e39c89628465cd9ab465a23b9a198a096
                         </div>
                     </form>
                 </div>
                 <div class="card-footer">
+<<<<<<< HEAD
                     <div class="close-modal" style="width: 98%;">
+=======
+                    <div class="close-modal-report" style="width: 98%;">
+>>>>>>> f0ae783e39c89628465cd9ab465a23b9a198a096
                         <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
                             Cancel
                         </button>
                     </div>
                     <div class="button-wrap" style="width: 98%;">
+<<<<<<< HEAD
                         <button class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;">
                             Report
+=======
+                        <button type="button" class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-report-form').click();">
+                            Report 
+>>>>>>> f0ae783e39c89628465cd9ab465a23b9a198a096
                         </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f0ae783e39c89628465cd9ab465a23b9a198a096
 
 
 
@@ -4849,8 +4876,9 @@
                 if (xhr.responseText === "success") {
                     const modal = document.getElementById('create-post-modal');
                     modal.classList.remove('is-active');
-                    var form = document.getElementById('create-post');
-                    form.reset();
+                    document.getElementById('create-post').reset();
+                    var form2 = document.getElementById('create-post');
+                    form2.querySelector('.post-image.preview-img').style.display = 'none';
                     iziToast.show({
                         maxWidth: "280px",
                         class: "success-toast",
@@ -4899,6 +4927,7 @@
             xhr.send(formData);
         });
 
+<<<<<<< HEAD
         document.getElementById('imgPath').addEventListener('change', function (event) {
             const files = event.target.files;
             const blockImg = document.querySelector('.post-image.preview-img');
@@ -4923,6 +4952,33 @@
             blockImg.style.display = 'block';
             imageContainer.style.transform = 'translateX(0px)';
         });
+=======
+                                document.getElementById('imgPath').addEventListener('change', function (event) {
+                                    const files = event.target.files;
+                                    const blockImg = document.querySelector('.post-image.preview-img');
+                                    const imageContainer = blockImg.querySelector('.style-img-post');
+                                    imageContainer.innerHTML = '';
+                                    for (let i = 0; i < files.length; i++) {
+                                        const file = files[i];
+                                        const imageURL = URL.createObjectURL(file);
+                                        const imgElement = document.createElement('img');
+                                        imgElement.classList.add('element-img-post');
+                                        imgElement.src = imageURL;
+                                        imgElement.alt = 'Preview Image';
+                                        imageContainer.appendChild(imgElement);
+                                        imgElement.onload = function () {
+                                            URL.revokeObjectURL(imageURL);
+                                        };
+                                    }
+                                    if (files.length >= 2) {
+                                        blockImg.querySelector('.image-btn').style.display = 'block';
+                                    } else {
+                                        blockImg.querySelector('.image-btn').style.display = 'none';
+                                    }
+                                    blockImg.style.display = 'block';
+                                    imageContainer.style.transform = 'translateX(0px)';
+                                });
+>>>>>>> f0ae783e39c89628465cd9ab465a23b9a198a096
 
     </script>
 

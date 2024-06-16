@@ -58,7 +58,7 @@ public class ReportPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -74,36 +74,30 @@ public class ReportPost extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        int postId = Integer.parseInt(request.getParameter("post_id"));
-        // Lấy các tham số từ form
-        String postId = request.getParameter("post_id");
+        HttpSession session = request.getSession();
+        User userInfo = (User) session.getAttribute("userInfo");
         String reportReason = request.getParameter("report_reason");
+        String postId = request.getParameter("post_id");
         String reportReasonOther = request.getParameter("report_reason_other");
+        try {
+            int newPostId = Integer.parseInt(postId);
+            int userIDReport = userInfo.getUserID();
+            String actualReportReason;
+            if ("Other".equals(reportReason)) {
+                actualReportReason = reportReasonOther;
+            } else {
+                actualReportReason = reportReason;
+            }
+            if (dmnPost.ReportPost(actualReportReason, userIDReport, newPostId)) {
+                
+                response.getWriter().write("Report Succesfully");
+            } else {
+                response.getWriter().write("Failed to report");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
-        // Xử lý báo cáo
-        // Thêm logic xử lý báo cáo của bạn ở đây
-        // Đặt loại phản hồi và trả về thông báo thành công
-        response.setContentType("text/plain");
-        response.getWriter().write(reportReason);
-
-//        if (userInfo == null) {
-//            response.sendRedirect("login.jsp");
-//            return;
-//        }
-//
-//        int userIDReport = userInfo.getUserID();
-//        String actualReportReason;
-//
-//        if ("Other".equals(reportReason)) {
-//            actualReportReason = reportReasonOther;
-//        } else {
-//            actualReportReason = reportReason;
-//        }
-//        if (dmnPost.ReportPost(actualReportReason, userIDReport, postId)) {
-//            response.getWriter().write("Report post successfully");
-//        } else {
-//            response.getWriter().write("Fail");
-//        }
     }
 
     /**
