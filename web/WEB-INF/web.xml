@@ -4,7 +4,6 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.LoginSystem.Login</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>HomePage</servlet-name>
         <servlet-class>Controllers.HomePage.HomePage</servlet-class>
@@ -93,7 +92,10 @@
         <servlet-name>VerifyEmail</servlet-name>
         <servlet-class>Controllers.LoginSystem.VerifyEmail</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>OtherProfile</servlet-name>
+        <servlet-class>Controllers.Profile.OtherProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -186,7 +188,10 @@
         <servlet-name>editPost</servlet-name>
         <url-pattern>/editPost</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>OtherProfile</servlet-name>
+        <url-pattern>/otherprofile</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>
     </welcome-file-list>

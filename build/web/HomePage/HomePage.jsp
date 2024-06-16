@@ -1512,7 +1512,7 @@
                                                     <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
                                                 </div>
                                                 <div class="user-info" style="width: 100%;">
-                                                    <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                    <a class="post-name-owner"  href="otherprofile?id=${post.userID}">${post.getFullNameOwner()}</a>
                                                     <span class="time" style="display: inline-block">${post.createTime}</span>
                                                     <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
                                                     <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
