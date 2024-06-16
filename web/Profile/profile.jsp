@@ -1304,16 +1304,16 @@
                         </div>
                         <div class="card-body">
                             <div class="control">
-                                <form enctype="multipart/form-data" action="editPost" id="edit-post" method="post">
+                                <form enctype="multipart/form-data" id="edit-post" method="post">
                                     <label for="Title">Title:</label>
-                                    <input type="text" id="title" name="title" required="">
+                                    <input type="text" id="title" name="titleEdit" required="">
                                     <span id="title-error" class="error-message" style="display: none; color: red;">Please input title!!!</span>
                                     <label for="Title">Description: </label>
-                                    <textarea id="description" required class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full">Món đồ này đã có một vài năm sử dụng nhưng vẫn đáp ứng tốt nhu cầu sử dụng hàng ngày.</textarea>
+                                    <textarea id="description" required class="textarea comment-textarea" name="descriptionEdit" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full">Món đồ này đã có một vài năm sử dụng nhưng vẫn đáp ứng tốt nhu cầu sử dụng hàng ngày.</textarea>
                                     <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input description!!!</span>
 
                                     <label for="imgPath">Image:</label>
-                                    <input type="file" id="imgPathEditPost" name="imgPath" accept="image/*" required="" multiple>
+                                    <input type="file" id="imgPathEditPost" name="imgPathEdit" accept="image/*" required="" multiple>
                                     <div class="post-image preview-img" style="display: block;">
                                     </div> 
 
@@ -1323,49 +1323,37 @@
                                                 <label for="quality">Quanlity:</label>
                                             </td>
                                             <td style="padding: 5px;">
-                                                <label><input type="radio" name="quality" value="1" required checked> Used</label>
+                                                <label><input type="radio" name="qualityEdit" value="1" required checked>Used</label>
                                             </td>
                                             <td style="padding: 5px;">
-                                                <label><input type="radio" name="quality" value="2" required> Needs Repair</label>
+                                                <label><input type="radio" name="qualityEdit" value="2" required> Needs Repair</label>
                                             </td>
                                             <td style="padding: 5px;">
-                                                <label><input type="radio" name="quality" value="3" required> New</label>
+                                                <label><input type="radio" name="qualityEdit" value="3" required> New</label>
                                             </td>
                                         </tr>
-                                        <!--                                        <tr>
-                                                                                    <td style="padding: 5px;">
-                                                                                        <label for="typePost">Type:</label>
-                                                                                    </td>
-                                                                                    <td style="padding: 5px;">
-                                                                                        <label><input type="radio" name="typePost" value="1" required> Exchange</label>
-                                                                                    </td>
-                                                                                    <td style="padding: 5px;">
-                                                                                        <label><input type="radio" name="typePost" value="2" checked required> Free</label>
-                                                                                    </td>
-                                                                                    <td></td>
-                                                                                </tr>-->
                                     </table>
 
 
                                     <div id="addNewSnippet" style="margin-top: 10px;">
                                         <div class="input-container" style="display: inline-block; width: 49%;">
-                                            <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                            <select name="districtEdit" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
                                                 <option value="" selected="">Select district</option>
                                                 <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
                                         </div>
                                         <div class="input-container" style="display: inline-block; width: 50%;">
-                                            <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                            <select name="wardEdit" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
                                                 <option value="" selected="">Select Ward</option>
                                                 <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
                                         </div>
                                         <div class="input-container">
                                             <label>Street number</label>
-                                            <input name="newAddress" id="Order_name" type="text" maxlength="255" value="Số nhà ...." required="">
+                                            <input name="newAddressEdit" id="Order_name" type="text" maxlength="255" value="Số nhà ...." required="">
                                             <span id="title-error-add" class="error-message" style="display: none; color: red;">Please input street number!!!</span>
                                         </div>
                                     </div>
                                     <label>Expires Date<span class="required">*</span></label>
-                                    <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
+                                    <select name="expiresDateEdit" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
                                         <option value="1">1 Day</option>
                                         <option value="3">3 Days</option>
                                         <option value="7">7 Days</option>
@@ -1373,7 +1361,7 @@
                                     </select>
 
                                     <label for="instructions">Pick-up instructions</label>
-                                    <input type="text" value="4-6pm khi tới nơi hãy gọi cho tôi" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+                                    <input type="text" value="4-6pm khi tới nơi hãy gọi cho tôi" id="instructions" name="instructionsEdit" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
                                     <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions!!!</span>
 
 
@@ -1465,7 +1453,7 @@
             <!-- Concatenated js plugins and jQuery -->
             <script src="assets/js/app.js"></script>
             <script src="https://js.stripe.com/v3/"></script>
-
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <!-- Core js -->
             <script src="assets/js/global.js"></script>
 
@@ -1523,69 +1511,69 @@
             <!-- elements page js -->
 
             <script>
-                                        var form1 = document.getElementById('edit-profile');
-                                        form1.addEventListener('submit', function (event) {
-                                            event.preventDefault();
+                                    var form1 = document.getElementById('edit-profile');
+                                    form1.addEventListener('submit', function (event) {
+                                        event.preventDefault();
 
-                                            var formData = new FormData(form1);
+                                        var formData = new FormData(form1);
 
-                                            var xhr = new XMLHttpRequest();
+                                        var xhr = new XMLHttpRequest();
 
-                                            xhr.open('POST', 'editprofile', true);
+                                        xhr.open('POST', 'editprofile', true);
 
-                                            xhr.onload = function () {
-                                                if (xhr.status >= 200 && xhr.status < 300) {
-                                                    const modal = document.getElementById('edit-profile-modal');
-                                                    modal.classList.remove('is-active');
+                                        xhr.onload = function () {
+                                            if (xhr.status >= 200 && xhr.status < 300) {
+                                                const modal = document.getElementById('edit-profile-modal');
+                                                modal.classList.remove('is-active');
 
-                                                    iziToast.show({
-                                                        maxWidth: "280px",
-                                                        class: "success-toast",
-                                                        icon: "mdi mdi-error",
-                                                        title: "",
-                                                        message: "Edit profile successfully",
-                                                        titleColor: "#fff",
-                                                        messageColor: "#fff",
-                                                        iconColor: "#fff",
-                                                        backgroundColor: "#60c032",
-                                                        progressBarColor: "#0062ff",
-                                                        position: "bottomRight",
-                                                        transitionIn: "fadeInUp",
-                                                        close: false,
-                                                        timeout: 1800,
-                                                        zindex: 99999
-                                                    });
-                                                } else {
-                                                    const modal = document.getElementById('edit-profile-modal');
-                                                    modal.classList.remove('is-active');
-                                                    console.log('Success', xhr.responseText);
-                                                    //                            var form = document.getElementById('edit-location');
-                                                    iziToast.show({
-                                                        maxWidth: "280px",
-                                                        class: "success-toast",
-                                                        icon: "mdi mdi-error",
-                                                        title: "",
-                                                        message: "Edit profile failed",
-                                                        titleColor: "#fff",
-                                                        messageColor: "#fff",
-                                                        iconColor: "#fff",
-                                                        backgroundColor: "#FF0000",
-                                                        progressBarColor: "#0062ff",
-                                                        position: "bottomRight",
-                                                        transitionIn: "fadeInUp",
-                                                        close: false,
-                                                        timeout: 1800,
-                                                        zindex: 99999
-                                                    });
-                                                }
-                                            };
+                                                iziToast.show({
+                                                    maxWidth: "280px",
+                                                    class: "success-toast",
+                                                    icon: "mdi mdi-error",
+                                                    title: "",
+                                                    message: "Edit profile successfully",
+                                                    titleColor: "#fff",
+                                                    messageColor: "#fff",
+                                                    iconColor: "#fff",
+                                                    backgroundColor: "#60c032",
+                                                    progressBarColor: "#0062ff",
+                                                    position: "bottomRight",
+                                                    transitionIn: "fadeInUp",
+                                                    close: false,
+                                                    timeout: 1800,
+                                                    zindex: 99999
+                                                });
+                                            } else {
+                                                const modal = document.getElementById('edit-profile-modal');
+                                                modal.classList.remove('is-active');
+                                                console.log('Success', xhr.responseText);
+                                                //                            var form = document.getElementById('edit-location');
+                                                iziToast.show({
+                                                    maxWidth: "280px",
+                                                    class: "success-toast",
+                                                    icon: "mdi mdi-error",
+                                                    title: "",
+                                                    message: "Edit profile failed",
+                                                    titleColor: "#fff",
+                                                    messageColor: "#fff",
+                                                    iconColor: "#fff",
+                                                    backgroundColor: "#FF0000",
+                                                    progressBarColor: "#0062ff",
+                                                    position: "bottomRight",
+                                                    transitionIn: "fadeInUp",
+                                                    close: false,
+                                                    timeout: 1800,
+                                                    zindex: 99999
+                                                });
+                                            }
+                                        };
 
-                                            xhr.onerror = function () {
-                                                console.error('Request failed');
-                                            };
+                                        xhr.onerror = function () {
+                                            console.error('Request failed');
+                                        };
 
-                                            xhr.send(formData);
-                                        });
+                                        xhr.send(formData);
+                                    });
             </script>
 
             <script>
@@ -1847,8 +1835,8 @@
                     openModalEditPost.forEach(openModalEdit => {
                         openModalEdit.addEventListener('click', () => {
                             modalEditPost.setAttribute('data-post-id', openModalEdit.getAttribute('data-post-id'));
-                            modalEditPost.querySelector('input[name="title"]').value = openModalEdit.getAttribute('data-post-title');
-                            const selectQuanlity = modalEditPost.querySelectorAll('input[name="quality"]');
+                            modalEditPost.querySelector('input[name="titleEdit"]').value = openModalEdit.getAttribute('data-post-title');
+                            const selectQuanlity = modalEditPost.querySelectorAll('input[name="qualityEdit"]');
                             selectQuanlity.forEach(option => {
                                 if (option.value === openModalEdit.getAttribute('data-post-quanlity')) {
                                     option.checked = true;
@@ -1856,8 +1844,8 @@
                                     option.checked = false;
                                 }
                             });
-                            modalEditPost.querySelector('textarea[name="description"]').value = openModalEdit.getAttribute('data-post-desc');
-                            const selectDistrict = modalEditPost.querySelector('select[name="district"]');
+                            modalEditPost.querySelector('textarea[name="descriptionEdit"]').value = openModalEdit.getAttribute('data-post-desc');
+                            const selectDistrict = modalEditPost.querySelector('select[name="districtEdit"]');
                             const optionDistrict = selectDistrict.querySelectorAll('option');
 
                             optionDistrict.forEach(option => {
@@ -1868,7 +1856,7 @@
                                 }
                             });
                             console.log(openModalEdit.getAttribute('data-post-district'));
-                            const selectWard = modalEditPost.querySelector('select[name="ward"]');
+                            const selectWard = modalEditPost.querySelector('select[name="wardEdit"]');
                             const optionWard = selectWard.querySelectorAll('option');
                             optionWard.forEach(option => {
                                 if (option.value === openModalEdit.getAttribute('data-post-commune')) {
@@ -1877,8 +1865,8 @@
                                     option.selected = false;
                                 }
                             });
-                            modalEditPost.querySelector('input[name="newAddress"]').value = openModalEdit.getAttribute('data-post-street_Number');
-                            modalEditPost.querySelector('input[name="instructions"]').value = openModalEdit.getAttribute('data-post-intr');
+                            modalEditPost.querySelector('input[name="newAddressEdit"]').value = openModalEdit.getAttribute('data-post-street_Number');
+                            modalEditPost.querySelector('input[name="instructionsEdit"]').value = openModalEdit.getAttribute('data-post-intr');
                             var allImg = openModalEdit.getAttribute('data-all-img');
                             const {styleImgPostDiv, imageBtnDiv} = createImageContainer(allImg);
                             var modalBody = modalEditPost.querySelector('.post-image.preview-img');
@@ -1951,9 +1939,73 @@
                         blockImg.querySelector('.image-btn').style.display = 'none';
                     }
                     blockImg.style.display = 'block';
+                    imageContainer.style.transform = 'translateX(0px)';
                 });
+
+
+
+                var editPostForm = document.getElementById('edit-post');
+                editPostForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    var formDataForEditPost = new FormData(editPostForm);
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'editPost', true);
+                    xhr.onload = function () {
+                        console.log('Response:', xhr.responseText);
+                        if (xhr.responseText === "success") {
+                            document.getElementById('edit-post-modal').classList.remove('is-active');
+                            editPostForm.reset();
+                            editPostForm.querySelector('.post-image.preview-img').style.display = 'none';
+                            iziToast.show({
+                                maxWidth: "280px",
+                                class: "success-toast",
+                                icon: "mdi mdi-check",
+                                title: "",
+                                message: "Edit post successfully",
+                                titleColor: "#fff",
+                                messageColor: "#fff",
+                                iconColor: "#fff",
+                                backgroundColor: "#60c032",
+                                progressBarColor: "#0062ff",
+                                position: "bottomRight",
+                                transitionIn: "fadeInUp",
+                                close: false,
+                                timeout: 1800,
+                                zindex: 99999
+                            });
+                        } else {
+                            const modal = document.getElementById('edit-post-modal');
+                            modal.classList.remove('is-active');
+                            iziToast.show({
+                                maxWidth: "280px",
+                                class: "success-toast",
+                                icon: "mdi mdi-error",
+                                title: "",
+                                message: "Edit post failed",
+                                titleColor: "#fff",
+                                messageColor: "#fff",
+                                iconColor: "#fff",
+                                backgroundColor: "#FF0000",
+                                progressBarColor: "#0062ff",
+                                position: "bottomRight",
+                                transitionIn: "fadeInUp",
+                                close: false,
+                                timeout: 1800,
+                                zindex: 99999
+                            });
+                        }
+                    };
+                    xhr.onerror = function () {
+                        console.error('Request failed');
+                    };
+                    xhr.send(formDataForEditPost);
+                });
+
+
             </script>
             <script src="assets/js/jsslideimage.js"></script>
+            <script src="assets/js/huanndhe172325.js"></script>
     </body>
 
 
