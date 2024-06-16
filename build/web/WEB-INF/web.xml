@@ -68,6 +68,16 @@
         <servlet-name>ArchivePost</servlet-name>
         <servlet-class>Controllers.Profile.ArchivePost</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>ReportPost</servlet-name>
+        <servlet-class>Controllers.HomePage.ReportPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomePage</servlet-name>
+        <url-pattern>/HomePage</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>adminHome</servlet-name>
         <servlet-class>Controllers.HomePage.adminHome</servlet-class>
@@ -165,6 +175,7 @@
         <url-pattern>/manageReportUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>manageReportPost</servlet-name>
         <url-pattern>/manageReportPost</url-pattern>
     </servlet-mapping>
@@ -179,6 +190,10 @@
     <servlet-mapping>
         <servlet-name>ListUser</servlet-name>
         <url-pattern>/ListUser</url-pattern>
+
+        <servlet-name>ReportPost</servlet-name>
+        <url-pattern>/reportpost</url-pattern>
+
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>
