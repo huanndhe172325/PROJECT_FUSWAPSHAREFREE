@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!doctype html>
 <html lang="en">
 
@@ -604,7 +605,7 @@
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div id="global-search" class="control">
-                                <input id="tipue_drop_input" class="input is-rounded" type="text" placeholder="Search" required />
+                                <input oninput="searchByTitle(this)" name="txt" id="tipue_drop_input" class="input is-rounded" type="text" placeholder="Search" required />
                                 <span id="clear-search" class="reset-search">
                                     <i data-feather="x"></i>
                                 </span>
@@ -1519,102 +1520,105 @@
                                                     <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
                                                     <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
 
-                                                </div>
-                                            </div>
-                                            <!-- Right side dropdown -->
-                                            <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
-                                            <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                <div>
-                                                    <div class="button">
-                                                        <i data-feather="more-vertical"></i>
                                                     </div>
                                                 </div>
-                                                <div class="dropdown-menu" role="menu">
-                                                    <div class="dropdown-content">
-                                                        <a href="#" class="dropdown-item">
-                                                            <div class="media">
-                                                                <i data-feather="bookmark"></i>
-                                                                <div class="media-content">
-                                                                    <h3>Bookmark</h3>
-                                                                    <small>Add this post to your bookmarks.</small>
+                                                <!-- Right side dropdown -->
+                                                <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                    <div>
+                                                        <div class="button">
+                                                            <i data-feather="more-vertical"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <div class="dropdown-content">
+                                                            <a href="#" class="dropdown-item">
+                                                                <div class="media">
+                                                                    <i data-feather="bookmark"></i>
+                                                                    <div class="media-content">
+                                                                        <h3>Bookmark</h3>
+                                                                        <small>Add this post to your bookmarks.</small>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </a>
-                                                        <a class="dropdown-item">
-                                                            <div class="media">
-                                                                <i data-feather="bell"></i>
-                                                                <div class="media-content">
-                                                                    <h3>Notify me</h3>
-                                                                    <small>Send me the updates.</small>
+                                                            </a>
+                                                            <a class="dropdown-item">
+                                                                <div class="media">
+                                                                    <i data-feather="bell"></i>
+                                                                    <div class="media-content">
+                                                                        <h3>Notify me</h3>
+                                                                        <small>Send me the updates.</small>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </a>
-                                                        <hr class="dropdown-divider" />
-                                                        <a id="flag-link" data-modal="report-post-modal" class="dropdown-item">
-                                                            <div class="media">
-                                                                <i data-feather="flag"></i>
-                                                                <div class="media-content" >
-                                                                    <h3>Flag</h3>
-                                                                    <small>In case of inappropriate content.</small>
+                                                            </a>
+                                                            <hr class="dropdown-divider" />
+                                                            <a class="dropdown-item flag-link" post-id="${post.postID}">
+                                                                <div class="media">
+                                                                    <i data-feather="flag"></i>
+                                                                    <div class="media-content">
+                                                                        <h3>Flag</h3>
+                                                                        <small>In case of inappropriate content.</small>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </a>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="post-text">
-                                                <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
-                                                    ${post.title}
-                                                </h3>
-                                            </div>
-                                            <div class="post-text">
-                                                <p class="post-text-description">
-                                                    ${post.description}
-                                                </p>
+                                            <div class="card-body">
+                                                <div class="post-text">
+                                                    <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                        ${post.title}
+                                                    </h3>
+                                                </div>
+                                                <div class="post-text">
+                                                    <p class="post-text-description">
+                                                        ${post.description}
+                                                    </p>
+                                                </div>
+
+                                                <!-- Featured image -->
+                                                <div class="post-image">
+                                                    <div class="style-img-post">
+                                                        <c:forEach var="img" items="${post.getListImg()}">
+                                                            <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                            </a>
+                                                        </c:forEach>     
+                                                    </div>
+                                                    <c:if test="${fn:length(post.listImg) >= 2}">
+                                                        <div class="image-btn">
+                                                            <div class="btn-image-next btn-image">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                </svg>
+                                                            </div>
+                                                            <div class="btn-image-pre btn-image">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                    </c:if>
+                                                </div>
+
                                             </div>
 
-                                            <!-- Featured image -->
-                                            <div class="post-image">
-                                                <div class="style-img-post">
-                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                    </a>
-                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                    </a>
-                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                    </a>
-                                                    <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
-                                                    </a>
-                                                </div>
-                                                <div class="image-btn">
-                                                    <div class="btn-image-next btn-image">&gt;</div>
-                                                    <div class="btn-image-pre btn-image">&lt;</div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="card-footer">
-                                            <div class="social-count" style="margin-left: 0px;">
-                                                <div class="likes-count">
-                                                    <i data-feather="heart"></i>
-                                                    <span>27</span>
-                                                </div>
-                                                <div class="shares-count">
-                                                    <i data-feather="link-2"></i>
-                                                    <span>9</span>
+                                            <div class="card-footer">
+                                                <div class="social-count" style="margin-left: 0px;">
+                                                    <div class="likes-count">
+                                                        <i data-feather="heart"></i>
+                                                        <span>27</span>
+                                                    </div>
+                                                    <div class="shares-count">
+                                                        <i data-feather="link-2"></i>
+                                                        <span>9</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </c:forEach> 
-
+                                </c:forEach> 
+                            </div>
 
                             <!-- Load more posts -->
                             <div class="load-more-wrap narrow-top has-text-centered">
@@ -1737,7 +1741,7 @@
                             <div class="left-section">
                                 <div class="search-subheader">
                                     <div class="control">
-                                        <input type="text" class="input" placeholder="Search for friends to add" />
+                                        <input  type="text" class="input" placeholder="Search for friends to add" />
                                         <span class="icon">
                                             <i data-feather="search"></i>
                                         </span>
@@ -2507,20 +2511,19 @@
                                     </div>
                                     <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
                                         <div class="detail-post-header-infor-owner">
-                                            <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;">Danh Huan</h2>
-                                            <p style="padding-left: 0;" id="share-modal-date">2024-06-08</p>
+                                            <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;">-</h2>
+                                            <p style="padding-left: 0;" id="share-modal-date">-</p>
                                         </div>
                                         <div class="detail-post-header-infor-post" style="margin-top: 16px;">
-                                            <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Available</span>
-                                            <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">Free</span>
+                                            <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">-</span>
+                                            <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">-</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
                                     <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">Title</h2>
                                     <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
-                                        Ảnh màn hình là của trang chủ một trang web tin tức nổi tiếng.
-                                        Phần trên cùng là thanh điều hướng màu xanh đậm với logo của trang web nằm ở góc trái và các liên kết đến các chuyên mục khác nhau như Tin Tức, Thế Giới, Kinh Doanh, Thể Thao, Giải Trí, và Công Nghệ nằm ngang hàng.
+                                       -
                                     </p>
                                 </div>
                             </div>
@@ -2530,15 +2533,15 @@
                             <div class="footer-detail-post" style="margin-top: 10px;">
                                 <div class="detail-row">
                                     <h2 style="font-weight: 500;">Quanlity:</h2>
-                                    <p id="share-modal-quanlity">Needs Repair</p>
+                                    <p id="share-modal-quanlity">-</p>
                                 </div>
                                 <div class="detail-row">
                                     <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                    <p id="share-modal-address">Số nhà 123, Xã Hữu Bằng, Huyện Thạch Thất</p>
+                                    <p id="share-modal-address">-</p>
                                 </div>
                                 <div class="detail-row">
                                     <h2 style="font-weight: 500;">Instructions:</h2>
-                                    <p id="share-modal-intruc">Pick up today from 4 - 6pm</p>
+                                    <p id="share-modal-intruc">-</p>
                                 </div>
                             </div>
                         </div>
@@ -2561,8 +2564,6 @@
             <div class="modal-content">
                 <div class="card">
                     <div class="card-heading">
-
-                        <!-- Close X button -->
                         <div class="close-wrap">
                             <span class="close-modal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -2575,20 +2576,30 @@
                             <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
                                 <label for="Title">Title:</label>
                                 <input type="text" id="title" name="title" required="">
+                                <span id="title-error" class="error-message" style="display: none; color: red;">Please input title!!!</span>
                                 <label for="Title">Description: </label>
-                                <textarea class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+                                <textarea id="description" required class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full">Món đồ này đã có một vài năm sử dụng nhưng vẫn đáp ứng tốt nhu cầu sử dụng hàng ngày.</textarea>
+                                <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input description!!!</span>
 
                                 <label for="imgPath">Image:</label>
                                 <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" multiple>
                                 <div class="post-image preview-img" style="display: none;">
                                     <div class="style-img-post">
-                                        <img id="previewImage" class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                     </div>
                                     <div class="image-btn" style="display: none;">
-                                        <div class="btn-image-next btn-image">&gt;</div>
-                                        <div class="btn-image-pre btn-image">&lt;</div>
+                                        <div class="btn-image-next btn-image" style="font-size: 26px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                            </svg>
+                                        </div>
+                                        <div class="btn-image-pre btn-image" style="font-size: 26px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                            <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                            </svg>
+                                        </div>
                                     </div>
-                                </div>
+                                </div> 
+
 
                                 <table style="margin-top: 15px;">
                                     <tr>
@@ -2634,18 +2645,20 @@
                                     <div class="input-container">
                                         <label>Street number</label>
                                         <input name="newAddress" id="Order_name" type="text" maxlength="255" value="Số nhà ...." required="">
+                                        <span id="title-error-add" class="error-message" style="display: none; color: red;">Please input street number!!!</span>
                                     </div>
                                 </div>
                                 <label>Expires Date<span class="required">*</span></label>
                                 <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
                                     <option value="1">1 Day</option>
-                                    <option value="3"="">3 Days</option>
+                                    <option value="3">3 Days</option>
                                     <option value="7">7 Days</option>
                                     <option value="15" selected>15 Days</option>
                                 </select>
 
                                 <label for="instructions">Pick-up instructions</label>
                                 <input type="text" value="4-6pm khi tới nơi hãy gọi cho tôi" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+                                <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions!!!</span>
 
 
 
@@ -2656,7 +2669,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="button-wrap" style="width: 98%;">
-                            <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
+                            <button type="button" id="postButton" class="button is-solid primary-button" style="width: 100%;">
                                 Post
                             </button>
                         </div>
@@ -4525,12 +4538,12 @@
         </div>
 
     </div>
+    <!-- report form -->
     <div id="report-post-modal" class="modal share-modal is-xsmall has-light-bg">
         <div class="modal-background"></div>
         <div class="modal-content">
             <div class="card">
                 <div class="card-heading">
-                    <!-- Close X button -->
                     <div class="close-wrap">
                         <span class="close-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -4540,9 +4553,8 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="card-body">
-                    <form action="submit_report" id="report-post-form" method="post">
+                    <form id="report-post-form" action="ReportPost" method="POST">
                         <div class="control">
                             <label for="report_reason">Select a reason for reporting:</label><br>
                             <input type="radio" id="reason_spam" name="report_reason" value="Spam">
@@ -4553,27 +4565,31 @@
                             <label for="reason_abuse">Abuse</label><br>
                             <input type="radio" id="reason_other" name="report_reason" value="Other">
                             <label for="reason_other">Other</label><br>
-                            <textarea id="report_reason_other" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)"></textarea>
-                            <input type="hidden" name="post_id" value="123"> <!-- Replace with actual post ID -->
+                            <textarea id="report_reason_others" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
+                            <input type="hidden" id="post_id_value" name="post_id"> <!-- Hidden input to store post_id -->
+                            <input type="submit" id="submit-report-form" style="display : none;" value="Submit">
                         </div>
                     </form>
                 </div>
-
                 <div class="card-footer">
-                    <div class="close-modal" style="width: 98%;">
+                    <div class="close-modal-report" style="width: 98%;">
                         <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
                             Cancel
                         </button>
                     </div>
                     <div class="button-wrap" style="width: 98%;">
-                        <button type="submit" form="report-post-form" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;">
-                            Report
+                        <button type="button" class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-report-form').click();">
+                            Report 
                         </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
 
 
 
@@ -4643,198 +4659,307 @@
     <!-- elements page js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="assets/js/jsslideimage.js"></script>
-
-
+    <script src="assets/js/ReportPost.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-                                document.addEventListener('DOMContentLoaded', function () {
-                                    const statusElements = document.querySelectorAll('.status-post-name');
-                                    const typeElements = document.querySelectorAll('.type-post-name');
-                                    statusElements.forEach(function (element) {
-                                        const statusName = element.textContent.trim().toLowerCase();
+                            function searchByTitle(param) {
+                                var txtSearch = param.value.trim(); // Lấy giá trị từ ô tìm kiếm và loại bỏ khoảng trắng thừa
 
-                                        if (statusName === 'available') {
-                                            element.style.color = '#36a955';
-                                        } else {
-                                            element.style.color = 'red';
-                                        }
-                                    });
-                                    typeElements.forEach(function (element) {
-                                        const statusName = element.textContent.trim().toLowerCase();
+                                // Kiểm tra nếu ô tìm kiếm trống
+                                if (txtSearch === '') {
+                                    resetPostContent(); // Reset lại nội dung post-content về nội dung ban đầu
+                                    return; // Dừng hàm và không gửi AJAX request
+                                }
 
-                                        if (statusName === 'free') {
-                                            element.style.color = '#6ba4e9';
-                                        } else {
-                                            element.style.color = 'red';
-                                        }
-                                    });
-                                });
-                                var districts = document.getElementById("district");
-                                var wards = document.getElementById("ward");
-                                var selectedCityValue = 'Thành phố Hà Nội';
-
-                                var Parameter = {
-                                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                                    method: "GET",
-                                    responseType: "application/json",
-                                };
-
-                                var promise = axios(Parameter);
-
-                                promise.then(function (result) {
-                                    var data = result.data;
-                                    var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                                    renderDistricts(selectedCity.Districts);
-                                    selectDistrictOption(selectedCity.Districts);
-                                    selectWardOption(selectedCity.Districts);
-                                });
-
-                                function renderDistricts(districtsData) {
-                                    for (const district of districtsData) {
-                                        districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                                $.ajax({
+                                    url: "/FUSWAPSHAREFREE/searchpost",
+                                    type: 'get',
+                                    data: {
+                                        txt: txtSearch
+                                    },
+                                    success: function (data) {
+                                        var row = $('#post-content'); // Sử dụng jQuery để lấy element post-content
+                                        row.html(data); // Cập nhật nội dung post-content với kết quả tìm kiếm
+                                    },
+                                    error: function (xhr) {
+                                        // Xử lý lỗi nếu có
                                     }
-
-                                    districts.onchange = function () {
-                                        wards.length = 1;
-                                        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
-                                        if (this.value !== "") {
-                                            for (const ward of selectedDistrict.Wards) {
-                                                wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
-                                            }
-                                        }
-                                    };
-                                }
-
-                                function selectDistrictOption(districtsData) {
-                                    for (let i = 0; i < districtsData.length; i++) {
-                                        if (districtsData[i].Name === 'Huyện Thạch Thất') {
-                                            districts.options[i + 1].selected = true;
-                                            simulateEvent(districts, 'change');
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                function selectWardOption(districtsData) {
-                                    const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                                    for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                                        if (selectedDistrict.Wards[i].Name === '${ward}') {
-                                            wards.options[i + 1].selected = true;
-                                            simulateEvent(wards, 'change');
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                function simulateEvent(element, eventName) {
-                                    var event = new Event(eventName);
-                                    element.dispatchEvent(event);
-                                }
-
-                                var form = document.getElementById('create-post');
-                                form.addEventListener('submit', function (event) {
-                                    event.preventDefault();
-
-                                    var formData = new FormData(form);
-
-                                    var xhr = new XMLHttpRequest();
-
-                                    xhr.open('POST', 'CreatePost2', true);
-
-                                    xhr.onload = function () {
-                                        if (xhr.status >= 200 && xhr.status < 300) {
-                                            const modal = document.getElementById('create-post-modal');
-                                            modal.classList.remove('is-active');
-                                            console.log('Success', xhr.responseText);
-                                            var form = document.getElementById('create-post');
-                                            form.reset();
-                                            iziToast.show({
-                                                maxWidth: "280px",
-                                                class: "success-toast",
-                                                icon: "mdi mdi-error",
-                                                title: "",
-                                                message: "Create post successfully",
-                                                titleColor: "#fff",
-                                                messageColor: "#fff",
-                                                iconColor: "#fff",
-                                                backgroundColor: "#60c032",
-                                                progressBarColor: "#0062ff",
-                                                position: "bottomRight",
-                                                transitionIn: "fadeInUp",
-                                                close: false,
-                                                timeout: 1800,
-                                                zindex: 99999
-                                            });
-                                        } else {
-                                            const modal = document.getElementById('create-post-modal');
-                                            modal.classList.remove('is-active');
-                                            console.log('Success', xhr.responseText);
-                                            var form = document.getElementById('create-post');
-                                            iziToast.show({
-                                                maxWidth: "280px",
-                                                class: "success-toast",
-                                                icon: "mdi mdi-error",
-                                                title: "",
-                                                message: "Create post failed",
-                                                titleColor: "#fff",
-                                                messageColor: "#fff",
-                                                iconColor: "#fff",
-                                                backgroundColor: "#FF0000",
-                                                progressBarColor: "#0062ff",
-                                                position: "bottomRight",
-                                                transitionIn: "fadeInUp",
-                                                close: false,
-                                                timeout: 1800,
-                                                zindex: 99999
-                                            });
-                                        }
-                                    };
-
-                                    xhr.onerror = function () {
-                                        console.error('Request failed');
-                                    };
-
-                                    xhr.send(formData);
                                 });
+                            }
 
-
-
+                            // Hàm reset nội dung post-content về nội dung ban đầu
+                            function resetPostContent() {
+                                $.ajax({
+                                    url: "/FUSWAPSHAREFREE/originalpost",
+                                    type: 'get',
+                                    success: function (data) {
+                                        var row = $('#post-content'); // Sử dụng jQuery để lấy element post-content
+                                        row.html(data); // Cập nhật nội dung post-content với nội dung ban đầu
+                                    },
+                                    error: function (xhr) {
+                                        // Xử lý lỗi nếu có
+                                    }
+                                });
+                            }
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Lắng nghe sự kiện click vào nút "Flag"
-            document.getElementById('flag-link').addEventListener('click', function (event) {
-                event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
 
-                // Hiển thị modal báo cáo bài đăng
-                var modal = document.getElementById('report-post-modal');
-                modal.classList.add('is-active'); // Thêm lớp 'is-active' để hiển thị modal
-            });
+
+    <script>
+        document.getElementById('postButton').addEventListener('click', function () {
+            if (validateForm()) {
+                document.getElementById('submit-create-post').click();
+            }
+        });
+        const titleInput = document.getElementById('title');
+        const errorMessage = document.getElementById('title-error');
+
+        titleInput.addEventListener('input', function () {
+            const inputValue = titleInput.value.trim();
+
+            if (inputValue.length > 0) {
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+            }
         });
 
+        const descInput = document.getElementById('description');
+        const errorMessageDesc = document.getElementById('title-error-desc');
+
+        descInput.addEventListener('input', function () {
+            var inputValueDesc = descInput.value.trim();
+
+            if (inputValueDesc.length > 0) {
+                errorMessageDesc.style.display = 'none';
+            } else {
+                errorMessageDesc.style.display = 'block';
+            }
+        });
+
+
+        const addInput = document.getElementById('Order_name');
+        const errorMessageAdd = document.getElementById('title-error-add');
+        addInput.addEventListener('input', function () {
+            const inputValueAdd = addInput.value.trim();
+
+            if (inputValueAdd.length > 0) {
+                errorMessageAdd.style.display = 'none';
+            } else {
+                errorMessageAdd.style.display = 'block';
+            }
+        });
+
+        const instInput = document.getElementById('instructions');
+        const errorMessageInst = document.getElementById('title-error-inst');
+        instInput.addEventListener('input', function () {
+            const inputValueInst = instInput.value.trim();
+
+            if (inputValueInst.length > 0) {
+                errorMessageInst.style.display = 'none';
+            } else {
+                errorMessageInst.style.display = 'block';
+            }
+        });
+        function validateForm() {
+            var title = document.getElementById('title').value.trim();
+            var description = document.querySelector('textarea[name="description"]').value.trim();
+            var newAddress = document.getElementById('Order_name').value.trim();
+            var instructions = document.getElementById('instructions').value.trim();
+
+            if (title === '') {
+                var titleError = document.getElementById('title-error');
+                titleError.style.display = 'block';
+                return false;
+            }
+
+            if (description === '') {
+                var titleError = document.getElementById('title-error-desc');
+                titleError.style.display = 'block';
+                return false;
+            }
+
+            if (newAddress === '') {
+                var titleError = document.getElementById('title-error-add');
+                titleError.style.display = 'block';
+                return false;
+            }
+
+            if (instructions === '') {
+                var titleError = document.getElementById('title-error-inst');
+                titleError.style.display = 'block';
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const statusElements = document.querySelectorAll('.status-post-name');
+            const typeElements = document.querySelectorAll('.type-post-name');
+            statusElements.forEach(function (element) {
+                const statusName = element.textContent.trim().toLowerCase();
+
+                if (statusName === 'available') {
+                    element.style.color = '#36a955';
+                } else {
+                    element.style.color = 'red';
+                }
+            });
+            typeElements.forEach(function (element) {
+                const statusName = element.textContent.trim().toLowerCase();
+
+                if (statusName === 'free') {
+                    element.style.color = '#6ba4e9';
+                } else {
+                    element.style.color = 'red';
+                }
+            });
+        });
+        var districts = document.getElementById("district");
+        var wards = document.getElementById("ward");
+        var selectedCityValue = 'Thành phố Hà Nội';
+
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+
+        var promise = axios(Parameter);
+
+        promise.then(function (result) {
+            var data = result.data;
+            var selectedCity = data.find((city) => city.Name === selectedCityValue);
+            renderDistricts(selectedCity.Districts);
+            selectDistrictOption(selectedCity.Districts);
+            selectWardOption(selectedCity.Districts);
+        });
+
+        function renderDistricts(districtsData) {
+            for (const district of districtsData) {
+                districts.options[districts.options.length] = new Option(district.Name, district.Name);
+            }
+
+            districts.onchange = function () {
+                wards.length = 1;
+                const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                if (this.value !== "") {
+                    for (const ward of selectedDistrict.Wards) {
+                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                    }
+                }
+            };
+        }
+
+        function selectDistrictOption(districtsData) {
+            for (let i = 0; i < districtsData.length; i++) {
+                if (districtsData[i].Name === 'Huyện Thạch Thất') {
+                    districts.options[i + 1].selected = true;
+                    simulateEvent(districts, 'change');
+                    break;
+                }
+            }
+        }
+
+        function selectWardOption(districtsData) {
+            const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+            for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                if (selectedDistrict.Wards[i].Name === '${ward}') {
+                    wards.options[i + 1].selected = true;
+                    simulateEvent(wards, 'change');
+                    break;
+                }
+            }
+        }
+
+        function simulateEvent(element, eventName) {
+            var event = new Event(eventName);
+            element.dispatchEvent(event);
+        }
+
+        var form = document.getElementById('create-post');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var formData = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'CreatePost2', true);
+
+            xhr.onload = function () {
+                if (xhr.responseText === "success") {
+                    const modal = document.getElementById('create-post-modal');
+                    modal.classList.remove('is-active');
+                    document.getElementById('create-post').reset();
+                    var form2 = document.getElementById('create-post');
+                    form2.querySelector('.post-image.preview-img').style.display = 'none';
+                    iziToast.show({
+                        maxWidth: "280px",
+                        class: "success-toast",
+                        icon: "mdi mdi-check",
+                        title: "",
+                        message: "Create post successfully",
+                        titleColor: "#fff",
+                        messageColor: "#fff",
+                        iconColor: "#fff",
+                        backgroundColor: "#60c032",
+                        progressBarColor: "#0062ff",
+                        position: "bottomRight",
+                        transitionIn: "fadeInUp",
+                        close: false,
+                        timeout: 1800,
+                        zindex: 99999
+                    });
+                } else {
+                    const modal = document.getElementById('create-post-modal');
+                    modal.classList.remove('is-active');
+                    var form = document.getElementById('create-post');
+                    iziToast.show({
+                        maxWidth: "280px",
+                        class: "success-toast",
+                        icon: "mdi mdi-error",
+                        title: "",
+                        message: "Create post failed",
+                        titleColor: "#fff",
+                        messageColor: "#fff",
+                        iconColor: "#fff",
+                        backgroundColor: "#FF0000",
+                        progressBarColor: "#0062ff",
+                        position: "bottomRight",
+                        transitionIn: "fadeInUp",
+                        close: false,
+                        timeout: 1800,
+                        zindex: 99999
+                    });
+                }
+            };
+
+            xhr.onerror = function () {
+                console.error('Request failed');
+            };
+
+            xhr.send(formData);
+        });
         document.getElementById('imgPath').addEventListener('change', function (event) {
             const files = event.target.files;
             const blockImg = document.querySelector('.post-image.preview-img');
             const imageContainer = blockImg.querySelector('.style-img-post');
-
             imageContainer.innerHTML = '';
-
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const imageURL = URL.createObjectURL(file);
-
                 const imgElement = document.createElement('img');
                 imgElement.classList.add('element-img-post');
                 imgElement.src = imageURL;
-                imgElement.alt = 'Preview Image';
-
                 imageContainer.appendChild(imgElement);
-
                 imgElement.onload = function () {
                     URL.revokeObjectURL(imageURL);
                 };
             }
-            if(files.length >= 2){
+            if (files.length >= 2) {
                 blockImg.querySelector('.image-btn').style.display = 'block';
             } else {
                 blockImg.querySelector('.image-btn').style.display = 'none';
@@ -4844,6 +4969,8 @@
         });
 
     </script>
+
+
 
 </body>
 

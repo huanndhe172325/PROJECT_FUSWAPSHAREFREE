@@ -8,6 +8,8 @@ import DAL.DAOManagePost;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -221,6 +223,18 @@ public class Post {
             return true;
         }
         return false;
+    }
+    
+     public List<String> getListImg() {
+        if (ImageUrl == null || ImageUrl.isEmpty()) {
+            return List.of();
+        }
+        List<String> listImg = new ArrayList<>(); 
+        String[] allImg = ImageUrl.split(",");
+        for (String img : allImg) {
+            listImg.add(img);
+        }
+        return listImg;
     }
     
     public boolean avaiableEditPost(int idUser){

@@ -69,22 +69,56 @@ public class DAOManagePost extends DBContext {
         }
         return listPost;
     }
-    public int countPostsByUserId(int idUser) {
-    int count = 0;
-    try {
-        String sql = "SELECT COUNT(*) FROM Post WHERE UserID = ?";
-        PreparedStatement statement = connect.prepareStatement(sql);
-        statement.setInt(1, idUser);
-        ResultSet rs = statement.executeQuery();
-        if (rs.next()) {
-            count = rs.getInt(1);
+
+    public ArrayList<Post> getPostByTilte(String txt) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post WHERE Title LIKE ? ORDER BY CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, "%" + txt + "%");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-        rs.close();
-    } catch (SQLException e) {
-        System.out.println(e);
+        return listPost;
     }
-    return count;
-}
+
+    public int countPostsByUserId(int idUser) {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) FROM Post WHERE UserID = ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, idUser);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return count;
+    }
 
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
         ArrayList<Post> listPost = new ArrayList<>();
@@ -296,6 +330,21 @@ public class DAOManagePost extends DBContext {
             System.out.println(e);
         }
         return listPost;
+    }
+
+    public boolean ReportPost(String mess, int userIDSend, int postID) {
+        String sql = "INSERT INTO Have_ReportPost (reportTime, Message, IdUserSend, PostID) VALUES (GETDATE(), ?, ?, ?)";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, mess);
+            st.setInt(2, userIDSend);
+            st.setInt(3, postID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public static void main(String[] args) {
