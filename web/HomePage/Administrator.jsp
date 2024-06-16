@@ -1,8 +1,3 @@
-<%-- 
-    Document   : DashBoard
-    Created on : Mar 1, 2024, 5:05:32 PM
-    Author     : maingocdat
---%>
 
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>

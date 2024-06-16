@@ -131,6 +131,9 @@ public class Login extends HttpServlet {
                     } else if (userInfo.getRoleID() == 2) {
                         response.sendRedirect("adminHome");
                     }
+                    else if (userInfo.getRoleID() == 3) {
+                        response.sendRedirect("SideBarAdmin");
+                    }
                 } else {
 
                     PasswordReset passwordResetInfo = daoLogin.getPasswordResetByEmail(email);
