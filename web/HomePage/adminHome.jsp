@@ -308,7 +308,7 @@
                                             <div class="comment-meta">
                                                 <span class="meta-title">Rolf ? 4 days ago</span>
                                                 <span class="meta-content"
-                                                      >Do you think you can get it done?</span>
+                                                      >Do you think you can  it done?</span>
                                             </div>
                                             <div class="comment-end">
                                                 <img class="end-thumbnail" src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/31.jpg" alt="" />
