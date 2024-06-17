@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Model.BlockList;
 import Model.Quanlity;
 import Model.User;
 import java.sql.PreparedStatement;
@@ -199,26 +200,74 @@ public class DAOManageUser extends DBContext {
 
     }
 
+    public List<BlockList> listBlockUser(int UserID) {
+        List<BlockList> userBlock = new ArrayList<>();
+        String sql = """
+                      select b.BlockUserID, b.UserID, u.* from [BlockList] b
+                                          join [User] u on b.UserID = u.UserID
+                                          where b.UserID = ?""";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, UserID);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                User u = new User(rs.getInt("UserID"), rs.getString("Email"), rs.getString("Phone"), rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"), rs.getString("JoinDate"), rs.getString("UserName"), rs.getString("Full_Name"),
+                        rs.getString("District"), rs.getString("Commune"), rs.getString("StreetNumber"), rs.getInt("Point"),
+                        rs.getInt("RoleID"), rs.getInt("StatusID"));
+                BlockList userB = new BlockList(rs.getInt("UserID"), u);
+                userBlock.add(userB);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userBlock;
+    }
+
+//     public void unlockUser(int UserID, int BlockID) {
+//
+//        try {
+//            String sql = "INSERT INTO [dbo].[BlockList]\n"
+//                    + "           ([UserID]\n"
+//                    + "           ,[BlockUserID])\n"
+//                    + "     VALUES\n"
+//                    + "           (? , ?)";
+//            PreparedStatement stm = connect.prepareStatement(sql);
+//            stm.setInt(1, UserID);
+//            stm.setInt(2, BlockID);
+//            stm.executeUpdate();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DAOManageUser.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
+//    
     public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
-        ArrayList<User> users = userDAO.getAllUsers();
+        List<BlockList> userB = userDAO.listBlockUser(1);
+        System.out.println(userB);
 
-        for (User user : users) {
-            System.out.println("UserID: " + user.getUserID());
-            System.out.println("Email: " + user.getEmail());
-            System.out.println("Phone: " + user.getPhone());
-            System.out.println("AvatarUrl: " + user.getAvatarUrl());
-            System.out.println("PassWord: " + user.getPassWord());
-            System.out.println("JoinDate: " + user.getJoinDate());
-            System.out.println("UserName: " + user.getUserName());
-            System.out.println("Full_Name: " + user.getFull_Name());
-            System.out.println("District: " + user.getDistrict());
-            System.out.println("Commune: " + user.getCommune());
-            System.out.println("StreetNumber: " + user.getStreetNumber());
-            System.out.println("Point: " + user.getPoint());
-            System.out.println("RoleID: " + user.getRoleID());
-            System.out.println("StatusID: " + user.getStatusID());
-            System.out.println("--------------------------------");
-        }
+        System.out.println();
+//        ArrayList<User> users = userDAO.getAllUsers();
+//
+//        for (User user : users) {
+//            System.out.println("UserID: " + user.getUserID());
+//            System.out.println("Email: " + user.getEmail());
+//            System.out.println("Phone: " + user.getPhone());
+//            System.out.println("AvatarUrl: " + user.getAvatarUrl());
+//            System.out.println("PassWord: " + user.getPassWord());
+//            System.out.println("JoinDate: " + user.getJoinDate());
+//            System.out.println("UserName: " + user.getUserName());
+//            System.out.println("Full_Name: " + user.getFull_Name());
+//            System.out.println("District: " + user.getDistrict());
+//            System.out.println("Commune: " + user.getCommune());
+//            System.out.println("StreetNumber: " + user.getStreetNumber());
+//            System.out.println("Point: " + user.getPoint());
+//            System.out.println("RoleID: " + user.getRoleID());
+//            System.out.println("StatusID: " + user.getStatusID());
+//            System.out.println("--------------------------------");
     }
 }

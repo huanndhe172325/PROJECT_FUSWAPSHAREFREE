@@ -5,7 +5,9 @@
 package Controllers.Profile;
 
 import DAL.DAOManagePost;
+import DAL.DAOManageUser;
 import DAL.DAOProfile;
+import Model.BlockList;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -63,10 +66,15 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         DAOProfile db = new DAOProfile();
+        DAOManageUser db1 = new DAOManageUser();
+        
         User userId = (User) session.getAttribute("userInfo");
         int id = userId.getUserID();
         User u = db.getUserbyId(id);
         ArrayList<Post> myPost = new ArrayList<>();
+        List<BlockList> userBlock = db1.listBlockUser(u.getUserID());
+        
+        request.setAttribute("userBlock", userBlock);
         DAOManagePost daoPost = new DAOManagePost();
         myPost = daoPost.getAllPostByIdUser(u.getUserID());
         request.setAttribute("myPost", myPost);

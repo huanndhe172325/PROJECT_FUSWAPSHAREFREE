@@ -160,79 +160,79 @@
                 font-size: 16px;
             }
         </style>
-        
+
         <style>
             .modal {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
+            .modal-content {
+                background-color: #fefefe;
+                margin: 15% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 30%;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            }
 
-.modal-header {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-}
+            .modal-header {
+                border-bottom: 1px solid #ddd;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }
 
-.modal-header h2 {
-    margin: 0;
-}
+            .modal-header h2 {
+                margin: 0;
+            }
 
-.modal-body p {
-    margin-bottom: 20px;
-}
+            .modal-body p {
+                margin-bottom: 20px;
+            }
 
-.search-box {
-    margin-bottom: 20px;
-}
+            .search-box {
+                margin-bottom: 20px;
+            }
 
-.search-box input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+            .search-box input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
 
-.user {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
+            .user {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
 
-.user img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
+            .user img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
 
-.user span {
-    flex: 1;
-}
+            .user span {
+                flex: 1;
+            }
 
-.btn-block {
-    background-color: #e4e6eb;
-    border: none;
-    color: #1c1e21;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 4px;
-}
+            .btn-block {
+                background-color: #e4e6eb;
+                border: none;
+                color: #1c1e21;
+                cursor: pointer;
+                padding: 4px 8px;
+                border-radius: 4px;
+            }
         </style>
 
 
@@ -1377,24 +1377,21 @@
                                             <div class="search-box">
                                                 <button class="btn">Add user to list block</button>
                                                 <input type="text" placeholder="Search..." />
-                                                 
+
                                             </div>
+
                                             <div class="col-md-12">
-                                                <div class="user">
-                                                    <img src="https://via.placeholder.com/40" alt="Avatar" />
-                                                    <span>Minh Nguyệt</span>
-                                                    <button class="btn-block">Unblock</button>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-12">
-
-
-                                            </div>
-                                            <div class="col-md-12">
+                                                <c:forEach var="bl" items="${userBlock}">
+                                                    <div class="user">
+                                                        <img src="https://via.placeholder.com/40" alt="Avatar" />
+                                                        <span>${bl.idBlockUser.getFull_Name()}</span>
+                                                        <button class="btn-block">Unblock</button>
+                                                    </div>
+                                                </c:forEach> 
 
 
                                             </div>
+
                                     </form>
                                 </div>
                             </div>
@@ -2155,8 +2152,8 @@
 
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
-            
-            
+
+
     </body>
 
 
