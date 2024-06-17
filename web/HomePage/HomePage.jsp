@@ -2548,7 +2548,7 @@
                     </div>
                     <div class="card-footer" style="width: 100%;">
                         <div class="button-wrap" style="width: 100%;">
-                            <button style="width: 100%;" type="button" class="button is-solid primary-button close-modal">
+                            <button id="requestThis" style="width: 100%;" type="button" class="open-modal-request button is-solid primary-button">
                                 Request This
                             </button>
                         </div>
@@ -4587,8 +4587,38 @@
         </div>
     </div>
 
-
-
+    <div id="sent-request-modal" class="modal share-modal is-xsmall has-light-bg" style="z-index: 1100;">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="close-wrap">
+                        <span class="close-modal" onclick="document.getElementById('sent-request-form').reset();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="control">
+                        <form enctype="multipart/form-data" id="sent-request-form" method="post">   
+                            <input type="text" name="idPostRequest" style="display: none;">
+                            <label for="Title">Message: </label>
+                            <textarea id="description" required class="textarea comment-textarea" name="messageRequest" rows="5" placeholder="Message the message you want to send to the owner"></textarea>
+                            <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input message!!!</span>
+                            <input type="submit" id="submit-request" style="display : none;" value="Submit">
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="button-wrap" style="width: 98%;">
+                        <button type="button" id="requestButton" class="button is-solid primary-button" style="width: 100%;">
+                            Sent
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -4615,6 +4645,7 @@
     <script src="assets/js/chat.js"></script>
     <script src="assets/js/touch.js"></script>
     <script src="assets/js/tour.js"></script>
+    <script src="assets/js/huanndhe172325.js"></script>
 
     <!-- Components js -->
     <script src="assets/js/explorer.js"></script>
@@ -4925,6 +4956,55 @@
             imageContainer.style.transform = 'translateX(0px)';
         });
 
+        document.addEventListener("DOMContentLoaded", function () {
+            const openModalRequest = document.querySelectorAll('.open-modal-request');
+            const modalRequest = document.getElementById('sent-request-modal');
+            const requestButton = document.getElementById('requestButton');
+            let currentPostRequest = null;
+            console.log(openModalRequest);
+            console.log(modalRequest);
+            console.log(openModalRequest);
+
+            openModalRequest.forEach(openModalArchive => {
+                openModalArchive.addEventListener('click', () => {
+                    const postIdRequest = openModalArchive.getAttribute('data-post-id');
+                    currentPostRequest = postIdRequest;
+                    modalRequest.setAttribute('data-post-id', postIdRequest);
+                    modalRequest.querySelector('input[name="idPostRequest"]').value = postIdRequest;
+                    modalRequest.classList.add('is-active');
+                });
+            });
+
+            requestButton.addEventListener('click', () => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'requestPost', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log(xhr.responseText);
+                        iziToast.show({
+                            maxWidth: "280px",
+                            class: "success-toast",
+                            icon: "mdi mdi-check",
+                            title: "",
+                            message: "Request successfully",
+                            titleColor: "#fff",
+                            messageColor: "#fff",
+                            iconColor: "#fff",
+                            backgroundColor: "#60c032",
+                            progressBarColor: "#0062ff",
+                            position: "bottomRight",
+                            transitionIn: "fadeInUp",
+                            close: false,
+                            timeout: 1800,
+                            zindex: 99999
+                        });
+                        modalRequest.classList.remove('is-active');
+                    }
+                };
+                xhr.send('id=' + currentPostRequest);
+            });
+        });
     </script>
 
 

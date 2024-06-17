@@ -104,6 +104,10 @@
         <servlet-name>ReportPostByUser</servlet-name>
         <servlet-class>Controllers.HomePage.ReportPostByUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>requestPost</servlet-name>
+        <servlet-class>Controllers.HomePage.requestPost</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>ReportPostByUser</servlet-name>
         <url-pattern>/reportpostbyuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>requestPost</servlet-name>
+        <url-pattern>/requestPost</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>

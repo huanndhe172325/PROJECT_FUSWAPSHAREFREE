@@ -497,7 +497,8 @@ function initShareModal() {
                 , name = t.closest(".is-post").find(".user-info .post-name-owner").html()
                 , time = t.closest(".is-post").find(".user-info .time").html()
                 , intrusction = t.closest(".is-post").find(".user-info .intrucstion-post").html()
-                , postImageDiv = t.closest(".is-post").find(".post-image").clone();
+                , postImageDiv = t.closest(".is-post").find(".post-image").clone()
+                , postId = t.closest(".is-post").attr("data-post-id");
         void 0 !== o ? $("#share-modal-image").attr("src", o).removeClass("is-hidden") : $("#share-modal-image").addClass("is-hidden"),
                 $("#share-modal-avatar").attr("src", i),
                 $("#share-modal-avatar").attr("data-demo-src", i),
@@ -512,7 +513,8 @@ function initShareModal() {
                 $("#share-modal-address").html(address),
                 $("#share-modal-intruc").html(intrusction),
                 $("#share-modal-date").html(time),
-                $(".featured-image").html(postImageDiv)
+                $(".featured-image").html(postImageDiv),
+                $("#requestThis").attr("data-post-id", postId);
     }
     ))
 }
