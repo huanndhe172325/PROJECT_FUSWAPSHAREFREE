@@ -1234,7 +1234,9 @@
                                         </div>
                                     </div>
                                 </c:forEach> 
-
+                                <div class="load-more-wrap has-text-centered">
+                                    <a href="#" class="load-more-button">Load More</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1435,10 +1437,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Load more images -->
-            <div class="load-more-wrap has-text-centered">
-                <a href="#" class="load-more-button">Load More</a>
-            </div>
             <!-- /Load more images -->
 
             <div id="edit-post-modal" class="modal share-modal is-xsmall has-light-bg">
@@ -1553,20 +1551,19 @@
                                         </div>
                                         <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
                                             <div class="detail-post-header-infor-owner">
-                                                <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;">Danh Huan</h2>
-                                                <p style="padding-left: 0;" id="share-modal-date">2024-06-08</p>
+                                                <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;">-</h2>
+                                                <p style="padding-left: 0;" id="share-modal-date">-</p>
                                             </div>
                                             <div class="detail-post-header-infor-post" style="margin-top: 16px;">
-                                                <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Available</span>
-                                                <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">Free</span>
+                                                <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">-</span>
+                                                <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">-</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
                                         <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">Title</h2>
                                         <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
-                                            Ảnh màn hình là của trang chủ một trang web tin tức nổi tiếng.
-                                            Phần trên cùng là thanh điều hướng màu xanh đậm với logo của trang web nằm ở góc trái và các liên kết đến các chuyên mục khác nhau như Tin Tức, Thế Giới, Kinh Doanh, Thể Thao, Giải Trí, và Công Nghệ nằm ngang hàng.
+                                            -
                                         </p>
                                     </div>
                                 </div>
@@ -1576,15 +1573,15 @@
                                 <div class="footer-detail-post" style="margin-top: 10px;">
                                     <div class="detail-row">
                                         <h2 style="font-weight: 500;">Quanlity:</h2>
-                                        <p id="share-modal-quanlity">Needs Repair</p>
+                                        <p id="share-modal-quanlity">-</p>
                                     </div>
                                     <div class="detail-row">
                                         <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                        <p id="share-modal-address">Số nhà 123, Xã Hữu Bằng, Huyện Thạch Thất</p>
+                                        <p id="share-modal-address">-</p>
                                     </div>
                                     <div class="detail-row">
                                         <h2 style="font-weight: 500;">Instructions:</h2>
-                                        <p id="share-modal-intruc">Pick up today from 4 - 6pm</p>
+                                        <p id="share-modal-intruc">-</p>
                                     </div>
                                 </div>
                             </div>
@@ -1606,7 +1603,6 @@
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <!-- Core js -->
             <script src="assets/js/global.js"></script>
-
             <!-- Navigation options js -->
             <script src="assets/js/navbar-v1.js"></script>
             <script src="assets/js/navbar-v2.js"></script>
@@ -1634,6 +1630,7 @@
 
             <!-- Feed pages js -->
             <script src="assets/js/feed.js"></script>
+            <script src="assets/js/opensharemodal.js"></script>
 
             <!-- profile js -->
             <script src="assets/js/profile.js"></script>
@@ -2158,6 +2155,8 @@
 
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
+            
+            
     </body>
 
 

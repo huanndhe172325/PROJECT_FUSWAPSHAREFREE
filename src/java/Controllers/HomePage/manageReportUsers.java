@@ -4,8 +4,8 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOManagePost;
-import Model.User;
+import DAL.DAOManageReport;
+import Model.ReportUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,12 +13,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  *
- * @author Binhtran
+ * @author admin
  */
-public class ReportPost extends HttpServlet {
+public class manageReportUsers extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +38,10 @@ public class ReportPost extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ReportPost</title>");
+            out.println("<title>Servlet manageReportUsers</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ReportPost at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet manageReportUsers at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,7 +59,16 @@ public class ReportPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession session = request.getSession();
+        DAOManageReport dao = new DAOManageReport();
+        ArrayList<ReportUser> reportUser = new ArrayList<>();
+        reportUser = dao.getAllReportUsers();
+        request.setAttribute("reportUser", reportUser);
+//       int id = Integer.parseInt(request.getParameter(LEGACY_DO_HEAD));
+//       reportUser = dao.getFullNameReceiveById(0);
+//       session.setAttribute("users", reportUser);
+
+        request.getRequestDispatcher("HomePage/manageReportUsers.jsp").forward(request, response);
     }
 
     /**
@@ -69,35 +79,10 @@ public class ReportPost extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    DAOManagePost dmnPost = new DAOManagePost();
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User userInfo = (User) session.getAttribute("userInfo");
-        String reportReason = request.getParameter("report_reason");
-        String postId = request.getParameter("post_id");
-        String reportReasonOther = request.getParameter("report_reason_other");
-        try {
-            int newPostId = Integer.parseInt(postId);
-            int userIDReport = userInfo.getUserID();
-            String actualReportReason;
-            if ("Other".equals(reportReason)) {
-                actualReportReason = reportReasonOther;
-            } else {
-                actualReportReason = reportReason;
-            }
-            if (dmnPost.ReportPost(actualReportReason, userIDReport, newPostId)) {
-                
-                response.getWriter().write("Report Succesfully");
-            } else {
-                response.getWriter().write("Failed to report");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
+        processRequest(request, response);
     }
 
     /**
