@@ -4603,7 +4603,7 @@
                         <form enctype="multipart/form-data" id="sent-request-form" method="post">   
                             <input type="text" name="idPostRequest" style="display: none;">
                             <label for="Title">Message: </label>
-                            <textarea id="messageRequest" required class="textarea comment-textarea" name="messageRequest" rows="5" placeholder="Message the message you want to send to the owner">Tôi có thể đến chỗ bạn lúc 6-8pm</textarea>
+                            <textarea id="messageRequest" required class="textarea comment-textarea" name="messageRequest" rows="5" placeholder="Message the message you want to send to the owner"></textarea>
                             <span id="message-error-request" class="error-message" style="display: none; color: red;">Please input message!!!</span>
                             <input type="submit" id="submit-request" style="display : none;" value="Submit">
                         </form>
@@ -4645,7 +4645,7 @@
     <script src="assets/js/chat.js"></script>
     <script src="assets/js/touch.js"></script>
     <script src="assets/js/tour.js"></script>
-    <script src="assets/js/huanndhe172325.js"></script>
+
 
     <!-- Components js -->
     <script src="assets/js/explorer.js"></script>
@@ -4931,33 +4931,6 @@
 
             xhr.send(formData);
         });
-        document.getElementById('requestButton').addEventListener('click', function () {
-            console.log("requestButton click");
-            if (validateFormRequest()) {
-                document.getElementById('submit-request').click();
-            }
-        });
-        const instInputMesage = document.getElementById('messageRequest');
-        const errorMessageRequest = document.getElementById('message-error-request');
-        instInputMesage.addEventListener('input', function () {
-            const inputValueMesage = instInputMesage.value.trim();
-
-            if (inputValueMesage.length > 0) {
-                errorMessageRequest.style.display = 'none';
-            } else {
-                errorMessageRequest.style.display = 'block';
-            }
-        });
-
-        function validateFormRequest() {
-            var messageRequest = document.getElementById('messageRequest').value.trim();
-            if (messageRequest === '') {
-                var titleError = document.getElementById('message-error-request');
-                titleError.style.display = 'block';
-                return false;
-            }
-            return true;
-        }
         document.getElementById('imgPath').addEventListener('change', function (event) {
             const files = event.target.files;
             const blockImg = document.querySelector('.post-image.preview-img');
@@ -4997,6 +4970,31 @@
                     modalRequest.classList.add('is-active');
                 });
             });
+            document.getElementById('requestButton').addEventListener('click', function () {
+                if (validateFormRequest()) {
+                    document.getElementById('submit-request').click();
+                }
+            });
+            const inputMessage = document.getElementById('messageRequest');
+            const errorMessageRequest = document.getElementById('message-error-request');
+            inputMessage.addEventListener('input', function () {
+                const inputValueRequest = inputMessage.value.trim();
+
+                if (inputValueRequest.length > 0) {
+                    errorMessageRequest.style.display = 'none';
+                } else {
+                    errorMessageRequest.style.display = 'block';
+                }
+            });
+            function validateFormRequest() {
+                var messageRequestInput = document.getElementById('messageRequest').value.trim();
+                if (messageRequestInput === '') {
+                    var titleErrorRequest = document.getElementById('message-error-request');
+                    titleErrorRequest.style.display = 'block';
+                    return false;
+                }
+                return true;
+            }
 
             document.getElementById('sent-request-form').addEventListener('submit', (event) => {
                 var mesageSent = document.getElementById('sent-request-form').querySelector('textarea[name="messageRequest"]').value;
@@ -5004,8 +5002,9 @@
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', 'requestPost', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function () {
+                xhr.onload = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
+                        document.getElementById('sent-request-form').reset();
                         console.log(xhr.responseText);
                         iziToast.show({
                             maxWidth: "280px",
@@ -5031,8 +5030,6 @@
             });
         });
     </script>
-
-
 
 </body>
 
