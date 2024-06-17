@@ -4,7 +4,6 @@
         <servlet-name>Login</servlet-name>
         <servlet-class>Controllers.LoginSystem.Login</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>HomePage</servlet-name>
         <servlet-class>Controllers.HomePage.HomePage</servlet-class>
@@ -70,7 +69,6 @@
         <servlet-class>Controllers.HomePage.ReportPost</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>Administrator</servlet-name>
         <servlet-class>Controllers.HomePage.Administrator</servlet-class>
     </servlet>
@@ -81,15 +79,11 @@
     <servlet>
         <servlet-name>SideBarAdmin</servlet-name>
         <servlet-class>Controllers.HomePage.SideBarAdmin</servlet-class>
-
+    </servlet>
+    <servlet>
         <servlet-name>editPost</servlet-name>
         <servlet-class>Controllers.Profile.editPost</servlet-class>
-
     </servlet>
-    <servlet-mapping>
-        <servlet-name>HomePage</servlet-name>
-        <url-pattern>/HomePage</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>adminHome</servlet-name>
         <servlet-class>Controllers.HomePage.adminHome</servlet-class>
@@ -98,13 +92,22 @@
         <servlet-name>VerifyEmail</servlet-name>
         <servlet-class>Controllers.LoginSystem.VerifyEmail</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>manageReportUsers</servlet-name>
+        <servlet-class>Controllers.HomePage.manageReportUsers</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>manageReportPost</servlet-name>
+        <servlet-class>Controllers.HomePage.manageReportPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomePage</servlet-name>
+        <url-pattern>/HomePage</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>adminHome</servlet-name>
         <url-pattern>/adminHome</url-pattern>
     </servlet-mapping>
-    
-    
     <servlet-mapping>
         <servlet-name>Preview</servlet-name>
         <url-pattern>/Preview</url-pattern>
@@ -133,7 +136,6 @@
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>UpdateProfileServlet</servlet-name>
         <url-pattern>/updateprofile</url-pattern>
@@ -146,8 +148,6 @@
         <servlet-name>CreatePost2</servlet-name>
         <url-pattern>/CreatePost2</url-pattern>
     </servlet-mapping>
-    `
-    
     <servlet-mapping>
         <servlet-name>manageUsers</servlet-name>
         <url-pattern>/manageUsers</url-pattern>
@@ -172,13 +172,11 @@
         <servlet-name>PostArchive</servlet-name>
         <url-pattern>/PostArchive</url-pattern>
     </servlet-mapping>
-      
     <servlet-mapping>
         <servlet-name>ReportPost</servlet-name>
         <url-pattern>/ReportPost</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>Administrator</servlet-name>
         <url-pattern>/Administrator</url-pattern>
     </servlet-mapping>
@@ -189,10 +187,18 @@
     <servlet-mapping>
         <servlet-name>SideBarAdmin</servlet-name>
         <url-pattern>/SideBarAdmin</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>editPost</servlet-name>
         <url-pattern>/editPost</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageReportUsers</servlet-name>
+        <url-pattern>/manageReportUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageReportPost</servlet-name>
+        <url-pattern>/manageReportPost</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>

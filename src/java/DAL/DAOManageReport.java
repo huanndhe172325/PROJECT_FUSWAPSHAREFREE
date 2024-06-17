@@ -19,13 +19,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOManageReport extends DBContext {
+    public boolean ReportPost(String mess, int idUserSend, int postID) {
+        String sql = "INSERT INTO Have_ReportPost (reportTime, Message, IdUserSend, PostID) VALUES (GETDATE(), ?, ?, ?)";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, mess);
+            st.setInt(2, idUserSend);
+            st.setInt(3, postID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-    public ArrayList<ReportPost> getAllReportPosts(int idUserSend) {
+     public ArrayList<ReportPost> getAllReportPosts(int idUserSend) {
         ArrayList<ReportPost> reportPosts = new ArrayList<>();
         String sql = "SELECT p.postID, p.title, p.description, r.reportTime, r.message, r.idUserSend "
-                + "FROM Post p "
-                + "JOIN Have_ReportUser r ON p.postID = r.postID "
-                + "WHERE r.IdUserReceive = ?";
+                   + "FROM Post p "
+                   + "JOIN Have_ReportPost r ON p.postID = r.postID "
+                   + "WHERE r.idUserSend = ?";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
             st.setInt(1, idUserSend);
@@ -38,10 +52,10 @@ public class DAOManageReport extends DBContext {
                 reportPost.setDescription(rs.getString("description"));
                 reportPost.setReportTime(rs.getString("reportTime"));
                 reportPost.setMessage(rs.getString("message"));
-                reportPost.setIdUserSend(rs.getInt("idUserSend")); // Thêm dòng này để lấy IdUserSend từ kết quả truy vấn
+                reportPost.setIdUserSend(rs.getInt("idUserSend"));
                 reportPosts.add(reportPost);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return reportPosts;

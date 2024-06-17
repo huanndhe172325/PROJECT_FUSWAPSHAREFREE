@@ -17,9 +17,15 @@
                 </a>
             </li>
             <li >
-                <a href="manageReportPost " class="nav-link d-flex align-items-center" >
+                <a href="manageReportUsers" class="nav-link d-flex align-items-center" >
                     <i class="fa-solid fa-chart-simple" style="margin-right: 10px"></i>
-                    Dashboard
+                    Manage Report Users
+                </a>
+            </li>
+             <li >
+                <a href="manageReportPost" class="nav-link d-flex align-items-center" >
+                    <i class="fa-solid fa-chart-simple" style="margin-right: 10px"></i>
+                    Manage Report Posts
                 </a>
             </li>
 

@@ -18,13 +18,7 @@
                 color: #17a2b8
             }
         </style>
-        <script type="text/javascript">
-            function doDelete(id) {
-                if (confirm("are you sure to delete id = " + id)) {
-                    window.location = "DeleteUser?id=" + id;
-                }
-            }
-        </script>
+        
     </head>
     <body>
         <div class="d-flex">
@@ -33,39 +27,31 @@
             </div>
             <div class="container" style="margin-top: -20px">
                 <div>
-                    <div class="container">
-                        <a href="AddUser" class="btn  p-2" style="background: #58abff; color: white; margin-bottom: 45px;margin-top: 30px "  >Add New User</a>
-                    </div>
+                  
                 </div>
                 <div class="container" style="margin-top: -30px">
-                    <a href="list-user" style="text-decoration: none; color: #58abff"><h2 style="color: white">List User</h2></a>
+                    <a href="manageReportUsers" style="text-decoration: none; color: #58abff"><h2 style="color: white">List Report Users</h2></a>
                     <table class="table table-hover table-bordered">
                        <thead>
                             <tr>
                                 <th></th>
-                                <th>ID</th>
-                                <th>UserName</th>
+                                <th>IdUserSend</th>
+                                <th>Message</th>
 
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Full_Name</th>
-                                <th>District</th>
-                                <th>Point</th> 
-                                <th>Status_ID</th>
+                                <th>reportTime</th>
+                                <th>IdUserReceive</th>
+                              
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${users}" var="c">
+                            <c:forEach items="${reportUser}" var="c">
                                 <tr>
                                     <th>
-                                    <td>${c.userID}</td>
-                                    <td>${c.userName}</td>
-                                    <td>${c.email}</td>
-                                    <td>${c.phone}</td>
-                                    <td>${c.full_Name}</td>
-                                    <td>${c.commune}-${c.district}</td>
-                                    <td>${c.point}</td>
-                                    <td>${c.statusID}</td>
+                                    <td>${c.idUserSend}</td>
+                                    <td>${c.message}</td>
+                                    <td>${c.reportTime}</td>
+                                    <td>${c.idUserReceive}</td>
+
                                     </th>
                                 </tr>
                             </c:forEach>

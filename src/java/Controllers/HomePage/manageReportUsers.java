@@ -4,7 +4,9 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManageReport;
 import DAL.DAOManageUser;
+import Model.ReportUser;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +14,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
  *
  * @author admin
  */
-public class manageUsers extends HttpServlet {
+public class manageReportUsers extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +40,10 @@ public class manageUsers extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet manageUsers</title>");            
+            out.println("<title>Servlet manageReportUsers</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet manageUsers at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet manageReportUsers at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,11 +61,16 @@ public class manageUsers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       DAOManageUser dao = new DAOManageUser();
-       ArrayList<User> users = new ArrayList<>();
-       users = dao.getAllUsers();
-       request.setAttribute("users", users);
-       request.getRequestDispatcher("HomePage/manageUsers.jsp").forward(request, response);
+       HttpSession session = request.getSession();
+        DAOManageReport dao = new DAOManageReport();
+       ArrayList<ReportUser> reportUser = new ArrayList<>();
+       reportUser = dao.getAllReportUsers();
+        request.setAttribute("reportUser", reportUser);
+//       int id = Integer.parseInt(request.getParameter(LEGACY_DO_HEAD));
+//       reportUser = dao.getFullNameReceiveById(0);
+//       session.setAttribute("users", reportUser);
+       
+       request.getRequestDispatcher("HomePage/manageReportUsers.jsp").forward(request, response);
     }
 
     /**
