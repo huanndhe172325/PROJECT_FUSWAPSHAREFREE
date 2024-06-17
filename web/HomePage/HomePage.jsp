@@ -1501,7 +1501,7 @@
                             </div>
                             <!-- Post 1 -->
                             <c:forEach var="post" items="${listPost}"> 
-                                <div id="feed-post-1" class="card is-post">
+                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}">
                                     <!-- Main wrap -->
                                     <div class="content-wrap">
                                         <!-- Post header -->
@@ -2523,7 +2523,7 @@
                                 <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
                                     <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">Title</h2>
                                     <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
-                                       -
+                                        -
                                     </p>
                                 </div>
                             </div>
@@ -2599,7 +2599,7 @@
                                         </div>
                                     </div>
                                 </div> 
-                                
+
 
                                 <table style="margin-top: 15px;">
                                     <tr>
@@ -4554,7 +4554,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form id="report-post-form" action="ReportPost" method="POST">
+                    <form id="report-post-form">
                         <div class="control">
                             <label for="report_reason">Select a reason for reporting:</label><br>
                             <input type="radio" id="reason_spam" name="report_reason" value="Spam">
@@ -4567,7 +4567,7 @@
                             <label for="reason_other">Other</label><br>
                             <textarea id="report_reason_others" name="report_reason_other" class="textarea" rows="5" placeholder="Enter additional details (if 'Other' selected)" style="display:none;"></textarea>
                             <input type="hidden" id="post_id_value" name="post_id"> <!-- Hidden input to store post_id -->
-                            <input type="submit" id="submit-report-form" style="display : none;" value="Submit">
+                            <input type="submit" id="submit-report-form" style="display: none;" value="Submit">
                         </div>
                     </form>
                 </div>
@@ -4578,7 +4578,7 @@
                         </button>
                     </div>
                     <div class="button-wrap" style="width: 98%;">
-                        <button type="button" class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-report-form').click();">
+                        <button type="button" class="button is-solid primary-button" id="reportButton" style="width: 95%; padding: 0 5px;">
                             Report 
                         </button>
                     </div>
@@ -4586,6 +4586,7 @@
             </div>
         </div>
     </div>
+
 
 
 
