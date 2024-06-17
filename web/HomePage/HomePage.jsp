@@ -4603,8 +4603,8 @@
                         <form enctype="multipart/form-data" id="sent-request-form" method="post">   
                             <input type="text" name="idPostRequest" style="display: none;">
                             <label for="Title">Message: </label>
-                            <textarea id="description" required class="textarea comment-textarea" name="messageRequest" rows="5" placeholder="Message the message you want to send to the owner"></textarea>
-                            <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input message!!!</span>
+                            <textarea id="messageRequest" required class="textarea comment-textarea" name="messageRequest" rows="5" placeholder="Message the message you want to send to the owner">Tôi có thể đến chỗ bạn lúc 6-8pm</textarea>
+                            <span id="message-error-request" class="error-message" style="display: none; color: red;">Please input message!!!</span>
                             <input type="submit" id="submit-request" style="display : none;" value="Submit">
                         </form>
                     </div>
@@ -4931,6 +4931,33 @@
 
             xhr.send(formData);
         });
+        document.getElementById('requestButton').addEventListener('click', function () {
+            console.log("requestButton click");
+            if (validateFormRequest()) {
+                document.getElementById('submit-request').click();
+            }
+        });
+        const instInputMesage = document.getElementById('messageRequest');
+        const errorMessageRequest = document.getElementById('message-error-request');
+        instInputMesage.addEventListener('input', function () {
+            const inputValueMesage = instInputMesage.value.trim();
+
+            if (inputValueMesage.length > 0) {
+                errorMessageRequest.style.display = 'none';
+            } else {
+                errorMessageRequest.style.display = 'block';
+            }
+        });
+
+        function validateFormRequest() {
+            var messageRequest = document.getElementById('messageRequest').value.trim();
+            if (messageRequest === '') {
+                var titleError = document.getElementById('message-error-request');
+                titleError.style.display = 'block';
+                return false;
+            }
+            return true;
+        }
         document.getElementById('imgPath').addEventListener('change', function (event) {
             const files = event.target.files;
             const blockImg = document.querySelector('.post-image.preview-img');
@@ -4961,10 +4988,6 @@
             const modalRequest = document.getElementById('sent-request-modal');
             const requestButton = document.getElementById('requestButton');
             let currentPostRequest = null;
-            console.log(openModalRequest);
-            console.log(modalRequest);
-            console.log(openModalRequest);
-
             openModalRequest.forEach(openModalArchive => {
                 openModalArchive.addEventListener('click', () => {
                     const postIdRequest = openModalArchive.getAttribute('data-post-id');
@@ -4975,7 +4998,9 @@
                 });
             });
 
-            requestButton.addEventListener('click', () => {
+            document.getElementById('sent-request-form').addEventListener('submit', (event) => {
+                var mesageSent = document.getElementById('sent-request-form').querySelector('textarea[name="messageRequest"]').value;
+                event.preventDefault();
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', 'requestPost', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -5002,7 +5027,7 @@
                         modalRequest.classList.remove('is-active');
                     }
                 };
-                xhr.send('id=' + currentPostRequest);
+                xhr.send('id=' + currentPostRequest + '&mesage=' + mesageSent);
             });
         });
     </script>

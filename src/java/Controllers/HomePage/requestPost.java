@@ -66,7 +66,13 @@ public class requestPost extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String idPost = request.getParameter("id");
+        String mesage = request.getParameter("mesage");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("đã nhận id: " + idPost + mesage);;
+        }
     }
 
     /** 
