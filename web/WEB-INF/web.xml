@@ -65,6 +65,10 @@
         <servlet-class>Controllers.Profile.PostArchive</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>OtherProfile</servlet-name>
+        <servlet-class>Controllers.Profile.OtherProfile</servlet-class>
+            </servlet>
+    <servlet>
         <servlet-name>ReportPost</servlet-name>
         <servlet-class>Controllers.HomePage.ReportPost</servlet-class>
     </servlet>

@@ -55,7 +55,7 @@ instInput.addEventListener('input', function () {
 });
 function validateForm() {
     var title = document.getElementById('title').value.trim();
-    var description = document.querySelector('textarea[name="description"]').value.trim();
+    var description = document.querySelector('textarea[name="descriptionEdit"]').value.trim();
     var newAddress = document.getElementById('Order_name').value.trim();
     var instructions = document.getElementById('instructions').value.trim();
 
@@ -84,60 +84,3 @@ function validateForm() {
     }
     return true;
 }
-//var formEditPost = document.getElementById('edit-post');
-//    var formDataEditPost = new FormData(formEditPost);
-//    console.log(formDataEditPost);
-
-var formEditPost = document.getElementById('edit-post');
-console.log(formEditPost);
-formEditPost.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    var formDataEditPost = new FormData(formEditPost);
-    console.log(formDataEditPost);
-    if(formDataEditPost.has("title")){
-        console.log("has tittle");
-    }
-    var xhr = new XMLHttpRequest();
-
-    xhr.open('POST', 'editPost', true);
-
-    xhr.onload = function () {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            console.log(xhr.responseText);
-            if (xhr.responseText.trim() === "successful") {
-                const modal = document.getElementById('edit-post-modal');
-                modal.classList.remove('is-active');
-                formEditPost.reset();
-                formEditPost.querySelector('.post-image.preview-img').style.display = 'none';
-                iziToast.show({
-                    maxWidth: "280px",
-                    class: "success-toast",
-                    icon: "mdi mdi-check",
-                    title: "",
-                    message: "Edit post successfully",
-                    titleColor: "#fff",
-                    messageColor: "#fff",
-                    iconColor: "#fff",
-                    backgroundColor: "#60c032",
-                    progressBarColor: "#0062ff",
-                    position: "bottomRight",
-                    transitionIn: "fadeInUp",
-                    close: false,
-                    timeout: 1800,
-                    zindex: 99999
-                });
-            } else {
-                console.log("failed1");
-            }
-        } else {
-            console.log("failed 2");
-        }
-    };
-
-    xhr.onerror = function () {
-        console.error('Request failed 3');
-    };
-
-    xhr.send(formDataEditPost);
-});

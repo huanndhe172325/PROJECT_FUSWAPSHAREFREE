@@ -6,8 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
 <!doctype html>
 <html lang="en">
 
@@ -200,9 +198,6 @@
                     modal.classList.add('is-active');
                 });
             });
-
-
-
             var districts = document.getElementById("district");
             var wards = document.getElementById("ward");
             var selectedCityValue = 'Thành phố Hà Nội';
@@ -709,14 +704,14 @@
 
                     <div id="account-dropdown" class="navbar-item is-account drop-trigger has-caret">
                         <div class="user-image">
-                            <img src="https://via.placeholder.com/400x400" data-demo-src="${profile.avatarUrl}" alt="" />
+                            <img src="https://via.placeholder.com/400x400" data-demo-src="${user1.avatarUrl}" alt="" />
                             <span class="indicator"></span>
                         </div>
 
                         <div class="nav-drop is-account-dropdown">
                             <div class="inner">
                                 <div class="nav-drop-header">
-                                    <span class="username">${profile.getFull_Name()}</span>
+                                    <span class="username">${user1.getFull_Name()}</span>
                                     <label class="theme-toggle">
                                         <input type="checkbox" />
                                         <span class="toggler">
@@ -735,11 +730,11 @@
                                         <div class="media">
                                             <div class="media-left">
                                                 <div class="image">
-                                                    <img src="https://via.placeholder.com/400x400" data-demo-src="${profile.avatarUrl}" alt="" />
+                                                    <img src="https://via.placeholder.com/400x400" data-demo-src="${user1.avatarUrl}" alt="" />
                                                 </div>
                                             </div>
                                             <div class="media-content">
-                                                <h3>${profile.getFull_Name()}</h3>
+                                                <h3>${user1.getFull_Name()}</h3>
                                                 <small>Main account</small>
                                             </div>
                                             <div class="media-right">
@@ -748,7 +743,8 @@
                                         </div>
                                     </a>
                                     <hr class="account-divider" />
-                                    <a  class="account-item" >
+                                    <c:if test="${sessionScope.userInfo.getUserID() == profile.getUserID()}">
+                                         <a  class="account-item" >
                                         <div class="media" >
                                             <div class="icon-wrap">
                                                 <i data-feather="map-pin"></i>
@@ -759,6 +755,8 @@
                                             </div>
                                         </div>
                                     </a>
+                                    </c:if>
+                                   
                                     <a href="options-settings.html" class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
@@ -864,9 +862,9 @@
                                                 <i data-feather="message-circle"></i>
                                             </a>
                                         </div>
-                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Send message">
+                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Block">
                                             <a href="messages-inbox.html" class="inner">
-                                                <i data-feather="mail"></i>
+                                                <i data-feather="lock"></i>
                                             </a>
                                         </div>
                                     </div>
@@ -943,6 +941,7 @@
                             <div id="profile-timeline-widgets" class="column is-4">
                                 <!-- Basic Infos widget -->
                                 <!-- html/partials/pages/profile/timeline/widgets/basic-infos-widget.html -->
+                                <c:if test="${sessionScope.userInfo.getUserID() == profile.getUserID()}" >
                                 <div class="box-heading">
                                     <h4>User details</h4>
                                     <div class="dropdown is-neutral is-spaced is-right dropdown-trigger">
@@ -966,7 +965,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                </c:if>
 
                                 <div class="basic-infos-wrapper">
                                     <div class="card is-profile-info">
@@ -1054,7 +1053,7 @@
                                                     <div class="dropdown-menu" role="menu">
                                                         <div class="dropdown-content">
                                                             <c:if test="${post.avaiableEditPost(profile.userID)}">
-                                                                <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" data-all-img="${post.imageUrl}">
+                                                                <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-img="${post.imageUrl}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" >
                                                                     <div class="media">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
                                                                         <div class="media-content">
@@ -1097,26 +1096,23 @@
                                                 <!-- Featured image -->
                                                 <div class="post-image">
                                                     <div class="style-img-post">
-                                                        <c:forEach var="img" items="${post.getListImg()}">
-                                                            <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                                <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
-                                                            </a>
-                                                        </c:forEach>     
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                        </a>
+                                                        <a href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${post.imageUrl}" alt="" />
+                                                        </a>
                                                     </div>
-                                                    <c:if test="${fn:length(post.listImg) >= 2}">
-                                                        <div class="image-btn">
-                                                            <div class="btn-image-next btn-image">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                                <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
-                                                                </svg>
-                                                            </div>
-                                                            <div class="btn-image-pre btn-image">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                                <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </c:if>
+                                                    <div class="image-btn">
+                                                        <div class="btn-image-next btn-image">&gt;</div>
+                                                        <div class="btn-image-pre btn-image">&lt;</div>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -1291,89 +1287,165 @@
             </div>
             <!-- /Load more images -->
 
+            <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-heading">
+
+                            <!-- Close X button -->
+                            <div class="close-wrap">
+                                <span class="close-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="control">
+                                <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
+                                    <select id="type" name="typePost" required="">
+
+                                        <option value="1" selected="">Exchange</option>
+
+                                        <option value="2" selected="">Free</option>
+
+                                    </select>
+                                    <label for="imgPath">Image:</label>
+                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
+
+                                    <label for="Title">Title:</label>
+                                    <input type="text" id="title" name="title" required="">
+                                    <label for="Title">Description: </label>
+                                    <textarea class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+
+
+                                    <label for="quanlity">Quanlity</label>
+                                    <select id="quanlity" name="quanlity" required="">
+
+                                        <option value="1">Used</option>
+
+                                        <option value="2">Needs Repair</option>
+
+                                        <option value="3">New</option>
+
+                                    </select>
+
+
+                                    <div id="addNewSnippet" style="margin-top: 10px;">
+                                        <div class="input-container" style="display: inline-block; width: 49%;">
+                                            <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                                <option value="" selected="">Select district</option>
+                                                <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
+                                        </div>
+                                        <div class="input-container" style="display: inline-block; width: 50%;">
+                                            <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                                <option value="" selected="">Select Ward</option>
+                                                <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
+                                        </div>
+                                        <div class="input-container">
+                                            <label>Street number</label>
+                                            <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
+                                        </div>
+                                    </div>
+                                    <label>Expires Date<span class="required">*</span></label>
+                                    <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
+                                        <option value="1">1 Day</option>
+                                        <option value="3" selected="">3 Days</option>
+                                        <option value="7">7 Days</option>
+                                        <option value="15">15 Days</option>
+                                    </select>
+
+                                    <label for="instructions">Pick-up instructions</label>
+                                    <input type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+
+
+
+
+                                    <input type="submit" id="submit-create-post" style="display : none;" value="Submit">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="button-wrap" style="width: 98%;">
+                                <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
+                                    Post
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="edit-post-modal" class="modal share-modal is-xsmall has-light-bg">
                 <div class="modal-background"></div>
                 <div class="modal-content">
                     <div class="card">
                         <div class="card-heading">
                             <div class="close-wrap">
-                                <span class="close-modal" onclick="document.getElementById('edit-post').reset();">
+                                <span class="close-modal">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                 </span>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="control">
-                                <form enctype="multipart/form-data" id="edit-post" method="post">
-                                    <label for="Title">Title:</label>
-                                    <input type="text" id="title" name="titleEdit" required="">
-                                    <span id="title-error" class="error-message" style="display: none; color: red;">Please input title!!!</span>
-                                    <label for="Title">Description: </label>
-                                    <textarea id="description" required class="textarea comment-textarea" name="descriptionEdit" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full">Món đồ này đã có một vài năm sử dụng nhưng vẫn đáp ứng tốt nhu cầu sử dụng hàng ngày.</textarea>
-                                    <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input description!!!</span>
-
+                                <form enctype="multipart/form-data" action="editPost" id="create-post" method="post">
+                                    <select id="type" name="typePost" required="">
+                                        <option value="1" selected="">Exchange</option>
+                                        <option value="2" selected="">Free</option>
+                                    </select>
                                     <label for="imgPath">Image:</label>
-                                    <input type="file" id="imgPathEditPost" name="imgPathEdit" accept="image/*" required="" multiple>
-                                    <div class="post-image preview-img" style="display: block;">
-                                    </div> 
-
-                                    <table style="margin-top: 15px;">
-                                        <tr>
-                                            <td style="padding: 5px;">
-                                                <label for="quality">Quanlity:</label>
-                                            </td>
-                                            <td style="padding: 5px;">
-                                                <label><input type="radio" name="qualityEdit" value="1" required checked>Used</label>
-                                            </td>
-                                            <td style="padding: 5px;">
-                                                <label><input type="radio" name="qualityEdit" value="2" required> Needs Repair</label>
-                                            </td>
-                                            <td style="padding: 5px;">
-                                                <label><input type="radio" name="qualityEdit" value="3" required> New</label>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
+                                    <div class="post-image">
+                                        <div class="style-img-post">
+                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                        </div>
+                                        <div class="image-btn">
+                                            <div class="btn-image-next btn-image">&gt;</div>
+                                            <div class="btn-image-pre btn-image">&lt;</div>
+                                        </div>
+                                    </div>
+                                    <label for="Title">Title:</label>
+                                    <input type="text" id="title" name="title" required="">
+                                    <label for="Title">Description: </label>
+                                    <textarea  id="edit-post-desc"class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
 
 
+                                    <label for="quanlity">Quanlity</label>
+                                    <select id="quanlity" name="quanlity" required="">
+                                        <option value="1">Used</option>
+                                        <option value="2">Needs Repair</option>
+                                        <option value="3">New</option>
+                                    </select>
                                     <div id="addNewSnippet" style="margin-top: 10px;">
                                         <div class="input-container" style="display: inline-block; width: 49%;">
-                                            <select name="districtEdit" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                            <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
                                                 <option value="" selected="">Select district</option>
                                                 <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
                                         </div>
                                         <div class="input-container" style="display: inline-block; width: 50%;">
-                                            <select name="wardEdit" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                            <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
                                                 <option value="" selected="">Select Ward</option>
                                                 <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
                                         </div>
                                         <div class="input-container">
                                             <label>Street number</label>
-                                            <input name="newAddressEdit" id="Order_name" type="text" maxlength="255" value="Số nhà ...." required="">
-                                            <span id="title-error-add" class="error-message" style="display: none; color: red;">Please input street number!!!</span>
+                                            <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
                                         </div>
                                     </div>
-                                    <label>Expires Date<span class="required">*</span></label>
-                                    <select name="expiresDateEdit" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
-                                        <option value="1">1 Day</option>
-                                        <option value="3">3 Days</option>
-                                        <option value="7">7 Days</option>
-                                        <option value="15" selected>15 Days</option>
-                                    </select>
-
                                     <label for="instructions">Pick-up instructions</label>
-                                    <input type="text" value="4-6pm khi tới nơi hãy gọi cho tôi" id="instructions" name="instructionsEdit" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
-                                    <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions!!!</span>
-
-
-
-
+                                    <input id="edit-post-inst" type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
                                     <input type="submit" id="submit-edit-post" style="display : none;" value="Submit">
                                 </form>
                             </div>
                         </div>
                         <div class="card-footer">
                             <div class="button-wrap" style="width: 98%;">
-                                <button type="button" id="saveEditButton" class="button is-solid primary-button" style="width: 100%;">
+                                <button id="saveEditPostButton" type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-edit-post').click();">
                                     Save
                                 </button>
                             </div>
@@ -1390,7 +1462,7 @@
                             <!-- Close X button -->
                             <div class="close-wrap">
                                 <span class="close-modal">
-                                    <i data-feather="x"></i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                 </span>
                             </div>
                         </div>
@@ -1399,42 +1471,43 @@
                                 <div class="publication-meta">
                                     <div class="inner-flex" style="align-items: center; margin-bottom: 10px;">
                                         <div class="detail-post-header-left">
-                                            <img style="cursor: pointer;" id="share-modal-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
+                                            <img style="cursor: pointer;" id="share-modal-avatar" src="http://example.com/avatar1.jpg" data-demo-src="http://example.com/avatar1.jpg" data-user-popover="1" alt="" onclick="window.location.href = 'profile?id=2'">
                                         </div>
                                         <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
                                             <div class="detail-post-header-infor-owner">
-                                                <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;">Danh Huan</h2>
-                                                <p style="padding-left: 0;" id="share-modal-date">2024-06-08</p>
+                                                <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;" onclick="window.location.href = 'profile?id=2'">Nguyen Quang Trung</h2>
+                                                <p style="padding-left: 0;" id="share-modal-date">2024-06-06 03:00:58.06</p>
                                             </div>
                                             <div class="detail-post-header-infor-post" style="margin-top: 16px;">
-                                                <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Available</span>
+                                                <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Expired</span>
                                                 <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">Free</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
-                                        <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">Title</h2>
+                                        <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">
+                                            Bài tập
+                                        </h2>
                                         <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
-                                            Ảnh màn hình là của trang chủ một trang web tin tức nổi tiếng.
-                                            Phần trên cùng là thanh điều hướng màu xanh đậm với logo của trang web nằm ở góc trái và các liên kết đến các chuyên mục khác nhau như Tin Tức, Thế Giới, Kinh Doanh, Thể Thao, Giải Trí, và Công Nghệ nằm ngang hàng.
+                                            Initiate the construction of the blog HTML template using our advanced AI system, which produces template HTML code, CSS, and JS according to your input. Subsequently, you have the option to modify the template within the AI application.
                                         </p>
                                     </div>
                                 </div>
                                 <div class="featured-image">
-                                    <img id="share-modal-image" src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/1.jpg" alt="" />
+                                    <img id="share-modal-image" src="FolderImages/ImagePost/70_image.jpg" data-demo-src="assets/img/demo/unsplash/1.jpg" alt="">
                                 </div>
                                 <div class="footer-detail-post" style="margin-top: 10px;">
                                     <div class="detail-row">
                                         <h2 style="font-weight: 500;">Quanlity:</h2>
-                                        <p id="share-modal-quanlity">Needs Repair</p>
+                                        <p id="share-modal-quanlity">Used</p>
                                     </div>
                                     <div class="detail-row">
                                         <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                        <p id="share-modal-address">Số nhà 123, Xã Hữu Bằng, Huyện Thạch Thất</p>
+                                        <p id="share-modal-address">Trọ Tuấn Cường, Xã Thạch Xá, Huyện Thạch Thất</p>
                                     </div>
                                     <div class="detail-row">
                                         <h2 style="font-weight: 500;">Instructions:</h2>
-                                        <p id="share-modal-intruc">Pick up today from 4 - 6pm</p>
+                                        <p id="share-modal-intruc">8-9pm</p>
                                     </div>
                                 </div>
                             </div>
@@ -1453,7 +1526,7 @@
             <!-- Concatenated js plugins and jQuery -->
             <script src="assets/js/app.js"></script>
             <script src="https://js.stripe.com/v3/"></script>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
             <!-- Core js -->
             <script src="assets/js/global.js"></script>
 
@@ -1487,6 +1560,7 @@
 
             <!-- profile js -->
             <script src="assets/js/profile.js"></script>
+            <script src="assets/js/jsslideimage.js"></script>
 
             <!-- stories js -->
 
@@ -1511,69 +1585,69 @@
             <!-- elements page js -->
 
             <script>
-                                    var form1 = document.getElementById('edit-profile');
-                                    form1.addEventListener('submit', function (event) {
-                                        event.preventDefault();
+                                                    var form1 = document.getElementById('edit-profile');
+                                                    form1.addEventListener('submit', function (event) {
+                                                        event.preventDefault();
 
-                                        var formData = new FormData(form1);
+                                                        var formData = new FormData(form1);
 
-                                        var xhr = new XMLHttpRequest();
+                                                        var xhr = new XMLHttpRequest();
 
-                                        xhr.open('POST', 'editprofile', true);
+                                                        xhr.open('POST', 'editprofile', true);
 
-                                        xhr.onload = function () {
-                                            if (xhr.status >= 200 && xhr.status < 300) {
-                                                const modal = document.getElementById('edit-profile-modal');
-                                                modal.classList.remove('is-active');
+                                                        xhr.onload = function () {
+                                                            if (xhr.status >= 200 && xhr.status < 300) {
+                                                                const modal = document.getElementById('edit-profile-modal');
+                                                                modal.classList.remove('is-active');
 
-                                                iziToast.show({
-                                                    maxWidth: "280px",
-                                                    class: "success-toast",
-                                                    icon: "mdi mdi-error",
-                                                    title: "",
-                                                    message: "Edit profile successfully",
-                                                    titleColor: "#fff",
-                                                    messageColor: "#fff",
-                                                    iconColor: "#fff",
-                                                    backgroundColor: "#60c032",
-                                                    progressBarColor: "#0062ff",
-                                                    position: "bottomRight",
-                                                    transitionIn: "fadeInUp",
-                                                    close: false,
-                                                    timeout: 1800,
-                                                    zindex: 99999
-                                                });
-                                            } else {
-                                                const modal = document.getElementById('edit-profile-modal');
-                                                modal.classList.remove('is-active');
-                                                console.log('Success', xhr.responseText);
-                                                //                            var form = document.getElementById('edit-location');
-                                                iziToast.show({
-                                                    maxWidth: "280px",
-                                                    class: "success-toast",
-                                                    icon: "mdi mdi-error",
-                                                    title: "",
-                                                    message: "Edit profile failed",
-                                                    titleColor: "#fff",
-                                                    messageColor: "#fff",
-                                                    iconColor: "#fff",
-                                                    backgroundColor: "#FF0000",
-                                                    progressBarColor: "#0062ff",
-                                                    position: "bottomRight",
-                                                    transitionIn: "fadeInUp",
-                                                    close: false,
-                                                    timeout: 1800,
-                                                    zindex: 99999
-                                                });
-                                            }
-                                        };
+                                                                iziToast.show({
+                                                                    maxWidth: "280px",
+                                                                    class: "success-toast",
+                                                                    icon: "mdi mdi-error",
+                                                                    title: "",
+                                                                    message: "Edit profile successfully",
+                                                                    titleColor: "#fff",
+                                                                    messageColor: "#fff",
+                                                                    iconColor: "#fff",
+                                                                    backgroundColor: "#60c032",
+                                                                    progressBarColor: "#0062ff",
+                                                                    position: "bottomRight",
+                                                                    transitionIn: "fadeInUp",
+                                                                    close: false,
+                                                                    timeout: 1800,
+                                                                    zindex: 99999
+                                                                });
+                                                            } else {
+                                                                const modal = document.getElementById('edit-profile-modal');
+                                                                modal.classList.remove('is-active');
+                                                                console.log('Success', xhr.responseText);
+                                                                //                            var form = document.getElementById('edit-location');
+                                                                iziToast.show({
+                                                                    maxWidth: "280px",
+                                                                    class: "success-toast",
+                                                                    icon: "mdi mdi-error",
+                                                                    title: "",
+                                                                    message: "Edit profile failed",
+                                                                    titleColor: "#fff",
+                                                                    messageColor: "#fff",
+                                                                    iconColor: "#fff",
+                                                                    backgroundColor: "#FF0000",
+                                                                    progressBarColor: "#0062ff",
+                                                                    position: "bottomRight",
+                                                                    transitionIn: "fadeInUp",
+                                                                    close: false,
+                                                                    timeout: 1800,
+                                                                    zindex: 99999
+                                                                });
+                                                            }
+                                                        };
 
-                                        xhr.onerror = function () {
-                                            console.error('Request failed');
-                                        };
+                                                        xhr.onerror = function () {
+                                                            console.error('Request failed');
+                                                        };
 
-                                        xhr.send(formData);
-                                    });
+                                                        xhr.send(formData);
+                                                    });
             </script>
 
             <script>
@@ -1830,24 +1904,24 @@
                 document.addEventListener("DOMContentLoaded", function () {
                     const openModalEditPost = document.querySelectorAll('.open-modal-edit');
                     const modalEditPost = document.getElementById('edit-post-modal');
-                    const saveEditPostButton = document.getElementById('saveEditButton');
+                    const saveEditPostButton = document.getElementById('saveEditPostButton');
 
                     openModalEditPost.forEach(openModalEdit => {
                         openModalEdit.addEventListener('click', () => {
                             modalEditPost.setAttribute('data-post-id', openModalEdit.getAttribute('data-post-id'));
-                            modalEditPost.querySelector('input[name="titleEdit"]').value = openModalEdit.getAttribute('data-post-title');
-                            const selectQuanlity = modalEditPost.querySelectorAll('input[name="qualityEdit"]');
-                            selectQuanlity.forEach(option => {
+                            modalEditPost.querySelector('input[name="title"]').value = openModalEdit.getAttribute('data-post-title');
+                            const selectQuanlity = modalEditPost.querySelector('select[name="quanlity"]');
+                            const optionQuanlity = selectQuanlity.querySelectorAll('option');
+                            optionQuanlity.forEach(option => {
                                 if (option.value === openModalEdit.getAttribute('data-post-quanlity')) {
-                                    option.checked = true;
+                                    option.selected = true;
                                 } else {
-                                    option.checked = false;
+                                    option.selected = false;
                                 }
                             });
-                            modalEditPost.querySelector('textarea[name="descriptionEdit"]').value = openModalEdit.getAttribute('data-post-desc');
-                            const selectDistrict = modalEditPost.querySelector('select[name="districtEdit"]');
+                            modalEditPost.querySelector('textarea[name="description"]').value = openModalEdit.getAttribute('data-post-desc');
+                            const selectDistrict = modalEditPost.querySelector('select[name="district"]');
                             const optionDistrict = selectDistrict.querySelectorAll('option');
-
                             optionDistrict.forEach(option => {
                                 if (option.value === openModalEdit.getAttribute('data-post-district')) {
                                     option.selected = true;
@@ -1855,8 +1929,7 @@
                                     option.selected = false;
                                 }
                             });
-                            console.log(openModalEdit.getAttribute('data-post-district'));
-                            const selectWard = modalEditPost.querySelector('select[name="wardEdit"]');
+                            const selectWard = modalEditPost.querySelector('select[name="ward"]');
                             const optionWard = selectWard.querySelectorAll('option');
                             optionWard.forEach(option => {
                                 if (option.value === openModalEdit.getAttribute('data-post-commune')) {
@@ -1865,147 +1938,15 @@
                                     option.selected = false;
                                 }
                             });
-                            modalEditPost.querySelector('input[name="newAddressEdit"]').value = openModalEdit.getAttribute('data-post-street_Number');
-                            modalEditPost.querySelector('input[name="instructionsEdit"]').value = openModalEdit.getAttribute('data-post-intr');
-                            var allImg = openModalEdit.getAttribute('data-all-img');
-                            const {styleImgPostDiv, imageBtnDiv} = createImageContainer(allImg);
-                            var modalBody = modalEditPost.querySelector('.post-image.preview-img');
-                            modalBody.innerHTML = '';
-                            modalBody.appendChild(styleImgPostDiv);
-                            modalBody.appendChild(imageBtnDiv);
-                            initializeSliders();
+                            modalEditPost.querySelector('input[name="newAddress"]').value = openModalEdit.getAttribute('data-post-street_Number');
+                            modalEditPost.querySelector('input[name="instructions"]').value = openModalEdit.getAttribute('data-post-intr');
+
+
                             modalEditPost.classList.add('is-active');
                         });
                     });
                 });
-
-                function createImageContainer(imageUrls) {
-                    const styleImgPostDiv = document.createElement('div');
-                    styleImgPostDiv.classList.add('style-img-post');
-
-                    const imageArray = imageUrls.split(',');
-
-                    imageArray.forEach(src => {
-                        const img = document.createElement('img');
-                        img.classList.add('element-img-post');
-                        img.src = src.trim();
-                        styleImgPostDiv.appendChild(img);
-                    });
-
-                    const imageBtnDiv = document.createElement('div');
-                    imageBtnDiv.classList.add('image-btn');
-                    imageBtnDiv.style.display = 'block';
-
-                    const btnNextDiv = document.createElement('div');
-                    btnNextDiv.classList.add('btn-image-next', 'btn-image');
-                    btnNextDiv.style.fontSize = '26px';
-                    btnNextDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                            <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
-                                            </svg>`;
-
-                    const btnPreDiv = document.createElement('div');
-                    btnPreDiv.classList.add('btn-image-pre', 'btn-image');
-                    btnPreDiv.style.fontSize = '26px';
-                    btnPreDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                            <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
-                                            </svg>`;
-
-                    imageBtnDiv.appendChild(btnNextDiv);
-                    imageBtnDiv.appendChild(btnPreDiv);
-
-                    return {styleImgPostDiv, imageBtnDiv};
-                }
-
-
-                document.getElementById('imgPathEditPost').addEventListener('change', function (event) {
-                    const files = event.target.files;
-                    const blockImg = document.querySelector('.post-image.preview-img');
-                    const imageContainer = blockImg.querySelector('.style-img-post');
-                    imageContainer.innerHTML = '';
-                    for (let i = 0; i < files.length; i++) {
-                        const file = files[i];
-                        const imageURL = URL.createObjectURL(file);
-                        const imgElement = document.createElement('img');
-                        imgElement.classList.add('element-img-post');
-                        imgElement.src = imageURL;
-                        imageContainer.appendChild(imgElement);
-                        imgElement.onload = function () {
-                            URL.revokeObjectURL(imageURL);
-                        };
-                    }
-                    if (files.length >= 2) {
-                        blockImg.querySelector('.image-btn').style.display = 'block';
-                    } else {
-                        blockImg.querySelector('.image-btn').style.display = 'none';
-                    }
-                    blockImg.style.display = 'block';
-                    imageContainer.style.transform = 'translateX(0px)';
-                });
-
-
-
-                var editPostForm = document.getElementById('edit-post');
-                editPostForm.addEventListener('submit', function (event) {
-                    event.preventDefault();
-                    var formDataForEditPost = new FormData(editPostForm);
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'editPost', true);
-                    xhr.onload = function () {
-                        console.log('Response:', xhr.responseText);
-                        if (xhr.responseText === "success") {
-                            document.getElementById('edit-post-modal').classList.remove('is-active');
-                            editPostForm.reset();
-                            editPostForm.querySelector('.post-image.preview-img').style.display = 'none';
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "success-toast",
-                                icon: "mdi mdi-check",
-                                title: "",
-                                message: "Edit post successfully",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#60c032",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                        } else {
-                            const modal = document.getElementById('edit-post-modal');
-                            modal.classList.remove('is-active');
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "success-toast",
-                                icon: "mdi mdi-error",
-                                title: "",
-                                message: "Edit post failed",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#FF0000",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                        }
-                    };
-                    xhr.onerror = function () {
-                        console.error('Request failed');
-                    };
-                    xhr.send(formDataForEditPost);
-                });
-
-
             </script>
-            <script src="assets/js/jsslideimage.js"></script>
-            <script src="assets/js/huanndhe172325.js"></script>
     </body>
 
 
