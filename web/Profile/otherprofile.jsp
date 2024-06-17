@@ -158,6 +158,83 @@
                 font-size: 16px;
             }
         </style>
+        
+        <!-- Style form block list -->
+        <style>
+            .modal {
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+
+            .modal-header {
+                border-bottom: 1px solid #ddd;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }
+
+            .modal-header h2 {
+                margin: 0;
+            }
+
+            .modal-body p {
+                margin-bottom: 20px;
+            }
+
+            .btn {
+                background-color: #1877f2;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+                padding: 8px 16px;
+                border-radius: 4px;
+            }
+
+            .search-box {
+                margin-top: 20px;
+            }
+
+            .search-box input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+
+            .user-list {
+                margin-top: 20px;
+            }
+
+            .user {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .user img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+
+            .user span {
+                flex: 1;
+            }
+
+            .btn-block {
+                background-color: #e4e6eb;
+                border: none;
+                color: #1c1e21;
+                cursor: pointer;
+                padding: 4px 8px;
+                border-radius: 4px;
+            }
+
+        </style>
 
         <!-- Google Tag Manager -->
         <script>
@@ -331,6 +408,25 @@
                     }
                 }
             }
+
+            // Function to simulate change event
+            function simulateEvent(element, eventName) {
+                var event = new Event(eventName);
+                element.dispatchEvent(event);
+            }
+
+        </script>
+
+        <!-- JS block User -->
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const openModalBtn = document.getElementById('open-modal-btn2');
+                const modal = document.getElementById('block-user-modal');
+
+                openModalBtn.addEventListener('click', () => {
+                    modal.classList.add('is-active');
+                });
+            });
 
             // Function to simulate change event
             function simulateEvent(element, eventName) {
@@ -744,30 +840,56 @@
                                     </a>
                                     <hr class="account-divider" />
                                     <c:if test="${sessionScope.userInfo.getUserID() == profile.getUserID()}">
-                                         <a  class="account-item" >
-                                        <div class="media" >
-                                            <div class="icon-wrap">
-                                                <i data-feather="map-pin"></i>
+                                        <a  class="account-item" >
+                                            <div class="media" >
+                                                <div class="icon-wrap">
+                                                    <i data-feather="map-pin"></i>
+                                                </div>
+                                                <div class="media-content" data-modal="edit-location-modal"  id="open-modal-btn" >
+                                                    <h3>Manage Location</h3>
+                                                    <small>Change your location here</small>
+                                                </div>
                                             </div>
-                                            <div class="media-content" data-modal="edit-location-modal"  id="open-modal-btn" >
-                                                <h3>Manage Location</h3>
-                                                <small>Change your location here</small>
-                                            </div>
-                                        </div>
-                                    </a>
+                                        </a>
                                     </c:if>
-                                   
-                                    <a href="options-settings.html" class="account-item">
+
+                                    <a class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
                                                 <i data-feather="settings"></i>
                                             </div>
                                             <div class="media-content">
-                                                <h3>Settings</h3>
-                                                <small>Access widget settings.</small>
+                                                <h3>List Block Users</h3>
+                                                <small>Users Blocked.</small>
                                             </div>
                                         </div>
                                     </a>
+
+                                    <div class="modal">
+                                        <div class="modal-header">
+                                            <h2>Block users</h2>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>When you block someone, they will not be able to see the content you post on your timeline, interact, or exchange items with you.</p>
+                                            
+                                            <div class="search-box">
+                                                <input type="text" placeholder="Nhập tên" />
+                                            </div>
+                                            <div class="user-list">
+                                                <div class="user">
+                                                    <img src="https://via.placeholder.com/40" alt="Avatar" />
+                                                    <span>Minh Nguyệt</span>
+                                                    <button class="btn-block">Bỏ chặn</button>
+                                                </div>
+                                                <div class="user">
+                                                    <img src="https://via.placeholder.com/40" alt="Avatar" />
+                                                    <span>Nguyễn Minh Nguyệt</span>
+                                                    <button class="btn-block">Bỏ chặn</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <a class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
@@ -862,12 +984,13 @@
                                                 <i data-feather="message-circle"></i>
                                             </a>
                                         </div>
-                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Block">
-                                            <a href="messages-inbox.html" class="inner">
+                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Block" data-modal="block-user-modal"  id="open-modal-btn2">
+                                            <a class="inner">
                                                 <i data-feather="lock"></i>
                                             </a>
                                         </div>
                                     </div>
+
 
                                     <!--/html/partials/pages/profile/timeline/dropdowns/timeline-mobile-dropdown.html-->
                                     <div class="dropdown is-spaced is-right is-accent dropdown-trigger timeline-mobile-dropdown is-hidden-desktop">
@@ -942,29 +1065,29 @@
                                 <!-- Basic Infos widget -->
                                 <!-- html/partials/pages/profile/timeline/widgets/basic-infos-widget.html -->
                                 <c:if test="${sessionScope.userInfo.getUserID() == profile.getUserID()}" >
-                                <div class="box-heading">
-                                    <h4>User details</h4>
-                                    <div class="dropdown is-neutral is-spaced is-right dropdown-trigger">
-                                        <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
+                                    <div class="box-heading">
+                                        <h4>User details</h4>
+                                        <div class="dropdown is-neutral is-spaced is-right dropdown-trigger">
+                                            <div>
+                                                <div class="button">
+                                                    <i data-feather="more-vertical"></i>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content" data-modal="edit-profile-modal"  id="open-modal-btn1">
-                                                <a  class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="edit"></i>
-                                                        <div class="media-content" >
-                                                            <h3>Edit</h3>
-                                                            <small>Change your profile here</small>
+                                            <div class="dropdown-menu" role="menu">
+                                                <div class="dropdown-content" data-modal="edit-profile-modal"  id="open-modal-btn1">
+                                                    <a  class="dropdown-item">
+                                                        <div class="media">
+                                                            <i data-feather="edit"></i>
+                                                            <div class="media-content" >
+                                                                <h3>Edit</h3>
+                                                                <small>Change your profile here</small>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </a>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 </c:if>
 
                                 <div class="basic-infos-wrapper">
@@ -1248,6 +1371,58 @@
                 </div>
             </div>
 
+            <!-- Block User -->
+            <div id="block-user-modal" class="modal share-modal is-xsmall has-light-bg" >
+                <div class="modal-background">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-heading">
+
+                                <!-- Close X button -->
+                                <div class="close-wrap">
+                                    <span class="close-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="control">
+                                    <form action="blockuser?id=${profile.getUserID()}" id="block-user-modal" method="post">
+
+                                        <div class="col-md-12">
+                                            <label class="labels">Full Name</label>      
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Email</label>       
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Phone Number</label>
+                                        </div>
+                                        <input type="submit" id="submit-block-user" style="display : none;" value="Submit">
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-footer" >
+                                <div class="close-modal" style="width: 98%; " >
+                                    <button type="button" class="button is-solid primary-button" style="width: 95%;padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
+                                        Cancel
+                                    </button>
+                                </div>
+                                <div class="button-wrap" style="width: 98%;">
+                                    <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-block-user').click();">
+                                        Block
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <div id="archive-post" class="modal albums-help-modal is-xsmall has-light-bg">
                 <div class="modal-background"></div>
@@ -1399,10 +1574,10 @@
                                     <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
                                     <div class="post-image">
                                         <div class="style-img-post">
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                         </div>
                                         <div class="image-btn">
                                             <div class="btn-image-next btn-image">&gt;</div>

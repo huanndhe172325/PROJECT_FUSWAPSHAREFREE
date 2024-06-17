@@ -160,6 +160,82 @@
                 font-size: 16px;
             }
         </style>
+        
+        <style>
+            .modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.modal-body p {
+    margin-bottom: 20px;
+}
+
+.search-box {
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user span {
+    flex: 1;
+}
+
+.btn-block {
+    background-color: #e4e6eb;
+    border: none;
+    color: #1c1e21;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+        </style>
+
+
 
         <!-- Google Tag Manager -->
         <script>
@@ -336,6 +412,25 @@
                     }
                 }
             }
+
+            // Function to simulate change event
+            function simulateEvent(element, eventName) {
+                var event = new Event(eventName);
+                element.dispatchEvent(event);
+            }
+
+        </script>
+
+        <!-- JS list block User -->
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const openModalBtn = document.getElementById('list-block-btn');
+                const modal = document.getElementById('list-block-modal');
+
+                openModalBtn.addEventListener('click', () => {
+                    modal.classList.add('is-active');
+                });
+            });
 
             // Function to simulate change event
             function simulateEvent(element, eventName) {
@@ -759,17 +854,20 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="options-settings.html" class="account-item">
+
+                                    <a class="account-item" >
                                         <div class="media">
                                             <div class="icon-wrap">
-                                                <i data-feather="settings"></i>
+                                                <i data-feather="list"></i>
                                             </div>
-                                            <div class="media-content">
-                                                <h3>Settings</h3>
-                                                <small>Access widget settings.</small>
+                                            <div class="media-content" data-modal="list-block-modal"  id="list-block-btn">
+                                                <h3>List Block Users</h3>
+                                                <small>Users blocked</small>
                                             </div>
                                         </div>
                                     </a>
+
+
                                     <a class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
@@ -1251,6 +1349,58 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Block list users -->
+            <div id="list-block-modal" class="modal share-modal is-xsmall has-light-bg" >
+                <div class="modal-background">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-heading">
+                                <div class="modal-header">
+                                    <h2>List Block Users</h2>
+                                </div>
+                                <!-- Close X button -->
+                                <div class="close-wrap">
+                                    <span class="close-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="control">
+                                    <form action="listblockuser" id="list-block-modal" method="post">
+                                        <div class="modal-body">
+                                            <p>When you block someone, they will not be able to see the content you post on your timeline, interact, or exchange items with you.</p>
+                                            <div class="search-box">
+                                                <button class="btn">Add user to list block</button>
+                                                <input type="text" placeholder="Search..." />
+                                                 
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="user">
+                                                    <img src="https://via.placeholder.com/40" alt="Avatar" />
+                                                    <span>Minh Nguyệt</span>
+                                                    <button class="btn-block">Unblock</button>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-12">
+
+
+                                            </div>
+                                            <div class="col-md-12">
+
+
+                                            </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
             <div id="archive-post" class="modal albums-help-modal is-xsmall has-light-bg">
@@ -2004,6 +2154,8 @@
 
 
             </script>
+
+
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
     </body>

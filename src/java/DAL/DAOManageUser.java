@@ -21,75 +21,72 @@ import java.util.logging.Logger;
  */
 public class DAOManageUser extends DBContext {
 
-
     public ArrayList<User> getUsersInSameDistrict(String district) {
-    ArrayList<User> users = new ArrayList<>();
-    String sql = "SELECT * FROM [User] WHERE District = ?";
-    try {
-        PreparedStatement st = connect.prepareStatement(sql);
-        st.setString(1, district);
-        ResultSet rs = st.executeQuery();
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM [User] WHERE District = ?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, district);
+            ResultSet rs = st.executeQuery();
 
-        while (rs.next()) {
-            User user = new User(
-                rs.getInt("UserID"),
-                rs.getString("Email"),
-                rs.getString("Phone"),
-                rs.getString("AvatarUrl"),
-                rs.getString("PassWord"),
-                rs.getString("JoinDate"),
-                rs.getString("UserName"),
-                rs.getString("Full_Name"),
-                rs.getString("District"),
-                rs.getString("Commune"),
-                rs.getString("StreetNumber"),
-                rs.getInt("Point"),
-                rs.getInt("RoleID"),
-                rs.getInt("StatusID")
-            );
-            users.add(user);
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID")
+                );
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return users;
     }
-    return users;
-}
-
 
     public ArrayList<User> getListUserRanking() {
-    ArrayList<User> users = new ArrayList<>();
-    String sql = "SELECT * FROM [User] ORDER BY Point DESC";
-    try {
-        PreparedStatement st = connect.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM [User] ORDER BY Point DESC";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
 
-        while (rs.next()) {
-            User user = new User(
-                rs.getInt("UserID"),
-                rs.getString("Email"),
-                rs.getString("Phone"),
-                rs.getString("AvatarUrl"),
-                rs.getString("PassWord"),
-                rs.getString("JoinDate"),
-                rs.getString("UserName"),
-                rs.getString("Full_Name"),
-                rs.getString("District"),
-                rs.getString("Commune"),
-                rs.getString("StreetNumber"),
-                rs.getInt("Point"),
-                rs.getInt("RoleID"),
-                rs.getInt("StatusID")
-            );
-            users.add(user);
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID")
+                );
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
+        return users;
     }
-    return users;
-}
 
-
-    public  ArrayList<User> getAllUsers() {
+    public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM [User] ";
         try {
@@ -97,25 +94,24 @@ public class DAOManageUser extends DBContext {
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-            User user = new User(
-                rs.getInt("UserID"),
-                rs.getString("Email"),
-                rs.getString("Phone"),
-                rs.getString("AvatarUrl"),
-                rs.getString("PassWord"),
-                rs.getString("JoinDate"),
-                rs.getString("UserName"),
-                rs.getString("Full_Name"),
-                rs.getString("District"),
-                rs.getString("Commune"),
-                rs.getString("StreetNumber"),
-                rs.getInt("Point"),
-                rs.getInt("RoleID"),
-                rs.getInt("StatusID")
-                 
-            );
-            users.add(user);
-        }
+                User user = new User(
+                        rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID")
+                );
+                users.add(user);
+            }
 
             // Sắp xếp danh sách users theo thuộc tính Point
         } catch (Exception e) {
@@ -139,7 +135,7 @@ public class DAOManageUser extends DBContext {
         }
 
     }
-    
+
     public void updateStatus(int UserID, int stt) {
 
         try {
@@ -185,7 +181,25 @@ public class DAOManageUser extends DBContext {
         return null;
     }
 
-   public static void main(String[] args) {
+    public void blockUser(int UserID, int BlockID) {
+
+        try {
+            String sql = "INSERT INTO [dbo].[BlockList]\n"
+                    + "           ([UserID]\n"
+                    + "           ,[BlockUserID])\n"
+                    + "     VALUES\n"
+                    + "           (? , ?)";
+            PreparedStatement stm = connect.prepareStatement(sql);
+            stm.setInt(1, UserID);
+            stm.setInt(2, BlockID);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOManageUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
         ArrayList<User> users = userDAO.getAllUsers();
 
