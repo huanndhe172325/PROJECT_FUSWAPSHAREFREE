@@ -182,6 +182,36 @@ public class DAOManageUser extends DBContext {
         return null;
     }
 
+    public User getUserByIdUserSend(int id) {
+        String sql = "  SELECT u.* FROM Have_ReportPost h join [User] u on h.IdUserSend=u.UserID where h.IdUserSend=?";
+        try{
+             PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+             while (rs.next()) {
+                return new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID"));
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        DAOManageUser userDAO = new DAOManageUser();
     public void blockUser(int UserID, int BlockID) {
 
         try {
@@ -271,5 +301,8 @@ public class DAOManageUser extends DBContext {
 //            System.out.println("RoleID: " + user.getRoleID());
 //            System.out.println("StatusID: " + user.getStatusID());
 //            System.out.println("--------------------------------");
+//        }
+    User u=userDAO.getUserByIdUserSend(1);
+        System.out.println(u.getEmail());
     }
 }

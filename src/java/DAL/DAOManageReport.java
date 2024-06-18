@@ -8,6 +8,7 @@ package DAL;
  *
  * @author admin
  */
+import Model.Post;
 import Model.ReportUser;
 import Model.ReportPost;
 import Model.User;
@@ -20,31 +21,32 @@ import java.util.List;
 
 public class DAOManageReport extends DBContext {
 
-    public ArrayList<ReportPost> getAllReportPosts(int idUserSend) {
+    public ArrayList<ReportPost> getAllReportPosts() {
         ArrayList<ReportPost> reportPosts = new ArrayList<>();
-        String sql = "SELECT p.postID, p.title, p.description, r.reportTime, r.message, r.idUserSend "
-                + "FROM Post p "
-                + "JOIN Have_ReportUser r ON p.postID = r.postID "
-                + "WHERE r.IdUserReceive = ?";
-        try {
-            PreparedStatement st = connect.prepareStatement(sql);
-            st.setInt(1, idUserSend);
+        String sqlString="  SELECT * FROM Have_ReportPost";
+        try{
+              PreparedStatement st = connect.prepareStatement(sqlString);
+              
             ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                ReportPost reportPost = new ReportPost();
-                reportPost.setPostID(rs.getInt("postID"));
-                reportPost.setTitle(rs.getString("title"));
-                reportPost.setDescription(rs.getString("description"));
-                reportPost.setReportTime(rs.getString("reportTime"));
-                reportPost.setMessage(rs.getString("message"));
-                reportPost.setIdUserSend(rs.getInt("idUserSend")); // Thêm dòng này để lấy IdUserSend từ kết quả truy vấn
-                reportPosts.add(reportPost);
+            while(rs.next()){
+                ReportPost rp=new ReportPost();
+                rp.setMessage(rs.getString("Message"));
+                rp.setReportTime(rs.getDate("reportTime"));
+                int IdUserSend=rs.getInt("IdUserSend");
+                DAOManageUser ud=new DAOManageUser();
+                User u=ud.getUserByIdUserSend(IdUserSend);
+                rp.setUser(u);
+                int PostID=rs.getInt("PostID");
+                DAOManagePost dp=new DAOManagePost();
+                Post post=dp.getPostByIdPost(PostID);
+                rp.setPost(post);
+                reportPosts.add(rp);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            return reportPosts;
+        }catch(SQLException e){
+            System.out.println(e);
         }
-        return reportPosts;
+        return null;
     }
 public ArrayList<ReportUser> getAllReportUsers() {
         ArrayList<ReportUser> reportUsers = new ArrayList<>();
@@ -71,14 +73,18 @@ public ArrayList<ReportUser> getAllReportUsers() {
     int idUserSend = 1; // Ví dụ: lấy dữ liệu báo cáo cho người dùng có ID là 1
 
     DAOManageReport daoManageReport = new DAOManageReport();
-    ArrayList<ReportPost> reportPosts = daoManageReport.getAllReportPosts(idUserSend);
+//    ArrayList<ReportPost> reportPosts = daoManageReport.getAllReportPosts(idUserSend);
+//
+//    for (ReportPost reportPost : reportPosts) {
+//        System.out.println("reportTime: " + reportPost.getReportTime());
+//        System.out.println("message: " + reportPost.getMessage());
+//        System.out.println("idUserSend" + reportPost.getIdUserSend());
+//        System.out.println("postID: " + reportPost.getPostID());
+//        System.out.println("---------------------------");
+    ArrayList<ReportPost> rps=daoManageReport.getAllReportPosts();
+    for(ReportPost xPost:rps){
+        System.out.println(xPost.getPost().getPostID());
+    }
+    }
+    }
 
-    for (ReportPost reportPost : reportPosts) {
-        System.out.println("reportTime: " + reportPost.getReportTime());
-        System.out.println("message: " + reportPost.getMessage());
-        System.out.println("idUserSend" + reportPost.getIdUserSend());
-        System.out.println("postID: " + reportPost.getPostID());
-        System.out.println("---------------------------");
-    }
-    }
-}

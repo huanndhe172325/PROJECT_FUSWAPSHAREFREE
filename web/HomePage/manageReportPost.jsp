@@ -46,15 +46,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${reportPost}" var="c">
+                            <c:forEach items="${requestScope.reportPost}" var="c">
                                 <tr>
                                     <th>
-                                    <td>${c.postID}</td>
-                                    <td>${c.title}</td>
+                                    <td>${c.post.postID}</td>
+                                    <td>${c.post.title}</td>
+                                    <td>${c.post.description}</td>
                                     <td>${c.reportTime}</td>
                                     <td>${c.message}</td>
-                                    <td>${c.idUserSend}</td>
-
+                                    <td>${c.user.userID}</td>
                                     </th>
                                 </tr>
                             </c:forEach>
