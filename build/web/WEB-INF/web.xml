@@ -97,12 +97,8 @@
         <servlet-class>Controllers.Profile.OtherProfile</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>manageReportPost</servlet-name>
-        <servlet-class>Controllers.HomePage.manageReportPost</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>manageReportUsers</servlet-name>
-        <servlet-class>Controllers.HomePage.manageReportUsers</servlet-class>
+        <servlet-name>BlockUser</servlet-name>
+        <servlet-class>Controllers.Profile.BlockUser</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -201,12 +197,8 @@
         <url-pattern>/otherprofile</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>manageReportPost</servlet-name>
-        <url-pattern>/manageReportPost</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>manageReportUsers</servlet-name>
-        <url-pattern>/manageReportUsers</url-pattern>
+        <servlet-name>BlockUser</servlet-name>
+        <url-pattern>/blockuser</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>

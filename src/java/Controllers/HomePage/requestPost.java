@@ -2,29 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.Profile;
+package Controllers.HomePage;
 
-import DAL.DAOManagePost;
-import DAL.DAOManageUser;
-import DAL.DAOProfile;
-import Model.BlockList;
-import Model.Post;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author haoto
+ * @author FPT
  */
-public class ProfileServlet extends HttpServlet {
+public class requestPost extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +34,10 @@ public class ProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProfileServlet</title>");
+            out.println("<title>Servlet requestPost</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProfileServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet requestPost at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,22 +55,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        DAOProfile db = new DAOProfile();
-        DAOManageUser db1 = new DAOManageUser();
-        
-        User userId = (User) session.getAttribute("userInfo");
-        int id = userId.getUserID();
-        User u = db.getUserbyId(id);
-        ArrayList<Post> myPost = new ArrayList<>();
-        List<BlockList> userBlock = db1.listBlockUser(u.getUserID());
-        
-        request.setAttribute("userBlock", userBlock);
-        DAOManagePost daoPost = new DAOManagePost();
-        myPost = daoPost.getAllPostByIdUser(u.getUserID());
-        request.setAttribute("myPost", myPost);
-        request.setAttribute("profile", u);
-        request.getRequestDispatcher("Profile/profile.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -93,7 +69,12 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        String idPost = request.getParameter("id");
+        String mesage = request.getParameter("mesage");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            out.println(idPost + mesage);
+        }
     }
 
     /**

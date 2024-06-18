@@ -2,13 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.Profile;
+package Controllers.HomePage;
 
 import DAL.DAOManagePost;
-import DAL.DAOManageUser;
-import DAL.DAOProfile;
-import Model.BlockList;
-import Model.Post;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,14 +13,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author haoto
+ * @author Binhtran
  */
-public class ProfileServlet extends HttpServlet {
+public class ReportPostByUser extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +37,10 @@ public class ProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProfileServlet</title>");
+            out.println("<title>Servlet ReportPostByUser</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProfileServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReportPostByUser at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,22 +58,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        DAOProfile db = new DAOProfile();
-        DAOManageUser db1 = new DAOManageUser();
-        
-        User userId = (User) session.getAttribute("userInfo");
-        int id = userId.getUserID();
-        User u = db.getUserbyId(id);
-        ArrayList<Post> myPost = new ArrayList<>();
-        List<BlockList> userBlock = db1.listBlockUser(u.getUserID());
-        
-        request.setAttribute("userBlock", userBlock);
-        DAOManagePost daoPost = new DAOManagePost();
-        myPost = daoPost.getAllPostByIdUser(u.getUserID());
-        request.setAttribute("myPost", myPost);
-        request.setAttribute("profile", u);
-        request.getRequestDispatcher("Profile/profile.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -90,10 +69,34 @@ public class ProfileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOManagePost dmnPost = new DAOManagePost();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        HttpSession session = request.getSession();
+        User userInfo = (User) session.getAttribute("userInfo");
+        String reportReason = request.getParameter("report_reason");
+        String postId = request.getParameter("post_id");
+        String reportReasonOther = request.getParameter("report_reason_other");
+        try {
+            int newPostId = Integer.parseInt(postId);
+            int userIDReport = userInfo.getUserID();
+            String actualReportReason;
+            if ("Other".equals(reportReason)) {
+                actualReportReason = reportReasonOther;
+            } else {
+                actualReportReason = reportReason;
+            }
+            if (dmnPost.ReportPost(actualReportReason, userIDReport, newPostId)) {
+
+                response.getWriter().write("Report Succesfully");
+            } else {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**

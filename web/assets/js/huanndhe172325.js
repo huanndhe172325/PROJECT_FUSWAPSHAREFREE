@@ -3,6 +3,7 @@ document.getElementById('saveEditButton').addEventListener('click', function () 
         document.getElementById('submit-edit-post').click();
     }
 });
+
 const titleInput = document.getElementById('title');
 const errorMessage = document.getElementById('title-error');
 
