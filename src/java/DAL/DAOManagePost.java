@@ -87,6 +87,28 @@ public class DAOManagePost extends DBContext {
         return count;
     }
 
+    public boolean requestPost(String message, int userIdSent, int postId) {
+        String sql = "INSERT INTO [dbo].[Request]\n"
+                + "           ([requestTIme]\n"
+                + "           ,[Message]\n"
+                + "           ,[Status]\n"
+                + "           ,[UserID]\n"
+                + "           ,[PostID])\n"
+                + "     VALUES\n"
+                + "           (GETDATE(),?,?,?,?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, message);
+            statement.setString(2, "pending");
+            statement.setInt(3, userIdSent);
+            statement.setInt(4, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {

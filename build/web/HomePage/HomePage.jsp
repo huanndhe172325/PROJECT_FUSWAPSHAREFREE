@@ -5003,9 +5003,9 @@
                 xhr.open('POST', 'requestPost', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onload = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    if (xhr.responseText == 1) {
                         document.getElementById('sent-request-form').reset();
-                        console.log(xhr.responseText);
                         iziToast.show({
                             maxWidth: "280px",
                             class: "success-toast",
@@ -5016,6 +5016,27 @@
                             messageColor: "#fff",
                             iconColor: "#fff",
                             backgroundColor: "#60c032",
+                            progressBarColor: "#0062ff",
+                            position: "bottomRight",
+                            transitionIn: "fadeInUp",
+                            close: false,
+                            timeout: 1800,
+                            zindex: 99999
+                        });
+                        modalRequest.classList.remove('is-active');
+                    }
+                    else if (xhr.responseText == 2){
+                        document.getElementById('sent-request-form').reset();
+                        iziToast.show({
+                            maxWidth: "280px",
+                            class: "success-toast",
+                            icon: "mdi mdi-check",
+                            title: "",
+                            message: "You have requested, cannot request again",
+                            titleColor: "#fff",
+                            messageColor: "#fff",
+                            iconColor: "#fff",
+                            backgroundColor: "#FF0000",
                             progressBarColor: "#0062ff",
                             position: "bottomRight",
                             transitionIn: "fadeInUp",
