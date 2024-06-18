@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -31,6 +32,10 @@
         </script>
     </head>
     <body>
+        <form action="ListUser" method="GET">
+            <input type="text" placeholder="Search..." name="search">
+            <button type="submit">Search</button>
+        </form>
         <div class="d-flex">
             <div>
                 <%@include file="SideBarAdmin.jsp" %>
@@ -44,7 +49,7 @@
                 <div class="container" style="margin-top: -30px">
                     <a href="list-user" style="text-decoration: none; color: #58abff"><h2 style="color: white">List User</h2></a>
                     <table class="table table-hover table-bordered">
-                       <thead>
+                        <thead>
                             <tr>
                                 <th></th>
                                 <th>ID</th>

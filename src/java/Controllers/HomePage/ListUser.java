@@ -38,7 +38,7 @@ public class ListUser extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListUser</title>");            
+            out.println("<title>Servlet ListUser</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ListUser at " + request.getContextPath() + "</h1>");
@@ -59,13 +59,25 @@ public class ListUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      HttpSession session = request.getSession();
-  DAOManageUser dao = new DAOManageUser();
-       ArrayList<User> users = new ArrayList<>();
-       users = dao.getAllUsers();
-       session.setAttribute("users", users);
-       
-         request.getRequestDispatcher("HomePage/ListUser.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        DAOManageUser dao = new DAOManageUser();
+        ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> searchUser = new ArrayList<>();
+        String input = request.getParameter("search");
+        if (input != null && !input.isEmpty()) {
+            for (User u : dao.getAllUsers()) {
+                if (u.getEmail().contains(input.trim())) {
+                    searchUser.add(u);
+                }
+            }
+            users = searchUser;
+        } else {
+            users = dao.getAllUsers();
+
+        }
+        session.setAttribute("users", users);
+
+        request.getRequestDispatcher("HomePage/ListUser.jsp").forward(request, response);
     }
 
     /**
