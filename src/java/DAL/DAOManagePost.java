@@ -142,6 +142,38 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
+    public Post getPostByIdPost(int idPost) {
+        Post post = null;
+        String sql = "SELECT * FROM Post WHERE PostID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, idPost);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    post = new Post();
+                    post.setPostID(rs.getInt("PostID"));
+                    post.setTitle(rs.getString("Title"));
+                    post.setDescription(rs.getString("Description"));
+                    post.setIntructions(rs.getString("intructions"));
+                    post.setExpiresDate(rs.getString("ExpiresDate"));
+                    post.setImageUrl(rs.getString("ImageUrl"));
+                    post.setDesire(rs.getString("Desire"));
+                    post.setCommune(rs.getString("Commune"));
+                    post.setDistrict(rs.getString("District"));
+                    post.setStreet_Number(rs.getString("Street_Number"));
+                    post.setCreateTime(rs.getString("CreateTime"));
+                    post.setUserID(rs.getInt("UserID"));
+                    post.setStatusID(rs.getInt("StatusID"));
+                    post.setQuanlityID(rs.getInt("QuanlityID"));
+                    post.setTypeID(rs.getInt("TypeID"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return post;
+    }
+
     public ArrayList<Quanlity> getAllQuanlity() {
         ArrayList<Quanlity> listQuanlity = new ArrayList<>();
         try {

@@ -81,6 +81,8 @@ public class requestPost extends HttpServlet {
             DAOManagePost dao = new DAOManagePost();
             if (dao.requestPost(mesage, userSent.getUserID(), Integer.parseInt(idPost))) {
                 out.println(1);
+                SentMail sent = new SentMail();
+                sent.sentEmail(dao.getPostByIdPost(Integer.parseInt(idPost)).getUserOwner().getEmail(), "New Request", "Bạn vừa nhận được 1 request mới");
             } else {
                 out.println(2);
             }
