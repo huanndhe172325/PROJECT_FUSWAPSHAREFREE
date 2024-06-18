@@ -355,63 +355,7 @@
                     modal.classList.add('is-active');
                 });
             });
-            var districts = document.getElementById("district");
-            var wards = document.getElementById("ward");
-            var selectedCityValue = 'Thành phố Hà Nội';
-
-            var Parameter = {
-                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                method: "GET",
-                responseType: "application/json",
-            };
-
-            var promise = axios(Parameter);
-
-            promise.then(function (result) {
-                var data = result.data;
-                var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                renderDistricts(selectedCity.Districts);
-                selectDistrictOption(selectedCity.Districts);
-                selectWardOption(selectedCity.Districts);
-            });
-
-            function renderDistricts(districtsData) {
-                for (const district of districtsData) {
-                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
-                }
-
-                districts.onchange = function () {
-                    wards.length = 1;
-                    const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
-                    if (this.value !== "") {
-                        for (const ward of selectedDistrict.Wards) {
-                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
-                        }
-                    }
-                };
-            }
-
-            function selectDistrictOption(districtsData) {
-                for (let i = 0; i < districtsData.length; i++) {
-                    if (districtsData[i].Name === '${district}') {
-                        districts.options[i + 1].selected = true;
-                        simulateEvent(districts, 'change');
-                        break;
-                    }
-                }
-            }
-
-            function selectWardOption(districtsData) {
-                const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                    if (selectedDistrict.Wards[i].Name === '${ward}') {
-                        wards.options[i + 1].selected = true;
-                        simulateEvent(wards, 'change');
-                        break;
-                    }
-                }
-            }
+            
 
             // Function to simulate change event
             function simulateEvent(element, eventName) {
@@ -1371,8 +1315,9 @@
 
                             <div class="card-body">
                                 <div class="control">
-                                    <form action="listblockuser" id="list-block-modal" method="post">
-                                        <div class="modal-body">
+                                    <div class="modal-body">
+                                        <form action="listblockuser" id="list-block-modal" method="post">
+
                                             <p>When you block someone, they will not be able to see the content you post on your timeline, interact, or exchange items with you.</p>
                                             <div class="search-box">
                                                 <button class="btn">Add user to list block</button>
@@ -1384,7 +1329,7 @@
                                                 <c:forEach var="bl" items="${userBlock}">
                                                     <div class="user">
                                                         <img src="https://via.placeholder.com/40" alt="Avatar" />
-                                                        <span>${bl.idBlockUser.getFull_Name()}</span>
+                                                        <span>${bl.idBlockUser.userID}</span>
                                                         <button class="btn-block">Unblock</button>
                                                     </div>
                                                 </c:forEach> 
@@ -1392,7 +1337,8 @@
 
                                             </div>
 
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

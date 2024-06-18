@@ -31,11 +31,14 @@ public class BlockList {
     public User getIdBlockUser() {
         return idBlockUser;
     }
-
+    
+    public String getFulL_Name() {
+        return getIdBlockUser().getFull_Name();
+    }
     public void setIdBlockUser(User idBlockUser) {
         this.idBlockUser = idBlockUser;
     }
-
+    
     @Override
     public String toString() {
         return "BlockList{" + "idUser=" + idUser + ", idBlockUser=" + idBlockUser + '}';
