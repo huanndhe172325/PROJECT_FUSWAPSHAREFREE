@@ -20,6 +20,7 @@
         <servlet-name>ForgotPassword</servlet-name>
         <servlet-class>Controllers.ForgotPassword.ForgotPassword</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>EditProfileServlet</servlet-name>
         <servlet-class>Controllers.Profile.EditProfileServlet</servlet-class>

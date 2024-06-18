@@ -313,6 +313,39 @@ public class DAOManagePost extends DBContext {
             return false;
         }
     }
+    public Post getPostByIdPost(int id){
+        String sqlString="  SELECT * FROM Post where PostID=?";
+        Post post=new Post();
+          try {
+            PreparedStatement statement = connect.prepareStatement(sqlString);
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+               
+                  post.setPostID(id);
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+            }
+            return post;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+        
+        
+    }
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
@@ -331,6 +364,8 @@ public class DAOManagePost extends DBContext {
 //        boolean result = dao.createPost(newPost, 7, null, 1);
 //
 //        System.out.println("Post creation successful: " + result);
+        Post p=dao.getPostByIdPost(1);
+        System.out.println(p.getDescription());
 
     }
 }

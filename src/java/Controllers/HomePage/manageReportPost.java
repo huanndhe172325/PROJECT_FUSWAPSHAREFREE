@@ -5,6 +5,7 @@
 package Controllers.HomePage;
 
 import DAL.DAOManageReport;
+import Model.ReportUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -54,17 +55,17 @@ public class manageReportPost extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+     */DAOManageReport dao = new DAOManageReport();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession();
+              HttpSession session = request.getSession();
         DAOManageReport dao = new DAOManageReport();
        ArrayList<Model.ReportPost> reportPost = new ArrayList<>();
-       int idUserSend = (int) session.getAttribute("userIDSend");
-        reportPost = dao.getAllReportPosts(idUserSend);
+        reportPost = dao.getAllReportPosts();
         request.setAttribute("reportPost", reportPost);
-               request.getRequestDispatcher("HomePage/manageReportUsers.jsp").forward(request, response);
+               request.getRequestDispatcher("HomePage/manageReportPost.jsp").forward(request, response);
+
     }
 
     /**
