@@ -50,7 +50,7 @@
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white" style="height: 100vh; width: 250px; background-color: #8c8377">
             <div class="d-flex flex-column justify-content-center align-items-center">
                
-                <p style="text-align: center; font-size: 20px; margin-top: 10px">Hello</p>
+                <p style="text-align: center; font-size: 20px; margin-top: 10px">Administrator</p>
             </div>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
