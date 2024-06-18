@@ -4782,6 +4782,7 @@
     </script>
 
     <script>
+        
         document.addEventListener('DOMContentLoaded', function () {
             const statusElements = document.querySelectorAll('.status-post-name');
             const typeElements = document.querySelectorAll('.type-post-name');
