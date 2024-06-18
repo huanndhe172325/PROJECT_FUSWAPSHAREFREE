@@ -233,6 +233,35 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean updatePost(Post newPost, int postId) {
+        String sql = "UPDATE [dbo].[Post]\n"
+                + "   SET [Title] = ?\n"
+                + "      ,[Description] = ?\n"
+                + "      ,[intructions] = ?\n"
+                + "      ,[ImageUrl] = ?\n"
+                + "      ,[Commune] = ?\n"
+                + "      ,[District] = ?\n"
+                + "      ,[Street_Number] = ?\n"
+                + "      ,[QuanlityID] = ?\n"
+                + " WHERE PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, newPost.getTitle());
+            statement.setString(2, newPost.getDescription());
+            statement.setString(3, newPost.getIntructions());
+            statement.setString(4, newPost.getImageUrl());
+            statement.setString(5, newPost.getCommune());
+            statement.setString(6, newPost.getDistrict());
+            statement.setString(7, newPost.getStreet_Number());
+            statement.setInt(8, newPost.getQuanlityID());
+            statement.setInt(9, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     public int getMaxIdPost() {
         int maxId = 1;
         try {

@@ -1311,7 +1311,7 @@
                                     <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input description!!!</span>
 
                                     <label for="imgPath">Image:</label>
-                                    <input type="file" id="imgPathEditPost" name="imgPathEdit" accept="image/*" required="" multiple>
+                                    <input type="file" id="imgPathEditPost" name="imgPathEdit" accept="image/*" multiple>
                                     <div class="post-image preview-img" style="display: block;">
                                     </div> 
 
@@ -1361,7 +1361,7 @@
                                     <label for="instructions">Pick-up instructions</label>
                                     <input type="text" value="4-6pm khi tới nơi hãy gọi cho tôi" id="instructions" name="instructionsEdit" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
                                     <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions!!!</span>
-
+                                    <input type="text" name="postIdEdit" style="display : none;">
 
 
 
@@ -1832,6 +1832,7 @@
                     openModalEditPost.forEach(openModalEdit => {
                         openModalEdit.addEventListener('click', () => {
                             modalEditPost.setAttribute('data-post-id', openModalEdit.getAttribute('data-post-id'));
+                            modalEditPost.querySelector('input[name="postIdEdit"]').value = openModalEdit.getAttribute('data-post-id');
                             modalEditPost.querySelector('input[name="titleEdit"]').value = openModalEdit.getAttribute('data-post-title');
                             const selectQuanlity = modalEditPost.querySelectorAll('input[name="qualityEdit"]');
                             selectQuanlity.forEach(option => {
@@ -2003,8 +2004,8 @@
             </script>
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
-            
-            
+
+
     </body>
 
 
