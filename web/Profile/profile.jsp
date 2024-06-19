@@ -1951,7 +1951,7 @@
                     xhr.open('POST', 'editPost', true);
                     xhr.onload = function () {
                         console.log('Response:', xhr.responseText);
-                        if (xhr.responseText === "success") {
+                        if (xhr.responseText === "successfull") {
                             document.getElementById('edit-post-modal').classList.remove('is-active');
                             editPostForm.reset();
                             editPostForm.querySelector('.post-image.preview-img').style.display = 'none';

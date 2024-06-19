@@ -69,7 +69,7 @@
                 display: flex;
                 justify-content: space-between;
                 transform: translateY(-50%);
-                z-index: 1000;
+                z-index: 10;
             }
             .btn-image {
                 font-size: 40px;
