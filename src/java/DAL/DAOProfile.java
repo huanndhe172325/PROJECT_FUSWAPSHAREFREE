@@ -86,4 +86,6 @@ public class DAOProfile extends DBContext {
 //        dao.UpdateLocation("Thanh o", "Kim Bai", 1);
 
     }
+
+   
 }
