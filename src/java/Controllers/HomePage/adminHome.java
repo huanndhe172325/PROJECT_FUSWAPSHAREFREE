@@ -61,16 +61,23 @@ public class adminHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         DAOManageUser daoManagerUser = new DAOManageUser();
-        
-        ArrayList<User> listUser = daoManagerUser.getAllUsers();
-        HttpSession session = request.getSession();
-        User userInfo_raw = (User) session.getAttribute("userInfo");
-        User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
-        request.setAttribute("listUser", listUser);
-         request.setAttribute("user", userInfor);
-       
-         request.getRequestDispatcher("HomePage/adminHome.jsp").forward(request, response);
+        DAOManageUser dao = new DAOManageUser();
+        int page = 1;
+        int recordsPerPage = 15;
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+
+        ArrayList<User> users = dao.getAllUsers((page - 1) * recordsPerPage, recordsPerPage);
+        int noOfRecords = dao.getTotalRecords();
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+
+        request.setAttribute("users", users);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+
+        request.getRequestDispatcher("HomePage/adminHome.jsp").forward(request, response);
     }
 
     /**

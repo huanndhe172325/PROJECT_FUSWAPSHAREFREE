@@ -2643,6 +2643,40 @@ body {
 		font-weight: normal;
 	}
         
+.pagination {
+    display: inline-block;
+    margin-top: 20px;
+}
 
+.pagination .page-item {
+    display: inline;
+}
+
+.pagination .page-link {
+    padding: 10px 15px;
+}
+
+.pagination .active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination .page-link:hover {
+    color: #0056b3;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.pagination .disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+}
+
+.pagination .justify-content-center {
+    justify-content: center;
+}
 }
 

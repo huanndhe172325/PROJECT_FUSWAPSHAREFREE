@@ -37,7 +37,7 @@ public class manageUsers extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet manageUsers</title>");            
+            out.println("<title>Servlet manageUsers</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet manageUsers at " + request.getContextPath() + "</h1>");
@@ -58,23 +58,36 @@ public class manageUsers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-  DAOManageUser dao = new DAOManageUser();
-       ArrayList<User> users = new ArrayList<>();
-       users = dao.getAllUsers();
-       request.setAttribute("users", users);
-       request.getRequestDispatcher("HomePage/manageUsers.jsp").forward(request, response);
+        DAOManageUser dao = new DAOManageUser();
+        int page = 1;
+        int recordsPerPage = 15;
+
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
+
+        ArrayList<User> users = dao.getAllUsers((page - 1) * recordsPerPage, recordsPerPage);
+        int noOfRecords = dao.getTotalRecords();
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+
+        request.setAttribute("users", users);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", page);
+
+        request.getRequestDispatcher("HomePage/manageUsers.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+/**
+ * Handles the HTTP <code>POST</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -85,7 +98,7 @@ public class manageUsers extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
