@@ -198,7 +198,7 @@
                 background-color: #f9f9f9;
                 box-shadow: 0 8px 16px rgba(0,0,0,0.1);
                 padding: 5px;
-                min-width: 160px;
+                min-width: auto;
             }
 
             .quality-options button {
