@@ -32,11 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Xử lý form khi gửi đi
     document.getElementById('report-post-form').addEventListener('submit', function (event) {
-        event.preventDefault(); // Ngăn chặn form gửi mặc định
+        event.preventDefault();
 
-        // Lấy giá trị các trường trong form
+
         var postId = document.getElementById('post_id_value').value;
         var reportReason = document.querySelector('input[name="report_reason"]:checked').value;
         var reportReasonOther = document.getElementById('report_reason_others').value;
@@ -70,9 +69,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         postElement.style.display = 'none';
                     }
                     document.getElementById('report-post-modal').classList.remove('is-active');
-                    // Reset form
+
                     document.getElementById('report-post-form').reset();
-                    // Hide the additional details textarea
                     document.getElementById('report_reason_others').style.display = 'none';
                 } else {
                     iziToast.show({
@@ -94,9 +92,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     });
                     document.getElementById('report-post-modal').classList.remove('is-active');
-                    // Reset form
+
                     document.getElementById('report-post-form').reset();
-                    // Hide the additional details textarea
+
                     document.getElementById('report_reason_others').style.display = 'none';
                 }
             }

@@ -88,10 +88,10 @@ public class editPost extends HttpServlet {
         String district = request.getParameter("districtEdit");
         String streetNumber = request.getParameter("newAddressEdit");
         String quantityId_raw = request.getParameter("qualityEdit");
-
+        String postId = request.getParameter("postIdEdit");
+        Post currentPost = daoManagePost.getPostByIdPost(Integer.parseInt(postId));
         HttpSession session = request.getSession();
         User userInfor = (User) session.getAttribute("userInfo");
-        int idPost = daoManagePost.getMaxIdPost() + 1;
 
         String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length() - 10) + "web\\FolderImages\\ImagePost";
         StringBuilder linkDBBuilder = new StringBuilder();
@@ -100,11 +100,11 @@ public class editPost extends HttpServlet {
             int quantity = Integer.parseInt(quantityId_raw);
             int dateExpires = Integer.parseInt(expiresDate_raw);
 
-            int partIndex = 0; 
-
+            int partIndex = 0;
             for (Part part : parts) {
+
                 if (part.getName().equals("imgPathEdit") && part.getSize() > 0) {
-                    String imgFileName = idPost + "_image_" + partIndex + ".jpg";
+                    String imgFileName = postId + "_image_" + partIndex + ".jpg";
                     String imgFilePath = uploadDirectory + "\\" + imgFileName;
                     String linkDB = "FolderImages/ImagePost/" + imgFileName;
 
@@ -115,24 +115,39 @@ public class editPost extends HttpServlet {
                     }
                     linkDBBuilder.append(linkDB);
 
-                    partIndex++; 
+                    partIndex++;
                 }
             }
 
             Post newPost = new Post();
+
+            boolean hasFileInput = false;
+            for (Part part : parts) {
+                if (part.getSubmittedFileName() != null && !part.getSubmittedFileName().isEmpty()) {
+                    hasFileInput = true;
+                    break;
+                }
+            }
+            if (hasFileInput) {
+                newPost.setImageUrl(linkDBBuilder.toString());
+            } else {
+                //khong input
+                newPost.setImageUrl(currentPost.getImageUrl());
+            }
+
             newPost.setTitle(title);
             newPost.setDescription(description);
             newPost.setIntructions(instructions);
-            newPost.setImageUrl(linkDBBuilder.toString()); 
             newPost.setCommune(commune);
             newPost.setDistrict(district);
             newPost.setStreet_Number(streetNumber);
-            newPost.setStatusID(1);
             newPost.setQuanlityID(quantity);
 
-            response.getWriter().write(title);
+            if (daoManagePost.updatePost(newPost, Integer.parseInt(postId))) {
+                response.getWriter().write("successfull");
+            }
         } catch (Exception e) {
-            response.getWriter().write("Error: " + e.getMessage());
+            response.getWriter().write("failed");
         }
     }
 

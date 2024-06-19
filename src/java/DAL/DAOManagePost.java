@@ -70,6 +70,104 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
+    public ArrayList<Post> getPostNewest() {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post ORDER BY CreateTime ASC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
+    public ArrayList<Post> getPostsByTypeID(int typeId) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post WHERE TypeID = ? ORDER BY CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, typeId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
+    public ArrayList<Post> getPostsByQuanlityID(int quanlityId) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post WHERE QuanlityID = ? ORDER BY CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, quanlityId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
     public int countPostsByUserId(int idUser) {
         int count = 0;
         try {
@@ -85,6 +183,28 @@ public class DAOManagePost extends DBContext {
             System.out.println(e);
         }
         return count;
+    }
+
+    public boolean requestPost(String message, int userIdSent, int postId) {
+        String sql = "INSERT INTO [dbo].[Request]\n"
+                + "           ([requestTIme]\n"
+                + "           ,[Message]\n"
+                + "           ,[Status]\n"
+                + "           ,[UserID]\n"
+                + "           ,[PostID])\n"
+                + "     VALUES\n"
+                + "           (GETDATE(),?,?,?,?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, message);
+            statement.setString(2, "pending");
+            statement.setInt(3, userIdSent);
+            statement.setInt(4, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
@@ -153,6 +273,38 @@ public class DAOManagePost extends DBContext {
         
     }
 
+    public Post getPostByIdPost(int idPost) {
+        Post post = null;
+        String sql = "SELECT * FROM Post WHERE PostID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, idPost);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    post = new Post();
+                    post.setPostID(rs.getInt("PostID"));
+                    post.setTitle(rs.getString("Title"));
+                    post.setDescription(rs.getString("Description"));
+                    post.setIntructions(rs.getString("intructions"));
+                    post.setExpiresDate(rs.getString("ExpiresDate"));
+                    post.setImageUrl(rs.getString("ImageUrl"));
+                    post.setDesire(rs.getString("Desire"));
+                    post.setCommune(rs.getString("Commune"));
+                    post.setDistrict(rs.getString("District"));
+                    post.setStreet_Number(rs.getString("Street_Number"));
+                    post.setCreateTime(rs.getString("CreateTime"));
+                    post.setUserID(rs.getInt("UserID"));
+                    post.setStatusID(rs.getInt("StatusID"));
+                    post.setQuanlityID(rs.getInt("QuanlityID"));
+                    post.setTypeID(rs.getInt("TypeID"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return post;
+    }
+
     public ArrayList<Quanlity> getAllQuanlity() {
         ArrayList<Quanlity> listQuanlity = new ArrayList<>();
         try {
@@ -205,6 +357,35 @@ public class DAOManagePost extends DBContext {
             statement.setInt(11, newPost.getStatusID());
             statement.setInt(12, newPost.getQuanlityID());
             statement.setInt(13, newPost.getTypeID());
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean updatePost(Post newPost, int postId) {
+        String sql = "UPDATE [dbo].[Post]\n"
+                + "   SET [Title] = ?\n"
+                + "      ,[Description] = ?\n"
+                + "      ,[intructions] = ?\n"
+                + "      ,[ImageUrl] = ?\n"
+                + "      ,[Commune] = ?\n"
+                + "      ,[District] = ?\n"
+                + "      ,[Street_Number] = ?\n"
+                + "      ,[QuanlityID] = ?\n"
+                + " WHERE PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, newPost.getTitle());
+            statement.setString(2, newPost.getDescription());
+            statement.setString(3, newPost.getIntructions());
+            statement.setString(4, newPost.getImageUrl());
+            statement.setString(5, newPost.getCommune());
+            statement.setString(6, newPost.getDistrict());
+            statement.setString(7, newPost.getStreet_Number());
+            statement.setInt(8, newPost.getQuanlityID());
+            statement.setInt(9, postId);
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {

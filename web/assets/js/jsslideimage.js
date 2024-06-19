@@ -2,6 +2,13 @@ function initSlider(container) {
     const btnLeft = container.querySelector('.btn-image-pre');
     const btnRight = container.querySelector('.btn-image-next');
     const listImage = container.querySelector('.style-img-post');
+
+    // Ensure that the required elements exist
+    if (!btnLeft || !btnRight || !listImage) {
+        console.error('Required elements not found in container:', container);
+        return;
+    }
+
     const images = listImage.querySelectorAll('a img');
     var length = listImage.children.length;
 
@@ -36,7 +43,6 @@ function initSlider(container) {
     });
 }
 
-
 function initializeSliders() {
     var sliders = document.querySelectorAll('.post-image');
     sliders.forEach(initSlider);
@@ -63,3 +69,4 @@ observer.observe(document.body, {
     subtree: true
 });
 
+console.log("helo");

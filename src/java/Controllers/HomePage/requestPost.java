@@ -4,12 +4,15 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManagePost;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -71,9 +74,18 @@ public class requestPost extends HttpServlet {
             throws ServletException, IOException {
         String idPost = request.getParameter("id");
         String mesage = request.getParameter("mesage");
+        HttpSession session = request.getSession();
+        User userSent = (User) session.getAttribute("userInfo");
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            out.println(idPost + mesage);
+            DAOManagePost dao = new DAOManagePost();
+            if (dao.requestPost(mesage, userSent.getUserID(), Integer.parseInt(idPost))) {
+                out.println(1);
+                SentMail sent = new SentMail();
+                sent.sentEmail(dao.getPostByIdPost(Integer.parseInt(idPost)).getUserOwner().getEmail(), "New Request", "Bạn vừa nhận được 1 request mới");
+            } else {
+                out.println(2);
+            }
         }
     }
 
