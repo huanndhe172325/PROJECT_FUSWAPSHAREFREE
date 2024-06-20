@@ -2,13 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controllers.HomePage;
 
-import DAL.DAOManageUser;
 import DAL.DAOManagePost;
 import Model.Post;
-import Model.Quanlity;
-import Model.Type;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,91 +16,59 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author FPT
+ * @author Binhtran
  */
-public class HomePage extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class SearchServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePage</title>");
+            out.println("<title>Servlet SearchServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-
-            out.println("<h1>Servlet HomePage at " + "</h1>");
+            out.println("<h1>Servlet SearchServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOManagePost dmnp = new DAOManagePost();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        DAOManageUser daoManagerUser = new DAOManageUser();
+    throws ServletException, IOException {
+        String keyword = request.getParameter("keyword");
         HttpSession session = request.getSession();
         User userInfo_raw = (User) session.getAttribute("userInfo");
-        User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
-        String district = userInfor.getDistrict();
-        ArrayList<User> listUserDistrict = daoManagerUser.getUsersInSameDistrict(district);
-        ArrayList<User> listUserRanking = daoManagerUser.getListUserRanking();
-
-        DAOManagePost dao = new DAOManagePost();
-
-        ArrayList<Type> listType = dao.getAllType();
-        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
-        ArrayList<Post> listPost = dao.getAllPost(userInfo_raw.getUserID());
-        ArrayList<Post> listPostNewest = dao.getPostNewest(userInfo_raw.getUserID());
-        ArrayList<Post> listPostExchange = dao.getPostsByTypeID(1, userInfo_raw.getUserID());
-        ArrayList<Post> listPostFree = dao.getPostsByTypeID(2, userInfo_raw.getUserID());
-        ArrayList<Post> listPostUsed = dao.getPostsByQuanlityID(1, userInfo_raw.getUserID());
-        ArrayList<Post> listPostNeedsRepair = dao.getPostsByQuanlityID(2, userInfo_raw.getUserID());
-        ArrayList<Post> listPostNew = dao.getPostsByQuanlityID(3, userInfo_raw.getUserID());
-        request.setAttribute("listUserDistrict", listUserDistrict);
-        request.setAttribute("listPoint", listUserRanking);
-        request.setAttribute("listQuanlity", listQuanlity);
-        request.setAttribute("listType", listType);
-        request.setAttribute("user", userInfor);
+        ArrayList<Post> listPost = dmnp.getFilteredPosts(userInfo_raw.getUserID(), keyword);
         request.setAttribute("listPost", listPost);
-        request.setAttribute("listPostNewest", listPostNewest);
-        request.setAttribute("listPostExchange", listPostExchange);
-        request.setAttribute("listPostFree", listPostFree);
-        request.setAttribute("listPostUsed", listPostUsed);
-        request.setAttribute("listPostNeedsRepair", listPostNeedsRepair);
-        request.setAttribute("listPostNew", listPostNew);
-        request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
-    }
+        request.getRequestDispatcher("HomePage/HomePageSearch.jsp").forward(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -110,13 +76,12 @@ public class HomePage extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
