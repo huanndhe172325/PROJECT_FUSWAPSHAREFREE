@@ -59,7 +59,7 @@ public class SideBarAdmin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAOManageUser daomu=new DAOManageUser();
-        Map<ReportUser,Integer> map=daomu.reportRankUser();
+        Map<ReportUser, Integer> map = daomu.reportRankUser();
         request.setAttribute("data", map);
         request.getRequestDispatcher("HomePage/SideBarAdmin.jsp").forward(request, response);
     }

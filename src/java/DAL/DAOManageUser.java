@@ -236,6 +236,47 @@ public class DAOManageUser extends DBContext {
         return null;
     }
 
+    public ReportUser getByIdUserReceive(int id) {
+        String sqlString = "  SELECT * FROM Have_ReportUser where IdUserReceive=?";
+        ReportUser rp = new ReportUser();
+        try {
+            PreparedStatement st = connect.prepareStatement(sqlString);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                rp.setIdUserReceive(rs.getInt("IdUserReceive"));
+                rp.setIdUserSend(rs.getInt("IdUserSend"));
+                rp.setMessage(rs.getString("Message"));
+                rp.setReportTime(rs.getString("reportTime"));
+            }
+            return rp;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public Map<ReportUser, Integer> reportRankUser() {
+        String sqlString = " SELECT TOP 5 IdUserReceive, COUNT() as [Count] FROM Have_ReportUser GROUP BY IdUserReceive ORDER BY COUNT() DESC ";
+        Map<ReportUser, Integer> map = new HashMap<>();
+        try {
+            PreparedStatement st = connect.prepareStatement(sqlString);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ReportUser rpReportUser = new ReportUser();
+                rpReportUser = getByIdUserReceive(rs.getInt("IdUserReceive"));
+                int count = rs.getInt("Count");
+                map.put(rpReportUser, count);
+            }
+            return map;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public User getUserByID(int UserID) {
         String sql = "SELECT * FROM [User] \n"
                 + "WHERE UserID = ?\n";
@@ -306,12 +347,12 @@ public class DAOManageUser extends DBContext {
         return userBlock;
     }
 
-    public void unlockUser(int BlockID,int BlockUserID) {
+    public void unlockUser(int BlockID, int BlockUserID) {
 
         try {
             String sql = "DELETE FROM BlockList WHERE UserID = ? AND BlockUserID = ?;";
             PreparedStatement stm = connect.prepareStatement(sql);
-            
+
             stm.setInt(1, BlockID);
             stm.setInt(2, BlockUserID);
             stm.executeUpdate();
@@ -353,13 +394,13 @@ public class DAOManageUser extends DBContext {
 //        System.out.println(u.getEmail());
     }
 //    }
-    public static void main(String[] args) {
-        DAOManageUser daomu = new DAOManageUser();
-        User u = daomu.getUserByIdUserSend(2);
-//        System.out.println(u.getUserID());
-        Map<ReportUser, Integer> map = daomu.reportRankUser();
-        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
-            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
-        }
-    }
+//    public static void main(String[] args) {
+//        DAOManageUser daomu = new DAOManageUser();
+//        User u = daomu.getUserByIdUserSend(2);
+////        System.out.println(u.getUserID());
+//        Map<ReportUser, Integer> map = daomu.reportRankUser();
+//        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
+//            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
+//        }
+//    }
 }

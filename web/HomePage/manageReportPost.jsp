@@ -116,279 +116,276 @@
                 </a>
             </div>
         </div>
- 
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Search Form</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f8f9fa;
-                    margin: 0;
-                    padding: 0;
-                }
 
-                .container {
-                    width: 80%;
-                    margin: 20px auto;
-                }
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Form</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f9fa;
+                margin: 0;
+                padding: 0;
+            }
 
-                .table-wrapper {
-                    box-shadow: 0 1px 1px rgba(0,0,0,.1);
-                    background-color: #fff;
-                    border-radius: 5px;
-                    overflow: hidden;
-                }
+            .container {
+                width: 80%;
+                margin: 20px auto;
+            }
 
-                .table-title {
-                    padding: 15px;
-                    background: #007bff; /* Màu xanh biển đậm hơn */
-                    color: #fff;
-                    border-radius: 5px 5px 0 0;
-                }
+            .table-wrapper {
+                box-shadow: 0 1px 1px rgba(0,0,0,.1);
+                background-color: #fff;
+                border-radius: 5px;
+                overflow: hidden;
+            }
 
-                .table-title h2 {
-                    margin: 0;
-                    font-size: 24px;
-                }
+            .table-title {
+                padding: 15px;
+                background: #007bff; /* Màu xanh biển đậm hơn */
+                color: #fff;
+                border-radius: 5px 5px 0 0;
+            }
 
-                .search-box {
-                    float: right;
-                }
+            .table-title h2 {
+                margin: 0;
+                font-size: 24px;
+            }
 
-                .search-box input[type="text"] {
-                    height: 34px;
-                    border-radius: 20px;
-                    padding: 0 15px;
-                    border: 1px solid #ddd;
-                    outline: none;
-                    width: 200px;
-                    transition: width 0.4s ease-in-out;
-                    color: #000; /* Màu chữ đen */
-                }
+            .search-box {
+                float: right;
+            }
 
-                .search-box input[type="text"]:focus {
-                    width: 300px;
-                }
+            .search-box input[type="text"] {
+                height: 34px;
+                border-radius: 20px;
+                padding: 0 15px;
+                border: 1px solid #ddd;
+                outline: none;
+                width: 200px;
+                transition: width 0.4s ease-in-out;
+                color: #000; /* Màu chữ đen */
+            }
 
-                .search-box button {
-                    border: none;
-                    background: none;
-                    color: #fff;
-                    font-size: 18px;
-                    margin-left: -30px;
-                    cursor: pointer;
-                }
+            .search-box input[type="text"]:focus {
+                width: 300px;
+            }
 
-                table.table {
-                    width: 100%;
-                    margin-top: 20px;
-                    border-collapse: collapse;
-                }
+            .search-box button {
+                border: none;
+                background: none;
+                color: #fff;
+                font-size: 18px;
+                margin-left: -30px;
+                cursor: pointer;
+            }
 
-                table.table th, table.table td {
-                    padding: 12px 15px;
-                    text-align: left;
-                }
+            table.table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
 
-                table.table th {
-                    background: #f4f4f4;
-                }
+            table.table th, table.table td {
+                padding: 12px 15px;
+                text-align: left;
+            }
 
-                table.table-striped tbody tr:nth-of-type(odd) {
-                    background-color: #f9f9f9;
-                }
+            table.table th {
+                background: #f4f4f4;
+            }
 
-                .btn-primary {
-                    background-color:#007bff; /* Màu xanh biển đậm hơn */
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    text-decoration: none;
-                    display: inline-block;
-                    margin: 20px 0;
-                }
+            table.table-striped tbody tr:nth-of-type(odd) {
+                background-color: #f9f9f9;
+            }
 
-                .btn-primary:hover {
-                    background-color: #006a86;
-                }
-            </style>
-       
-            <div class="container">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-8"><h2>Manage <b>Users</b></h2></div>
-                            <div class="col-sm-4">
-                                <div class="search-box">
-                                    <form action="/search" method="get">
-                                        <input type="text" name="query" placeholder="Search...">
-                                        <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
-                                    </form>
-                                </div>
+            .btn-primary {
+                background-color:#007bff; /* Màu xanh biển đậm hơn */
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                display: inline-block;
+                margin: 20px 0;
+            }
+
+            .btn-primary:hover {
+                background-color: #006a86;
+            }
+        </style>
+
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Manage <b>Users</b></h2></div>
+                        <div class="col-sm-4">
+                            <div class="search-box">
+                                <form action="/search" method="get">
+                                    <input type="text" name="query" placeholder="Search...">
+                                    <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <table class="table table-hover table-bordered">
-                        <thead>
+                </div>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>postID</th>
+                            <th>title</th>
+                            <th>description</th>
+                            <th>reportTime</th>
+                            <th>message</th>                          
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach items="${requestScope.reportPost}" var="c">
                             <tr>
-                                <th></th>
-                                <th>postID</th>
-                                <th>title</th>
-
-                                <th>description</th>
-                                <th>reportTime</th>
-                                <th>message</th>
-                                <th>idUserSend</th>
-                                <th>Action</th>
+                                <th>
+                                <td>
+                                    <a href="#">${c.post.postID}</a>
+                                </td>
+                                <td>${c.post.title}</td>
+                                <td>${c.post.description}</td>
+                                <td>${c.reportTime}</td>
+                                <td>${c.message}</td>
+                                <td>
+                                    <button class="btn btn-danger delete-btn" data-post-id="${c.post.postID}">Delete</button>
+                                </td>
+                                </th>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.reportPost}" var="c">
-                                <tr>
-                                    <th>
-                                    <td>
-                                        <a href="#">${c.post.postID}</a>
-                                    </td>
-                                    <td>${c.post.title}</td>
-                                    <td>${c.post.description}</td>
-                                    <td>${c.reportTime}</td>
-                                    <td>${c.message}</td>
-                                    <td>${c.user.userID}</td>
-                                    <td>
-                                        <button class="btn btn-danger delete-btn" data-post-id="${c.post.postID}">Delete</button>
-                                    </td>
-                                    </th>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="deleteConfirmationModal" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close cancel-btn" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Confirm Deletion</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to delete this post?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-danger delete-btn-confirm" id="confirmDeleteBtn">Delete</button>
-                            </div>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+            <div id="deleteConfirmationModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close cancel-btn" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirm Deletion</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete this post?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger delete-btn-confirm" id="confirmDeleteBtn">Delete</button>
                         </div>
                     </div>
                 </div>
-                <a href="#">
-                    <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                </a>
             </div>
+            <a href="#">
+                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+            </a>
+        </div>
 
-        </body>
-    </html>
-    <script>
-        $(document).ready(function () {
-            $('.delete-btn').click(function () {
-                var postID = $(this).data('post-id');
-                $('#deleteConfirmationModal').addClass('in');
-                $('#deleteConfirmationModal').attr('aria-hidden', 'false');
-                $('#deleteConfirmationModal').css('display', 'block');
-                $('#confirmDeleteBtn').data('post-id', postID);
-                $('#confirmDeleteBtn').data('status-id', statusID);
-            });
+    </body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.delete-btn').click(function () {
+            var postID = $(this).data('post-id');
+            $('#deleteConfirmationModal').addClass('in');
+            $('#deleteConfirmationModal').attr('aria-hidden', 'false');
+            $('#deleteConfirmationModal').css('display', 'block');
+            $('#confirmDeleteBtn').data('post-id', postID);
+            $('#confirmDeleteBtn').data('status-id', statusID);
+        });
 
-            // Function to handle delete action
-            $(document).on('click', '#confirmDeleteBtn', function () {
-                var postID = $(this).data('post-id');
-                ;
-                $.ajax({
-                    type: "POST",
-                    url: "/FUSWAPSHAREFREE/DeletePostServlet",
-                    data: {pid: postID},
-                    success: function (response) {
-                        iziToast.show({
-                            maxWidth: "280px",
-                            class: "success-toast",
-                            icon: "mdi mdi-check",
-                            title: "",
-                            message: "Remove post successfully",
-                            titleColor: "#fff",
-                            messageColor: "#fff",
-                            iconColor: "#fff",
-                            backgroundColor: "#60c032",
-                            progressBarColor: "#0062ff",
-                            position: "bottomRight",
-                            transitionIn: "fadeInUp",
-                            close: false,
-                            timeout: 1800,
-                            zindex: 99999
-                        });
-                        $('#deleteConfirmationModal').removeClass('in');
-                        $('#deleteConfirmationModal').attr('aria-hidden', 'true');
-                        $('#deleteConfirmationModal').css('display', 'none');
-                    },
-                    error: function (xhr, status, error) {
-                        iziToast.show({
-                            maxWidth: "280px",
-                            class: "success-toast",
-                            icon: "mdi mdi-error",
-                            title: "",
-                            message: "Remove post failed",
-                            titleColor: "#fff",
-                            messageColor: "#fff",
-                            iconColor: "#fff",
-                            backgroundColor: "#FF0000",
-                            progressBarColor: "#0062ff",
-                            position: "bottomRight",
-                            transitionIn: "fadeInUp",
-                            close: false,
-                            timeout: 1800,
-                            zindex: 99999
-                        });
-                        $('#deleteConfirmationModal').css('display', 'block');
-                    }
-                });
-            });
-
-            // Function to close modal on cancel
-            $('.cancel-btn').click(function () {
-                $('#deleteConfirmationModal').removeClass('in');
-                $('#deleteConfirmationModal').attr('aria-hidden', 'true');
-                $('#deleteConfirmationModal').css('display', 'none');
+        // Function to handle delete action
+        $(document).on('click', '#confirmDeleteBtn', function () {
+            var postID = $(this).data('post-id');
+            ;
+            $.ajax({
+                type: "POST",
+                url: "/FUSWAPSHAREFREE/DeletePostServlet",
+                data: {pid: postID},
+                success: function (response) {
+                    iziToast.show({
+                        maxWidth: "280px",
+                        class: "success-toast",
+                        icon: "mdi mdi-check",
+                        title: "",
+                        message: "Remove post successfully",
+                        titleColor: "#fff",
+                        messageColor: "#fff",
+                        iconColor: "#fff",
+                        backgroundColor: "#60c032",
+                        progressBarColor: "#0062ff",
+                        position: "bottomRight",
+                        transitionIn: "fadeInUp",
+                        close: false,
+                        timeout: 1800,
+                        zindex: 99999
+                    });
+                    $('#deleteConfirmationModal').removeClass('in');
+                    $('#deleteConfirmationModal').attr('aria-hidden', 'true');
+                    $('#deleteConfirmationModal').css('display', 'none');
+                },
+                error: function (xhr, status, error) {
+                    iziToast.show({
+                        maxWidth: "280px",
+                        class: "success-toast",
+                        icon: "mdi mdi-error",
+                        title: "",
+                        message: "Remove post failed",
+                        titleColor: "#fff",
+                        messageColor: "#fff",
+                        iconColor: "#fff",
+                        backgroundColor: "#FF0000",
+                        progressBarColor: "#0062ff",
+                        position: "bottomRight",
+                        transitionIn: "fadeInUp",
+                        close: false,
+                        timeout: 1800,
+                        zindex: 99999
+                    });
+                    $('#deleteConfirmationModal').css('display', 'block');
+                }
             });
         });
-    </script>
-    <script src="js/ManagerProduct.js" type="text/javascript"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Core js -->
-    <script src="assets/js/global.js"></script>
 
-    <!-- Navigation options js -->
-    <script src="assets/js/navbar-v1.js"></script>
-    <script src="assets/js/navbar-v2.js"></script>
-    <script src="assets/js/navbar-mobile.js"></script>
-    <script src="assets/js/navbar-options.js"></script>
-    <script src="assets/js/sidebar-v1.js"></script>
+        // Function to close modal on cancel
+        $('.cancel-btn').click(function () {
+            $('#deleteConfirmationModal').removeClass('in');
+            $('#deleteConfirmationModal').attr('aria-hidden', 'true');
+            $('#deleteConfirmationModal').css('display', 'none');
+        });
+    });
+</script>
+<script src="js/ManagerProduct.js" type="text/javascript"></script>
+<script src="assets/js/app.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Core js -->
+<script src="assets/js/global.js"></script>
 
-    <!-- Core instance js -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/chat.js"></script>
-    <script src="assets/js/touch.js"></script>
-    <script src="assets/js/tour.js"></script>
+<!-- Navigation options js -->
+<script src="assets/js/navbar-v1.js"></script>
+<script src="assets/js/navbar-v2.js"></script>
+<script src="assets/js/navbar-mobile.js"></script>
+<script src="assets/js/navbar-options.js"></script>
+<script src="assets/js/sidebar-v1.js"></script>
 
-    <!-- Components js -->
-    <script src="assets/js/explorer.js"></script>
-    <script src="assets/js/widgets.js"></script>
-    <script src="assets/js/modal-uploader.js"></script>
-    <script src="assets/js/popovers-users.js"></script>
-    <script src="assets/js/popovers-pages.js"></script>
-    <script src="assets/js/lightbox.js"></script>
+<!-- Core instance js -->
+<script src="assets/js/main.js"></script>
+<script src="assets/js/chat.js"></script>
+<script src="assets/js/touch.js"></script>
+<script src="assets/js/tour.js"></script>
+
+<!-- Components js -->
+<script src="assets/js/explorer.js"></script>
+<script src="assets/js/widgets.js"></script>
+<script src="assets/js/modal-uploader.js"></script>
+<script src="assets/js/popovers-users.js"></script>
+<script src="assets/js/popovers-pages.js"></script>
+<script src="assets/js/lightbox.js"></script>
 </body>
 </html>
 

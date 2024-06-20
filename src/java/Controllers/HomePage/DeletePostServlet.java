@@ -74,7 +74,7 @@ public class DeletePostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String postID = request.getParameter("pid");   
+        String postID = request.getParameter("pid");
         try {
             int newpostID = Integer.parseInt(postID);
             int statusID = dmnp.getStatusIDByPostID(newpostID);
