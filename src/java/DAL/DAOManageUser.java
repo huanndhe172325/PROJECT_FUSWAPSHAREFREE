@@ -6,6 +6,7 @@ package DAL;
 
 import Model.BlockList;
 import Model.Quanlity;
+import Model.ReportUser;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author admin
@@ -90,11 +94,10 @@ public class DAOManageUser extends DBContext {
         return users;
     }
 
-
-     public ArrayList<User> getAllUsers(int offset, int limit) {
+    public ArrayList<User> getAllUsers(int offset, int limit) {
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM [User] ORDER BY UserID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-        
+
         try {
             PreparedStatement st = connect.prepareStatement(sql);
             st.setInt(1, offset);
@@ -103,20 +106,20 @@ public class DAOManageUser extends DBContext {
 
             while (rs.next()) {
                 User user = new User(
-                    rs.getInt("UserID"),
-                    rs.getString("Email"),
-                    rs.getString("Phone"),
-                    rs.getString("AvatarUrl"),
-                    rs.getString("PassWord"),
-                    rs.getString("JoinDate"),
-                    rs.getString("UserName"),
-                    rs.getString("Full_Name"),
-                    rs.getString("District"),
-                    rs.getString("Commune"),
-                    rs.getString("StreetNumber"),
-                    rs.getInt("Point"),
-                    rs.getInt("RoleID"),
-                    rs.getInt("StatusID")
+                        rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID")
                 );
                 users.add(user);
             }
@@ -124,14 +127,14 @@ public class DAOManageUser extends DBContext {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return users;
     }
 
     public int getTotalRecords() {
         int totalRecords = 0;
         String sql = "SELECT COUNT(*) FROM [User]";
-        
+
         try {
             PreparedStatement st = connect.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
@@ -141,7 +144,7 @@ public class DAOManageUser extends DBContext {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return totalRecords;
     }
 
@@ -176,13 +179,14 @@ public class DAOManageUser extends DBContext {
         }
 
     }
+
     public User getUserByIdUserSend(int id) {
-        String sql = "  SELECT u.* FROM Have_ReportPost h join [User] u on h.IdUserSend=u.UserID where h.IdUserSend=?";
-        try{
-             PreparedStatement st = connect.prepareStatement(sql);
+        String sql = "    SELECT * FROM Have_ReportUser h join [User] u on h.IdUserSend=u.UserID where h.IdUserSend=?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-             while (rs.next()) {
+            while (rs.next()) {
                 return new User(rs.getInt("UserID"),
                         rs.getString("Email"),
                         rs.getString("Phone"),
@@ -198,12 +202,39 @@ public class DAOManageUser extends DBContext {
                         rs.getInt("RoleID"),
                         rs.getInt("StatusID"));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
     }
 
+    public User getUserByIdUserReceive(int id) {
+        String sql = "      SELECT * FROM Have_ReportUser h join [User] u on h.IdUserReceive=u.UserID where h.IdUserReceive=?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public User getUserByID(int UserID) {
         String sql = "SELECT * FROM [User] \n"
@@ -322,4 +353,13 @@ public class DAOManageUser extends DBContext {
 //        System.out.println(u.getEmail());
     }
 //    }
+    public static void main(String[] args) {
+        DAOManageUser daomu = new DAOManageUser();
+        User u = daomu.getUserByIdUserSend(2);
+//        System.out.println(u.getUserID());
+        Map<ReportUser, Integer> map = daomu.reportRankUser();
+        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
+        }
+    }
 }

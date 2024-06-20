@@ -110,7 +110,7 @@ public class FetchPost extends HttpServlet {
                     + "                                                    </div>\n"
                     + "                                                    <div class=\"user-info\" style=\"width: 100%;\">\n"
                     + "                                                        <a class=\"post-name-owner\"  href=\"profile?id=" + post.getUserID() + "\">" + post.getFullNameOwner() + "</a>\n"
-                    + "                                                        <span class=\"time\" style=\"display: inline-block\">" + post.getDateFormat() + "</span>\n"
+                    + "                                                        <span class=\"time\" style=\"display: inline-block\">" + post.getCreateTime() + "</span>\n"
                     + "                                                        <span class=\"status-post-name\" style=\"display: inline-block; padding: 0 10px; float: right;\">" + post.getStatusName() + "</span>\n"
                     + "                                                        <span class=\"type-post-name\" style=\"display: inline-block; float: right;\">" + post.getTypeName() + "</span>\n"
                     + "                                                        <span class=\"quanlity-post\" style=\"display: none; float: right;\">" + post.getQuanlityName() + "</span>\n"

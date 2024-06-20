@@ -116,10 +116,7 @@
                 </a>
             </div>
         </div>
-        <!DOCTYPE html>
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
+ 
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Search Form</title>
@@ -218,8 +215,7 @@
                     background-color: #006a86;
                 }
             </style>
-        </head>
-        <body>
+       
             <div class="container">
                 <div class="table-wrapper">
                     <div class="table-title">

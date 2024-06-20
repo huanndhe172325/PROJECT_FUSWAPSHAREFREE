@@ -8,10 +8,15 @@ import Model.Post;
 import Model.Quanlity;
 import Model.Type;
 import Model.User;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 /**
  *
@@ -446,6 +451,33 @@ public class DAOManagePost extends DBContext {
         return maxId;
     }
 
+    public void deleteImgByIdPost(String idPost) {
+        Path projectDirectory = Paths.get("").toAbsolutePath();
+
+        Path uploadDirectory = projectDirectory.resolve("web/FolderImages/ImagePost");
+        try {
+            deleteFilesWithId(uploadDirectory, idPost);
+        } catch (IOException e) {
+            System.err.println("Error while deleting files: " + e.getMessage());
+        }
+    }
+
+    public static void deleteFilesWithId(Path directory, String id) throws IOException {
+        try (Stream<Path> files = Files.list(directory)) {
+            files
+                    .filter(Files::isRegularFile)
+                    .filter(file -> file.getFileName().toString().contains(id))
+                    .forEach(file -> {
+                        try {
+                            Files.delete(file);
+                            System.out.println("Deleted file: " + file);
+                        } catch (IOException e) {
+                            System.err.println("Failed to delete file: " + file + " - " + e.getMessage());
+                        }
+                    });
+        }
+    }
+
     public String getStatusPostByIdStatus(int idStatus) {
         String status = "";
         try {
@@ -568,6 +600,8 @@ public class DAOManagePost extends DBContext {
         DAOManagePost dao = new DAOManagePost();
         ArrayList<Post> lP = dao.getAllPostHistory(64);
         System.out.println(lP);
+        Path projectDirectory = Paths.get("").toAbsolutePath();
+
 //        Post newPost = new Post();
 //        newPost.setTitle("Post Title");
 //        newPost.setDescription("Post Description");
@@ -583,6 +617,6 @@ public class DAOManagePost extends DBContext {
 //        boolean result = dao.createPost(newPost, 7, null, 1);
 //
 //        System.out.println("Post creation successful: " + result);
-
     }
+
 }
