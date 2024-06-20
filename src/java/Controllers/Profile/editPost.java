@@ -79,11 +79,9 @@ public class editPost extends HttpServlet {
             throws ServletException, IOException {
         DAOManagePost daoManagePost = new DAOManagePost();
         Collection<Part> parts = request.getParts();
-        String typeId_raw = request.getParameter("typePostEdit");
         String title = request.getParameter("titleEdit");
         String description = request.getParameter("descriptionEdit");
         String instructions = request.getParameter("instructionsEdit");
-        String expiresDate_raw = request.getParameter("expiresDateEdit");
         String commune = request.getParameter("wardEdit");
         String district = request.getParameter("districtEdit");
         String streetNumber = request.getParameter("newAddressEdit");
@@ -98,26 +96,6 @@ public class editPost extends HttpServlet {
 
         try {
             int quantity = Integer.parseInt(quantityId_raw);
-            int dateExpires = Integer.parseInt(expiresDate_raw);
-
-            int partIndex = 0;
-            for (Part part : parts) {
-
-                if (part.getName().equals("imgPathEdit") && part.getSize() > 0) {
-                    String imgFileName = postId + "_image_" + partIndex + ".jpg";
-                    String imgFilePath = uploadDirectory + "\\" + imgFileName;
-                    String linkDB = "FolderImages/ImagePost/" + imgFileName;
-
-                    part.write(imgFilePath);
-
-                    if (linkDBBuilder.length() > 0) {
-                        linkDBBuilder.append(",");
-                    }
-                    linkDBBuilder.append(linkDB);
-
-                    partIndex++;
-                }
-            }
 
             Post newPost = new Post();
 
@@ -129,6 +107,24 @@ public class editPost extends HttpServlet {
                 }
             }
             if (hasFileInput) {
+                daoManagePost.deleteImgByIdPost(postId);
+                int partIndex = 0;
+                for (Part part : parts) {
+                    if (part.getName().equals("imgPathEdit") && part.getSize() > 0) {
+                        String imgFileName = postId + "_image_" + partIndex + ".jpg";
+                        String imgFilePath = uploadDirectory + "\\" + imgFileName;
+                        String linkDB = "FolderImages/ImagePost/" + imgFileName;
+
+                        part.write(imgFilePath);
+
+                        if (linkDBBuilder.length() > 0) {
+                            linkDBBuilder.append(",");
+                        }
+                        linkDBBuilder.append(linkDB);
+
+                        partIndex++;
+                    }
+                }
                 newPost.setImageUrl(linkDBBuilder.toString());
             } else {
                 //khong input
@@ -144,7 +140,17 @@ public class editPost extends HttpServlet {
             newPost.setQuanlityID(quantity);
 
             if (daoManagePost.updatePost(newPost, Integer.parseInt(postId))) {
-                response.getWriter().write("successfull");
+                if (currentPost.getTitle().equals(title)
+                        && currentPost.getDescription().equals(description)
+                        && currentPost.getIntructions().equals(instructions)
+                        && currentPost.getCommune().equals(commune)
+                        && currentPost.getDistrict().equals(district)
+                        && currentPost.getStreet_Number().equals(streetNumber)
+                        && currentPost.getQuanlityID() == quantity && !hasFileInput) {
+                    response.getWriter().write("no change");
+                } else {
+                    response.getWriter().write("successfull");
+                }
             }
         } catch (Exception e) {
             response.getWriter().write("failed");

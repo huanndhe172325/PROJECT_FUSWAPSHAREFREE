@@ -2,54 +2,56 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controllers.HomePage;
+
+package Controllers.Profile;
 
 import DAL.DAOManageUser;
-import Model.ReportUser;
+import DAL.DAOProfile;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Map;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author admin
+ * @author haoto
  */
-public class SideBarAdmin extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@WebServlet(name="BlockUser", urlPatterns={"/BlockUser"})
+public class BlockUser extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SideBarAdmin</title>");            
+            out.println("<title>Servlet BlockUser</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SideBarAdmin at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet BlockUser at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -57,16 +59,12 @@ public class SideBarAdmin extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        DAOManageUser daomu=new DAOManageUser();
-        Map<ReportUser, Integer> map = daomu.reportRankUser();
-        request.setAttribute("data", map);
-        request.getRequestDispatcher("HomePage/SideBarAdmin.jsp").forward(request, response);
-    }
+    throws ServletException, IOException {
+        processRequest(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -74,13 +72,21 @@ public class SideBarAdmin extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    throws ServletException, IOException {
+        String idBlock = request.getParameter("id");
+        HttpSession session = request.getSession();
+        DAOProfile db = new DAOProfile();
+        DAOManageUser db1 = new DAOManageUser();
+        User userId = (User) session.getAttribute("userInfo");
+        int id = userId.getUserID();
+        User u = db.getUserbyId(id);
+        db1.blockUser(u.getUserID(), Integer.parseInt(idBlock));
+        response.sendRedirect("HomePage");
+        
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
@@ -89,3 +95,4 @@ public class SideBarAdmin extends HttpServlet {
     }// </editor-fold>
 
 }
+

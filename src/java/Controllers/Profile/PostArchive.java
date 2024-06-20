@@ -5,6 +5,7 @@
 
 package Controllers.Profile;
 
+import DAL.DAOManagePost;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -67,7 +68,7 @@ public class PostArchive extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String idPost = request.getParameter("id");
-
+        DAOManagePost dao = new DAOManagePost();
         try (PrintWriter out = response.getWriter()) {
             out.print("successfull " + idPost);
         }

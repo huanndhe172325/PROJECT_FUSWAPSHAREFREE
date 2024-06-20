@@ -5,7 +5,9 @@
 package Controllers.Profile;
 
 import DAL.DAOManagePost;
+import DAL.DAOManageUser;
 import DAL.DAOProfile;
+import Model.BlockList;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -63,15 +66,24 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         DAOProfile db = new DAOProfile();
+        DAOManageUser db1 = new DAOManageUser();
+        
         User userId = (User) session.getAttribute("userInfo");
         int id = userId.getUserID();
         User u = db.getUserbyId(id);
         ArrayList<Post> myPost = new ArrayList<>();
+        List<BlockList> userBlock = db1.listBlockUser(u.getUserID());
+        
+        
+        request.setAttribute("userBlock", userBlock);
         DAOManagePost daoPost = new DAOManagePost();
+        ArrayList<Post> hisPost = daoPost.getAllPostHistory(u.getUserID());
         myPost = daoPost.getAllPostByIdUser(u.getUserID());
+        request.setAttribute("hisPost", hisPost);
         request.setAttribute("myPost", myPost);
         request.setAttribute("profile", u);
         request.getRequestDispatcher("Profile/profile.jsp").forward(request, response);
+
     }
 
     /**
@@ -85,7 +97,16 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        String id = request.getParameter("id");
+        HttpSession session = request.getSession();
+        DAOProfile db = new DAOProfile();
+        DAOManageUser db1 = new DAOManageUser();
+        
+        User userId = (User) session.getAttribute("userInfo");
+        int id1 = userId.getUserID();
+        User u = db.getUserbyId(id1);
+        db1.unlockUser(u.getUserID(), Integer.parseInt(id));
+        response.sendRedirect("profile?id=" + id1);
     }
 
     /**

@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Model.BlockList;
 import Model.Quanlity;
 import Model.ReportUser;
 import Model.User;
@@ -278,6 +279,47 @@ public class DAOManageUser extends DBContext {
         return null;
     }
 
+    public ReportUser getByIdUserReceive(int id) {
+        String sqlString = "  SELECT * FROM Have_ReportUser where IdUserReceive=?";
+        ReportUser rp = new ReportUser();
+        try {
+            PreparedStatement st = connect.prepareStatement(sqlString);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                rp.setIdUserReceive(rs.getInt("IdUserReceive"));
+                rp.setIdUserSend(rs.getInt("IdUserSend"));
+                rp.setMessage(rs.getString("Message"));
+                rp.setReportTime(rs.getString("reportTime"));
+            }
+            return rp;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public Map<ReportUser, Integer> reportRankUser() {
+        String sqlString = " SELECT TOP 5 IdUserReceive, COUNT() as [Count] FROM Have_ReportUser GROUP BY IdUserReceive ORDER BY COUNT() DESC ";
+        Map<ReportUser, Integer> map = new HashMap<>();
+        try {
+            PreparedStatement st = connect.prepareStatement(sqlString);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ReportUser rpReportUser = new ReportUser();
+                rpReportUser = getByIdUserReceive(rs.getInt("IdUserReceive"));
+                int count = rs.getInt("Count");
+                map.put(rpReportUser, count);
+            }
+            return map;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public User getUserByID(int UserID) {
         String sql = "SELECT * FROM [User] \n"
                 + "WHERE UserID = ?\n";
@@ -307,47 +349,69 @@ public class DAOManageUser extends DBContext {
         return null;
     }
 
-    public ReportUser getByIdUserReceive(int id) {
-        String sqlString = "  SELECT * FROM Have_ReportUser where IdUserReceive=?";
-        ReportUser rp = new ReportUser();
+    public void blockUser(int UserID, int BlockID) {
+
         try {
-            PreparedStatement st = connect.prepareStatement(sqlString);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-
-                rp.setIdUserReceive(rs.getInt("IdUserReceive"));
-                rp.setIdUserSend(rs.getInt("IdUserSend"));
-                rp.setMessage(rs.getString("Message"));
-                rp.setReportTime(rs.getString("reportTime"));
-            }
-            return rp;
-
-        } catch (SQLException e) {
-            System.out.println(e);
+            String sql = "INSERT INTO [dbo].[BlockList]\n"
+                    + "           ([UserID]\n"
+                    + "           ,[BlockUserID])\n"
+                    + "     VALUES\n"
+                    + "           (? , ?)";
+            PreparedStatement stm = connect.prepareStatement(sql);
+            stm.setInt(1, UserID);
+            stm.setInt(2, BlockID);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOManageUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+
     }
 
-    public Map<ReportUser, Integer> reportRankUser() {
-        String sqlString = " SELECT TOP 5 IdUserReceive, COUNT(*) as [Count] FROM Have_ReportUser GROUP BY IdUserReceive ORDER BY COUNT(*) DESC ";
-        Map<ReportUser, Integer> map = new HashMap<>();
+    public List<BlockList> listBlockUser(int UserID) {
+        List<BlockList> userBlock = new ArrayList<>();
+        String sql = """
+                      select * from [BlockList]
+                      where UserID = ?""";
         try {
-            PreparedStatement st = connect.prepareStatement(sqlString);
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, UserID);
             ResultSet rs = st.executeQuery();
+
             while (rs.next()) {
-                ReportUser rpReportUser = new ReportUser();
-                rpReportUser = getByIdUserReceive(rs.getInt("IdUserReceive"));
-                int count = rs.getInt("Count");
-                map.put(rpReportUser, count);
+
+                BlockList userB = new BlockList(rs.getInt("UserID"), rs.getInt("BlockUserID"));
+                userBlock.add(userB);
+
             }
-            return map;
-        } catch (SQLException e) {
-            System.out.println(e);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return null;
+        return userBlock;
     }
 
+    public void unlockUser(int BlockID, int BlockUserID) {
+
+        try {
+            String sql = "DELETE FROM BlockList WHERE UserID = ? AND BlockUserID = ?;";
+            PreparedStatement stm = connect.prepareStatement(sql);
+
+            stm.setInt(1, BlockID);
+            stm.setInt(2, BlockUserID);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOManageUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        DAOManageUser userDAO = new DAOManageUser();
+        userDAO.unlockUser(26, 1);
+//        List<BlockList> userB = userDAO.listBlockUser(1);
+//        System.out.println(userB);
+
+        System.out.println();
 //   public static void main(String[] args) {
 //        DAOManageUser userDAO = new DAOManageUser();
 //        ArrayList<User> users = userDAO.getAllUsers();
@@ -369,14 +433,17 @@ public class DAOManageUser extends DBContext {
 //            System.out.println("StatusID: " + user.getStatusID());
 //            System.out.println("--------------------------------");
 //        }
-//    }
-    public static void main(String[] args) {
-        DAOManageUser daomu = new DAOManageUser();
-        User u = daomu.getUserByIdUserSend(2);
-//        System.out.println(u.getUserID());
-        Map<ReportUser, Integer> map = daomu.reportRankUser();
-        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
-            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
-        }
+//    User u=userDAO.getUserByIdUserSend(1);
+//        System.out.println(u.getEmail());
     }
+//    }
+//    public static void main(String[] args) {
+//        DAOManageUser daomu = new DAOManageUser();
+//        User u = daomu.getUserByIdUserSend(2);
+////        System.out.println(u.getUserID());
+//        Map<ReportUser, Integer> map = daomu.reportRankUser();
+//        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
+//            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
+//        }
+//    }
 }

@@ -340,6 +340,25 @@
 
         </script>
 
+        <!-- JS block User -->
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const openModalBtn = document.getElementById('open-modal-btn2');
+                const modal = document.getElementById('block-user-modal');
+
+                openModalBtn.addEventListener('click', () => {
+                    modal.classList.add('is-active');
+                });
+            });
+
+            // Function to simulate change event
+            function simulateEvent(element, eventName) {
+                var event = new Event(eventName);
+                element.dispatchEvent(event);
+            }
+
+        </script>
+
     </head>
 
     <body>
@@ -744,19 +763,19 @@
                                     </a>
                                     <hr class="account-divider" />
                                     <c:if test="${sessionScope.userInfo.getUserID() == profile.getUserID()}">
-                                         <a  class="account-item" >
-                                        <div class="media" >
-                                            <div class="icon-wrap">
-                                                <i data-feather="map-pin"></i>
+                                        <a  class="account-item" >
+                                            <div class="media" >
+                                                <div class="icon-wrap">
+                                                    <i data-feather="map-pin"></i>
+                                                </div>
+                                                <div class="media-content" data-modal="edit-location-modal"  id="open-modal-btn" >
+                                                    <h3>Manage Location</h3>
+                                                    <small>Change your location here</small>
+                                                </div>
                                             </div>
-                                            <div class="media-content" data-modal="edit-location-modal"  id="open-modal-btn" >
-                                                <h3>Manage Location</h3>
-                                                <small>Change your location here</small>
-                                            </div>
-                                        </div>
-                                    </a>
+                                        </a>
                                     </c:if>
-                                   
+
                                     <a href="options-settings.html" class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
@@ -833,17 +852,13 @@
                                         </div>
                                         <div class="pop-button is-far-left has-tooltip modal-trigger" data-modal="change-profile-pic-modal" data-placement="right" data-title="Change profile picture">
                                             <a class="inner" class="upload-button">
-
                                                 <label for="imgPath"  >
-
                                                     <i data-feather="camera"></i>
                                                 </label>
                                                 <form action="editprofile" method="POST" enctype="multipart/form-data" id="uploadForm">
-                                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" onchange="submitForm()" >
+                                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" >
                                                 </form>
                                             </a>
-
-
                                         </div>
                                         <div id="follow-pop" class="pop-button pop-shift is-left has-tooltip" data-placement="top" data-title="Subscription">
                                             <a class="inner">
@@ -857,13 +872,13 @@
                                                 <i class="active-icon" data-feather="minus"></i>
                                             </a>
                                         </div>
-                                        <div id="chat-pop" class="pop-button is-right has-tooltip" data-placement="top" data-title="Chat">
+                                        <div id="chat-pop" class="pop-button is-right has-tooltip" data-placement="top" data-title="Report user">
                                             <a class="inner">
-                                                <i data-feather="message-circle"></i>
+                                                <i data-feather="alert-octagon"></i>
                                             </a>
                                         </div>
-                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Block">
-                                            <a href="messages-inbox.html" class="inner">
+                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Block"  data-modal="block-user-modal"  id="open-modal-btn2">
+                                            <a class="inner">
                                                 <i data-feather="lock"></i>
                                             </a>
                                         </div>
@@ -942,29 +957,29 @@
                                 <!-- Basic Infos widget -->
                                 <!-- html/partials/pages/profile/timeline/widgets/basic-infos-widget.html -->
                                 <c:if test="${sessionScope.userInfo.getUserID() == profile.getUserID()}" >
-                                <div class="box-heading">
-                                    <h4>User details</h4>
-                                    <div class="dropdown is-neutral is-spaced is-right dropdown-trigger">
-                                        <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
+                                    <div class="box-heading">
+                                        <h4>User details</h4>
+                                        <div class="dropdown is-neutral is-spaced is-right dropdown-trigger">
+                                            <div>
+                                                <div class="button">
+                                                    <i data-feather="more-vertical"></i>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content" data-modal="edit-profile-modal"  id="open-modal-btn1">
-                                                <a  class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="edit"></i>
-                                                        <div class="media-content" >
-                                                            <h3>Edit</h3>
-                                                            <small>Change your profile here</small>
+                                            <div class="dropdown-menu" role="menu">
+                                                <div class="dropdown-content" data-modal="edit-profile-modal"  id="open-modal-btn1">
+                                                    <a  class="dropdown-item">
+                                                        <div class="media">
+                                                            <i data-feather="edit"></i>
+                                                            <div class="media-content" >
+                                                                <h3>Edit</h3>
+                                                                <small>Change your profile here</small>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </a>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                                 </c:if>
 
                                 <div class="basic-infos-wrapper">
@@ -1248,6 +1263,147 @@
                 </div>
             </div>
 
+            <style>
+                #block-user-modal .modal-content {
+                    background-color: transparent;
+                    box-shadow: none;
+                }
+
+                #block-user-modal .card {
+                    background-color: white;
+                    border-radius: 8px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+                }
+
+                #block-user-modal .card-heading {
+                    padding: 10px;
+                    border-bottom: 1px solid #e5e5e5;
+                }
+
+                #block-user-modal .card-body {
+                    padding: 20px;
+                }
+
+                #block-user-modal .card-footer {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px 20px;
+                    border-top: 1px solid #e5e5e5;
+                }
+
+                #block-user-modal form div {
+                    margin-bottom: 10px;
+                }
+
+                #block-user-modal form label {
+                    font-weight: bold;
+                    color: #333;
+                }
+
+                #block-user-modal .close-modal {
+                    cursor: pointer;
+                }
+
+                #block-user-modal .button {
+                    border-radius: 4px;
+                    
+                    
+                }
+
+                #block-user-modal .primary-button {
+                    background-color: #4267b2;
+                    color: white;
+                }
+
+                .row {
+                    display: flex;
+                    flex-wrap: wrap;
+                    margin-bottom: 10px;
+                }
+
+                .col-12 {
+                    width: 100%;
+                }
+
+                .block-desc {
+                    font-size: 14px;
+                    color: #333;
+                    margin-bottom: 5px;
+                }
+
+                .block-list {
+                    list-style-type: disc;
+                    margin-left: 20px;
+                    font-size: 14px;
+                    color: #333;
+                }
+            </style>
+
+            <!-- Block User -->
+            <div id="block-user-modal" class="modal share-modal is-xsmall has-light-bg" >
+                <div class="modal-background">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-heading">
+                                <h2  style="margin-left: 163px ; font-weight: bold">Block ${profile.getFull_Name()}?</h2>
+                                <!-- Close X button -->
+                                <div class="close-wrap">
+                                    <span class="close-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="control">
+                                    <form action="BlockUser?id=${profile.getUserID()}" id="block-user-modal" method="post">
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="block-desc">${profile.getFull_Name()} sẽ không thể:</p>
+                                            </div>
+                                            <div class="col-12">
+                                                <ul class="block-list">
+                                                    <li>Xem bài viết trên dòng thời gian của bạn</li>
+                                                    <li>Trao đổi vật phẩm với bạn</li>
+                                                    <li>Thêm bạn làm bạn bè</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="block-desc">Nếu các bạn là bạn bè, việc chận ${profile.getFull_Name()} cũng sẽ hủy kết bạn với anh ấy.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="block-desc">Nếu bạn chỉ muốn giới hạn nội dung mình chia sẻ với ${profile.getFull_Name()} hoặc ẩn bớt nội dung về anh ấy trên Ứng dụng, bạn có thể giảm tương tác với anh ấy.</p>
+                                            </div>
+                                        </div>
+                                        <input type="submit" id="submit-block-user" style="display: none;" value="Submit">
+
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-footer" >
+                                <div class="close-modal" style="width: 98%; " >
+                                    <button type="button" class="button is-solid primary-button" style="width: 95%;padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;">
+                                        Cancel
+                                    </button>
+                                </div>
+                                <div class="button-wrap" style="width: 98%;">
+                                    <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;" onclick="document.getElementById('submit-block-user').click();">
+                                        Accept
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <div id="archive-post" class="modal albums-help-modal is-xsmall has-light-bg">
                 <div class="modal-background"></div>
@@ -1399,10 +1555,10 @@
                                     <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
                                     <div class="post-image">
                                         <div class="style-img-post">
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                           <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                         </div>
                                         <div class="image-btn">
                                             <div class="btn-image-next btn-image">&gt;</div>

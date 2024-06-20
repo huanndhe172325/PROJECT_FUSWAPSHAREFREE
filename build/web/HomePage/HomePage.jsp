@@ -69,7 +69,7 @@
                 display: flex;
                 justify-content: space-between;
                 transform: translateY(-50%);
-                z-index: 1000;
+                z-index: 10;
             }
             .btn-image {
                 font-size: 40px;
@@ -198,7 +198,7 @@
                 background-color: #f9f9f9;
                 box-shadow: 0 8px 16px rgba(0,0,0,0.1);
                 padding: 5px;
-                min-width: 160px;
+                min-width: auto;
             }
 
             .quality-options button {

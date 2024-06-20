@@ -4,21 +4,21 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOManageUser;
-import Model.ReportUser;
+import DAL.DAOManagePost;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  *
- * @author admin
+ * @author Binhtran
  */
-public class SideBarAdmin extends HttpServlet {
+@WebServlet(name = "DeletePostServlet", urlPatterns = {"/DeletePostServlet"})
+public class DeletePostServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +37,10 @@ public class SideBarAdmin extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SideBarAdmin</title>");            
+            out.println("<title>Servlet DeletePostServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SideBarAdmin at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeletePostServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +58,7 @@ public class SideBarAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManageUser daomu=new DAOManageUser();
-        Map<ReportUser, Integer> map = daomu.reportRankUser();
-        request.setAttribute("data", map);
-        request.getRequestDispatcher("HomePage/SideBarAdmin.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -72,10 +69,31 @@ public class SideBarAdmin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOManagePost dmnp = new DAOManagePost();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String postID = request.getParameter("pid");
+        try {
+            int newpostID = Integer.parseInt(postID);
+            int statusID = dmnp.getStatusIDByPostID(newpostID);
+            if (statusID != 2) {
+                boolean changeStatusPost = dmnp.updateStatusID(newpostID);
+                if (changeStatusPost == true) {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+
     }
 
     /**

@@ -345,6 +345,26 @@
 
         </script>
 
+        <!-- JS list block User -->
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const openModalBtn = document.getElementById('list-block-btn');
+                const modal = document.getElementById('list-block-modal');
+
+                openModalBtn.addEventListener('click', () => {
+                    modal.classList.add('is-active');
+                });
+            });
+
+            // Function to simulate change event
+            function simulateEvent(element, eventName) {
+                var event = new Event(eventName);
+                element.dispatchEvent(event);
+            }
+
+        </script>
+
+
     </head>
 
     <body>
@@ -759,17 +779,19 @@
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="options-settings.html" class="account-item">
+
+                                    <a class="account-item" >
                                         <div class="media">
                                             <div class="icon-wrap">
-                                                <i data-feather="settings"></i>
+                                                <i data-feather="list"></i>
                                             </div>
-                                            <div class="media-content">
-                                                <h3>Settings</h3>
-                                                <small>Access widget settings.</small>
+                                            <div class="media-content" data-modal="list-block-modal"  id="list-block-btn">
+                                                <h3>List Block Users</h3>
+                                                <small>Users blocked</small>
                                             </div>
                                         </div>
                                     </a>
+
                                     <a class="account-item">
                                         <div class="media">
                                             <div class="icon-wrap">
@@ -1012,130 +1034,267 @@
                                 <!-- html/partials/widgets/schedule/schedule-widget.html -->
 
                             </div>
-
+                            <style>
+                                 #history-form {
+                                    display: none;
+                                }
+                            </style>
                             <div class="column is-8">
                                 <div id="profile-timeline-posts" class="box-heading">
                                     <h4>Posts</h4>
                                     <div class="button-wrap">
-                                        <button type="button" class="button is-active">List Posts</button>
-                                        <button type="button" class="button is-active">History</button>
+                                        <button id="list-posts-btn" type="button" class="button is-active">List Posts</button>
+                                        <button id="history-btn" type="button" class="button is-active">History</button>
                                     </div>
                                 </div>
-                                <c:forEach var="post" items="${myPost}"> 
-                                    <div id="feed-post-1" class="card is-post">
-                                        <!-- Main wrap -->
-                                        <div class="content-wrap">
-                                            <!-- Post header -->
-                                            <div class="card-heading">
-                                                <!-- User meta -->
-                                                <div class="user-block" style="width: 100%;">
-                                                    <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
-                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
-                                                    </div>
-                                                    <div class="user-info" style="width: 100%;">
-                                                        <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
-                                                        <span class="time" style="display: inline-block">${post.createTime}</span>
-                                                        <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
-                                                        <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
-                                                        <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
-                                                        <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
-                                                        <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+                                <div id="list-posts-form">
+                                    <c:forEach var="post" items="${myPost}"> 
+                                        <div id="feed-post-1" class="card is-post" data-post-id="${post.postID}">
+                                            <!-- Main wrap -->
+                                            <div class="content-wrap">
+                                                <!-- Post header -->
+                                                <div class="card-heading">
+                                                    <!-- User meta -->
+                                                    <div class="user-block" style="width: 100%;">
+                                                        <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
+                                                        </div>
+                                                        <div class="user-info" style="width: 100%;">
+                                                            <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                            <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                            <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                            <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                            <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                            <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                            <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+                                
 
-                                                    </div>
-                                                </div>
-                                                <!-- Right side dropdown -->
-                                                <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
-                                                <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
-                                                    <div>
-                                                        <div class="button">
-                                                            <i data-feather="more-vertical"></i>
                                                         </div>
                                                     </div>
-                                                    <div class="dropdown-menu" role="menu">
-                                                        <div class="dropdown-content">
-                                                            <c:if test="${post.avaiableEditPost(profile.userID)}">
-                                                                <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" data-all-img="${post.imageUrl}">
-                                                                    <div class="media">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
-                                                                        <div class="media-content">
-                                                                            <h3>Edit</h3>
-                                                                            <small>Edit your post.</small>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </c:if>
-                                                            <c:if test="${post.avaiableArchivePost(profile.userID)}">
-                                                                <a class="dropdown-item open-modal-archive" data-post-id="${post.postID}">
-                                                                    <div class="media">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                                        <path fill="currentColor" d="M21 6a3 3 0 0 0-3-3H6a3 3 0 0 0-2 5.22V18a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8.22A3 3 0 0 0 21 6M6 5h12a1 1 0 0 1 0 2H6a1 1 0 0 1 0-2m12 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h12Z"/>
-                                                                        <rect width="6" height="2" x="9" y="12" fill="currentColor" rx=".87" ry=".87"/>
-                                                                        </svg>
-                                                                        <div class="media-content">
-                                                                            <h3>Archive</h3>
-                                                                            <small>Archive this post, others cannot see it</small>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </c:if>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="post-text">
-                                                    <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
-                                                        ${post.title}
-                                                    </h3>
-                                                </div>
-                                                <div class="post-text">
-                                                    <p class="post-text-description">
-                                                        ${post.description}
-                                                    </p>
-                                                </div>
-
-                                                <!-- Featured image -->
-                                                <div class="post-image">
-                                                    <div class="style-img-post">
-                                                        <c:forEach var="img" items="${post.getListImg()}">
-                                                            <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                                <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
-                                                            </a>
-                                                        </c:forEach>     
-                                                    </div>
-                                                    <c:if test="${fn:length(post.listImg) >= 2}">
-                                                        <div class="image-btn">
-                                                            <div class="btn-image-next btn-image">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                                <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
-                                                                </svg>
-                                                            </div>
-                                                            <div class="btn-image-pre btn-image">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                                <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
-                                                                </svg>
+                                                    <!-- Right side dropdown -->
+                                                    <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                    <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                        <div>
+                                                            <div class="button">
+                                                                <i data-feather="more-vertical"></i>
                                                             </div>
                                                         </div>
-                                                    </c:if>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <div class="dropdown-content">
+                                                                <c:if test="${post.avaiableEditPost(profile.userID)}">
+                                                                    <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" data-all-img="${post.imageUrl}">
+                                                                        <div class="media">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
+                                                                            <div class="media-content">
+                                                                                <h3>Edit</h3>
+                                                                                <small>Edit your post.</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </c:if>
+                                                                <c:if test="${post.avaiableArchivePost(profile.userID)}">
+                                                                    <a class="dropdown-item open-modal-archive" data-post-id="${post.postID}">
+                                                                        <div class="media">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path fill="currentColor" d="M21 6a3 3 0 0 0-3-3H6a3 3 0 0 0-2 5.22V18a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8.22A3 3 0 0 0 21 6M6 5h12a1 1 0 0 1 0 2H6a1 1 0 0 1 0-2m12 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h12Z"/>
+                                                                            <rect width="6" height="2" x="9" y="12" fill="currentColor" rx=".87" ry=".87"/>
+                                                                            </svg>
+                                                                            <div class="media-content">
+                                                                                <h3>Archive</h3>
+                                                                                <small>Archive this post, others cannot see it</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </c:if>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="post-text">
+                                                        <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                            ${post.title}
+                                                        </h3>
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <p class="post-text-description">
+                                                            ${post.description}
+                                                        </p>
+                                                    </div>
+
+                                                    <!-- Featured image -->
+                                                    <div class="post-image">
+                                                        <div class="style-img-post">
+                                                            <c:forEach var="img" items="${post.getListImg()}">
+                                                                <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                    <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                </a>
+                                                            </c:forEach>     
+                                                        </div>
+                                                        <c:if test="${fn:length(post.listImg) >= 2}">
+                                                            <div class="image-btn">
+                                                                <div class="btn-image-next btn-image">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="btn-image-pre btn-image">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </c:if>
+                                                    </div>
+
                                                 </div>
 
-                                            </div>
-
-                                            <div class="card-footer">
-                                                <div class="social-count" style="margin-left: 0px;">
-                                                    <div class="likes-count">
-                                                        <i data-feather="heart"></i>
-                                                        <span>27</span>
-                                                    </div>
-                                                    <div class="shares-count">
-                                                        <i data-feather="link-2"></i>
-                                                        <span>9</span>
+                                                <div class="card-footer">
+                                                    <div class="social-count" style="margin-left: 0px;">
+                                                        <div class="likes-count">
+                                                            <i data-feather="heart"></i>
+                                                            <span>27</span>
+                                                        </div>
+                                                        <div class="shares-count">
+                                                            <i data-feather="link-2"></i>
+                                                            <span>9</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </c:forEach> 
+                                    </c:forEach> 
+                                </div>
+
+
+
+
+                                <div id="history-form" >
+                                    <c:forEach var="post" items="${hisPost}"> 
+                                        <div id="feed-post-1" class="card is-post">
+                                            <!-- Main wrap -->
+                                            <div class="content-wrap">
+                                                <!-- Post header -->
+                                                <div class="card-heading">
+                                                    <!-- User meta -->
+                                                    <div class="user-block" style="width: 100%;">
+                                                        <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
+                                                        </div>
+                                                        <div class="user-info" style="width: 100%;">
+                                                            <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                            <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                            <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                            <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                            <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                            <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                            <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- Right side dropdown -->
+                                                    <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                    <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                        <div>
+                                                            <div class="button">
+                                                                <i data-feather="more-vertical"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <div class="dropdown-content">
+                                                                <c:if test="${post.avaiableEditPost(profile.userID)}">
+                                                                    <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" data-all-img="${post.imageUrl}">
+                                                                        <div class="media">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
+                                                                            <div class="media-content">
+                                                                                <h3>Edit</h3>
+                                                                                <small>Edit your post.</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </c:if>
+                                                                <c:if test="${post.avaiableArchivePost(profile.userID)}">
+                                                                    <a class="dropdown-item open-modal-archive" data-post-id="${post.postID}">
+                                                                        <div class="media">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path fill="currentColor" d="M21 6a3 3 0 0 0-3-3H6a3 3 0 0 0-2 5.22V18a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8.22A3 3 0 0 0 21 6M6 5h12a1 1 0 0 1 0 2H6a1 1 0 0 1 0-2m12 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h12Z"/>
+                                                                            <rect width="6" height="2" x="9" y="12" fill="currentColor" rx=".87" ry=".87"/>
+                                                                            </svg>
+                                                                            <div class="media-content">
+                                                                                <h3>Archive</h3>
+                                                                                <small>Archive this post, others cannot see it</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </c:if>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="post-text">
+                                                        <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                            ${post.title}
+                                                        </h3>
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <p class="post-text-description">
+                                                            ${post.description}
+                                                        </p>
+                                                    </div>
+
+                                                    <!-- Featured image -->
+                                                    <div class="post-image">
+                                                        <div class="style-img-post">
+                                                            <c:forEach var="img" items="${post.getListImg()}">
+                                                                <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                    <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                </a>
+                                                            </c:forEach>     
+                                                        </div>
+                                                        <c:if test="${fn:length(post.listImg) >= 2}">
+                                                            <div class="image-btn">
+                                                                <div class="btn-image-next btn-image">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="btn-image-pre btn-image">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </c:if>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-footer">
+                                                    <div class="social-count" style="margin-left: 0px;">
+                                                        <div class="likes-count">
+                                                            <i data-feather="heart"></i>
+                                                            <span>27</span>
+                                                        </div>
+                                                        <div class="shares-count">
+                                                            <i data-feather="link-2"></i>
+                                                            <span>9</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach> 
+                                </div>
+
+
+
+
+
+
+
+
+
                                 <div class="load-more-wrap has-text-centered">
                                     <a href="#" class="load-more-button">Load More</a>
                                 </div>
@@ -1253,6 +1412,147 @@
                     </div>
                 </div>
             </div>
+
+            <style>
+                block-list {
+                    font-family: Arial, sans-serif;
+                    background-color: #f0f2f5;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    margin: 0;
+                }
+
+
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                }
+
+                .header h2 {
+                    margin: 0;
+                }
+
+
+
+                .description {
+                    font-size: 14px;
+                    color: #606770;
+                    margin-bottom: 20px;
+                }
+
+                .search-box {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 20px;
+                }
+
+                .add-block-btn {
+                    background-color: #1877f2;
+                    color: white;
+                    border: none;
+                    padding: 10px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-right: 10px;
+                    flex-shrink: 0;
+                }
+
+                .add-block-btn:hover {
+                    background-color: #155dc2;
+                }
+
+                .search-input {
+                    flex-grow: 1;
+                    padding: 10px;
+                    border-radius: 5px;
+                    border: 1px solid #ccc;
+                }
+
+                .user-block-list .user {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 15px;
+                }
+
+                .avatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+
+                .user span {
+                    flex-grow: 1;
+                }
+
+                .btn-unblock {
+                    background-color: #e4e6eb;
+                    border: none;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+
+                .btn-unblock:hover {
+                    background-color: #d4d6db;
+                }
+            </style>
+
+            <!-- Block list users -->
+            <div id="list-block-modal" class="modal share-modal is-xsmall has-light-bg" >
+                <div class="modal-background">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-heading">
+                                <div class="modal-header">
+                                    <h2  style="margin-left: 167px ; font-weight: bold">List Block Users</h2>
+                                </div>
+                                <!-- Close X button -->
+                                <div class="close-wrap">
+                                    <span class="close-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card-body block-list">
+                                <div class="control">
+                                    <div class="modal-body">
+                                        <!--                                        <form action="profile" id="list-block-modal" method="post">-->
+
+                                        <p class="description">
+                                            Khi bạn chặn ai đó, họ sẽ không xem được nội dung bạn đăng trên dòng thời gian của mình,thêm bạn làm bạn bè và trao đổi các đồ dùng. Lưu ý: Điều này không bao gồm các trao đổi mà cả bạn và người này đều tham gia trước đó.
+                                        </p>
+                                        <div class="search-box">
+                                            <button type="button" class="add-block-btn">+ Thêm vào danh sách chặn</button>
+                                            <input type="text" placeholder="Search..." class="search-input" />
+                                        </div>
+
+                                        <div class="col-md-12 user-block-list">
+                                            <c:forEach var="bl" items="${userBlock}">
+                                                <form action="UnBlockUser" method="post" class="user">
+                                                    <input type="hidden" name="blockUserId" value="${bl.getInfoUser().getUserID()}" />
+                                                    <img src="${bl.getInfoUser().getAvatarUrl()}" alt="Avatar" class="avatar" />
+                                                    <span>${bl.getInfoUser().getFull_Name()}</span>
+                                                    <button type="submit" class="btn-unblock">Bỏ chặn</button>
+                                                </form>
+                                            </c:forEach>
+                                        </div>
+                                        <!--</form>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
 
             <div id="archive-post" class="modal albums-help-modal is-xsmall has-light-bg">
@@ -1750,171 +2050,11 @@
             </script>
 
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const statusElements = document.querySelectorAll('.status-post-name');
-                    const typeElements = document.querySelectorAll('.type-post-name');
-                    statusElements.forEach(function (element) {
-                        const statusName = element.textContent.trim().toLowerCase();
 
-                        if (statusName === 'available') {
-                            element.style.color = '#36a955';
-                        } else {
-                            element.style.color = 'red';
-                        }
-                    });
-                    typeElements.forEach(function (element) {
-                        const statusName = element.textContent.trim().toLowerCase();
 
-                        if (statusName === 'free') {
-                            element.style.color = '#6ba4e9';
-                        } else {
-                            element.style.color = 'red';
-                        }
-                    });
-                });
                 function submitForm() {
                     document.getElementById('uploadForm').submit();
                 }
-
-                document.addEventListener("DOMContentLoaded", function () {
-                    const openModalArchives = document.querySelectorAll('.open-modal-archive');
-                    const modalArchive = document.getElementById('archive-post');
-                    const archivePostButton = document.getElementById('archivePostButton');
-                    let currentPostId = null;
-
-                    openModalArchives.forEach(openModalArchive => {
-                        openModalArchive.addEventListener('click', () => {
-                            const postId = openModalArchive.getAttribute('data-post-id');
-                            currentPostId = postId;
-                            modalArchive.setAttribute('data-post-id', postId);
-                            modalArchive.classList.add('is-active');
-                        });
-                    });
-
-                    archivePostButton.addEventListener('click', () => {
-                        if (currentPostId) {
-                            const xhr = new XMLHttpRequest();
-                            xhr.open('POST', 'PostArchive', true);
-                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                            xhr.onreadystatechange = function () {
-                                if (xhr.readyState === 4 && xhr.status === 200) {
-                                    console.log(xhr.responseText);
-                                    iziToast.show({
-                                        maxWidth: "280px",
-                                        class: "success-toast",
-                                        icon: "mdi mdi-check",
-                                        title: "",
-                                        message: "Archive post successfully",
-                                        titleColor: "#fff",
-                                        messageColor: "#fff",
-                                        iconColor: "#fff",
-                                        backgroundColor: "#60c032",
-                                        progressBarColor: "#0062ff",
-                                        position: "bottomRight",
-                                        transitionIn: "fadeInUp",
-                                        close: false,
-                                        timeout: 1800,
-                                        zindex: 99999
-                                    });
-                                    modalArchive.classList.remove('is-active');
-                                }
-                            };
-                            xhr.send('id=' + currentPostId);
-                        }
-                    });
-                });
-
-                document.addEventListener("DOMContentLoaded", function () {
-                    const openModalEditPost = document.querySelectorAll('.open-modal-edit');
-                    const modalEditPost = document.getElementById('edit-post-modal');
-                    const saveEditPostButton = document.getElementById('saveEditButton');
-
-                    openModalEditPost.forEach(openModalEdit => {
-                        openModalEdit.addEventListener('click', () => {
-                            modalEditPost.setAttribute('data-post-id', openModalEdit.getAttribute('data-post-id'));
-                            modalEditPost.querySelector('input[name="postIdEdit"]').value = openModalEdit.getAttribute('data-post-id');
-                            modalEditPost.querySelector('input[name="titleEdit"]').value = openModalEdit.getAttribute('data-post-title');
-                            const selectQuanlity = modalEditPost.querySelectorAll('input[name="qualityEdit"]');
-                            selectQuanlity.forEach(option => {
-                                if (option.value === openModalEdit.getAttribute('data-post-quanlity')) {
-                                    option.checked = true;
-                                } else {
-                                    option.checked = false;
-                                }
-                            });
-                            modalEditPost.querySelector('textarea[name="descriptionEdit"]').value = openModalEdit.getAttribute('data-post-desc');
-                            const selectDistrict = modalEditPost.querySelector('select[name="districtEdit"]');
-                            const optionDistrict = selectDistrict.querySelectorAll('option');
-
-                            optionDistrict.forEach(option => {
-                                if (option.value === openModalEdit.getAttribute('data-post-district')) {
-                                    option.selected = true;
-                                } else {
-                                    option.selected = false;
-                                }
-                            });
-                            console.log(openModalEdit.getAttribute('data-post-district'));
-                            const selectWard = modalEditPost.querySelector('select[name="wardEdit"]');
-                            const optionWard = selectWard.querySelectorAll('option');
-                            optionWard.forEach(option => {
-                                if (option.value === openModalEdit.getAttribute('data-post-commune')) {
-                                    option.selected = true;
-                                } else {
-                                    option.selected = false;
-                                }
-                            });
-                            modalEditPost.querySelector('input[name="newAddressEdit"]').value = openModalEdit.getAttribute('data-post-street_Number');
-                            modalEditPost.querySelector('input[name="instructionsEdit"]').value = openModalEdit.getAttribute('data-post-intr');
-                            var allImg = openModalEdit.getAttribute('data-all-img');
-                            const {styleImgPostDiv, imageBtnDiv} = createImageContainer(allImg);
-                            var modalBody = modalEditPost.querySelector('.post-image.preview-img');
-                            modalBody.innerHTML = '';
-                            modalBody.appendChild(styleImgPostDiv);
-                            modalBody.appendChild(imageBtnDiv);
-                            initializeSliders();
-                            modalEditPost.classList.add('is-active');
-                        });
-                    });
-                });
-
-                function createImageContainer(imageUrls) {
-                    const styleImgPostDiv = document.createElement('div');
-                    styleImgPostDiv.classList.add('style-img-post');
-
-                    const imageArray = imageUrls.split(',');
-
-                    imageArray.forEach(src => {
-                        const img = document.createElement('img');
-                        img.classList.add('element-img-post');
-                        img.src = src.trim();
-                        styleImgPostDiv.appendChild(img);
-                    });
-
-                    const imageBtnDiv = document.createElement('div');
-                    imageBtnDiv.classList.add('image-btn');
-                    imageBtnDiv.style.display = 'block';
-
-                    const btnNextDiv = document.createElement('div');
-                    btnNextDiv.classList.add('btn-image-next', 'btn-image');
-                    btnNextDiv.style.fontSize = '26px';
-                    btnNextDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                            <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
-                                            </svg>`;
-
-                    const btnPreDiv = document.createElement('div');
-                    btnPreDiv.classList.add('btn-image-pre', 'btn-image');
-                    btnPreDiv.style.fontSize = '26px';
-                    btnPreDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                            <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
-                                            </svg>`;
-
-                    imageBtnDiv.appendChild(btnNextDiv);
-                    imageBtnDiv.appendChild(btnPreDiv);
-
-                    return {styleImgPostDiv, imageBtnDiv};
-                }
-
-
                 document.getElementById('imgPathEditPost').addEventListener('change', function (event) {
                     const files = event.target.files;
                     const blockImg = document.querySelector('.post-image.preview-img');
@@ -1942,69 +2082,36 @@
 
 
 
-                var editPostForm = document.getElementById('edit-post');
-                editPostForm.addEventListener('submit', function (event) {
-                    event.preventDefault();
-                    var formDataForEditPost = new FormData(editPostForm);
+               
 
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', 'editPost', true);
-                    xhr.onload = function () {
-                        console.log('Response:', xhr.responseText);
-                        if (xhr.responseText === "success") {
-                            document.getElementById('edit-post-modal').classList.remove('is-active');
-                            editPostForm.reset();
-                            editPostForm.querySelector('.post-image.preview-img').style.display = 'none';
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "success-toast",
-                                icon: "mdi mdi-check",
-                                title: "",
-                                message: "Edit post successfully",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#60c032",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                        } else {
-                            const modal = document.getElementById('edit-post-modal');
-                            modal.classList.remove('is-active');
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "success-toast",
-                                icon: "mdi mdi-error",
-                                title: "",
-                                message: "Edit post failed",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#FF0000",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                        }
-                    };
-                    xhr.onerror = function () {
-                        console.error('Request failed');
-                    };
-                    xhr.send(formDataForEditPost);
+                
+            </script>
+
+            <script>
+                // Lấy tham chiếu tới các nút và các form
+                const listPostsBtn = document.getElementById('list-posts-btn');
+                const historyBtn = document.getElementById('history-btn');
+                const listPostsForm = document.getElementById('list-posts-form');
+                const historyForm = document.getElementById('history-form');
+
+                // Ẩn các form ban đầu
+                historyForm.style.display = 'none';
+
+                // Thêm sự kiện click cho nút "List Posts"
+                listPostsBtn.addEventListener('click', () => {
+                    listPostsForm.style.display = 'block';
+                    historyForm.style.display = 'none';
                 });
 
-
+                // Thêm sự kiện click cho nút "History"
+                historyBtn.addEventListener('click', () => {
+                    listPostsForm.style.display = 'none';
+                    historyForm.style.display = 'block';
+                });
             </script>
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
-
+            <script src="assets/js/reloadJs.js"></script>
 
     </body>
 
