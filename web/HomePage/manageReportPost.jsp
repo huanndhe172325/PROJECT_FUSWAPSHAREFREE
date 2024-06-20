@@ -17,9 +17,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">       
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href="css/ManagerProduct.css" rel="stylesheet" type="text/css"/>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -38,14 +38,7 @@
             function back() {
                 window.location.href = "home";
             }
-            function doDelete(id)
-            {
-                var c = confirm("Are you sure?");
-                if (c)
-                {
-                    window.location.href = "delete?pid=" + id;
-                }
-            }
+
         </script>
         <script>
             ;
@@ -269,13 +262,30 @@
                                     <td>${c.message}</td>
                                     <td>${c.user.userID}</td>
                                     <td>
-                                        <button class="btn btn-danger" onclick="#">Delete</button>
+                                        <button class="btn btn-danger delete-btn" data-post-id="${c.post.postID}">Delete</button>
                                     </td>
                                     </th>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
+                </div>
+                <div id="deleteConfirmationModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close cancel-btn" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Confirm Deletion</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this post?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger delete-btn-confirm" id="confirmDeleteBtn">Delete</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <a href="#">
                     <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
@@ -284,11 +294,82 @@
 
         </body>
     </html>
+    <script>
+        $(document).ready(function () {
+            $('.delete-btn').click(function () {
+                var postID = $(this).data('post-id');
+                $('#deleteConfirmationModal').addClass('in');
+                $('#deleteConfirmationModal').attr('aria-hidden', 'false');
+                $('#deleteConfirmationModal').css('display', 'block');
+                $('#confirmDeleteBtn').data('post-id', postID);
+                $('#confirmDeleteBtn').data('status-id', statusID);
+            });
 
+            // Function to handle delete action
+            $(document).on('click', '#confirmDeleteBtn', function () {
+                var postID = $(this).data('post-id');
+                ;
+                $.ajax({
+                    type: "POST",
+                    url: "/FUSWAPSHAREFREE/DeletePostServlet",
+                    data: {pid: postID},
+                    success: function (response) {
+                        iziToast.show({
+                            maxWidth: "280px",
+                            class: "success-toast",
+                            icon: "mdi mdi-check",
+                            title: "",
+                            message: "Remove post successfully",
+                            titleColor: "#fff",
+                            messageColor: "#fff",
+                            iconColor: "#fff",
+                            backgroundColor: "#60c032",
+                            progressBarColor: "#0062ff",
+                            position: "bottomRight",
+                            transitionIn: "fadeInUp",
+                            close: false,
+                            timeout: 1800,
+                            zindex: 99999
+                        });
+                        $('#deleteConfirmationModal').removeClass('in');
+                        $('#deleteConfirmationModal').attr('aria-hidden', 'true');
+                        $('#deleteConfirmationModal').css('display', 'none');
+                    },
+                    error: function (xhr, status, error) {
+                        iziToast.show({
+                            maxWidth: "280px",
+                            class: "success-toast",
+                            icon: "mdi mdi-error",
+                            title: "",
+                            message: "Remove post failed",
+                            titleColor: "#fff",
+                            messageColor: "#fff",
+                            iconColor: "#fff",
+                            backgroundColor: "#FF0000",
+                            progressBarColor: "#0062ff",
+                            position: "bottomRight",
+                            transitionIn: "fadeInUp",
+                            close: false,
+                            timeout: 1800,
+                            zindex: 99999
+                        });
+                        $('#deleteConfirmationModal').css('display', 'block');
+                    }
+                });
+            });
+
+            // Function to close modal on cancel
+            $('.cancel-btn').click(function () {
+                $('#deleteConfirmationModal').removeClass('in');
+                $('#deleteConfirmationModal').attr('aria-hidden', 'true');
+                $('#deleteConfirmationModal').css('display', 'none');
+            });
+        });
+    </script>
     <script src="js/ManagerProduct.js" type="text/javascript"></script>
     <script src="assets/js/app.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Core js -->
     <script src="assets/js/global.js"></script>
 

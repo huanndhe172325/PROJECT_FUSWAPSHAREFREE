@@ -73,7 +73,7 @@ public class DAOManagePost extends DBContext {
     public ArrayList<Post> getPostNewest() {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Post ORDER BY CreateTime ASC";
+            String sql = "SELECT * FROM Post ORDER BY CreateTime DESC";
             PreparedStatement statement = connect.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
@@ -183,6 +183,27 @@ public class DAOManagePost extends DBContext {
             System.out.println(e);
         }
         return count;
+    }
+
+    public int getStatusIDByPostID(int postID) {
+        int statusID = -1;
+        try {
+            String sql = "SELECT [StatusID] FROM [FUSWAPSHAREFREE].[dbo].[Post] WHERE [PostID] = ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postID);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                statusID = rs.getInt("StatusID");
+            }
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return statusID;
     }
 
     public boolean requestPost(String message, int userIdSent, int postId) {
@@ -395,6 +416,19 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean updateStatusID(int postId) {
+        String sql = "UPDATE [dbo].[Post] SET [StatusID] = 5 WHERE [PostID] = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public int getMaxIdPost() {
         int maxId = 1;
         try {
@@ -532,7 +566,7 @@ public class DAOManagePost extends DBContext {
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-        ArrayList<Post> lP =  dao.getAllPostHistory(64);
+        ArrayList<Post> lP = dao.getAllPostHistory(64);
         System.out.println(lP);
 //        Post newPost = new Post();
 //        newPost.setTitle("Post Title");
