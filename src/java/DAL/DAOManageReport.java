@@ -23,7 +23,7 @@ public class DAOManageReport extends DBContext {
 
     public ArrayList<ReportPost> getAllReportPosts() {
         ArrayList<ReportPost> reportPosts = new ArrayList<>();
-        String sqlString="  SELECT * FROM Have_ReportPost";
+        String sqlString="  SELECT * FROM Have_ReportPost  ORDER BY PostID";
         try{
               PreparedStatement st = connect.prepareStatement(sqlString);
               

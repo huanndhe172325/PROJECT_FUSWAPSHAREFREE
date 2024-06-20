@@ -1,8 +1,4 @@
-<%-- 
-    Document   : manageUsers
-    Created on : Jun 2, 2024, 4:59:56 PM
-    Author     : admin
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -123,124 +119,121 @@
                 </a>
             </div>
         </div>
-        <!DOCTYPE html>
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Search Form</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f8f9fa;
-                    margin: 0;
-                    padding: 0;
-                }
 
-                .container {
-                    width: 80%;
-                    margin: 20px auto;
-                }
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Form</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f9fa;
+                margin: 0;
+                padding: 0;
+            }
 
-                .table-wrapper {
-                    box-shadow: 0 1px 1px rgba(0,0,0,.1);
-                    background-color: #fff;
-                    border-radius: 5px;
-                    overflow: hidden;
-                }
+            .container {
+                width: 80%;
+                margin: 20px auto;
+            }
 
-                .table-title {
-                    padding: 15px;
-                    background: #007bff; /* Màu xanh biển đậm hơn */
-                    color: #fff;
-                    border-radius: 5px 5px 0 0;
-                }
+            .table-wrapper {
+                box-shadow: 0 1px 1px rgba(0,0,0,.1);
+                background-color: #fff;
+                border-radius: 5px;
+                overflow: hidden;
+            }
 
-                .table-title h2 {
-                    margin: 0;
-                    font-size: 24px;
-                }
+            .table-title {
+                padding: 15px;
+                background: #007bff; /* Màu xanh biển đậm hơn */
+                color: #fff;
+                border-radius: 5px 5px 0 0;
+            }
 
-                .search-box {
-                    float: right;
-                }
+            .table-title h2 {
+                margin: 0;
+                font-size: 24px;
+            }
 
-                .search-box input[type="text"] {
-                    height: 34px;
-                    border-radius: 20px;
-                    padding: 0 15px;
-                    border: 1px solid #ddd;
-                    outline: none;
-                    width: 200px;
-                    transition: width 0.4s ease-in-out;
-                    color: #000; /* Màu chữ đen */
-                }
+            .search-box {
+                float: right;
+            }
 
-                .search-box input[type="text"]:focus {
-                    width: 300px;
-                }
+            .search-box input[type="text"] {
+                height: 34px;
+                border-radius: 20px;
+                padding: 0 15px;
+                border: 1px solid #ddd;
+                outline: none;
+                width: 200px;
+                transition: width 0.4s ease-in-out;
+                color: #000; /* Màu chữ đen */
+            }
 
-                .search-box button {
-                    border: none;
-                    background: none;
-                    color: #fff;
-                    font-size: 18px;
-                    margin-left: -30px;
-                    cursor: pointer;
-                }
+            .search-box input[type="text"]:focus {
+                width: 300px;
+            }
 
-                table.table {
-                    width: 100%;
-                    margin-top: 20px;
-                    border-collapse: collapse;
-                }
+            .search-box button {
+                border: none;
+                background: none;
+                color: #fff;
+                font-size: 18px;
+                margin-left: -30px;
+                cursor: pointer;
+            }
 
-                table.table th, table.table td {
-                    padding: 12px 15px;
-                    text-align: left;
-                }
+            table.table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
 
-                table.table th {
-                    background: #f4f4f4;
-                }
+            table.table th, table.table td {
+                padding: 12px 15px;
+                text-align: left;
+            }
 
-                table.table-striped tbody tr:nth-of-type(odd) {
-                    background-color: #f9f9f9;
-                }
+            table.table th {
+                background: #f4f4f4;
+            }
 
-                .btn-primary {
-                    background-color:#007bff; /* Màu xanh biển đậm hơn */
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    text-decoration: none;
-                    display: inline-block;
-                    margin: 20px 0;
-                }
+            table.table-striped tbody tr:nth-of-type(odd) {
+                background-color: #f9f9f9;
+            }
 
-                .btn-primary:hover {
-                    background-color: #006a86;
-                }
-            </style>
-        </head>
-        <body>
-           <div class="container">
+            .btn-primary {
+                background-color:#007bff; /* Màu xanh biển đậm hơn */
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                display: inline-block;
+                margin: 20px 0;
+            }
+
+            .btn-primary:hover {
+                background-color: #006a86;
+            }
+        </style>
+        <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                            <div class="col-sm-8"><h2>Manage <b>Users</b></h2></div>
-                            <div class="col-sm-4">
-                                <div class="search-box">
-                                    <form action="/search" method="get">
-                                        <input type="text" name="query" placeholder="Search...">
-                                        <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
-                                    </form>
-                                </div>
+                        <div class="col-sm-8">
+                            <h2>Manage <b>Users</b></h2>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="search-box">
+                                <form action="ListUser" method="get"> <!-- Đổi action thành ListUser -->
+                                    <input type="text" name="query" placeholder="Search..." value="${query}">
+                                    <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
+                                </form>
                             </div>
                         </div>
+                    </div>
                 </div>
 
                 <table class="table table-hover table-bordered">
@@ -280,24 +273,31 @@
                 <c:if test="${noOfPages > 1}">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
+                            <!-- Nút Previous -->
                             <c:if test="${currentPage > 1}">
                                 <li class="page-item">
-                                    <a class="page-link" href="ListUser?page=${currentPage - 1}" aria-label="Previous">
+                                    <a class="page-link" href="ListUser?page=${currentPage - 1}&query=${query}" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
                                     </a>
                                 </li>
                             </c:if>
 
+                            <!-- Các nút trang -->
                             <c:forEach begin="1" end="${noOfPages}" var="i">
-                                <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                    <a class="page-link" href="ListUser?page=${i}">${i}</a>
-                                </li>
+                                <c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
+                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                        <a class="page-link" href="ListUser?page=${i}&query=${query}">${i}</a>
+                                    </li>
+                                </c:if>
                             </c:forEach>
 
+                            <!-- Nút Next -->
                             <c:if test="${currentPage < noOfPages}">
                                 <li class="page-item">
-                                    <a class="page-link" href="ListUser?page=${currentPage + 1}" aria-label="Next">
+                                    <a class="page-link" href="ListUser?page=${currentPage + 1}&query=${query}" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
                                     </a>
                                 </li>
                             </c:if>
@@ -305,41 +305,42 @@
                     </nav>
                 </c:if>
 
+
                 <a href="SideBarAdmin">
                     <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                 </a>
             </div>
         </div>
 
-     
 
-    <script src="js/ManagerProduct.js" type="text/javascript"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="https://js.stripe.com/v3/"></script>
 
-    <!-- Core js -->
-    <script src="assets/js/global.js"></script>
+        <script src="js/ManagerProduct.js" type="text/javascript"></script>
+        <script src="assets/js/app.js"></script>
+        <script src="https://js.stripe.com/v3/"></script>
 
-    <!-- Navigation options js -->
-    <script src="assets/js/navbar-v1.js"></script>
-    <script src="assets/js/navbar-v2.js"></script>
-    <script src="assets/js/navbar-mobile.js"></script>
-    <script src="assets/js/navbar-options.js"></script>
-    <script src="assets/js/sidebar-v1.js"></script>
+        <!-- Core js -->
+        <script src="assets/js/global.js"></script>
 
-    <!-- Core instance js -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/chat.js"></script>
-    <script src="assets/js/touch.js"></script>
-    <script src="assets/js/tour.js"></script>
+        <!-- Navigation options js -->
+        <script src="assets/js/navbar-v1.js"></script>
+        <script src="assets/js/navbar-v2.js"></script>
+        <script src="assets/js/navbar-mobile.js"></script>
+        <script src="assets/js/navbar-options.js"></script>
+        <script src="assets/js/sidebar-v1.js"></script>
 
-    <!-- Components js -->
-    <script src="assets/js/explorer.js"></script>
-    <script src="assets/js/widgets.js"></script>
-    <script src="assets/js/modal-uploader.js"></script>
-    <script src="assets/js/popovers-users.js"></script>
-    <script src="assets/js/popovers-pages.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-</body>
+        <!-- Core instance js -->
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/chat.js"></script>
+        <script src="assets/js/touch.js"></script>
+        <script src="assets/js/tour.js"></script>
+
+        <!-- Components js -->
+        <script src="assets/js/explorer.js"></script>
+        <script src="assets/js/widgets.js"></script>
+        <script src="assets/js/modal-uploader.js"></script>
+        <script src="assets/js/popovers-users.js"></script>
+        <script src="assets/js/popovers-pages.js"></script>
+        <script src="assets/js/lightbox.js"></script>
+    </body>
 </html>
 

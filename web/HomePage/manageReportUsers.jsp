@@ -1,8 +1,3 @@
-<%-- 
-    Document   : manageUsers
-    Created on : Jun 2, 2024, 4:59:56 PM
-    Author     : admin
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -124,189 +119,189 @@
             </div>
         </div>
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Search Form</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f8f9fa;
-                    margin: 0;
-                    padding: 0;
-                }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Search Form</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f9fa;
+                margin: 0;
+                padding: 0;
+            }
 
-                .container {
-                    width: 80%;
-                    margin: 20px auto;
-                }
+            .container {
+                width: 80%;
+                margin: 20px auto;
+            }
 
-                .table-wrapper {
-                    box-shadow: 0 1px 1px rgba(0,0,0,.1);
-                    background-color: #fff;
-                    border-radius: 5px;
-                    overflow: hidden;
-                }
+            .table-wrapper {
+                box-shadow: 0 1px 1px rgba(0,0,0,.1);
+                background-color: #fff;
+                border-radius: 5px;
+                overflow: hidden;
+            }
 
-                .table-title {
-                    padding: 15px;
-                    background: #007bff; /* Màu xanh biển đậm hơn */
-                    color: #fff;
-                    border-radius: 5px 5px 0 0;
-                }
+            .table-title {
+                padding: 15px;
+                background: #007bff; /* Màu xanh biển đậm hơn */
+                color: #fff;
+                border-radius: 5px 5px 0 0;
+            }
 
-                .table-title h2 {
-                    margin: 0;
-                    font-size: 24px;
-                }
+            .table-title h2 {
+                margin: 0;
+                font-size: 24px;
+            }
 
-                .search-box {
-                    float: right;
-                }
+            .search-box {
+                float: right;
+            }
 
-                .search-box input[type="text"] {
-                    height: 34px;
-                    border-radius: 20px;
-                    padding: 0 15px;
-                    border: 1px solid #ddd;
-                    outline: none;
-                    width: 200px;
-                    transition: width 0.4s ease-in-out;
-                    color: #000; /* Màu chữ đen */
-                }
+            .search-box input[type="text"] {
+                height: 34px;
+                border-radius: 20px;
+                padding: 0 15px;
+                border: 1px solid #ddd;
+                outline: none;
+                width: 200px;
+                transition: width 0.4s ease-in-out;
+                color: #000; /* Màu chữ đen */
+            }
 
-                .search-box input[type="text"]:focus {
-                    width: 300px;
-                }
+            .search-box input[type="text"]:focus {
+                width: 300px;
+            }
 
-                .search-box button {
-                    border: none;
-                    background: none;
-                    color: #fff;
-                    font-size: 18px;
-                    margin-left: -30px;
-                    cursor: pointer;
-                }
+            .search-box button {
+                border: none;
+                background: none;
+                color: #fff;
+                font-size: 18px;
+                margin-left: -30px;
+                cursor: pointer;
+            }
 
-                table.table {
-                    width: 100%;
-                    margin-top: 20px;
-                    border-collapse: collapse;
-                }
+            table.table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
 
-                table.table th, table.table td {
-                    padding: 12px 15px;
-                    text-align: left;
-                }
+            table.table th, table.table td {
+                padding: 12px 15px;
+                text-align: left;
+            }
 
-                table.table th {
-                    background: #f4f4f4;
-                }
+            table.table th {
+                background: #f4f4f4;
+            }
 
-                table.table-striped tbody tr:nth-of-type(odd) {
-                    background-color: #f9f9f9;
-                }
+            table.table-striped tbody tr:nth-of-type(odd) {
+                background-color: #f9f9f9;
+            }
 
-                .btn-primary {
-                    background-color:#007bff; /* Màu xanh biển đậm hơn */
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    text-decoration: none;
-                    display: inline-block;
-                    margin: 20px 0;
-                }
+            .btn-primary {
+                background-color:#007bff; /* Màu xanh biển đậm hơn */
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                text-decoration: none;
+                display: inline-block;
+                margin: 20px 0;
+            }
 
-                .btn-primary:hover {
-                    background-color: #006a86;
-                }
-            </style>
-        
-            <div class="container">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-8"><h2>List Report <b>Users</b></h2></div>
-                            <div class="col-sm-4">
-                                <div class="search-box">
-                                    <form action="/search" method="get">
-                                        <input type="text" name="query" placeholder="Search...">
-                                        <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
-                                    </form>
-                                </div>
-                            </div>
+            .btn-primary:hover {
+                background-color: #006a86;
+            }
+        </style>
+
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>List Report <b>Users</b></h2></div>
+                    <div class="col-sm-4">
+                        <div class="search-box">
+                            <form action="/search" method="get">
+                                <input type="text" name="query" placeholder="Search...">
+                                <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
+                            </form>
                         </div>
                     </div>
-                    <table class="table table-hover table-bordered">
-
-                        <tbody>
-                        <div class="container" style="margin-top: -30px">
-                            <a href="manageReportUsers" style="text-decoration: none; color: #58abff">
-                                <table class="table table-hover table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Full Name User Send</th>
-                                            <th>Message</th>
-
-                                            <th>reportTime</th>
-                                            <th>Full Name User Receive</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${reportUser}" var="c">
-                                            <tr>
-                                                <th>
-                                                <td><a href="otherprofile?id=${c.idUserSend}" > ${c.getNameIdUserSend().getFull_Name()}</a>
-
-                                                </td>
-                                                <td>${c.message}</td>
-                                                <td>${c.reportTime}</td>
-                                                <td><a href="otherprofile?id=${c.idUserReceive}" > ${c.getNameIdUserReceive().getFull_Name()}</a></td>
-
-                                                </th>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                        </div>
-                        <a href="SideBarAdmin">
-                            <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                        </a>
                 </div>
+            </div>
+            <table class="table table-hover table-bordered">
 
-        
+                <tbody>
+                <div class="container" style="margin-top: -30px">
+                    <a href="manageReportUsers" style="text-decoration: none; color: #58abff">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Full Name User Send</th>
+                                    <th>Message</th>
 
-    <script src="js/ManagerProduct.js" type="text/javascript"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="https://js.stripe.com/v3/"></script>
+                                    <th>reportTime</th>
+                                    <th>Full Name User Receive</th>
 
-    <!-- Core js -->
-    <script src="assets/js/global.js"></script>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${reportUser}" var="c">
+                                    <tr>
+                                        <th>
+                                        <td><a href="otherprofile?id=${c.idUserSend}" > ${c.getNameIdUserSend().getFull_Name()}</a>
 
-    <!-- Navigation options js -->
-    <script src="assets/js/navbar-v1.js"></script>
-    <script src="assets/js/navbar-v2.js"></script>
-    <script src="assets/js/navbar-mobile.js"></script>
-    <script src="assets/js/navbar-options.js"></script>
-    <script src="assets/js/sidebar-v1.js"></script>
+                                        </td>
+                                        <td>${c.message}</td>
+                                        <td>${c.reportTime}</td>
+                                        <td><a href="otherprofile?id=${c.idUserReceive}" > ${c.getNameIdUserReceive().getFull_Name()}</a></td>
 
-    <!-- Core instance js -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/chat.js"></script>
-    <script src="assets/js/touch.js"></script>
-    <script src="assets/js/tour.js"></script>
+                                        </th>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                </div>
+                <a href="SideBarAdmin">
+                    <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+                </a>
+        </div>
 
-    <!-- Components js -->
-    <script src="assets/js/explorer.js"></script>
-    <script src="assets/js/widgets.js"></script>
-    <script src="assets/js/modal-uploader.js"></script>
-    <script src="assets/js/popovers-users.js"></script>
-    <script src="assets/js/popovers-pages.js"></script>
-    <script src="assets/js/lightbox.js"></script>
-</body>
+
+
+        <script src="js/ManagerProduct.js" type="text/javascript"></script>
+        <script src="assets/js/app.js"></script>
+        <script src="https://js.stripe.com/v3/"></script>
+
+        <!-- Core js -->
+        <script src="assets/js/global.js"></script>
+
+        <!-- Navigation options js -->
+        <script src="assets/js/navbar-v1.js"></script>
+        <script src="assets/js/navbar-v2.js"></script>
+        <script src="assets/js/navbar-mobile.js"></script>
+        <script src="assets/js/navbar-options.js"></script>
+        <script src="assets/js/sidebar-v1.js"></script>
+
+        <!-- Core instance js -->
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/chat.js"></script>
+        <script src="assets/js/touch.js"></script>
+        <script src="assets/js/tour.js"></script>
+
+        <!-- Components js -->
+        <script src="assets/js/explorer.js"></script>
+        <script src="assets/js/widgets.js"></script>
+        <script src="assets/js/modal-uploader.js"></script>
+        <script src="assets/js/popovers-users.js"></script>
+        <script src="assets/js/popovers-pages.js"></script>
+        <script src="assets/js/lightbox.js"></script>
+    </body>
 </html>
 
