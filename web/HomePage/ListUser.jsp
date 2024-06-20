@@ -311,8 +311,7 @@
             </div>
         </div>
 
-        </body>
-    </html>
+     
 
     <script src="js/ManagerProduct.js" type="text/javascript"></script>
     <script src="assets/js/app.js"></script>

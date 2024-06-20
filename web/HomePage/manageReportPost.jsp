@@ -123,10 +123,7 @@
                 </a>
             </div>
         </div>
-        <!DOCTYPE html>
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
+ 
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Search Form</title>
@@ -225,8 +222,7 @@
                     background-color: #006a86;
                 }
             </style>
-        </head>
-        <body>
+       
             <div class="container">
                 <div class="table-wrapper">
                     <div class="table-title">
@@ -277,13 +273,13 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="#">
+                <a href="SideBarAdmin">
                     <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                 </a>
             </div>
 
-        </body>
-    </html>
+      
+
 
     <script src="js/ManagerProduct.js" type="text/javascript"></script>
     <script src="assets/js/app.js"></script>
