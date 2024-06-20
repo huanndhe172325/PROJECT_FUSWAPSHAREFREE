@@ -123,9 +123,7 @@
                 </a>
             </div>
         </div>
-        <!DOCTYPE html>
-    <!DOCTYPE html>
-    <html lang="en">
+
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -225,13 +223,12 @@
                     background-color: #006a86;
                 }
             </style>
-        </head>
-        <body>
+        
             <div class="container">
                 <div class="table-wrapper">
                     <div class="table-title">
                         <div class="row">
-                            <div class="col-sm-8"><h2>Manage <b>Users</b></h2></div>
+                            <div class="col-sm-8"><h2>List Report <b>Users</b></h2></div>
                             <div class="col-sm-4">
                                 <div class="search-box">
                                     <form action="/search" method="get">
@@ -243,49 +240,45 @@
                         </div>
                     </div>
                     <table class="table table-hover table-bordered">
-                       
+
                         <tbody>
-                           <div class="container" style="margin-top: -30px">
-                    <a href="manageReportUsers" style="text-decoration: none; color: #58abff"><h2 style="color: white">List Report Users</h2></a>
-                    <table class="table table-hover table-bordered">
-                       <thead>
-                            <tr>
-                                <th></th>
-                                <th>IdUserSend</th>
-                                <th>Message</th>
+                        <div class="container" style="margin-top: -30px">
+                            <a href="manageReportUsers" style="text-decoration: none; color: #58abff">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Full Name User Send</th>
+                                            <th>Message</th>
 
-                                <th>reportTime</th>
-                                <th>IdUserReceive</th>
-                              
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${reportUser}" var="c">
-                                <tr>
-                                    <th>
-                                    <td><a href="otherprofile?id=${c.idUserSend}" > ${c.idUserSend}</a>
-                                        
-                                    </td>
-                                    <td>${c.message}</td>
-                                    <td>${c.reportTime}</td>
-                                    <td><a href="otherprofile?id=${c.idUserReceive}" > ${c.idUserReceive}</a></td>
+                                            <th>reportTime</th>
+                                            <th>Full Name User Receive</th>
 
-                                    </th>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${reportUser}" var="c">
+                                            <tr>
+                                                <th>
+                                                <td><a href="otherprofile?id=${c.idUserSend}" > ${c.getNameIdUserSend().getFull_Name()}</a>
 
+                                                </td>
+                                                <td>${c.message}</td>
+                                                <td>${c.reportTime}</td>
+                                                <td><a href="otherprofile?id=${c.idUserReceive}" > ${c.getNameIdUserReceive().getFull_Name()}</a></td>
+
+                                                </th>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                        </div>
+                        <a href="SideBarAdmin">
+                            <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+                        </a>
                 </div>
-                        </tbody>
-                    </table>
-                </div>
-                <a href="SideBarAdmin">
-                    <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                </a>
-            </div>
-        </body>
-    </html>
+
+        
 
     <script src="js/ManagerProduct.js" type="text/javascript"></script>
     <script src="assets/js/app.js"></script>
