@@ -142,6 +142,41 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
+    public ArrayList<Post> getAllPostHistory(int idUser) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post\n"
+                    + "WHERE UserID = ? AND StatusID IN (2, 3, 4)\n"
+                    + "ORDER BY CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, idUser);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
     public Post getPostByIdPost(int idPost) {
         Post post = null;
         String sql = "SELECT * FROM Post WHERE PostID = ?";
@@ -399,6 +434,8 @@ public class DAOManagePost extends DBContext {
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
+        ArrayList<Post> lP =  dao.getAllPostHistory(64);
+        System.out.println(lP);
 //        Post newPost = new Post();
 //        newPost.setTitle("Post Title");
 //        newPost.setDescription("Post Description");
