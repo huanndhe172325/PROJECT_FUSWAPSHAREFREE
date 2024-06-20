@@ -61,10 +61,9 @@ public class manageReportPost extends HttpServlet {
          HttpSession session = request.getSession();
         DAOManageReport dao = new DAOManageReport();
        ArrayList<Model.ReportPost> reportPost = new ArrayList<>();
-       int idUserSend = (int) session.getAttribute("userIDSend");
-        reportPost = dao.getAllReportPosts(idUserSend);
+        reportPost = dao.getAllReportPosts();
         request.setAttribute("reportPost", reportPost);
-               request.getRequestDispatcher("HomePage/manageReportUsers.jsp").forward(request, response);
+               request.getRequestDispatcher("HomePage/manageReportPost.jsp").forward(request, response);
     }
 
     /**

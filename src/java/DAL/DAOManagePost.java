@@ -70,6 +70,104 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
+    public ArrayList<Post> getPostNewest() {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post ORDER BY CreateTime ASC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
+    public ArrayList<Post> getPostsByTypeID(int typeId) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post WHERE TypeID = ? ORDER BY CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, typeId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
+    public ArrayList<Post> getPostsByQuanlityID(int quanlityId) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post WHERE QuanlityID = ? ORDER BY CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, quanlityId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
     public int countPostsByUserId(int idUser) {
         int count = 0;
         try {

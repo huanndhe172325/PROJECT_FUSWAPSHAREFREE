@@ -63,7 +63,7 @@ public class Post {
     }
 
     public String getTitle() {
-        return Title.substring(0, 1).toUpperCase()+Title.substring(1).toLowerCase();
+        return Title.substring(0, 1).toUpperCase() + Title.substring(1).toLowerCase();
     }
 
     public void setTitle(String Title) {
@@ -135,7 +135,7 @@ public class Post {
     }
 
     public String getCreateTime() {
-        return CreateTime;
+        return CreateTime.substring(0, 10);
     }
 
     public void setCreateTime(String CreateTime) {
@@ -193,10 +193,12 @@ public class Post {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMMM dd yyyy, hh:mma");
         String formattedDate = "";
         try {
-            LocalDateTime dateTime = LocalDateTime.parse(CreateTime, inputFormatter);
+            LocalDateTime dateTime = LocalDateTime.parse(getCreateTime(), inputFormatter);
             formattedDate = dateTime.format(outputFormatter);
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            LocalDateTime dateTime = LocalDateTime.parse(getCreateTime(), inputFormatter);
+            formattedDate = dateTime.format(outputFormatter);
         }
         return formattedDate;
     }
@@ -210,35 +212,37 @@ public class Post {
         DAOManagePost dao = new DAOManagePost();
         return dao.getTypePostByTypeID(TypeID);
     }
-    public String getAddress(){
-        return Street_Number +", " + Commune + ", " + District;
+
+    public String getAddress() {
+        return Street_Number + ", " + Commune + ", " + District;
     }
-    public String getQuanlityName(){
+
+    public String getQuanlityName() {
         DAOManagePost dao = new DAOManagePost();
         return dao.getQuanlityNameByIdQuanlity(QuanlityID);
     }
-    
-    public boolean avaiableArchivePost(int idUser){
-        if(idUser == UserID && StatusID == 1){
+
+    public boolean avaiableArchivePost(int idUser) {
+        if (idUser == UserID && StatusID == 1) {
             return true;
         }
         return false;
     }
-    
-     public List<String> getListImg() {
+
+    public List<String> getListImg() {
         if (ImageUrl == null || ImageUrl.isEmpty()) {
             return List.of();
         }
-        List<String> listImg = new ArrayList<>(); 
+        List<String> listImg = new ArrayList<>();
         String[] allImg = ImageUrl.split(",");
         for (String img : allImg) {
             listImg.add(img);
         }
         return listImg;
     }
-    
-    public boolean avaiableEditPost(int idUser){
-        if(idUser == UserID){
+
+    public boolean avaiableEditPost(int idUser) {
+        if (idUser == UserID) {
             return true;
         }
         return false;

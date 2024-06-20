@@ -1049,7 +1049,7 @@
                                 </div>
                                 <div id="list-posts-form">
                                     <c:forEach var="post" items="${myPost}"> 
-                                        <div id="feed-post-1" class="card is-post">
+                                        <div id="feed-post-1" class="card is-post" data-post-id="${post.postID}">
                                             <!-- Main wrap -->
                                             <div class="content-wrap">
                                                 <!-- Post header -->
@@ -1067,6 +1067,7 @@
                                                             <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
                                                             <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
                                                             <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+                                
 
                                                         </div>
                                                     </div>
@@ -2049,9 +2050,10 @@
             </script>
 
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
+                function applyColorStyles() {
                     const statusElements = document.querySelectorAll('.status-post-name');
                     const typeElements = document.querySelectorAll('.type-post-name');
+
                     statusElements.forEach(function (element) {
                         const statusName = element.textContent.trim().toLowerCase();
 
@@ -2061,16 +2063,21 @@
                             element.style.color = 'red';
                         }
                     });
-                    typeElements.forEach(function (element) {
-                        const statusName = element.textContent.trim().toLowerCase();
 
-                        if (statusName === 'free') {
+                    typeElements.forEach(function (element) {
+                        const typeName = element.textContent.trim().toLowerCase();
+
+                        if (typeName === 'free') {
                             element.style.color = '#6ba4e9';
                         } else {
                             element.style.color = 'red';
                         }
                     });
+                }
+                document.addEventListener('DOMContentLoaded', function () {
+                    applyColorStyles();
                 });
+
                 function submitForm() {
                     document.getElementById('uploadForm').submit();
                 }
@@ -2116,6 +2123,7 @@
                                         zindex: 99999
                                     });
                                     modalArchive.classList.remove('is-active');
+                                    document.querySelector('.card.is-post[data-post-id="' + currentPostId + '"]').remove();
                                 }
                             };
                             xhr.send('id=' + currentPostId);
@@ -2250,10 +2258,9 @@
                     xhr.open('POST', 'editPost', true);
                     xhr.onload = function () {
                         console.log('Response:', xhr.responseText);
-                        if (xhr.responseText === "success") {
+                        if (xhr.responseText === "successfull") {
                             document.getElementById('edit-post-modal').classList.remove('is-active');
                             editPostForm.reset();
-                            editPostForm.querySelector('.post-image.preview-img').style.display = 'none';
                             iziToast.show({
                                 maxWidth: "280px",
                                 class: "success-toast",
@@ -2271,9 +2278,13 @@
                                 timeout: 1800,
                                 zindex: 99999
                             });
-                        } else {
+                            fetchPostData(formDataForEditPost.get('postIdEdit'));
+                            applyColorStyles();
+                            initDropdowns();
+                        } else if (xhr.responseText === "no change") {
                             const modal = document.getElementById('edit-post-modal');
                             modal.classList.remove('is-active');
+                        } else {
                             iziToast.show({
                                 maxWidth: "280px",
                                 class: "success-toast",
@@ -2299,7 +2310,22 @@
                     xhr.send(formDataForEditPost);
                 });
 
-
+                function fetchPostData(idpost) {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', 'FetchPost', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                var postNeedUpdate = document.querySelector('.card.is-post[data-post-id="' + idpost + '"]');
+                                postNeedUpdate.innerHTML = xhr.responseText;
+                            } else {
+                                console.error('Yêu cầu thất bại:', xhr.responseText);
+                            }
+                        }
+                    };
+                    xhr.send('idpost=' + encodeURIComponent(idpost));
+                }
             </script>
 
             <script>
