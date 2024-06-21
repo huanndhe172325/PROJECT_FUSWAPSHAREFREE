@@ -21,29 +21,27 @@
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
         </group>
         <group>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/Login/login.jsp</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/adminHome.jsp</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManagePost.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/WEB-INF/web.xml</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/EditUser.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/Preview/Preview.jsp</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/manageUser.jsp</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Model/User.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/EditAccount.jsp</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/ManageLocation.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/adminHome.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/ManageUser.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
-            <file>file:/D:/Summer2024/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOLoginSystem.java</file>
+            <file>file:/D:/SWP/src/java/DAL/DBContext.java</file>
+            <file>file:/D:/SWP/src/java/Controllers/HomePage/manageReportPost.java</file>
+            <file>file:/D:/SWP/web/Profile/profile.jsp</file>
+            <file>file:/D:/SWP/web/HomePage/manageReportPost.jsp</file>
+            <file>file:/D:/SWP/src/java/Controllers/HomePage/SideBarAdmin.java</file>
+            <file>file:/D:/SWP/web/HomePage/SideBarAdmin.jsp</file>
+            <file>file:/D:/SWP/src/java/Controllers/HomePage/DeletePostServlet.java</file>
         </group>
         <group>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/ForgotPassword/ChangePassword.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/Preview.java</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/ForgotPassword/ForgotPassword.java</file>
+            <file>file:/D:/SWP/src/java/Controllers/HomePage/manageReportPost.java</file>
+            <file>file:/D:/SWP/web/Profile/profile.jsp</file>
+            <file>file:/D:/SWP/web/HomePage/manageReportPost.jsp</file>
+            <file>file:/D:/SWP/src/java/DAL/DAOManageUser.java</file>
+            <file>file:/D:/SWP/web/HomePage/manageReportUsers.jsp</file>
+            <file>file:/D:/SWP/src/java/Model/ReportPost.java</file>
+            <file>file:/D:/SWP/src/java/DAL/DAOManageReport.java</file>
+            <file>file:/D:/SWP/src/java/Controllers/HomePage/manageReportUsers.java</file>
+            <file>file:/D:/SWP/src/java/Controllers/HomePage/SideBarAdmin.java</file>
+            <file>file:/D:/SWP/web/HomePage/SideBarAdmin.jsp</file>
+            <file>file:/D:/SWP/src/java/DAL/DAOManagePost.java</file>
+            <file>file:/D:/SWP/src/java/Controllers/HomePage/DeletePostServlet.java</file>
         </group>
     </open-files>
 </project-private>
