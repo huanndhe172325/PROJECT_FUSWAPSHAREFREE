@@ -302,7 +302,7 @@ public class DAOManageUser extends DBContext {
     }
 
     public Map<ReportUser, Integer> reportRankUser() {
-        String sqlString = " SELECT TOP 5 IdUserReceive, COUNT() as [Count] FROM Have_ReportUser GROUP BY IdUserReceive ORDER BY COUNT() DESC ";
+        String sqlString = " SELECT TOP 5 IdUserReceive, COUNT(*) as [Count] FROM Have_ReportUser GROUP BY IdUserReceive ORDER BY COUNT(*) DESC ";
         Map<ReportUser, Integer> map = new HashMap<>();
         try {
             PreparedStatement st = connect.prepareStatement(sqlString);

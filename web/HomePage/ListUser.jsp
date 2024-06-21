@@ -100,18 +100,7 @@
                         <span> List User</span>
                     </div>
                 </a>
-                <a href="dashboard-videos.html" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="video"></i>
-                        <span>Videos</span>
-                    </div>
-                </a>
-                <a href="navbar-v1-settings-v1.html" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="settings"></i>
-                        <span>Settings</span>
-                    </div>
-                </a>
+                
             </div>
             <div class="dashboard-aside-end">
                 <a href="Preview" class="dashboard-aside-link">
@@ -223,11 +212,11 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-8">
-                            <h2>Manage <b>Users</b></h2>
+                            <h2>List <b>Users</b></h2>
                         </div>
                         <div class="col-sm-4">
                             <div class="search-box">
-                                <form action="ListUser" method="get"> <!-- Đổi action thành ListUser -->
+                                <form action="ListUser" method="get"> 
                                     <input type="text" name="query" placeholder="Search..." value="${query}">
                                     <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
                                 </form>
@@ -261,9 +250,7 @@
                                 <td>${c.commune}-${c.district}</td>
                                 <td>${c.point}</td>
                                 <td>${c.statusID}</td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm" onclick="doDelete(${c.userID})">Delete</button>
-                                </td>
+                                
                             </tr>
                         </c:forEach>
                     </tbody>

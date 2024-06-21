@@ -82,18 +82,7 @@
                         <span> List User</span>
                     </div>
                 </a>
-                <a href="dashboard-videos.html" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="video"></i>
-                        <span>Videos</span>
-                    </div>
-                </a>
-                <a href="navbar-v1-settings-v1.html" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="settings"></i>
-                        <span>Settings</span>
-                    </div>
-                </a>
+               
             </div>
             <div class="dashboard-aside-end">
 
@@ -187,7 +176,7 @@
                                             <div class="box-subscriber" style="margin-bottom: 10px;">
                                                 <div class="subscriber-meta" style="display: flex; justify-content: space-between; align-items: center; padding: 5px 0;">
                                                     <span class="meta-title" style="font-weight: bold; margin-right: 20px;">${c.getKey().getNameIdUserReceive().getFull_Name()}</span>
-                                                    <span class="meta-content" style="font-weight: bold;">${c.value}</span>
+                                                    
                                                 </div>
                                             </div>
                                         </c:forEach>

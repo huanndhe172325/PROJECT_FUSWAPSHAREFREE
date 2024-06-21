@@ -97,18 +97,7 @@
                         <span> List User</span>
                     </div>
                 </a>
-                <a href="dashboard-videos.html" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="video"></i>
-                        <span>Videos</span>
-                    </div>
-                </a>
-                <a href="navbar-v1-settings-v1.html" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="settings"></i>
-                        <span>Settings</span>
-                    </div>
-                </a>
+                
             </div>
             <div class="dashboard-aside-end">
                 <a href="Preview" class="dashboard-aside-link">
@@ -220,13 +209,10 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8"><h2>Manage <b>Users</b></h2></div>
+                        <div class="col-sm-8"><h2>Manage Report <b> Posts</b></h2></div>
                         <div class="col-sm-4">
                             <div class="search-box">
-                                <form action="/search" method="get">
-                                    <input type="text" name="query" placeholder="Search...">
-                                    <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
-                                </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -280,7 +266,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="SideBarAdmin">
                 <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
             </a>
         </div>
