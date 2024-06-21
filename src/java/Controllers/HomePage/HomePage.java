@@ -78,13 +78,13 @@ public class HomePage extends HttpServlet {
 
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
-        ArrayList<Post> listPost = dao.getAllPost();
-        ArrayList<Post> listPostNewest = dao.getPostNewest();
-        ArrayList<Post> listPostExchange = dao.getPostsByTypeID(1);
-        ArrayList<Post> listPostFree = dao.getPostsByTypeID(2);
-        ArrayList<Post> listPostUsed = dao.getPostsByQuanlityID(1);
-        ArrayList<Post> listPostNeedsRepair = dao.getPostsByQuanlityID(2);
-        ArrayList<Post> listPostNew = dao.getPostsByQuanlityID(3);
+        ArrayList<Post> listPost = dao.getAllPost(userInfo_raw.getUserID());
+        ArrayList<Post> listPostNewest = dao.getPostNewest(userInfo_raw.getUserID());
+        ArrayList<Post> listPostExchange = dao.getPostsByTypeID(1, userInfo_raw.getUserID());
+        ArrayList<Post> listPostFree = dao.getPostsByTypeID(2, userInfo_raw.getUserID());
+        ArrayList<Post> listPostUsed = dao.getPostsByQuanlityID(1, userInfo_raw.getUserID());
+        ArrayList<Post> listPostNeedsRepair = dao.getPostsByQuanlityID(2, userInfo_raw.getUserID());
+        ArrayList<Post> listPostNew = dao.getPostsByQuanlityID(3, userInfo_raw.getUserID());
         request.setAttribute("listUserDistrict", listUserDistrict);
         request.setAttribute("listPoint", listUserRanking);
         request.setAttribute("listQuanlity", listQuanlity);

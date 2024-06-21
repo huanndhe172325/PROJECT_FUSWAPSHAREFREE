@@ -4,22 +4,20 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOManageUser;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 
 /**
  *
  * @author admin
  */
-public class ListUser extends HttpServlet {
+@WebServlet(name = "adminReportUsers", urlPatterns = {"/adminReportUsers"})
+public class adminReportUsers extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +36,10 @@ public class ListUser extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListUser</title>");            
+            out.println("<title>Servlet adminReportUsers</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListUser at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet adminReportUsers at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,34 +57,8 @@ public class ListUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManageUser dao = new DAOManageUser();
-        int page = 1;
-        int recordsPerPage = 15;
-
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-
-        String input = request.getParameter("query");
-        ArrayList<User> users;
-
-        if (input != null && !input.isEmpty()) {
-            users = dao.searchUsers(input.trim(), (page - 1) * recordsPerPage, recordsPerPage);
-        } else {
-            users = dao.getAllUsers((page - 1) * recordsPerPage, recordsPerPage);
-        }
-
-        int noOfRecords = dao.getTotalRecords();
-        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
-
-        request.setAttribute("users", users);
-        request.setAttribute("noOfPages", noOfPages);
-        request.setAttribute("currentPage", page);
-        request.setAttribute("query", input); // Để hiển thị lại từ khóa tìm kiếm nếu có
-
-        request.getRequestDispatcher("HomePage/ListUser.jsp").forward(request, response);
+        request.getRequestDispatcher("HomePage/adminReportUsers.jsp").forward(request, response);
     }
-    
 
     /**
      * Handles the HTTP <code>POST</code> method.

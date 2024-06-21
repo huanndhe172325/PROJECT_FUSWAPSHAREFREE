@@ -1,10 +1,12 @@
 <!doctype html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 
-
+ <head>
     <!-- Mirrored from friendkit.cssninja.io/dashboard-home.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:39:27 GMT -->
     <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-    <head>
+   
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -80,21 +82,10 @@
                         <span> List User</span>
                     </div>
                 </a>
-                <a href="dashboard-videos.html" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="video"></i>
-                        <span>Videos</span>
-                    </div>
-                </a>
-                <a href="navbar-v1-settings-v1.html" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="settings"></i>
-                        <span>Settings</span>
-                    </div>
-                </a>
+               
             </div>
             <div class="dashboard-aside-end">
-                
+
                 <a href="Preview" class="dashboard-aside-link">
                     <img class="link-avatar" src="https://via.placeholder.com/400x400" data-demo-src="${user.avatarUrl}" alt="" />
                 </a>
@@ -175,46 +166,34 @@
 
                             <!--Dashboard box-->
                             <div class="dashboard-box">
-                                <h3 class="title is-5 is-thin">Latest subscribers</h3>
+                                <h3 class="title is-5 is-thin">Top Users Reported</h3>
                                 <p class="small">Last 90 days</p>
 
                                 <div class="box-content">
                                     <div class="box-subscribers">
                                         <!--Subscriber-->
-                                        <div class="box-subscriber">
-                                            <img class="subscriber-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/lana.jpeg" data-user-popover="10" alt="" />
-                                            <div class="subscriber-meta">
-                                                <span class="meta-title">Lana Henrikssen</span>
-                                                <span class="meta-content">223 followers</span>
+                                        <c:forEach var="c" items="${requestScope.data}">
+                                            <div class="box-subscriber" style="margin-bottom: 10px;">
+                                                <div class="subscriber-meta" style="display: flex; justify-content: space-between; align-items: center; padding: 5px 0;">
+                                                    <span class="meta-title" style="font-weight: bold; margin-right: 20px;">${c.getKey().getNameIdUserReceive().getFull_Name()}</span>
+                                                    
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!--Subscriber-->
-                                        <div class="box-subscriber">
-                                            <img class="subscriber-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
-                                            <div class="subscriber-meta">
-                                                <span class="meta-title">Dan Walker</span>
-                                                <span class="meta-content">642 followers</span>
-                                            </div>
-                                        </div>
-                                        <!--Subscriber-->
-                                        <div class="box-subscriber">
-                                            <img class="subscriber-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" data-user-popover="6" alt="" />
-                                            <div class="subscriber-meta">
-                                                <span class="meta-title">Elise Walker</span>
-                                                <span class="meta-content">111 followers</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="link-wrap">
-                                        <a class="link">
-                                            <span>View All</span>
-                                            <i data-feather="arrow-right"></i>
-                                        </a>
-                                    </div>
+                                        </c:forEach>
+                                    </div><div class="link-wrap">
+                                        
+                                    <a href="manageReportUsers" class="link">
+                                        <span>View All</span>
+                                        <i data-feather="arrow-right"></i>
+                                    </a>
                                 </div>
+                                </div>
+
+                                
                             </div>
+
                         </div>
+
 
                         <!--Dashboard column-->
                         <div class="column is-4">

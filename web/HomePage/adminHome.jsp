@@ -62,22 +62,23 @@
                         <span>Home</span>
                     </div>
                 </a>
-                <a href="managePosts" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="file"></i>
-                        <span>Users</span>
-                    </div>
-                </a>
+
                 <a href="manageUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
                         <span>Manage Users</span>
                     </div>
+                </a>   
+                <a href="adminReportPost" class="dashboard-aside-link">
+                    <div>
+                        <i data-feather="file"></i>
+                        <span>Manager Report Post</span>
+                    </div>
                 </a>
-                <a href="dashboard-videos.html" class="dashboard-aside-link">
+                <a href="adminReportUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="video"></i>
-                        <span>Videos</span>
+                        <span>Manager Report Users</span>
                     </div>
                 </a>
                 <a href="navbar-v1-settings-v1.html" class="dashboard-aside-link">
@@ -88,7 +89,7 @@
                 </a>
             </div>
             <div class="dashboard-aside-end">
-                
+
                 <a href="Preview" class="dashboard-aside-link">
                     <img class="link-avatar" src="https://via.placeholder.com/400x400" data-demo-src="${user.avatarUrl}" alt="" />
                 </a>

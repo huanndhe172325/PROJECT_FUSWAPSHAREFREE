@@ -97,25 +97,6 @@ public class editPost extends HttpServlet {
         try {
             int quantity = Integer.parseInt(quantityId_raw);
 
-            int partIndex = 0;
-            for (Part part : parts) {
-
-                if (part.getName().equals("imgPathEdit") && part.getSize() > 0) {
-                    String imgFileName = postId + "_image_" + partIndex + ".jpg";
-                    String imgFilePath = uploadDirectory + "\\" + imgFileName;
-                    String linkDB = "FolderImages/ImagePost/" + imgFileName;
-
-                    part.write(imgFilePath);
-
-                    if (linkDBBuilder.length() > 0) {
-                        linkDBBuilder.append(",");
-                    }
-                    linkDBBuilder.append(linkDB);
-
-                    partIndex++;
-                }
-            }
-
             Post newPost = new Post();
 
             boolean hasFileInput = false;
@@ -126,6 +107,24 @@ public class editPost extends HttpServlet {
                 }
             }
             if (hasFileInput) {
+                daoManagePost.deleteImgByIdPost(postId);
+                int partIndex = 0;
+                for (Part part : parts) {
+                    if (part.getName().equals("imgPathEdit") && part.getSize() > 0) {
+                        String imgFileName = postId + "_image_" + partIndex + ".jpg";
+                        String imgFilePath = uploadDirectory + "\\" + imgFileName;
+                        String linkDB = "FolderImages/ImagePost/" + imgFileName;
+
+                        part.write(imgFilePath);
+
+                        if (linkDBBuilder.length() > 0) {
+                            linkDBBuilder.append(",");
+                        }
+                        linkDBBuilder.append(linkDB);
+
+                        partIndex++;
+                    }
+                }
                 newPost.setImageUrl(linkDBBuilder.toString());
             } else {
                 //khong input

@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controllers.HomePage;
 
-import DAL.DAOManageUser;
+import DAL.DAOManagePost;
+import Model.Post;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,80 +19,56 @@ import java.util.ArrayList;
 
 /**
  *
- * @author admin
+ * @author Binhtran
  */
-public class ListUser extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class SearchServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListUser</title>");            
+            out.println("<title>Servlet SearchServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListUser at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SearchServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOManagePost dmnp = new DAOManagePost();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        DAOManageUser dao = new DAOManageUser();
-        int page = 1;
-        int recordsPerPage = 15;
+    throws ServletException, IOException {
+        String keyword = request.getParameter("keyword");
+        HttpSession session = request.getSession();
+        User userInfo_raw = (User) session.getAttribute("userInfo");
+        ArrayList<Post> listPost = dmnp.getFilteredPosts(userInfo_raw.getUserID(), keyword);
+        request.setAttribute("listPost", listPost);
+        request.getRequestDispatcher("HomePage/HomePageSearch.jsp").forward(request, response);
+    } 
 
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-
-        String input = request.getParameter("query");
-        ArrayList<User> users;
-
-        if (input != null && !input.isEmpty()) {
-            users = dao.searchUsers(input.trim(), (page - 1) * recordsPerPage, recordsPerPage);
-        } else {
-            users = dao.getAllUsers((page - 1) * recordsPerPage, recordsPerPage);
-        }
-
-        int noOfRecords = dao.getTotalRecords();
-        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
-
-        request.setAttribute("users", users);
-        request.setAttribute("noOfPages", noOfPages);
-        request.setAttribute("currentPage", page);
-        request.setAttribute("query", input); // Để hiển thị lại từ khóa tìm kiếm nếu có
-
-        request.getRequestDispatcher("HomePage/ListUser.jsp").forward(request, response);
-    }
-    
-
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -98,13 +76,12 @@ public class ListUser extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

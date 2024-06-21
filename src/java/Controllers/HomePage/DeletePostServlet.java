@@ -4,22 +4,21 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOManageUser;
-import Model.User;
+import DAL.DAOManagePost;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 
 /**
  *
- * @author admin
+ * @author Binhtran
  */
-public class ListUser extends HttpServlet {
+@WebServlet(name = "DeletePostServlet", urlPatterns = {"/DeletePostServlet"})
+public class DeletePostServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +37,10 @@ public class ListUser extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListUser</title>");            
+            out.println("<title>Servlet DeletePostServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListUser at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeletePostServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,34 +58,8 @@ public class ListUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManageUser dao = new DAOManageUser();
-        int page = 1;
-        int recordsPerPage = 15;
-
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-
-        String input = request.getParameter("query");
-        ArrayList<User> users;
-
-        if (input != null && !input.isEmpty()) {
-            users = dao.searchUsers(input.trim(), (page - 1) * recordsPerPage, recordsPerPage);
-        } else {
-            users = dao.getAllUsers((page - 1) * recordsPerPage, recordsPerPage);
-        }
-
-        int noOfRecords = dao.getTotalRecords();
-        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
-
-        request.setAttribute("users", users);
-        request.setAttribute("noOfPages", noOfPages);
-        request.setAttribute("currentPage", page);
-        request.setAttribute("query", input); // Để hiển thị lại từ khóa tìm kiếm nếu có
-
-        request.getRequestDispatcher("HomePage/ListUser.jsp").forward(request, response);
+        processRequest(request, response);
     }
-    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -96,10 +69,31 @@ public class ListUser extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    DAOManagePost dmnp = new DAOManagePost();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String postID = request.getParameter("pid");
+        try {
+            int newpostID = Integer.parseInt(postID);
+            int statusID = dmnp.getStatusIDByPostID(newpostID);
+            if (statusID != 2) {
+                boolean changeStatusPost = dmnp.updateStatusID(newpostID);
+                if (changeStatusPost == true) {
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+
     }
 
     /**

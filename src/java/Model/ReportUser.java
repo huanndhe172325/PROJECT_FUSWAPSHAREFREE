@@ -4,6 +4,8 @@
  */
 package Model;
 
+import DAL.DAOManageUser;
+
 /**
  *
  * @author admin
@@ -13,6 +15,9 @@ public class ReportUser {
     private String message;
     private int idUserSend;
     private int idUserReceive;
+
+    public ReportUser() {
+    }
 
     public ReportUser(String reportTime, String message, int idUserSend, int idUserReceive) {
         this.reportTime = reportTime;
@@ -52,4 +57,13 @@ public class ReportUser {
     public void setIdUserReceive(int idUserReceive) {
         this.idUserReceive = idUserReceive;
     }
+    public User getNameIdUserSend(){
+        DAOManageUser dao=new DAOManageUser();
+        return dao.getUserByIdUserSend(idUserSend);
+    }
+    public User getNameIdUserReceive(){
+        DAOManageUser dao=new DAOManageUser();
+        return dao.getUserByIdUserReceive(idUserReceive);
+    }
+    
 }

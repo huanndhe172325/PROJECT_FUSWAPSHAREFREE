@@ -2048,7 +2048,7 @@
                                     </div>
                                 </c:forEach> 
                             </div>
-                             <!-- Post 5 -->
+                            <!-- Post 5 -->
                             <div class="post-container" data-category="listPostUsed">
                                 <c:forEach var="post" items="${listPostUsed}"> 
                                     <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="exchange">
@@ -2169,8 +2169,8 @@
                                     </div>
                                 </c:forEach> 
                             </div>
-                             
-                             <div class="post-container" data-category="listPostNeedsRepair">
+
+                            <div class="post-container" data-category="listPostNeedsRepair">
                                 <c:forEach var="post" items="${listPostNeedsRepair}"> 
                                     <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="exchange">
                                         <!-- Main wrap -->
@@ -2290,8 +2290,8 @@
                                     </div>
                                 </c:forEach> 
                             </div>
-                             
-                             <div class="post-container" data-category="listPostNew">
+
+                            <div class="post-container" data-category="listPostNew">
                                 <c:forEach var="post" items="${listPostNew}"> 
                                     <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="exchange">
                                         <!-- Main wrap -->
@@ -5484,49 +5484,63 @@
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
     <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                filterPosts('all');
-                            });
-                            function filterPosts(category) {
-                                const containers = document.querySelectorAll('.post-container');
-                                containers.forEach(container => {
-                                    if (category === 'all') {
-                                        container.style.display = 'block';
-                                    } else if (container.getAttribute('data-category') === category) {
-                                        container.style.display = 'block';
-                                    } else {
-                                        container.style.display = 'none';
-                                    }
-                                });
+    document.getElementById("tipue_drop_input").addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            var keyword = document.getElementById("tipue_drop_input").value.trim();
+            if (keyword !== "") {
+                var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
+                window.location.href = url;
+            } else {
+                alert("Please enter a keyword to search.");
+            }
+        }
+    });
+</script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            filterPosts('all');
+        });
+        function filterPosts(category) {
+            const containers = document.querySelectorAll('.post-container');
+            containers.forEach(container => {
+                if (category === 'all') {
+                    container.style.display = 'block';
+                } else if (container.getAttribute('data-category') === category) {
+                    container.style.display = 'block';
+                } else {
+                    container.style.display = 'none';
+                }
+            });
 
 
-                                const buttons = document.querySelectorAll('.button-wrap .button');
-                                buttons.forEach(button => {
-                                    if (button.getAttribute('data-category') === category) {
-                                        button.classList.add('is-active');
-                                    } else {
-                                        button.classList.remove('is-active');
-                                    }
-                                });
-                            }
-                            function toggleQualityOptions() {
-                                var qualityOptions = document.getElementById("quality-options");
-                                if (qualityOptions.style.display === "none") {
-                                    qualityOptions.style.display = "block";
-                                    document.addEventListener('click', closeQualityOptionsOutside);
-                                } else {
-                                    qualityOptions.style.display = "none";
-                                    document.removeEventListener('click', closeQualityOptionsOutside);
-                                }
-                            }
-                            function closeQualityOptionsOutside(event) {
-                                var qualityButton = document.getElementById("btn-quality");
-                                var qualityOptions = document.getElementById("quality-options");
-                                if (!qualityButton.contains(event.target) && !qualityOptions.contains(event.target)) {
-                                    qualityOptions.style.display = "none";
-                                    document.removeEventListener('click', closeQualityOptionsOutside);
-                                }
-                            }
+            const buttons = document.querySelectorAll('.button-wrap .button');
+            buttons.forEach(button => {
+                if (button.getAttribute('data-category') === category) {
+                    button.classList.add('is-active');
+                } else {
+                    button.classList.remove('is-active');
+                }
+            });
+        }
+        function toggleQualityOptions() {
+            var qualityOptions = document.getElementById("quality-options");
+            if (qualityOptions.style.display === "none") {
+                qualityOptions.style.display = "block";
+                document.addEventListener('click', closeQualityOptionsOutside);
+            } else {
+                qualityOptions.style.display = "none";
+                document.removeEventListener('click', closeQualityOptionsOutside);
+            }
+        }
+        function closeQualityOptionsOutside(event) {
+            var qualityButton = document.getElementById("btn-quality");
+            var qualityOptions = document.getElementById("quality-options");
+            if (!qualityButton.contains(event.target) && !qualityOptions.contains(event.target)) {
+                qualityOptions.style.display = "none";
+                document.removeEventListener('click', closeQualityOptionsOutside);
+            }
+        }
     </script>
     <script>
         document.getElementById('postButton').addEventListener('click', function () {

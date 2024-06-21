@@ -6,6 +6,7 @@ package DAL;
 
 import Model.BlockList;
 import Model.Quanlity;
+import Model.ReportUser;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -178,7 +181,7 @@ public class DAOManageUser extends DBContext {
     }
 
     public User getUserByIdUserSend(int id) {
-        String sql = "  SELECT u.* FROM Have_ReportPost h join [User] u on h.IdUserSend=u.UserID where h.IdUserSend=?";
+        String sql = "    SELECT * FROM Have_ReportUser h join [User] u on h.IdUserSend=u.UserID where h.IdUserSend=?";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
             st.setInt(1, id);
@@ -199,6 +202,75 @@ public class DAOManageUser extends DBContext {
                         rs.getInt("RoleID"),
                         rs.getInt("StatusID"));
             }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public User getUserByIdUserReceive(int id) {
+        String sql = "      SELECT * FROM Have_ReportUser h join [User] u on h.IdUserReceive=u.UserID where h.IdUserReceive=?";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public ReportUser getByIdUserReceive(int id) {
+        String sqlString = "  SELECT * FROM Have_ReportUser where IdUserReceive=?";
+        ReportUser rp = new ReportUser();
+        try {
+            PreparedStatement st = connect.prepareStatement(sqlString);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                rp.setIdUserReceive(rs.getInt("IdUserReceive"));
+                rp.setIdUserSend(rs.getInt("IdUserSend"));
+                rp.setMessage(rs.getString("Message"));
+                rp.setReportTime(rs.getString("reportTime"));
+            }
+            return rp;
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public Map<ReportUser, Integer> reportRankUser() {
+        String sqlString = " SELECT TOP 5 IdUserReceive, COUNT(*) as [Count] FROM Have_ReportUser GROUP BY IdUserReceive ORDER BY COUNT(*) DESC ";
+        Map<ReportUser, Integer> map = new HashMap<>();
+        try {
+            PreparedStatement st = connect.prepareStatement(sqlString);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ReportUser rpReportUser = new ReportUser();
+                rpReportUser = getByIdUserReceive(rs.getInt("IdUserReceive"));
+                int count = rs.getInt("Count");
+                map.put(rpReportUser, count);
+            }
+            return map;
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -345,5 +417,14 @@ public class DAOManageUser extends DBContext {
 //    User u=userDAO.getUserByIdUserSend(1);
 //        System.out.println(u.getEmail());
     }
+//    }
+//    public static void main(String[] args) {
+//        DAOManageUser daomu = new DAOManageUser();
+//        User u = daomu.getUserByIdUserSend(2);
+////        System.out.println(u.getUserID());
+//        Map<ReportUser, Integer> map = daomu.reportRankUser();
+//        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
+//            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
+//        }
 //    }
 }

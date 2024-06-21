@@ -8,10 +8,15 @@ import Model.Post;
 import Model.Quanlity;
 import Model.Type;
 import Model.User;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 /**
  *
@@ -38,11 +43,69 @@ public class DAOManagePost extends DBContext {
         return listType;
     }
 
-    public ArrayList<Post> getAllPost() {
+    public ArrayList<Post> getFilteredPosts(int userID, String keyword) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Post ORDER BY CreateTime DESC";
+            String sql = "SELECT * "
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p "
+                    + "WHERE p.StatusID = 1 "
+                    + "AND p.UserID NOT IN ( "
+                    + "    SELECT BlockUserID "
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList] "
+                    + "    WHERE UserID = ? "
+                    + ") "
+                    + "AND (p.Title LIKE ? OR p.Description LIKE ?) "
+                    + "ORDER BY p.CreateTime DESC";
+
             PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
+            statement.setString(2, "%" + keyword + "%");
+            statement.setString(3, "%" + keyword + "%");
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Xử lý exception nếu cần
+        }
+
+        return listPost;
+    }
+
+    public ArrayList<Post> getAllPost(int userID) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * \n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
+                    + "WHERE p.StatusID = 1\n"
+                    + "AND p.UserID NOT IN (\n"
+                    + "    SELECT BlockUserID \n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?  \n"
+                    + ")";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Post post = new Post();
@@ -70,11 +133,20 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
-    public ArrayList<Post> getPostNewest() {
+    public ArrayList<Post> getPostNewest(int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Post ORDER BY CreateTime ASC";
+            String sql = "SELECT * \n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
+                    + "WHERE p.StatusID = 1\n"
+                    + "AND p.UserID NOT IN (\n"
+                    + "    SELECT BlockUserID \n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "ORDER BY p.CreateTime DESC;";
             PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Post post = new Post();
@@ -102,12 +174,22 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
-    public ArrayList<Post> getPostsByTypeID(int typeId) {
+    public ArrayList<Post> getPostsByTypeID(int typeId, int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Post WHERE TypeID = ? ORDER BY CreateTime DESC";
+            String sql = "SELECT * \n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] \n"
+                    + "WHERE TypeID = ?\n"
+                    + "AND StatusID = 1\n"
+                    + "AND UserID NOT IN (\n"
+                    + "    SELECT BlockUserID \n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "ORDER BY CreateTime DESC;";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, typeId);
+            statement.setInt(2, userID);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Post post = new Post();
@@ -135,12 +217,22 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
-    public ArrayList<Post> getPostsByQuanlityID(int quanlityId) {
+    public ArrayList<Post> getPostsByQuanlityID(int quanlityId, int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Post WHERE QuanlityID = ? ORDER BY CreateTime DESC";
+            String sql = "SELECT * \n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] \n"
+                    + "WHERE QuanlityID = ? \n"
+                    + "AND StatusID = 1\n"
+                    + "AND UserID NOT IN (\n"
+                    + "    SELECT BlockUserID \n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "ORDER BY CreateTime DESC;";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, quanlityId);
+            statement.setInt(2, userID);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Post post = new Post();
@@ -183,6 +275,27 @@ public class DAOManagePost extends DBContext {
             System.out.println(e);
         }
         return count;
+    }
+
+    public int getStatusIDByPostID(int postID) {
+        int statusID = -1;
+        try {
+            String sql = "SELECT [StatusID] FROM [FUSWAPSHAREFREE].[dbo].[Post] WHERE [PostID] = ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postID);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                statusID = rs.getInt("StatusID");
+            }
+
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return statusID;
     }
 
     public boolean requestPost(String message, int userIdSent, int postId) {
@@ -395,6 +508,19 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean updateStatusID(int postId) {
+        String sql = "UPDATE [dbo].[Post] SET [StatusID] = 5 WHERE [PostID] = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public int getMaxIdPost() {
         int maxId = 1;
         try {
@@ -410,6 +536,33 @@ public class DAOManagePost extends DBContext {
             return maxId;
         }
         return maxId;
+    }
+
+    public void deleteImgByIdPost(String idPost) {
+        Path projectDirectory = Paths.get("").toAbsolutePath();
+
+        Path uploadDirectory = projectDirectory.resolve("web/FolderImages/ImagePost");
+        try {
+            deleteFilesWithId(uploadDirectory, idPost);
+        } catch (IOException e) {
+            System.err.println("Error while deleting files: " + e.getMessage());
+        }
+    }
+
+    public static void deleteFilesWithId(Path directory, String id) throws IOException {
+        try (Stream<Path> files = Files.list(directory)) {
+            files
+                    .filter(Files::isRegularFile)
+                    .filter(file -> file.getFileName().toString().contains(id))
+                    .forEach(file -> {
+                        try {
+                            Files.delete(file);
+                            System.out.println("Deleted file: " + file);
+                        } catch (IOException e) {
+                            System.err.println("Failed to delete file: " + file + " - " + e.getMessage());
+                        }
+                    });
+        }
     }
 
     public String getStatusPostByIdStatus(int idStatus) {
@@ -532,8 +685,10 @@ public class DAOManagePost extends DBContext {
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-        ArrayList<Post> lP =  dao.getAllPostHistory(64);
+        ArrayList<Post> lP = dao.getAllPostHistory(64);
         System.out.println(lP);
+        Path projectDirectory = Paths.get("").toAbsolutePath();
+
 //        Post newPost = new Post();
 //        newPost.setTitle("Post Title");
 //        newPost.setDescription("Post Description");
@@ -549,6 +704,6 @@ public class DAOManagePost extends DBContext {
 //        boolean result = dao.createPost(newPost, 7, null, 1);
 //
 //        System.out.println("Post creation successful: " + result);
-
     }
+
 }
