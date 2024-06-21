@@ -21,7 +21,11 @@
         <title>Friendkit | Feed</title>
         <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-
+        <!-- Other head elements -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://unpkg.com/feather-icons"></script>
+        <!-- Your custom CSS file -->
+        <link rel="stylesheet" href="path/to/your/styles.css">
         <style>
             .post-image {
                 overflow: hidden;
@@ -340,7 +344,7 @@
 
         </script>
 
-        <!-- JS block User -->
+        <!-- JS Block User -->
         <script>
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('open-modal-btn2');
@@ -358,6 +362,8 @@
             }
 
         </script>
+
+
 
     </head>
 
@@ -388,7 +394,7 @@
                                 <span id="clear-search" class="reset-search">
                                     <i data-feather="x"></i>
                                 </span>
-                                <span class="search-icon">
+                                <span class="search-icon" style="margin: 5px">
                                     <i data-feather="search"></i>
                                 </span>
 
@@ -846,18 +852,16 @@
                                 <div class="cover-bg">
                                     <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />
                                     <div class="avatar" style="margin-bottom: 60px;">
-                                        <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="${profile.getAvatarUrl()}" alt="" />
+                                        <img id="user-avatar" class="avatar-image" src="${profile.getAvatarUrl()}" data-demo-src="${profile.getAvatarUrl()}" alt="" />
                                         <div class="avatar-button">
                                             <i data-feather="plus"></i>
                                         </div>
                                         <div class="pop-button is-far-left has-tooltip modal-trigger" data-modal="change-profile-pic-modal" data-placement="right" data-title="Change profile picture">
-                                            <a class="inner" class="upload-button">
-                                                <label for="imgPath"  >
-                                                    <i data-feather="camera"></i>
+                                            <a class="inner">
+                                                <label>
+                                                    <i style="margin: 7px" data-feather="camera"></i>
                                                 </label>
-                                                <form action="editprofile" method="POST" enctype="multipart/form-data" id="uploadForm">
-                                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" >
-                                                </form>
+
                                             </a>
                                         </div>
                                         <div id="follow-pop" class="pop-button pop-shift is-left has-tooltip" data-placement="top" data-title="Subscription">
@@ -872,12 +876,13 @@
                                                 <i class="active-icon" data-feather="minus"></i>
                                             </a>
                                         </div>
-                                        <div id="chat-pop" class="pop-button is-right has-tooltip" data-placement="top" data-title="Report user">
+                                        <div class="pop-button is-right haschat-pop-tooltip chat-pop" data-placement="top" data-title="Report user" report_user_target_id="${profile.getUserID()}" data-modal="report-user-modal-container" class="modal share-modal is-xsmall has-light-bg">
+                                            
                                             <a class="inner">
                                                 <i data-feather="alert-octagon"></i>
                                             </a>
                                         </div>
-                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Block"  data-modal="block-user-modal"  id="open-modal-btn2">
+                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Block" data-modal="block-user-modal"  id="open-modal-btn2" >
                                             <a class="inner">
                                                 <i data-feather="lock"></i>
                                             </a>
@@ -1306,8 +1311,8 @@
 
                 #block-user-modal .button {
                     border-radius: 4px;
-                    
-                    
+
+
                 }
 
                 #block-user-modal .primary-button {
@@ -1404,705 +1409,767 @@
                 </div>
             </div>
 
-
-            <div id="archive-post" class="modal albums-help-modal is-xsmall has-light-bg">
-                <div class="modal-background"></div>
-                <div class="modal-content">
-                    <div class="card">
-                        <div class="card-heading">
-                            <h3>Archive Post?</h3>
-                            <!-- Close X button -->
-                            <div class="close-wrap">
-                                <span class="close-modal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="content-archive-post" style="margin: 20px 5px;">
-                                <div class="help-text">
-                                    <h3>Do you want to archive this post ?</h3>
+            <!-- Report User -->
+            <div id="report-user-modal-container" class="modal share-modal is-xsmall has-light-bg">
+                <div class="modal-background">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-heading">
+                                <h3>Report User</h3>
+                                <div class="close-wrap">
+                                    <span class="close-report-user-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </span>
                                 </div>
                             </div>
-
-                            <div class="action" style="text-align: right;">
-                                <button type="button" class="button is-solid accent-button next-modal raised close-modal" data-modal="albums-modal" style="background-color: white; color: #5596e6; border: none;">
-                                    Cancel
-                                </button>
-                                <button id="archivePostButton" type="button" class="button is-solid accent-button next-modal raised close-modal" data-modal="albums-modal">
-                                    Archive Post
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Load more images -->
-            <div class="load-more-wrap has-text-centered">
-                <a href="#" class="load-more-button">Load More</a>
-            </div>
-            <!-- /Load more images -->
-
-            <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
-                <div class="modal-background"></div>
-                <div class="modal-content">
-                    <div class="card">
-                        <div class="card-heading">
-
-                            <!-- Close X button -->
-                            <div class="close-wrap">
-                                <span class="close-modal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="control">
-                                <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
-                                    <select id="type" name="typePost" required="">
-
-                                        <option value="1" selected="">Exchange</option>
-
-                                        <option value="2" selected="">Free</option>
-
-                                    </select>
-                                    <label for="imgPath">Image:</label>
-                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
-
-                                    <label for="Title">Title:</label>
-                                    <input type="text" id="title" name="title" required="">
-                                    <label for="Title">Description: </label>
-                                    <textarea class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
-
-
-                                    <label for="quanlity">Quanlity</label>
-                                    <select id="quanlity" name="quanlity" required="">
-
-                                        <option value="1">Used</option>
-
-                                        <option value="2">Needs Repair</option>
-
-                                        <option value="3">New</option>
-
-                                    </select>
-
-
-                                    <div id="addNewSnippet" style="margin-top: 10px;">
-                                        <div class="input-container" style="display: inline-block; width: 49%;">
-                                            <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
-                                                <option value="" selected="">Select district</option>
-                                                <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
-                                        </div>
-                                        <div class="input-container" style="display: inline-block; width: 50%;">
-                                            <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
-                                                <option value="" selected="">Select Ward</option>
-                                                <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
-                                        </div>
-                                        <div class="input-container">
-                                            <label>Street number</label>
-                                            <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
-                                        </div>
+                            <div class="card-body">
+                                <form id="report-user-form-content">
+                                    <div class="control">
+                                        <label for="report_user_reason">Select a reason for reporting:</label><br>
+                                        <input type="radio" id="report_user_reason_spam" name="report_user_reason" value="Spam">
+                                        <label for="report_user_reason_spam">Spam</label><br>
+                                        <input type="radio" id="report_user_reason_inappropriate" name="report_user_reason" value="Inappropriate behavior">
+                                        <label for="report_user_reason_inappropriate">Inappropriate behavior</label><br>
+                                        <input type="radio" id="report_user_reason_abuse" name="report_user_reason" value="Abuse">
+                                        <label for="report_user_reason_abuse">Abuse</label><br>
+                                        <input type="radio" id="report_user_reason_other" name="report_user_reason" value="Other">
+                                        <label for="report_user_reason_other">Other</label><br>
+                                        <textarea id="report_user_message" name="report_user_message" class="textarea" rows="5" placeholder="Enter additional details (optional)" style="display:none;"></textarea>
+                                        <input type="hidden" id="report_user_target_id_f" name="report_user_target_name">
+                                        <input type="hidden" id="report_time" name="report_time">
+                                        <input type="submit" id="submit-report-user-form" style="display: none;" value="Submit">
                                     </div>
-                                    <label>Expires Date<span class="required">*</span></label>
-                                    <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
-                                        <option value="1">1 Day</option>
-                                        <option value="3" selected="">3 Days</option>
-                                        <option value="7">7 Days</option>
-                                        <option value="15">15 Days</option>
-                                    </select>
-
-                                    <label for="instructions">Pick-up instructions</label>
-                                    <input type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
-
-
-
-
-                                    <input type="submit" id="submit-create-post" style="display : none;" value="Submit">
                                 </form>
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="button-wrap" style="width: 98%;">
-                                <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
-                                    Post
-                                </button>
+                            <div class="card-footer">
+                                <div class="button-wrap" style="width: 100%;">
+                                    <button type="button" class="button is-solid cancel-report-user-button" style="width: 48%;">
+                                        Cancel
+                                    </button>
+                                    <button type="button" class="button is-solid primary-button" id="submit-report-user-button" style="width: 48%;">
+                                        Submit Report
+                                    </button>
+                                </div>
+
                             </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        
+
+
+
+        <div id="archive-post" class="modal albums-help-modal is-xsmall has-light-bg">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-heading">
+                        <h3>Archive Post?</h3>
+                        <!-- Close X button -->
+                        <div class="close-wrap">
+                            <span class="close-modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="content-archive-post" style="margin: 20px 5px;">
+                            <div class="help-text">
+                                <h3>Do you want to archive this post ?</h3>
+                            </div>
+                        </div>
+
+                        <div class="action" style="text-align: right;">
+                            <button type="button" class="button is-solid accent-button next-modal raised close-modal" data-modal="albums-modal" style="background-color: white; color: #5596e6; border: none;">
+                                Cancel
+                            </button>
+                            <button id="archivePostButton" type="button" class="button is-solid accent-button next-modal raised close-modal" data-modal="albums-modal">
+                                Archive Post
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- Load more images -->
+        <div class="load-more-wrap has-text-centered">
+            <a href="#" class="load-more-button">Load More</a>
+        </div>
+        <!-- /Load more images -->
 
-            <div id="edit-post-modal" class="modal share-modal is-xsmall has-light-bg">
-                <div class="modal-background"></div>
-                <div class="modal-content">
-                    <div class="card">
-                        <div class="card-heading">
-                            <div class="close-wrap">
-                                <span class="close-modal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                </span>
-                            </div>
+        <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-heading">
+
+                        <!-- Close X button -->
+                        <div class="close-wrap">
+                            <span class="close-modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
                         </div>
-                        <div class="card-body">
-                            <div class="control">
-                                <form enctype="multipart/form-data" action="editPost" id="create-post" method="post">
-                                    <select id="type" name="typePost" required="">
-                                        <option value="1" selected="">Exchange</option>
-                                        <option value="2" selected="">Free</option>
-                                    </select>
-                                    <label for="imgPath">Image:</label>
-                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
-                                    <div class="post-image">
-                                        <div class="style-img-post">
-                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
-                                        </div>
-                                        <div class="image-btn">
-                                            <div class="btn-image-next btn-image">&gt;</div>
-                                            <div class="btn-image-pre btn-image">&lt;</div>
-                                        </div>
-                                    </div>
-                                    <label for="Title">Title:</label>
-                                    <input type="text" id="title" name="title" required="">
-                                    <label for="Title">Description: </label>
-                                    <textarea  id="edit-post-desc"class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="control">
+                            <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
+                                <select id="type" name="typePost" required="">
+
+                                    <option value="1" selected="">Exchange</option>
+
+                                    <option value="2" selected="">Free</option>
+
+                                </select>
+                                <label for="imgPath">Image:</label>
+                                <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
+
+                                <label for="Title">Title:</label>
+                                <input type="text" id="title" name="title" required="">
+                                <label for="Title">Description: </label>
+                                <textarea class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
 
 
-                                    <label for="quanlity">Quanlity</label>
-                                    <select id="quanlity" name="quanlity" required="">
-                                        <option value="1">Used</option>
-                                        <option value="2">Needs Repair</option>
-                                        <option value="3">New</option>
-                                    </select>
-                                    <div id="addNewSnippet" style="margin-top: 10px;">
-                                        <div class="input-container" style="display: inline-block; width: 49%;">
-                                            <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
-                                                <option value="" selected="">Select district</option>
-                                                <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
-                                        </div>
-                                        <div class="input-container" style="display: inline-block; width: 50%;">
-                                            <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
-                                                <option value="" selected="">Select Ward</option>
-                                                <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
-                                        </div>
-                                        <div class="input-container">
-                                            <label>Street number</label>
-                                            <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
-                                        </div>
+                                <label for="quanlity">Quanlity</label>
+                                <select id="quanlity" name="quanlity" required="">
+
+                                    <option value="1">Used</option>
+
+                                    <option value="2">Needs Repair</option>
+
+                                    <option value="3">New</option>
+
+                                </select>
+
+
+                                <div id="addNewSnippet" style="margin-top: 10px;">
+                                    <div class="input-container" style="display: inline-block; width: 49%;">
+                                        <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                            <option value="" selected="">Select district</option>
+                                            <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
                                     </div>
-                                    <label for="instructions">Pick-up instructions</label>
-                                    <input id="edit-post-inst" type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
-                                    <input type="submit" id="submit-edit-post" style="display : none;" value="Submit">
-                                </form>
-                            </div>
+                                    <div class="input-container" style="display: inline-block; width: 50%;">
+                                        <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                            <option value="" selected="">Select Ward</option>
+                                            <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
+                                    </div>
+                                    <div class="input-container">
+                                        <label>Street number</label>
+                                        <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
+                                    </div>
+                                </div>
+                                <label>Expires Date<span class="required">*</span></label>
+                                <select name="expiresDate" class="form-select form-select-sm" id="expiresDate" aria-label=".form-select-sm" required="">
+                                    <option value="1">1 Day</option>
+                                    <option value="3" selected="">3 Days</option>
+                                    <option value="7">7 Days</option>
+                                    <option value="15">15 Days</option>
+                                </select>
+
+                                <label for="instructions">Pick-up instructions</label>
+                                <input type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+
+
+
+
+                                <input type="submit" id="submit-create-post" style="display : none;" value="Submit">
+                            </form>
                         </div>
-                        <div class="card-footer">
-                            <div class="button-wrap" style="width: 98%;">
-                                <button id="saveEditPostButton" type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-edit-post').click();">
-                                    Save
-                                </button>
-                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="button-wrap" style="width: 98%;">
+                            <button type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-create-post').click();">
+                                Post
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div id="share-modal" class="modal share-modal is-xsmall has-light-bg">
-                <div class="modal-background"></div>
-                <div class="modal-content" style="width: 800px;">
-                    <div class="card">
-                        <div class="card-heading">
-                            <!-- Close X button -->
-                            <div class="close-wrap">
-                                <span class="close-modal">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                                </span>
-                            </div>
+        <div id="edit-post-modal" class="modal share-modal is-xsmall has-light-bg">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-heading">
+                        <div class="close-wrap">
+                            <span class="close-modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
                         </div>
-                        <div class="card-body">
-                            <div class="shared-publication" style="margin-top: 0px;">
-                                <div class="publication-meta">
-                                    <div class="inner-flex" style="align-items: center; margin-bottom: 10px;">
-                                        <div class="detail-post-header-left">
-                                            <img style="cursor: pointer;" id="share-modal-avatar" src="http://example.com/avatar1.jpg" data-demo-src="http://example.com/avatar1.jpg" data-user-popover="1" alt="" onclick="window.location.href = 'profile?id=2'">
-                                        </div>
-                                        <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
-                                            <div class="detail-post-header-infor-owner">
-                                                <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;" onclick="window.location.href = 'profile?id=2'">Nguyen Quang Trung</h2>
-                                                <p style="padding-left: 0;" id="share-modal-date">2024-06-06 03:00:58.06</p>
-                                            </div>
-                                            <div class="detail-post-header-infor-post" style="margin-top: 16px;">
-                                                <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Expired</span>
-                                                <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">Free</span>
-                                            </div>
-                                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="control">
+                            <form enctype="multipart/form-data" action="editPost" id="create-post" method="post">
+                                <select id="type" name="typePost" required="">
+                                    <option value="1" selected="">Exchange</option>
+                                    <option value="2" selected="">Free</option>
+                                </select>
+                                <label for="imgPath">Image:</label>
+                                <input type="file" id="imgPath" name="imgPath" accept="image/*" required="">
+                                <div class="post-image">
+                                    <div class="style-img-post">
+                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
+                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="FolderImages/ImagePost/69_image.jpg" alt="" />
                                     </div>
-                                    <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
-                                        <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">
-                                            Bài tập
-                                        </h2>
-                                        <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
-                                            Initiate the construction of the blog HTML template using our advanced AI system, which produces template HTML code, CSS, and JS according to your input. Subsequently, you have the option to modify the template within the AI application.
-                                        </p>
+                                    <div class="image-btn">
+                                        <div class="btn-image-next btn-image">&gt;</div>
+                                        <div class="btn-image-pre btn-image">&lt;</div>
                                     </div>
                                 </div>
-                                <div class="featured-image">
-                                    <img id="share-modal-image" src="FolderImages/ImagePost/70_image.jpg" data-demo-src="assets/img/demo/unsplash/1.jpg" alt="">
+                                <label for="Title">Title:</label>
+                                <input type="text" id="title" name="title" required="">
+                                <label for="Title">Description: </label>
+                                <textarea  id="edit-post-desc"class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full"></textarea>
+
+
+                                <label for="quanlity">Quanlity</label>
+                                <select id="quanlity" name="quanlity" required="">
+                                    <option value="1">Used</option>
+                                    <option value="2">Needs Repair</option>
+                                    <option value="3">New</option>
+                                </select>
+                                <div id="addNewSnippet" style="margin-top: 10px;">
+                                    <div class="input-container" style="display: inline-block; width: 49%;">
+                                        <select name="district" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm" required="">
+                                            <option value="" selected="">Select district</option>
+                                            <option value="Quận Ba Đình">Quận Ba Đình</option><option value="Quận Hoàn Kiếm">Quận Hoàn Kiếm</option><option value="Quận Tây Hồ">Quận Tây Hồ</option><option value="Quận Long Biên">Quận Long Biên</option><option value="Quận Cầu Giấy">Quận Cầu Giấy</option><option value="Quận Đống Đa">Quận Đống Đa</option><option value="Quận Hai Bà Trưng">Quận Hai Bà Trưng</option><option value="Quận Hoàng Mai">Quận Hoàng Mai</option><option value="Quận Thanh Xuân">Quận Thanh Xuân</option><option value="Huyện Sóc Sơn">Huyện Sóc Sơn</option><option value="Huyện Đông Anh">Huyện Đông Anh</option><option value="Huyện Gia Lâm">Huyện Gia Lâm</option><option value="Quận Nam Từ Liêm">Quận Nam Từ Liêm</option><option value="Huyện Thanh Trì">Huyện Thanh Trì</option><option value="Quận Bắc Từ Liêm">Quận Bắc Từ Liêm</option><option value="Huyện Mê Linh">Huyện Mê Linh</option><option value="Quận Hà Đông">Quận Hà Đông</option><option value="Thị xã Sơn Tây">Thị xã Sơn Tây</option><option value="Huyện Ba Vì">Huyện Ba Vì</option><option value="Huyện Phúc Thọ">Huyện Phúc Thọ</option><option value="Huyện Đan Phượng">Huyện Đan Phượng</option><option value="Huyện Hoài Đức">Huyện Hoài Đức</option><option value="Huyện Quốc Oai">Huyện Quốc Oai</option><option value="Huyện Thạch Thất">Huyện Thạch Thất</option><option value="Huyện Chương Mỹ">Huyện Chương Mỹ</option><option value="Huyện Thanh Oai">Huyện Thanh Oai</option><option value="Huyện Thường Tín">Huyện Thường Tín</option><option value="Huyện Phú Xuyên">Huyện Phú Xuyên</option><option value="Huyện Ứng Hòa">Huyện Ứng Hòa</option><option value="Huyện Mỹ Đức">Huyện Mỹ Đức</option></select>  
+                                    </div>
+                                    <div class="input-container" style="display: inline-block; width: 50%;">
+                                        <select name="ward" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm" required="">
+                                            <option value="" selected="">Select Ward</option>
+                                            <option value="Xã Yên Trung">Xã Yên Trung</option><option value="Xã Yên Bình">Xã Yên Bình</option><option value="Xã Tiến Xuân">Xã Tiến Xuân</option><option value="Thị trấn Liên Quan">Thị trấn Liên Quan</option><option value="Xã Đại Đồng">Xã Đại Đồng</option><option value="Xã Cẩm Yên">Xã Cẩm Yên</option><option value="Xã Lại Thượng">Xã Lại Thượng</option><option value="Xã Phú Kim">Xã Phú Kim</option><option value="Xã Hương Ngải">Xã Hương Ngải</option><option value="Xã Canh Nậu">Xã Canh Nậu</option><option value="Xã Kim Quan">Xã Kim Quan</option><option value="Xã Dị Nậu">Xã Dị Nậu</option><option value="Xã Bình Yên">Xã Bình Yên</option><option value="Xã Chàng Sơn">Xã Chàng Sơn</option><option value="Xã Thạch Hoà">Xã Thạch Hoà</option><option value="Xã Cần Kiệm">Xã Cần Kiệm</option><option value="Xã Hữu Bằng">Xã Hữu Bằng</option><option value="Xã Phùng Xá">Xã Phùng Xá</option><option value="Xã Tân Xã">Xã Tân Xã</option><option value="Xã Thạch Xá">Xã Thạch Xá</option><option value="Xã Bình Phú">Xã Bình Phú</option><option value="Xã Hạ Bằng">Xã Hạ Bằng</option><option value="Xã Đồng Trúc">Xã Đồng Trúc</option></select>
+                                    </div>
+                                    <div class="input-container">
+                                        <label>Street number</label>
+                                        <input name="newAddress" id="Order_name" type="text" maxlength="255" value="" required="">
+                                    </div>
                                 </div>
-                                <div class="footer-detail-post" style="margin-top: 10px;">
-                                    <div class="detail-row">
-                                        <h2 style="font-weight: 500;">Quanlity:</h2>
-                                        <p id="share-modal-quanlity">Used</p>
-                                    </div>
-                                    <div class="detail-row">
-                                        <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                        <p id="share-modal-address">Trọ Tuấn Cường, Xã Thạch Xá, Huyện Thạch Thất</p>
-                                    </div>
-                                    <div class="detail-row">
-                                        <h2 style="font-weight: 500;">Instructions:</h2>
-                                        <p id="share-modal-intruc">8-9pm</p>
-                                    </div>
-                                </div>
-                            </div>
+                                <label for="instructions">Pick-up instructions</label>
+                                <input id="edit-post-inst" type="text" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+                                <input type="submit" id="submit-edit-post" style="display : none;" value="Submit">
+                            </form>
                         </div>
-                        <div class="card-footer" style="width: 100%;">
-                            <div class="button-wrap" style="width: 100%;">
-                                <button style="width: 100%;" type="button" class="button is-solid primary-button close-modal">
-                                    Request This
-                                </button>
-                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="button-wrap" style="width: 98%;">
+                            <button id="saveEditPostButton" type="button" class="button is-solid primary-button" style="width: 100%;" onclick="document.getElementById('submit-edit-post').click();">
+                                Save
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Concatenated js plugins and jQuery -->
-            <script src="assets/js/app.js"></script>
-            <script src="https://js.stripe.com/v3/"></script>
+        <div id="share-modal" class="modal share-modal is-xsmall has-light-bg">
+            <div class="modal-background"></div>
+            <div class="modal-content" style="width: 800px;">
+                <div class="card">
+                    <div class="card-heading">
+                        <!-- Close X button -->
+                        <div class="close-wrap">
+                            <span class="close-modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shared-publication" style="margin-top: 0px;">
+                            <div class="publication-meta">
+                                <div class="inner-flex" style="align-items: center; margin-bottom: 10px;">
+                                    <div class="detail-post-header-left">
+                                        <img style="cursor: pointer;" id="share-modal-avatar" src="http://example.com/avatar1.jpg" data-demo-src="http://example.com/avatar1.jpg" data-user-popover="1" alt="" onclick="window.location.href = 'profile?id=2'">
+                                    </div>
+                                    <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
+                                        <div class="detail-post-header-infor-owner">
+                                            <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;" onclick="window.location.href = 'profile?id=2'">Nguyen Quang Trung</h2>
+                                            <p style="padding-left: 0;" id="share-modal-date">2024-06-06 03:00:58.06</p>
+                                        </div>
+                                        <div class="detail-post-header-infor-post" style="margin-top: 16px;">
+                                            <span id="share-modal-status" class="status-post-name" style="display: inline-block; padding: 0px 10px; float: right; color: rgb(54, 169, 85);">Expired</span>
+                                            <span id="share-modal-type" class="type-post-name" style="display: inline-block; float: right; color: rgb(107, 164, 233);">Free</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
+                                    <h2 id="share-modal-title" style=" color: rgb(107, 164, 233); padding-bottom: 3px;">
+                                        Bài tập
+                                    </h2>
+                                    <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
+                                        Initiate the construction of the blog HTML template using our advanced AI system, which produces template HTML code, CSS, and JS according to your input. Subsequently, you have the option to modify the template within the AI application.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="featured-image">
+                                <img id="share-modal-image" src="FolderImages/ImagePost/70_image.jpg" data-demo-src="assets/img/demo/unsplash/1.jpg" alt="">
+                            </div>
+                            <div class="footer-detail-post" style="margin-top: 10px;">
+                                <div class="detail-row">
+                                    <h2 style="font-weight: 500;">Quanlity:</h2>
+                                    <p id="share-modal-quanlity">Used</p>
+                                </div>
+                                <div class="detail-row">
+                                    <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <p id="share-modal-address">Trọ Tuấn Cường, Xã Thạch Xá, Huyện Thạch Thất</p>
+                                </div>
+                                <div class="detail-row">
+                                    <h2 style="font-weight: 500;">Instructions:</h2>
+                                    <p id="share-modal-intruc">8-9pm</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="width: 100%;">
+                        <div class="button-wrap" style="width: 100%;">
+                            <button style="width: 100%;" type="button" class="button is-solid primary-button close-modal">
+                                Request This
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <!-- Core js -->
-            <script src="assets/js/global.js"></script>
+        <!-- Concatenated js plugins and jQuery -->
+        <script src="assets/js/app.js"></script>
+        <script src="https://js.stripe.com/v3/"></script>
 
-            <!-- Navigation options js -->
-            <script src="assets/js/navbar-v1.js"></script>
-            <script src="assets/js/navbar-v2.js"></script>
-            <script src="assets/js/navbar-mobile.js"></script>
-            <script src="assets/js/navbar-options.js"></script>
-            <script src="assets/js/sidebar-v1.js"></script>
+        <!-- Core js -->
+        <script src="assets/js/global.js"></script>
 
-            <!-- Core instance js -->
-            <script src="assets/js/main.js"></script>
-            <script src="assets/js/chat.js"></script>
-            <script src="assets/js/touch.js"></script>
-            <script src="assets/js/tour.js"></script>
+        <!-- Navigation options js -->
+        <script src="assets/js/navbar-v1.js"></script>
+        <script src="assets/js/navbar-v2.js"></script>
+        <script src="assets/js/navbar-mobile.js"></script>
+        <script src="assets/js/navbar-options.js"></script>
+        <script src="assets/js/sidebar-v1.js"></script>
 
-            <!-- Components js -->
-            <script src="assets/js/explorer.js"></script>
-            <script src="assets/js/widgets.js"></script>
-            <script src="assets/js/modal-uploader.js"></script>
-            <script src="assets/js/popovers-users.js"></script>
-            <script src="assets/js/popovers-pages.js"></script>
-            <script src="assets/js/lightbox.js"></script>
+        <!-- Core instance js -->
+        <script src="assets/js/main.js"></script>
+        <script src="assets/js/chat.js"></script>
+        <script src="assets/js/touch.js"></script>
+        <script src="assets/js/tour.js"></script>
 
-            <!-- Landing page js -->
+        <!-- Components js -->
+        <script src="assets/js/explorer.js"></script>
+        <script src="assets/js/widgets.js"></script>
+        <script src="assets/js/modal-uploader.js"></script>
+        <script src="assets/js/popovers-users.js"></script>
+        <script src="assets/js/popovers-pages.js"></script>
+        <script src="assets/js/lightbox.js"></script>
+        
+        <!-- Landing page js -->
 
-            <!-- Signup page js -->
+        <!-- Signup page js -->
 
-            <!-- Feed pages js -->
-            <script src="assets/js/feed.js"></script>
+        <!-- Feed pages js -->
+        <script src="assets/js/feed.js"></script>
 
-            <!-- profile js -->
-            <script src="assets/js/profile.js"></script>
-            <script src="assets/js/jsslideimage.js"></script>
+        <!-- profile js -->
+        <script src="assets/js/profile.js"></script>
+        <script src="assets/js/jsslideimage.js"></script>
 
-            <!-- stories js -->
+        <!-- stories js -->
 
-            <!-- friends js -->
+        <!-- friends js -->
 
-            <!-- questions js -->
+        <!-- questions js -->
 
-            <!-- video js -->
+        <!-- video js -->
 
-            <!-- events js -->
+        <!-- events js -->
 
-            <!-- news js -->
+        <!-- news js -->
 
-            <!-- shop js -->
+        <!-- shop js -->
 
-            <!-- inbox js -->
+        <!-- inbox js -->
 
-            <!-- settings js -->
+        <!-- settings js -->
 
-            <!-- map page js -->
+        <!-- map page js -->
 
-            <!-- elements page js -->
+        <!-- elements page js -->
 
-            <script>
-                                                    var form1 = document.getElementById('edit-profile');
-                                                    form1.addEventListener('submit', function (event) {
-                                                        event.preventDefault();
+        <script>
+                                                var form1 = document.getElementById('edit-profile');
+                                                form1.addEventListener('submit', function (event) {
+                                                    event.preventDefault();
 
-                                                        var formData = new FormData(form1);
+                                                    var formData = new FormData(form1);
 
-                                                        var xhr = new XMLHttpRequest();
+                                                    var xhr = new XMLHttpRequest();
 
-                                                        xhr.open('POST', 'editprofile', true);
+                                                    xhr.open('POST', 'editprofile', true);
 
-                                                        xhr.onload = function () {
-                                                            if (xhr.status >= 200 && xhr.status < 300) {
-                                                                const modal = document.getElementById('edit-profile-modal');
-                                                                modal.classList.remove('is-active');
+                                                    xhr.onload = function () {
+                                                        if (xhr.status >= 200 && xhr.status < 300) {
+                                                            const modal = document.getElementById('edit-profile-modal');
+                                                            modal.classList.remove('is-active');
 
-                                                                iziToast.show({
-                                                                    maxWidth: "280px",
-                                                                    class: "success-toast",
-                                                                    icon: "mdi mdi-error",
-                                                                    title: "",
-                                                                    message: "Edit profile successfully",
-                                                                    titleColor: "#fff",
-                                                                    messageColor: "#fff",
-                                                                    iconColor: "#fff",
-                                                                    backgroundColor: "#60c032",
-                                                                    progressBarColor: "#0062ff",
-                                                                    position: "bottomRight",
-                                                                    transitionIn: "fadeInUp",
-                                                                    close: false,
-                                                                    timeout: 1800,
-                                                                    zindex: 99999
-                                                                });
-                                                            } else {
-                                                                const modal = document.getElementById('edit-profile-modal');
-                                                                modal.classList.remove('is-active');
-                                                                console.log('Success', xhr.responseText);
-                                                                //                            var form = document.getElementById('edit-location');
-                                                                iziToast.show({
-                                                                    maxWidth: "280px",
-                                                                    class: "success-toast",
-                                                                    icon: "mdi mdi-error",
-                                                                    title: "",
-                                                                    message: "Edit profile failed",
-                                                                    titleColor: "#fff",
-                                                                    messageColor: "#fff",
-                                                                    iconColor: "#fff",
-                                                                    backgroundColor: "#FF0000",
-                                                                    progressBarColor: "#0062ff",
-                                                                    position: "bottomRight",
-                                                                    transitionIn: "fadeInUp",
-                                                                    close: false,
-                                                                    timeout: 1800,
-                                                                    zindex: 99999
-                                                                });
-                                                            }
-                                                        };
+                                                            iziToast.show({
+                                                                maxWidth: "280px",
+                                                                class: "success-toast",
+                                                                icon: "mdi mdi-error",
+                                                                title: "",
+                                                                message: "Edit profile successfully",
+                                                                titleColor: "#fff",
+                                                                messageColor: "#fff",
+                                                                iconColor: "#fff",
+                                                                backgroundColor: "#60c032",
+                                                                progressBarColor: "#0062ff",
+                                                                position: "bottomRight",
+                                                                transitionIn: "fadeInUp",
+                                                                close: false,
+                                                                timeout: 1800,
+                                                                zindex: 99999
+                                                            });
+                                                        } else {
+                                                            const modal = document.getElementById('edit-profile-modal');
+                                                            modal.classList.remove('is-active');
+                                                            console.log('Success', xhr.responseText);
+                                                            //                            var form = document.getElementById('edit-location');
+                                                            iziToast.show({
+                                                                maxWidth: "280px",
+                                                                class: "success-toast",
+                                                                icon: "mdi mdi-error",
+                                                                title: "",
+                                                                message: "Edit profile failed",
+                                                                titleColor: "#fff",
+                                                                messageColor: "#fff",
+                                                                iconColor: "#fff",
+                                                                backgroundColor: "#FF0000",
+                                                                progressBarColor: "#0062ff",
+                                                                position: "bottomRight",
+                                                                transitionIn: "fadeInUp",
+                                                                close: false,
+                                                                timeout: 1800,
+                                                                zindex: 99999
+                                                            });
+                                                        }
+                                                    };
 
-                                                        xhr.onerror = function () {
-                                                            console.error('Request failed');
-                                                        };
+                                                    xhr.onerror = function () {
+                                                        console.error('Request failed');
+                                                    };
 
-                                                        xhr.send(formData);
-                                                    });
-            </script>
+                                                    xhr.send(formData);
+                                                });
+        </script>
 
-            <script>
-                var districts = document.getElementById("district");
-                var wards = document.getElementById("ward");
-                var selectedCityValue = 'Thành phố Hà Nội';
+        <script>
+            var districts = document.getElementById("district");
+            var wards = document.getElementById("ward");
+            var selectedCityValue = 'Thành phố Hà Nội';
 
-                var Parameter = {
-                    url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                    method: "GET",
-                    responseType: "application/json",
+            var Parameter = {
+                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                method: "GET",
+                responseType: "application/json",
+            };
+
+            var promise = axios(Parameter);
+
+            promise.then(function (result) {
+                var data = result.data;
+                var selectedCity = data.find((city) => city.Name === selectedCityValue);
+                renderDistricts(selectedCity.Districts);
+                selectDistrictOption(selectedCity.Districts);
+                selectWardOption(selectedCity.Districts);
+            });
+
+            function renderDistricts(districtsData) {
+                for (const district of districtsData) {
+                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
+                }
+
+                districts.onchange = function () {
+                    wards.length = 1;
+                    const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+
+                    if (this.value !== "") {
+                        for (const ward of selectedDistrict.Wards) {
+                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                        }
+                    }
+                };
+            }
+
+            function selectDistrictOption(districtsData) {
+                for (let i = 0; i < districtsData.length; i++) {
+                    if (districtsData[i].Name === 'Huyện Thạch Thất') {
+                        districts.options[i + 1].selected = true;
+                        simulateEvent(districts, 'change');
+                        break;
+                    }
+                }
+            }
+
+            function selectWardOption(districtsData) {
+                const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+                    if (selectedDistrict.Wards[i].Name === '${ward}') {
+                        wards.options[i + 1].selected = true;
+                        simulateEvent(wards, 'change');
+                        break;
+                    }
+                }
+            }
+
+            function simulateEvent(element, eventName) {
+                var event = new Event(eventName);
+                element.dispatchEvent(event);
+            }
+
+            var form2 = document.getElementById('edit-location');
+            form2.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var formData = new FormData(form2);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('POST', 'managelocation', true);
+
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        const modal = document.getElementById('edit-location-modal');
+                        modal.classList.remove('is-active');
+
+                        iziToast.show({
+                            maxWidth: "280px",
+                            class: "success-toast",
+                            icon: "mdi mdi-error",
+                            title: "",
+                            message: "Edit location successfully",
+                            titleColor: "#fff",
+                            messageColor: "#fff",
+                            iconColor: "#fff",
+                            backgroundColor: "#60c032",
+                            progressBarColor: "#0062ff",
+                            position: "bottomRight",
+                            transitionIn: "fadeInUp",
+                            close: false,
+                            timeout: 1800,
+                            zindex: 99999
+                        });
+                    } else {
+                        const modal = document.getElementById('edit-location-modal');
+                        modal.classList.remove('is-active');
+                        console.log('Success', xhr.responseText);
+                        //                            var form = document.getElementById('edit-location');
+                        iziToast.show({
+                            maxWidth: "280px",
+                            class: "success-toast",
+                            icon: "mdi mdi-error",
+                            title: "",
+                            message: "Edit location failed",
+                            titleColor: "#fff",
+                            messageColor: "#fff",
+                            iconColor: "#fff",
+                            backgroundColor: "#FF0000",
+                            progressBarColor: "#0062ff",
+                            position: "bottomRight",
+                            transitionIn: "fadeInUp",
+                            close: false,
+                            timeout: 1800,
+                            zindex: 99999
+                        });
+                    }
                 };
 
-                var promise = axios(Parameter);
+                xhr.onerror = function () {
+                    console.error('Request failed');
+                };
 
-                promise.then(function (result) {
-                    var data = result.data;
-                    var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                    renderDistricts(selectedCity.Districts);
-                    selectDistrictOption(selectedCity.Districts);
-                    selectWardOption(selectedCity.Districts);
+                xhr.send(formData);
+            });
+        </script>
+
+        <script>
+            function FormValidate() {
+                var isValid = true;
+
+                // Validate Full Name
+                var fname = document.getElementById('fname').value.trim();
+                var errorFname = document.getElementById('errorFname');
+                if (fname === "") {
+                    errorFname.textContent = "Full Name is required";
+                    isValid = false;
+                } else {
+                    errorFname.textContent = "";
+                }
+
+                // Validate Email
+                var email = document.getElementById('email').value.trim();
+                var errorEmail = document.getElementById('errorEmail');
+                var reGexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (email === "") {
+                    errorEmail.textContent = "Email is required";
+                    isValid = false;
+                } else if (!reGexEmail.test(email)) {
+                    errorEmail.textContent = "Please enter a valid email address";
+                    isValid = false;
+                } else {
+                    errorEmail.textContent = "";
+                }
+
+                // Validate Phone Number
+                var phoneNum = document.getElementById('phoneNum').value.trim();
+                var errorPhone = document.getElementById('errorPhone');
+                var reGexPhone = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+                if (phoneNum === "") {
+                    errorPhone.textContent = "Phone Number is required";
+                    isValid = false;
+                } else if (!reGexPhone.test(phoneNum)) {
+                    errorPhone.textContent = "Please enter a valid phone number";
+                    isValid = false;
+                } else {
+                    errorPhone.textContent = "";
+                }
+
+                return isValid;
+            }
+
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const statusElements = document.querySelectorAll('.status-post-name');
+                const typeElements = document.querySelectorAll('.type-post-name');
+                statusElements.forEach(function (element) {
+                    const statusName = element.textContent.trim().toLowerCase();
+
+                    if (statusName === 'available') {
+                        element.style.color = '#36a955';
+                    } else {
+                        element.style.color = 'red';
+                    }
+                });
+                typeElements.forEach(function (element) {
+                    const statusName = element.textContent.trim().toLowerCase();
+
+                    if (statusName === 'free') {
+                        element.style.color = '#6ba4e9';
+                    } else {
+                        element.style.color = 'red';
+                    }
+                });
+            });
+            function submitForm() {
+                document.getElementById('uploadForm').submit();
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const openModalArchives = document.querySelectorAll('.open-modal-archive');
+                const modalArchive = document.getElementById('archive-post');
+                const archivePostButton = document.getElementById('archivePostButton');
+                let currentPostId = null;
+
+                openModalArchives.forEach(openModalArchive => {
+                    openModalArchive.addEventListener('click', () => {
+                        const postId = openModalArchive.getAttribute('data-post-id');
+                        currentPostId = postId;
+                        modalArchive.setAttribute('data-post-id', postId);
+                        modalArchive.classList.add('is-active');
+                    });
                 });
 
-                function renderDistricts(districtsData) {
-                    for (const district of districtsData) {
-                        districts.options[districts.options.length] = new Option(district.Name, district.Name);
-                    }
-
-                    districts.onchange = function () {
-                        wards.length = 1;
-                        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
-                        if (this.value !== "") {
-                            for (const ward of selectedDistrict.Wards) {
-                                wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+                archivePostButton.addEventListener('click', () => {
+                    if (currentPostId) {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'PostArchive', true);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                console.log(xhr.responseText);
+                                iziToast.show({
+                                    maxWidth: "280px",
+                                    class: "success-toast",
+                                    icon: "mdi mdi-check",
+                                    title: "",
+                                    message: "Archive post successfully",
+                                    titleColor: "#fff",
+                                    messageColor: "#fff",
+                                    iconColor: "#fff",
+                                    backgroundColor: "#60c032",
+                                    progressBarColor: "#0062ff",
+                                    position: "bottomRight",
+                                    transitionIn: "fadeInUp",
+                                    close: false,
+                                    timeout: 1800,
+                                    zindex: 99999
+                                });
+                                modalArchive.classList.remove('is-active');
                             }
-                        }
-                    };
-                }
-
-                function selectDistrictOption(districtsData) {
-                    for (let i = 0; i < districtsData.length; i++) {
-                        if (districtsData[i].Name === 'Huyện Thạch Thất') {
-                            districts.options[i + 1].selected = true;
-                            simulateEvent(districts, 'change');
-                            break;
-                        }
+                        };
+                        xhr.send('id=' + currentPostId);
                     }
-                }
-
-                function selectWardOption(districtsData) {
-                    const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                    for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                        if (selectedDistrict.Wards[i].Name === '${ward}') {
-                            wards.options[i + 1].selected = true;
-                            simulateEvent(wards, 'change');
-                            break;
-                        }
-                    }
-                }
-
-                function simulateEvent(element, eventName) {
-                    var event = new Event(eventName);
-                    element.dispatchEvent(event);
-                }
-
-                var form2 = document.getElementById('edit-location');
-                form2.addEventListener('submit', function (event) {
-                    event.preventDefault();
-
-                    var formData = new FormData(form2);
-
-                    var xhr = new XMLHttpRequest();
-
-                    xhr.open('POST', 'managelocation', true);
-
-                    xhr.onload = function () {
-                        if (xhr.status >= 200 && xhr.status < 300) {
-                            const modal = document.getElementById('edit-location-modal');
-                            modal.classList.remove('is-active');
-
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "success-toast",
-                                icon: "mdi mdi-error",
-                                title: "",
-                                message: "Edit location successfully",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#60c032",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                        } else {
-                            const modal = document.getElementById('edit-location-modal');
-                            modal.classList.remove('is-active');
-                            console.log('Success', xhr.responseText);
-                            //                            var form = document.getElementById('edit-location');
-                            iziToast.show({
-                                maxWidth: "280px",
-                                class: "success-toast",
-                                icon: "mdi mdi-error",
-                                title: "",
-                                message: "Edit location failed",
-                                titleColor: "#fff",
-                                messageColor: "#fff",
-                                iconColor: "#fff",
-                                backgroundColor: "#FF0000",
-                                progressBarColor: "#0062ff",
-                                position: "bottomRight",
-                                transitionIn: "fadeInUp",
-                                close: false,
-                                timeout: 1800,
-                                zindex: 99999
-                            });
-                        }
-                    };
-
-                    xhr.onerror = function () {
-                        console.error('Request failed');
-                    };
-
-                    xhr.send(formData);
                 });
-            </script>
+            });
 
-            <script>
-                function FormValidate() {
-                    var isValid = true;
+            document.addEventListener("DOMContentLoaded", function () {
+                const openModalEditPost = document.querySelectorAll('.open-modal-edit');
+                const modalEditPost = document.getElementById('edit-post-modal');
+                const saveEditPostButton = document.getElementById('saveEditPostButton');
 
-                    // Validate Full Name
-                    var fname = document.getElementById('fname').value.trim();
-                    var errorFname = document.getElementById('errorFname');
-                    if (fname === "") {
-                        errorFname.textContent = "Full Name is required";
-                        isValid = false;
-                    } else {
-                        errorFname.textContent = "";
-                    }
-
-                    // Validate Email
-                    var email = document.getElementById('email').value.trim();
-                    var errorEmail = document.getElementById('errorEmail');
-                    var reGexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                    if (email === "") {
-                        errorEmail.textContent = "Email is required";
-                        isValid = false;
-                    } else if (!reGexEmail.test(email)) {
-                        errorEmail.textContent = "Please enter a valid email address";
-                        isValid = false;
-                    } else {
-                        errorEmail.textContent = "";
-                    }
-
-                    // Validate Phone Number
-                    var phoneNum = document.getElementById('phoneNum').value.trim();
-                    var errorPhone = document.getElementById('errorPhone');
-                    var reGexPhone = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
-                    if (phoneNum === "") {
-                        errorPhone.textContent = "Phone Number is required";
-                        isValid = false;
-                    } else if (!reGexPhone.test(phoneNum)) {
-                        errorPhone.textContent = "Please enter a valid phone number";
-                        isValid = false;
-                    } else {
-                        errorPhone.textContent = "";
-                    }
-
-                    return isValid;
-                }
-
-            </script>
-
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const statusElements = document.querySelectorAll('.status-post-name');
-                    const typeElements = document.querySelectorAll('.type-post-name');
-                    statusElements.forEach(function (element) {
-                        const statusName = element.textContent.trim().toLowerCase();
-
-                        if (statusName === 'available') {
-                            element.style.color = '#36a955';
-                        } else {
-                            element.style.color = 'red';
-                        }
-                    });
-                    typeElements.forEach(function (element) {
-                        const statusName = element.textContent.trim().toLowerCase();
-
-                        if (statusName === 'free') {
-                            element.style.color = '#6ba4e9';
-                        } else {
-                            element.style.color = 'red';
-                        }
-                    });
-                });
-                function submitForm() {
-                    document.getElementById('uploadForm').submit();
-                }
-
-                document.addEventListener("DOMContentLoaded", function () {
-                    const openModalArchives = document.querySelectorAll('.open-modal-archive');
-                    const modalArchive = document.getElementById('archive-post');
-                    const archivePostButton = document.getElementById('archivePostButton');
-                    let currentPostId = null;
-
-                    openModalArchives.forEach(openModalArchive => {
-                        openModalArchive.addEventListener('click', () => {
-                            const postId = openModalArchive.getAttribute('data-post-id');
-                            currentPostId = postId;
-                            modalArchive.setAttribute('data-post-id', postId);
-                            modalArchive.classList.add('is-active');
+                openModalEditPost.forEach(openModalEdit => {
+                    openModalEdit.addEventListener('click', () => {
+                        modalEditPost.setAttribute('data-post-id', openModalEdit.getAttribute('data-post-id'));
+                        modalEditPost.querySelector('input[name="title"]').value = openModalEdit.getAttribute('data-post-title');
+                        const selectQuanlity = modalEditPost.querySelector('select[name="quanlity"]');
+                        const optionQuanlity = selectQuanlity.querySelectorAll('option');
+                        optionQuanlity.forEach(option => {
+                            if (option.value === openModalEdit.getAttribute('data-post-quanlity')) {
+                                option.selected = true;
+                            } else {
+                                option.selected = false;
+                            }
                         });
-                    });
-
-                    archivePostButton.addEventListener('click', () => {
-                        if (currentPostId) {
-                            const xhr = new XMLHttpRequest();
-                            xhr.open('POST', 'PostArchive', true);
-                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                            xhr.onreadystatechange = function () {
-                                if (xhr.readyState === 4 && xhr.status === 200) {
-                                    console.log(xhr.responseText);
-                                    iziToast.show({
-                                        maxWidth: "280px",
-                                        class: "success-toast",
-                                        icon: "mdi mdi-check",
-                                        title: "",
-                                        message: "Archive post successfully",
-                                        titleColor: "#fff",
-                                        messageColor: "#fff",
-                                        iconColor: "#fff",
-                                        backgroundColor: "#60c032",
-                                        progressBarColor: "#0062ff",
-                                        position: "bottomRight",
-                                        transitionIn: "fadeInUp",
-                                        close: false,
-                                        timeout: 1800,
-                                        zindex: 99999
-                                    });
-                                    modalArchive.classList.remove('is-active');
-                                }
-                            };
-                            xhr.send('id=' + currentPostId);
-                        }
-                    });
-                });
-
-                document.addEventListener("DOMContentLoaded", function () {
-                    const openModalEditPost = document.querySelectorAll('.open-modal-edit');
-                    const modalEditPost = document.getElementById('edit-post-modal');
-                    const saveEditPostButton = document.getElementById('saveEditPostButton');
-
-                    openModalEditPost.forEach(openModalEdit => {
-                        openModalEdit.addEventListener('click', () => {
-                            modalEditPost.setAttribute('data-post-id', openModalEdit.getAttribute('data-post-id'));
-                            modalEditPost.querySelector('input[name="title"]').value = openModalEdit.getAttribute('data-post-title');
-                            const selectQuanlity = modalEditPost.querySelector('select[name="quanlity"]');
-                            const optionQuanlity = selectQuanlity.querySelectorAll('option');
-                            optionQuanlity.forEach(option => {
-                                if (option.value === openModalEdit.getAttribute('data-post-quanlity')) {
-                                    option.selected = true;
-                                } else {
-                                    option.selected = false;
-                                }
-                            });
-                            modalEditPost.querySelector('textarea[name="description"]').value = openModalEdit.getAttribute('data-post-desc');
-                            const selectDistrict = modalEditPost.querySelector('select[name="district"]');
-                            const optionDistrict = selectDistrict.querySelectorAll('option');
-                            optionDistrict.forEach(option => {
-                                if (option.value === openModalEdit.getAttribute('data-post-district')) {
-                                    option.selected = true;
-                                } else {
-                                    option.selected = false;
-                                }
-                            });
-                            const selectWard = modalEditPost.querySelector('select[name="ward"]');
-                            const optionWard = selectWard.querySelectorAll('option');
-                            optionWard.forEach(option => {
-                                if (option.value === openModalEdit.getAttribute('data-post-commune')) {
-                                    option.selected = true;
-                                } else {
-                                    option.selected = false;
-                                }
-                            });
-                            modalEditPost.querySelector('input[name="newAddress"]').value = openModalEdit.getAttribute('data-post-street_Number');
-                            modalEditPost.querySelector('input[name="instructions"]').value = openModalEdit.getAttribute('data-post-intr');
-
-
-                            modalEditPost.classList.add('is-active');
+                        modalEditPost.querySelector('textarea[name="description"]').value = openModalEdit.getAttribute('data-post-desc');
+                        const selectDistrict = modalEditPost.querySelector('select[name="district"]');
+                        const optionDistrict = selectDistrict.querySelectorAll('option');
+                        optionDistrict.forEach(option => {
+                            if (option.value === openModalEdit.getAttribute('data-post-district')) {
+                                option.selected = true;
+                            } else {
+                                option.selected = false;
+                            }
                         });
+                        const selectWard = modalEditPost.querySelector('select[name="ward"]');
+                        const optionWard = selectWard.querySelectorAll('option');
+                        optionWard.forEach(option => {
+                            if (option.value === openModalEdit.getAttribute('data-post-commune')) {
+                                option.selected = true;
+                            } else {
+                                option.selected = false;
+                            }
+                        });
+                        modalEditPost.querySelector('input[name="newAddress"]').value = openModalEdit.getAttribute('data-post-street_Number');
+                        modalEditPost.querySelector('input[name="instructions"]').value = openModalEdit.getAttribute('data-post-intr');
+
+
+                        modalEditPost.classList.add('is-active');
                     });
                 });
-            </script>
+            });
+        </script>
+
+        
+        <script src="path/to/your/script.js"></script>
+        <script src="assets/js/reportUser.js"></script>
     </body>
 
 

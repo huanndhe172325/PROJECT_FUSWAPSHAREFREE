@@ -394,7 +394,7 @@
                                 <span id="clear-search" class="reset-search">
                                     <i data-feather="x"></i>
                                 </span>
-                                <span class="search-icon">
+                                <span class="search-icon" style="margin: 5px">
                                     <i data-feather="search"></i>
                                 </span>
 
@@ -849,26 +849,22 @@
                                 <!-- Timeline Header -->
                                 <!-- html/partials/pages/profile/timeline/timeline-header.html -->
                                 <div class="cover-bg">
-                                    <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />
+<!--                                    <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />-->
                                     <div class="avatar" style="margin-bottom: 60px;">
-                                        <img id="user-avatar" class="avatar-image" src="https://via.placeholder.com/300x300" data-demo-src="${profile.getAvatarUrl()}" alt="" />
+                                        <img id="user-avatar" class="avatar-image" src="${profile.avatarUrl}" alt="" />
                                         <div class="avatar-button">
                                             <i data-feather="plus"></i>
                                         </div>
+
                                         <div class="pop-button is-far-left has-tooltip modal-trigger" data-modal="change-profile-pic-modal" data-placement="right" data-title="Change profile picture">
-                                            <a class="inner" class="upload-button">
-
-                                                <label for="imgPath"  >
-
-                                                    <i data-feather="camera"></i>
+                                            <form action="UpdateImage" method="POST" enctype="multipart/form-data">
+                                                <label for="imgAvatar" class="inner upload-button">
+                                                    <i style="margin: 7px;" data-feather="camera"></i>
                                                 </label>
-                                                <form action="editprofile" method="POST" enctype="multipart/form-data" id="uploadForm">
-                                                    <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" class="is-hidden" onchange="submitForm()" >
-                                                </form>
-                                            </a>
-
-
+                                                <input type="file" id="imgAvatar" name="imgAvatar" accept="image/*" required="" class="is-hidden" onchange="this.form.submit()">
+                                            </form>
                                         </div>
+
                                         <div id="follow-pop" class="pop-button pop-shift is-left has-tooltip" data-placement="top" data-title="Subscription">
                                             <a class="inner">
                                                 <i class="inactive-icon" data-feather="bell"></i>
@@ -1035,7 +1031,7 @@
 
                             </div>
                             <style>
-                                 #history-form {
+                                #history-form {
                                     display: none;
                                 }
                             </style>
@@ -1067,7 +1063,7 @@
                                                             <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
                                                             <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
                                                             <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
-                                
+
 
                                                         </div>
                                                     </div>
@@ -2350,6 +2346,8 @@
                     historyForm.style.display = 'block';
                 });
             </script>
+
+            
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
 
