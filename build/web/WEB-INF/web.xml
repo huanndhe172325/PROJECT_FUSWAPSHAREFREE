@@ -111,10 +111,6 @@
     <servlet>
         <servlet-name>UpdateImage</servlet-name>
         <servlet-class>Controllers.Profile.UpdateImage</servlet-class>
-         </servlet>
-    <servlet>
-        <servlet-name>SearchServlet</servlet-name>
-        <servlet-class>Controllers.HomePage.SearchServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -227,10 +223,6 @@
     <servlet-mapping>
         <servlet-name>UpdateImage</servlet-name>
         <url-pattern>/UpdateImage</url-pattern>
-        </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchServlet</servlet-name>
-        <url-pattern>/SearchServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>
