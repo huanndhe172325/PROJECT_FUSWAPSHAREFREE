@@ -517,11 +517,11 @@ function initShareModal() {
                 $(".featured-image").html(postImageDiv),
                 $("#requestThis").attr("data-post-id", postId),
                 $("#requestThis").attr("data-post-id", postId)
-                if (avaiableRequest === "true") {
-                    $("#requestThis").html("requested").removeClass("open-modal-request");
-                } else {
-                    $("#requestThis").html("request this").addClass("open-modal-request");
-                }
+        if (avaiableRequest === "true") {
+            $("#requestThis").html("request this").addClass("open-modal-request");
+        } else {
+            $("#requestThis").replaceWith('<button id="requestThis" style="width: 100%;" type="button" class="button is-solid primary-button">requested</button>');
+        }
         ;
     }
     ))

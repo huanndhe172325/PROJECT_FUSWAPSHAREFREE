@@ -6,6 +6,7 @@ package Controllers.HomePage;
 
 import DAL.DAOManageUser;
 import DAL.DAOManagePost;
+import Model.Notification;
 import Model.Post;
 import Model.Quanlity;
 import Model.Type;
@@ -87,6 +88,8 @@ public class HomePage extends HttpServlet {
         ArrayList<Post> listPostUsed = dao.getPostsByQuanlityID(1, userInfo_raw.getUserID());
         ArrayList<Post> listPostNeedsRepair = dao.getPostsByQuanlityID(2, userInfo_raw.getUserID());
         ArrayList<Post> listPostNew = dao.getPostsByQuanlityID(3, userInfo_raw.getUserID());
+        ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
+        request.setAttribute("listNoti", listNoti);
         request.setAttribute("listUserDistrict", listUserDistrict);
         request.setAttribute("listPoint", listUserRanking);
         request.setAttribute("listQuanlity", listQuanlity);

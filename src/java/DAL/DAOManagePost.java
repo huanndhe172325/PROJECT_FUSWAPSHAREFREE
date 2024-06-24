@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Model.Notification;
 import Model.Post;
 import Model.Quanlity;
 import Model.Type;
@@ -15,6 +16,9 @@ import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -320,6 +324,46 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean createNotifycation(String desc, int idUserSent, int postId, int userIdReceive, int status) {
+        String sql = "INSERT INTO [dbo].[Notification]\n"
+                + "           ([Descripton]\n"
+                + "           ,[CreateTime]\n"
+                + "           ,[UserSendID]\n"
+                + "           ,[PostID]\n"
+                + "           ,[UserReceiveID]\n"
+                + "           ,[StatusNoti])\n"
+                + "     VALUES\n"
+                + "           (?,GETDATE(),?,?,?,?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, desc);
+            statement.setInt(2, idUserSent);
+            statement.setInt(3, postId);
+            statement.setInt(4, userIdReceive);
+            statement.setInt(5, status);
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public boolean checkRequested(int idUser, int postId) {
+        String sql = "SELECT * FROM Request WHERE [UserID] = ? AND [PostID] = ?";
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, idUser);
+            statement.setInt(2, postId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();  
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
@@ -584,6 +628,31 @@ public class DAOManagePost extends DBContext {
         return status;
     }
 
+    public ArrayList<Notification> getListNotiByUserId(int idUser) {
+        ArrayList<Notification> listNoti = new ArrayList<>();
+        try {
+            String sql = "SELECT * From [Notification] where UserReceiveID = ? ORDER BY CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, idUser);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Notification noti = new Notification();
+                noti.setNotiId(rs.getInt("NotiId"));
+                noti.setDescripton(rs.getString("Descripton"));
+                noti.setCreateTime(rs.getString("CreateTime"));
+                noti.setUserSendID(rs.getInt("UserSendID"));
+                noti.setPostID(rs.getInt("PostID"));
+                noti.setUserReceiveID(rs.getInt("UserReceiveID"));
+                noti.setStatusNoti(rs.getInt("StatusNoti"));
+                listNoti.add(noti);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listNoti;
+    }
+
     public String getTypePostByTypeID(int idType) {
         String type = "";
         try {
@@ -685,25 +754,26 @@ public class DAOManagePost extends DBContext {
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-        ArrayList<Post> lP = dao.getAllPostHistory(64);
-        System.out.println(lP);
-        Path projectDirectory = Paths.get("").toAbsolutePath();
+        System.out.println(dao.checkRequested(1,99));
+    }
 
-//        Post newPost = new Post();
-//        newPost.setTitle("Post Title");
-//        newPost.setDescription("Post Description");
-//        newPost.setIntructions("Post Instructions");
-//        newPost.setImageUrl("http://example.com/image.jpg");
-//        newPost.setCommune("Commune Name");
-//        newPost.setDistrict("District Name");
-//        newPost.setStreet_Number("Street Number");
-//        newPost.setStatusID(1);
-//        newPost.setQuanlityID(1);
-//        newPost.setTypeID(1);
-//
-//        boolean result = dao.createPost(newPost, 7, null, 1);
-//
-//        System.out.println("Post creation successful: " + result);
+    public String calulateDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        LocalDateTime pastDateTime = LocalDateTime.parse("2024-06-25 00:55:13.430", formatter);
+        LocalDateTime now = LocalDateTime.now();
+
+        Duration duration = Duration.between(pastDateTime, now);
+        long minutes = duration.toMinutes();
+        long hours = duration.toHours();
+        long days = duration.toDays();
+
+        if (minutes < 60) {
+            return minutes + " minutes";
+        } else if (hours < 24) {
+            return hours + " hours";
+        } else {
+            return days + " days";
+        }
     }
 
 }
