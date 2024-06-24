@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
  *
  * @author haoto
  */
+@WebServlet(name = "EditProfileServlet", urlPatterns = {"/editprofile"})
 public class EditProfileServlet extends HttpServlet {
 
     /**

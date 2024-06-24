@@ -10,6 +10,7 @@ import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,6 +38,7 @@ import javax.mail.internet.MimeMessage;
  *
  * @author Binhtran
  */
+@WebServlet(name="SignUp", urlPatterns={"/SignUp"})
 public class SignUp extends HttpServlet {
 
     DAOSignup daoSignUp = new DAOSignup();
