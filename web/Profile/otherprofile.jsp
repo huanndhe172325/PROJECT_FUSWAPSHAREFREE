@@ -877,7 +877,7 @@
                                             </a>
                                         </div>
                                         <div class="pop-button is-right haschat-pop-tooltip chat-pop" data-placement="top" data-title="Report user" report_user_target_id="${profile.getUserID()}" data-modal="report-user-modal-container" class="modal share-modal is-xsmall has-light-bg">
-                                            
+
                                             <a class="inner">
                                                 <i data-feather="alert-octagon"></i>
                                             </a>
@@ -1034,11 +1034,14 @@
 
                             <div class="column is-8">
                                 <div id="profile-timeline-posts" class="box-heading">
-                                    <h4>Posts</h4>
-                                    <div class="button-wrap">
-                                        <button type="button" class="button is-active">List Posts</button>
-                                        <button type="button" class="button is-active">History</button>
-                                    </div>
+                                    <c:if test="${sessionScope.userInfo.getUserID() == profile.getUserID()}" >
+                                        <h4>Posts</h4>
+                                        <div class="button-wrap">
+                                            <button type="button" class="button is-active">List Posts</button>
+                                            <button type="button" class="button is-active">History</button>
+                                        </div>
+                                    </c:if>
+
                                 </div>
                                 <c:forEach var="post" items="${myPost}"> 
                                     <div id="feed-post-1" class="card is-post">
@@ -1464,7 +1467,7 @@
         </div>
 
 
-        
+
 
 
 
@@ -1769,7 +1772,7 @@
         <script src="assets/js/popovers-users.js"></script>
         <script src="assets/js/popovers-pages.js"></script>
         <script src="assets/js/lightbox.js"></script>
-        
+
         <!-- Landing page js -->
 
         <!-- Signup page js -->
@@ -2167,7 +2170,7 @@
             });
         </script>
 
-        
+
         <script src="path/to/your/script.js"></script>
         <script src="assets/js/reportUser.js"></script>
     </body>

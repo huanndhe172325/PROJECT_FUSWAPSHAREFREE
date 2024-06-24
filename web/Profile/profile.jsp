@@ -1522,7 +1522,8 @@
                                         <!--                                        <form action="profile" id="list-block-modal" method="post">-->
 
                                         <p class="description">
-                                            Khi bạn chặn ai đó, họ sẽ không xem được nội dung bạn đăng trên dòng thời gian của mình,thêm bạn làm bạn bè và trao đổi các đồ dùng. Lưu ý: Điều này không bao gồm các trao đổi mà cả bạn và người này đều tham gia trước đó.
+                                            Khi bạn chặn ai đó, họ sẽ không xem được nội dung bạn đăng trên dòng thời gian của mình,thêm bạn làm bạn bè và trao đổi các đồ dùng.
+                                            Lưu ý: Điều này không bao gồm các trao đổi mà cả bạn và người này đều tham gia trước đó.
                                         </p>
                                         <div class="search-box">
                                             <button type="button" class="add-block-btn">+ Thêm vào danh sách chặn</button>
