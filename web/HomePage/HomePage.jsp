@@ -1501,9 +1501,9 @@
                                     <!-- Recommended Page -->
                                     <c:forEach var="user" items="${requestScope.listPoint}">
                                         <div class="page-block">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
+                                            <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
                                             <div class="page-meta">
-                                                <span>${user.full_Name}</span>
+                                                <a href="otherprofile?id=${user.userID}"><span>${user.full_Name}</span></a>
                                                 <span>${user.point}</span>
                                             </div>
                                             <div class="add-page">
@@ -2445,9 +2445,9 @@
                                 <div class="card-body no-padding scrollable-content">
                                     <c:forEach var="user" items="${requestScope.listUserDistrict}">
                                         <div class="add-friend-block transition-block">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
+                                            <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
                                             <div class="page-meta">
-                                                <span>${user.full_Name}</span>
+                                                <a href="otherprofile?id=${user.userID}"><span>${user.full_Name}</span></a>
                                                 <span>${user.district}</span>
                                             </div>
                                             <div class="add-friend add-transition">
