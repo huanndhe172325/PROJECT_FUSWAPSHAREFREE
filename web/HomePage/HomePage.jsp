@@ -1529,7 +1529,7 @@
                                                         <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
                                                         <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
                                                         <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
-
+                                                        <span class="desire-post" style="display: none; float: right;">${post.desire}</span>
                                                     </div>
                                                 </div>
                                                 <!-- Right side dropdown -->
@@ -2555,6 +2555,10 @@
                                 <div class="detail-row">
                                     <h2 style="font-weight: 500;">Instructions:</h2>
                                     <p id="share-modal-intruc">-</p>
+                                </div>
+                                <div class="detail-row" id="share-modal-desire-block">
+                                    <h2 style="font-weight: 500;">Desire:</h2>
+                                    <p id="share-modal-desire">-</p>
                                 </div>
                             </div>
                         </div>
