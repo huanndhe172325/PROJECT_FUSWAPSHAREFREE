@@ -1629,10 +1629,10 @@
                                     </div>
                                 </c:forEach> 
                             </div>
-                           
-                        
-                        
-                         
+
+
+
+
                             <!-- Load more posts -->
                             <div class="load-more-wrap narrow-top has-text-centered">
                                 <a href="#" class="load-more-button">Load More</a>
@@ -2643,6 +2643,8 @@
                                     </tr>
                                 </table>
 
+                                <label for="desire" id="titleDesire" style="display: none;">Desire:</label>
+                                <input style="display: none;" type="text" id="desire" name="desire" value="Tôi muốn đổi lấy 1 chiếc điện thoại cũ nhưng vẫn sử dụng được." required>
 
                                 <div id="addNewSnippet" style="margin-top: 10px;">
                                     <div class="input-container" style="display: inline-block; width: 49%;">
@@ -4705,6 +4707,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
+    <script src="assets/js/createpost.js" ></script>
     <script>
                             document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
                                 if (event.key === "Enter") {
@@ -4795,7 +4798,7 @@
             filterPosts('all');
         });
     </script>
-    
+
     <script>
         document.getElementById('postButton').addEventListener('click', function () {
             if (validateForm()) {
