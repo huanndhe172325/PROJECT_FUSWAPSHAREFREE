@@ -57,7 +57,4 @@ public class ReportPost {
     public void setPost(Post post) {
         this.post = post;
     }
-
-   
-     
 }

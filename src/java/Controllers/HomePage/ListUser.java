@@ -61,7 +61,7 @@ public class ListUser extends HttpServlet {
             throws ServletException, IOException {
         DAOManageUser dao = new DAOManageUser();
         int page = 1;
-        int recordsPerPage = 15;
+        int recordsPerPage = 5;
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
