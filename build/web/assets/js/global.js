@@ -495,11 +495,13 @@ function initShareModal() {
                 , quanlity = t.closest(".is-post").find(".user-info .quanlity-post").html()
                 , address = t.closest(".is-post").find(".user-info .addres-post").html()
                 , name = t.closest(".is-post").find(".user-info .post-name-owner").html()
+                , desire = t.closest(".is-post").find(".user-info .desire-post").html()
                 , time = t.closest(".is-post").find(".user-info .time").html()
                 , intrusction = t.closest(".is-post").find(".user-info .intrucstion-post").html()
                 , postImageDiv = t.closest(".is-post").find(".post-image").clone()
                 , postId = t.closest(".is-post").attr("data-post-id")
                 , avaiableRequest = t.closest(".is-post").attr("data-avaiable-request");
+
         void 0 !== o ? $("#share-modal-image").attr("src", o).removeClass("is-hidden") : $("#share-modal-image").addClass("is-hidden"),
                 $("#share-modal-avatar").attr("src", i),
                 $("#share-modal-avatar").attr("data-demo-src", i),
@@ -514,10 +516,18 @@ function initShareModal() {
                 $("#share-modal-address").html(address),
                 $("#share-modal-intruc").html(intrusction),
                 $("#share-modal-date").html(time),
+                $("#share-modal-desire").html(desire),
                 $(".featured-image").html(postImageDiv),
                 $("#requestThis").attr("data-post-id", postId),
                 $("#requestThis").attr("data-post-id", postId)
-        ;
+                ;
+
+        if (type === 'Exchange') {
+            $('#share-modal-desire-block').css('display', 'block');
+        } else {
+            $('#share-modal-desire-block').css('display', 'none');
+        }
+
     }
     ))
 }

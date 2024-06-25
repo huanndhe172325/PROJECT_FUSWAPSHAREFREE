@@ -87,7 +87,7 @@ public class CreatePost2 extends HttpServlet {
         String district = request.getParameter("district");
         String streetNumber = request.getParameter("newAddress");
         String quantityId_raw = request.getParameter("quality");
-
+        String desire = request.getParameter("desire");
         HttpSession session = request.getSession();
         User userInfor = (User) session.getAttribute("userInfo");
         int idPost = daoManagePost.getMaxIdPost() + 1;
@@ -131,8 +131,8 @@ public class CreatePost2 extends HttpServlet {
             newPost.setStatusID(1);
             newPost.setQuanlityID(quantity);
             newPost.setTypeID(type);
-
-            if (daoManagePost.createPost(newPost, dateExpires, "", userInfor.getUserID())) {
+            newPost.setDesire(desire);
+            if (daoManagePost.createPost(newPost, dateExpires, desire, userInfor.getUserID())) {
                 response.getWriter().write("success");
             } else {
                 response.getWriter().write("failed");
