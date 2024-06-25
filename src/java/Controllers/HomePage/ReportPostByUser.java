@@ -91,7 +91,6 @@ public class ReportPostByUser extends HttpServlet {
                 actualReportReason = reportReason;
             }
             if (dmnPost.ReportPost(actualReportReason, userIDReport, newPostId)) {
-
                 response.getWriter().write("Report Succesfully");
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
