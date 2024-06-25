@@ -139,7 +139,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <div class="card-title">List Report Users</div>
+                            <div class="card-title">List Report Post</div>
                             <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
                                 <div class="input-group">
                                     <form action="manageReportUsers" method="get"> 
@@ -156,11 +156,11 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th></th>
-                                        <th>postID</th>
-                                        <th>title</th>
-                                        <th>description</th>
-                                        <th>reportTime</th>
-                                        <th>message</th>                          
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Time</th>
+                                        <th>Content</th>                          
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -169,7 +169,7 @@
                                         <tr>
                                             <th>
                                             <td>
-                                                <a href="#">${c.post.postID}</a>
+                                                <a href="detailPost?idpost=${c.post.postID}">${c.post.postID}</a>
                                             </td>
                                             <td>${c.post.title}</td>
                                             <td>${c.post.description}</td>

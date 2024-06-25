@@ -47,6 +47,20 @@ public class DAOManagePost extends DBContext {
         return listType;
     }
 
+    public boolean archivePost(int postId){
+                String sql = "";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+    
+    
+    
     public ArrayList<Post> getFilteredPosts(int userID, String keyword) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {

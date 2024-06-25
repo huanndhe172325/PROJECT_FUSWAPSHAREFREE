@@ -1075,7 +1075,7 @@
                                                     </div>
                                                     <div class="dropdown-menu" role="menu">
                                                         <div class="dropdown-content">
-                                                            <c:if test="${post.avaiableEditPost(profile.userID)}">
+                                                            <c:if test="${post.avaiableEditPost(user1.userID)}">
                                                                 <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-img="${post.imageUrl}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" >
                                                                     <div class="media">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
@@ -1086,7 +1086,7 @@
                                                                     </div>
                                                                 </a>
                                                             </c:if>
-                                                            <c:if test="${post.avaiableArchivePost(profile.userID)}">
+                                                            <c:if test="${post.avaiableArchivePost(user1.userID)}">
                                                                 <a class="dropdown-item open-modal-archive" data-post-id="${post.postID}">
                                                                     <div class="media">
                                                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
