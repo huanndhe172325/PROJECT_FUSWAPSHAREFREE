@@ -5488,7 +5488,7 @@
         if (event.key === "Enter") {
             var keyword = document.getElementById("tipue_drop_input").value.trim();
             if (keyword !== "") {
-                var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
+                var url = "/FUSWAPSHAREFREE/SearchHomePage?keyword=" + encodeURIComponent(keyword);
                 window.location.href = url;
             } else {
                 alert("Please enter a keyword to search.");
