@@ -9,6 +9,7 @@ import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
  *
  * @author admin
  */
+@WebServlet(name = "ListUser", urlPatterns = {"/ListUser"})
 public class ListUser extends HttpServlet {
 
     /**
@@ -61,7 +63,7 @@ public class ListUser extends HttpServlet {
             throws ServletException, IOException {
         DAOManageUser dao = new DAOManageUser();
         int page = 1;
-        int recordsPerPage = 15;
+        int recordsPerPage = 5;
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));

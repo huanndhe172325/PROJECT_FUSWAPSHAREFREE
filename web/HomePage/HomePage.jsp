@@ -312,7 +312,7 @@
         <div id="main-navbar" class="navbar navbar-v1 is-inline-flex is-transparent no-shadow is-hidden-mobile">
             <div class="container is-fluid">
                 <div class="navbar-brand">
-                    <a href="index.html" class="navbar-item">
+                    <a href="#" class="navbar-item">
                         <img class="logo light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
                         <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
                     </a>
@@ -472,82 +472,26 @@
                                         </a>
                                     </div>
                                     <div class="nav-drop-body is-notifications">
-                                        <!-- Notification -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    ><a href="#">David Kim</a> commented on
-                                                    <a href="#">your post</a>.</span>
-                                                <span class="time">30 minutes ago</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="message-square"></i>
+                                        <c:forEach var="noti" items="${listNoti}">
+                                            <!-- Notification -->
+                                            <div class="media" onclick="window.location.href = 'detailPost?idpost=${noti.postID}'" style="cursor: pointer;">
+                                                <figure class="media-left">
+                                                    <p class="image">
+                                                        <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${noti.getUserSent().userID}'" data-demo-src="${noti.getAvatarUserSent()}" alt="" style="cursor: pointer;" />
+                                                    </p>
+                                                </figure>
+                                                <div class="media-content">
+                                                    <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
+                                                        <a href="detailPost?idpost=${noti.postID}">your post</a>.</span>
+                                                    <span class="time">${noti.getCreateTime()}</span>
+                                                </div>
+                                                <div class="media-right">
+                                                    <div class="added-icon">
+                                                        <i data-feather="message-square"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Notification -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    ><a href="#">Daniel Wellington</a> liked your
-                                                    <a href="#">profile.</a></span>
-                                                <span class="time">43 minutes ago</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="heart"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Notification -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    ><a href="#">Stella Bergmann</a> shared a
-                                                    <a href="#">New video</a> on your wall.</span>
-                                                <span class="time">Yesterday</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="youtube"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Notification -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    ><a href="#">Elise Walker</a> shared an <a href="#">Image</a> with
-                                                    you an 2 other people.</span>
-                                                <span class="time">2 days ago</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="image"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                     <div class="nav-drop-footer">
                                         <a href="#">View All</a>
@@ -1501,9 +1445,9 @@
                                     <!-- Recommended Page -->
                                     <c:forEach var="user" items="${requestScope.listPoint}">
                                         <div class="page-block">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
+                                            <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
                                             <div class="page-meta">
-                                                <span>${user.full_Name}</span>
+                                                <a href="otherprofile?id=${user.userID}"><span>${user.full_Name}</span></a>
                                                 <span>${user.point}</span>
                                             </div>
                                             <div class="add-page">
@@ -1563,13 +1507,13 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Post 1 -->
                             <div class="post-container" data-category="listPost">
                                 <c:forEach var="post" items="${listPost}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="newest">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiableEditPost(user.getUserID())}" data-type="newest">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
+
                                             <!-- Post header -->
                                             <div class="card-heading">
                                                 <!-- User meta -->
@@ -1688,7 +1632,7 @@
                             <!-- Post 2 -->
                             <div class="post-container" data-category="listPostNewest">
                                 <c:forEach var="post" items="${listPostNewest}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="newest">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(userInfor.userID)}" data-type="newest">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
                                             <!-- Post header -->
@@ -1809,7 +1753,7 @@
                             <!-- Post 3 -->
                             <div class="post-container" data-category="listPostExchange">
                                 <c:forEach var="post" items="${listPostExchange}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="exchange">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(userInfor.userID)}" data-type="exchange">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
                                             <!-- Post header -->
@@ -1930,7 +1874,7 @@
                             <!-- Post 4 -->
                             <div class="post-container" data-category="listPostFree">
                                 <c:forEach var="post" items="${listPostFree}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="exchange">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(userInfor.userID)}" data-type="exchange">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
                                             <!-- Post header -->
@@ -2051,7 +1995,7 @@
                             <!-- Post 5 -->
                             <div class="post-container" data-category="listPostUsed">
                                 <c:forEach var="post" items="${listPostUsed}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="exchange">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(userInfor.userID)}" data-type="exchange">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
                                             <!-- Post header -->
@@ -2172,7 +2116,7 @@
 
                             <div class="post-container" data-category="listPostNeedsRepair">
                                 <c:forEach var="post" items="${listPostNeedsRepair}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="exchange">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(userInfor.userID)}" data-type="exchange">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
                                             <!-- Post header -->
@@ -2293,7 +2237,7 @@
 
                             <div class="post-container" data-category="listPostNew">
                                 <c:forEach var="post" items="${listPostNew}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-type="exchange">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(userInfor.userID)}" data-type="exchange">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
                                             <!-- Post header -->
@@ -2445,9 +2389,9 @@
                                 <div class="card-body no-padding scrollable-content">
                                     <c:forEach var="user" items="${requestScope.listUserDistrict}">
                                         <div class="add-friend-block transition-block">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
+                                            <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
                                             <div class="page-meta">
-                                                <span>${user.full_Name}</span>
+                                                <a href="otherprofile?id=${user.userID}"><span>${user.full_Name}</span></a>
                                                 <span>${user.district}</span>
                                             </div>
                                             <div class="add-friend add-transition">
@@ -5807,7 +5751,7 @@
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-            const openModalRequest = document.querySelectorAll('.open-modal-request');
+            var openModalRequest = document.querySelectorAll('.open-modal-request');
             const modalRequest = document.getElementById('sent-request-modal');
             const requestButton = document.getElementById('requestButton');
             let currentPostRequest = null;

@@ -849,7 +849,7 @@
                                 <!-- Timeline Header -->
                                 <!-- html/partials/pages/profile/timeline/timeline-header.html -->
                                 <div class="cover-bg">
-<!--                                    <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />-->
+                                    <!--                                    <img class="cover-image" src="https://via.placeholder.com/1600x460" data-demo-src="assets/img/demo/bg/4.png" alt="" />-->
                                     <div class="avatar" style="margin-bottom: 60px;">
                                         <img id="user-avatar" class="avatar-image" src="${profile.avatarUrl}" alt="" />
                                         <div class="avatar-button">
@@ -1522,7 +1522,8 @@
                                         <!--                                        <form action="profile" id="list-block-modal" method="post">-->
 
                                         <p class="description">
-                                            Khi bạn chặn ai đó, họ sẽ không xem được nội dung bạn đăng trên dòng thời gian của mình,thêm bạn làm bạn bè và trao đổi các đồ dùng. Lưu ý: Điều này không bao gồm các trao đổi mà cả bạn và người này đều tham gia trước đó.
+                                            Khi bạn chặn ai đó, họ sẽ không xem được nội dung bạn đăng trên dòng thời gian của mình,thêm bạn làm bạn bè và trao đổi các đồ dùng.
+                                            Lưu ý: Điều này không bao gồm các trao đổi mà cả bạn và người này đều tham gia trước đó.
                                         </p>
                                         <div class="search-box">
                                             <button type="button" class="add-block-btn">+ Thêm vào danh sách chặn</button>
@@ -1549,7 +1550,35 @@
             </div>
 
 
+            <script>
+                // Hàm để loại bỏ dấu và khoảng trống từ chuỗi
+                function normalizeString(str) {
+                    return str
+                            .normalize("NFD")
+                            .replace(/[\u0300-\u036f]/g, "")
+                            .replace(/\s+/g, "")
+                            .toLowerCase();
+                }
 
+                // Select the search input and the container for the blocked users
+                const searchInput = document.querySelector('.search-input');
+                const userBlockList = document.querySelector('.user-block-list');
+
+                // Add event listener to the search input
+                searchInput.addEventListener('input', function () {
+                    const searchTerm = normalizeString(this.value);
+                    const users = userBlockList.querySelectorAll('.user');
+
+                    users.forEach(user => {
+                        const userName = normalizeString(user.querySelector('span').textContent);
+                        if (userName.includes(searchTerm)) {
+                            user.style.display = ''; // Show matching users
+                        } else {
+                            user.style.display = 'none'; // Hide non-matching users
+                        }
+                    });
+                });
+            </script>
 
             <div id="archive-post" class="modal albums-help-modal is-xsmall has-light-bg">
                 <div class="modal-background"></div>
@@ -2078,9 +2107,9 @@
 
 
 
-               
 
-                
+
+
             </script>
 
             <script>
@@ -2106,7 +2135,7 @@
                 });
             </script>
 
-            
+
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
             <script src="assets/js/reloadJs.js"></script>

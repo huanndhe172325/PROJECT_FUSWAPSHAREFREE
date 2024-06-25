@@ -1,5 +1,4 @@
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -66,6 +65,10 @@
         <!-- Core CSS -->
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
+        <link rel="stylesheet" href="assets2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets2/css/plugins.min.css" />
+        <link rel="stylesheet" href="assets2/css/kaiadmin.min.css" />
+
     </head>
     <body>
 
@@ -100,7 +103,7 @@
                         <span> List User</span>
                     </div>
                 </a>
-                
+
             </div>
             <div class="dashboard-aside-end">
                 <a href="Preview" class="dashboard-aside-link">
@@ -109,225 +112,172 @@
             </div>
         </div>
 
+    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Search Form</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
-                background-color: #f8f9fa;
-                margin: 0;
-                padding: 0;
-            }
 
-            .container {
-                width: 80%;
-                margin: 20px auto;
-            }
-
-            .table-wrapper {
-                box-shadow: 0 1px 1px rgba(0,0,0,.1);
-                background-color: #fff;
-                border-radius: 5px;
-                overflow: hidden;
-            }
-
-            .table-title {
-                padding: 15px;
-                background: #007bff; /* Màu xanh biển đậm hơn */
-                color: #fff;
-                border-radius: 5px 5px 0 0;
-            }
-
-            .table-title h2 {
-                margin: 0;
-                font-size: 24px;
-            }
-
-            .search-box {
-                float: right;
-            }
-
-            .search-box input[type="text"] {
-                height: 34px;
-                border-radius: 20px;
-                padding: 0 15px;
-                border: 1px solid #ddd;
-                outline: none;
-                width: 200px;
-                transition: width 0.4s ease-in-out;
-                color: #000; /* Màu chữ đen */
-            }
-
-            .search-box input[type="text"]:focus {
-                width: 300px;
-            }
-
-            .search-box button {
-                border: none;
-                background: none;
-                color: #fff;
-                font-size: 18px;
-                margin-left: -30px;
-                cursor: pointer;
-            }
-
-            table.table {
-                width: 100%;
-                margin-top: 20px;
-                border-collapse: collapse;
-            }
-
-            table.table th, table.table td {
-                padding: 12px 15px;
-                text-align: left;
-            }
-
-            table.table th {
-                background: #f4f4f4;
-            }
-
-            table.table-striped tbody tr:nth-of-type(odd) {
-                background-color: #f9f9f9;
-            }
-
-            .btn-primary {
-                background-color:#007bff; /* Màu xanh biển đậm hơn */
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                display: inline-block;
-                margin: 20px 0;
-            }
-
-            .btn-primary:hover {
-                background-color: #006a86;
+                .btn-primary:hover {
+                    background-color: #006a86;
+                }
+                .card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .nav-search {
+                    margin-left: auto;
+                }
             }
         </style>
-        <div class="container">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <h2>List <b>Users</b></h2>
+
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-title">List Users</div>
+                            <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
+                                <div class="input-group">
+                                    <form action="ListUser" method="get"> 
+                                        <input type="text" name="query" placeholder="Search ..." class="form-control" />
+                                               <button type="submit" class="btn btn-search pe-0">
+                                        <i class="fa fa-search search-icon"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </nav>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="search-box">
-                                <form action="ListUser" method="get"> 
-                                    <input type="text" name="query" placeholder="Search..." value="${query}">
-                                    <button type="submit">&#128269;</button> <!-- Unicode character for a magnifying glass -->
-                                </form>
-                            </div>
+                        <div class="card-body">
+                            <table class="table mt-3">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>UserName</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Full Name</th>
+                                        <th>District</th>
+                                        <th>Point</th>
+                                        <th>Status ID</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="c" items="${users}">
+                                        <tr>
+                                            <td>${c.userID}</td>
+                                            <td>${c.userName}</td>
+                                            <td>${c.email}</td>
+                                            <td>${c.phone}</td>
+                                            <td>${c.full_Name}</td>
+                                            <td>${c.commune}-${c.district}</td>
+                                            <td>${c.point}</td>
+                                            <td>${c.statusID}</td>
+
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <c:if test="${noOfPages > 1}">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <!-- Nút Previous -->
+                                        <c:if test="${currentPage > 1}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="ListUser?page=${currentPage - 1}&query=${query}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+
+                                        <!-- Các nút trang -->
+                                        <c:forEach begin="1" end="${noOfPages}" var="i">
+                                            <c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
+                                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                                    <a class="page-link" href="ListUser?page=${i}&query=${query}">${i}</a>
+                                                </li>
+                                            </c:if>
+                                        </c:forEach>
+
+                                        <!-- Nút Next -->
+                                        <c:if test="${currentPage < noOfPages}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="ListUser?page=${currentPage + 1}&query=${query}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+                                    </ul>
+                                </nav>
+                            </c:if>
+                            <a href="SideBarAdmin">
+                                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+                            </a>
                         </div>
                     </div>
                 </div>
-
-                <table class="table table-hover table-bordered">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>UserName</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Full Name</th>
-                            <th>District</th>
-                            <th>Point</th>
-                            <th>Status ID</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="c" items="${users}">
-                            <tr>
-                                <td>${c.userID}</td>
-                                <td>${c.userName}</td>
-                                <td>${c.email}</td>
-                                <td>${c.phone}</td>
-                                <td>${c.full_Name}</td>
-                                <td>${c.commune}-${c.district}</td>
-                                <td>${c.point}</td>
-                                <td>${c.statusID}</td>
-                                
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
-                <!-- Pagination -->
-                <c:if test="${noOfPages > 1}">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <!-- Nút Previous -->
-                            <c:if test="${currentPage > 1}">
-                                <li class="page-item">
-                                    <a class="page-link" href="ListUser?page=${currentPage - 1}&query=${query}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                            </c:if>
-
-                            <!-- Các nút trang -->
-                            <c:forEach begin="1" end="${noOfPages}" var="i">
-                                <c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
-                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                        <a class="page-link" href="ListUser?page=${i}&query=${query}">${i}</a>
-                                    </li>
-                                </c:if>
-                            </c:forEach>
-
-                            <!-- Nút Next -->
-                            <c:if test="${currentPage < noOfPages}">
-                                <li class="page-item">
-                                    <a class="page-link" href="ListUser?page=${currentPage + 1}&query=${query}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </c:if>
-                        </ul>
-                    </nav>
-                </c:if>
-
-
-                <a href="SideBarAdmin">
-                    <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                </a>
             </div>
         </div>
+    </div>
 
 
 
-        <script src="js/ManagerProduct.js" type="text/javascript"></script>
-        <script src="assets/js/app.js"></script>
-        <script src="https://js.stripe.com/v3/"></script>
 
-        <!-- Core js -->
-        <script src="assets/js/global.js"></script>
 
-        <!-- Navigation options js -->
-        <script src="assets/js/navbar-v1.js"></script>
-        <script src="assets/js/navbar-v2.js"></script>
-        <script src="assets/js/navbar-mobile.js"></script>
-        <script src="assets/js/navbar-options.js"></script>
-        <script src="assets/js/sidebar-v1.js"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Core instance js -->
-        <script src="assets/js/main.js"></script>
-        <script src="assets/js/chat.js"></script>
-        <script src="assets/js/touch.js"></script>
-        <script src="assets/js/tour.js"></script>
+    <script src="js/ManagerProduct.js" type="text/javascript"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
-        <!-- Components js -->
-        <script src="assets/js/explorer.js"></script>
-        <script src="assets/js/widgets.js"></script>
-        <script src="assets/js/modal-uploader.js"></script>
-        <script src="assets/js/popovers-users.js"></script>
-        <script src="assets/js/popovers-pages.js"></script>
-        <script src="assets/js/lightbox.js"></script>
-    </body>
+    <!-- Core js -->
+    <script src="assets/js/global.js"></script>
+
+    <!-- Navigation options js -->
+    <script src="assets/js/navbar-v1.js"></script>
+    <script src="assets/js/navbar-v2.js"></script>
+    <script src="assets/js/navbar-mobile.js"></script>
+    <script src="assets/js/navbar-options.js"></script>
+    <script src="assets/js/sidebar-v1.js"></script>
+
+    <!-- Core instance js -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/chat.js"></script>
+    <script src="assets/js/touch.js"></script>
+    <script src="assets/js/tour.js"></script>
+
+    <!-- Components js -->
+    <script src="assets/js/explorer.js"></script>
+    <script src="assets/js/widgets.js"></script>
+    <script src="assets/js/modal-uploader.js"></script>
+    <script src="assets/js/popovers-users.js"></script>
+    <script src="assets/js/popovers-pages.js"></script>
+    <script src="assets/js/lightbox.js"></script>
+</body>
 </html>
 

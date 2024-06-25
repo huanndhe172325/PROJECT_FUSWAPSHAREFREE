@@ -65,6 +65,10 @@
         <!-- Core CSS -->
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
+        <link rel="stylesheet" href="assets2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets2/css/plugins.min.css" />
+        <link rel="stylesheet" href="assets2/css/kaiadmin.min.css" />
+
     </head>
     <body>
 
@@ -99,7 +103,7 @@
                         <span> List User</span>
                     </div>
                 </a>
-                
+
             </div>
             <div class="dashboard-aside-end">
                 <a href="Preview" class="dashboard-aside-link">
@@ -114,180 +118,133 @@
         <title>Search Form</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
-                background-color: #f8f9fa;
-                margin: 0;
-                padding: 0;
-            }
 
-            .container {
-                width: 80%;
-                margin: 20px auto;
-            }
-
-            .table-wrapper {
-                box-shadow: 0 1px 1px rgba(0,0,0,.1);
-                background-color: #fff;
-                border-radius: 5px;
-                overflow: hidden;
-            }
-
-            .table-title {
-                padding: 15px;
-                background: #007bff; /* Màu xanh biển đậm hơn */
-                color: #fff;
-                border-radius: 5px 5px 0 0;
-            }
-
-            .table-title h2 {
-                margin: 0;
-                font-size: 24px;
-            }
-
-            .search-box {
-                float: right;
-            }
-
-            .search-box input[type="text"] {
-                height: 34px;
-                border-radius: 20px;
-                padding: 0 15px;
-                border: 1px solid #ddd;
-                outline: none;
-                width: 200px;
-                transition: width 0.4s ease-in-out;
-                color: #000; /* Màu chữ đen */
-            }
-
-            .search-box input[type="text"]:focus {
-                width: 300px;
-            }
-
-            .search-box button {
-                border: none;
-                background: none;
-                color: #fff;
-                font-size: 18px;
-                margin-left: -30px;
-                cursor: pointer;
-            }
-
-            table.table {
-                width: 100%;
-                margin-top: 20px;
-                border-collapse: collapse;
-            }
-
-            table.table th, table.table td {
-                padding: 12px 15px;
-                text-align: left;
-            }
-
-            table.table th {
-                background: #f4f4f4;
-            }
-
-            table.table-striped tbody tr:nth-of-type(odd) {
-                background-color: #f9f9f9;
-            }
-
-            .btn-primary {
-                background-color:#007bff; /* Màu xanh biển đậm hơn */
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                display: inline-block;
-                margin: 20px 0;
-            }
-
-            .btn-primary:hover {
-                background-color: #006a86;
+                .btn-primary:hover {
+                    background-color: #006a86;
+                }
+                .card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .nav-search {
+                    margin-left: auto;
+                }
             }
         </style>
 
     <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-8"><h2>List Report <b>Users</b></h2></div>
-                    <div class="col-sm-4">
-                        <div class="search-box">
-                           
+        <div class="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-title">List Report Users</div>
+                            <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
+                                <div class="input-group">
+                                    <form action="manageReportUsers" method="get"> 
+                                        <input type="text" name="txtSearch" placeholder="Search ..." class="form-control" />
+                                        <button type="submit" class="btn btn-search pe-0">
+                                            <i class="fa fa-search search-icon"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="card-body">
+                            <table class="table mt-3">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Full Name User Send</th>
+                                        <th>Message</th>
+                                        <th>reportTime</th>
+                                        <th>Full Name User Receive</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${reportUser}" var="c">
+                                        <tr>
+                                            <td><a href="otherprofile?id=${c.idUserSend}">${c.getNameIdUserSend().getFull_Name()}</a></td>
+                                            <td>${c.message}</td>
+                                            <td>${c.reportTime}</td>
+                                            <td><a href="otherprofile?id=${c.idUserReceive}">${c.getNameIdUserReceive().getFull_Name()}</a></td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <div class="paging">
+                                        <c:forEach begin="1" end="${endPage}" var="i">
+                                            <a class="page-link" href="manageReportUsers?index=${i}&txtSearch=${param.txtSearch}">
+                                                ${i}
+                                            </a>
+                                        </c:forEach>
+                                    </div>
+                                </ul>
+                            </nav>
+                            <a href="SideBarAdmin">
+                                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <table class="table table-hover table-bordered">
-
-                <tbody>
-                <div class="container" style="margin-top: -30px">
-                    <a href="manageReportUsers" style="text-decoration: none; color: #58abff">
-                        <table class="table table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Full Name User Send</th>
-                                    <th>Message</th>
-
-                                    <th>reportTime</th>
-                                    <th>Full Name User Receive</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${reportUser}" var="c">
-                                    <tr>
-                                        <th>
-                                        <td><a href="otherprofile?id=${c.idUserSend}" > ${c.getNameIdUserSend().getFull_Name()}</a>
-
-                                        </td>
-                                        <td>${c.message}</td>
-                                        <td>${c.reportTime}</td>
-                                        <td><a href="otherprofile?id=${c.idUserReceive}" > ${c.getNameIdUserReceive().getFull_Name()}</a></td>
-
-                                        </th>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                </div>
-                <a href="SideBarAdmin">
-                    <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                </a>
         </div>
+    </div>
 
 
 
-        <script src="js/ManagerProduct.js" type="text/javascript"></script>
-        <script src="assets/js/app.js"></script>
-        <script src="https://js.stripe.com/v3/"></script>
 
-        <!-- Core js -->
-        <script src="assets/js/global.js"></script>
 
-        <!-- Navigation options js -->
-        <script src="assets/js/navbar-v1.js"></script>
-        <script src="assets/js/navbar-v2.js"></script>
-        <script src="assets/js/navbar-mobile.js"></script>
-        <script src="assets/js/navbar-options.js"></script>
-        <script src="assets/js/sidebar-v1.js"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!-- Core instance js -->
-        <script src="assets/js/main.js"></script>
-        <script src="assets/js/chat.js"></script>
-        <script src="assets/js/touch.js"></script>
-        <script src="assets/js/tour.js"></script>
+    <script src="js/ManagerProduct.js" type="text/javascript"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
-        <!-- Components js -->
-        <script src="assets/js/explorer.js"></script>
-        <script src="assets/js/widgets.js"></script>
-        <script src="assets/js/modal-uploader.js"></script>
-        <script src="assets/js/popovers-users.js"></script>
-        <script src="assets/js/popovers-pages.js"></script>
-        <script src="assets/js/lightbox.js"></script>
-    </body>
+    <!-- Core js -->
+    <script src="assets/js/global.js"></script>
+
+    <!-- Navigation options js -->
+    <script src="assets/js/navbar-v1.js"></script>
+    <script src="assets/js/navbar-v2.js"></script>
+    <script src="assets/js/navbar-mobile.js"></script>
+    <script src="assets/js/navbar-options.js"></script>
+    <script src="assets/js/sidebar-v1.js"></script>
+
+    <!-- Core instance js -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/chat.js"></script>
+    <script src="assets/js/touch.js"></script>
+    <script src="assets/js/tour.js"></script>
+
+    <!-- Components js -->
+    <script src="assets/js/explorer.js"></script>
+    <script src="assets/js/widgets.js"></script>
+    <script src="assets/js/modal-uploader.js"></script>
+    <script src="assets/js/popovers-users.js"></script>
+    <script src="assets/js/popovers-pages.js"></script>
+    <script src="assets/js/lightbox.js"></script>
+</body>
 </html>
 
