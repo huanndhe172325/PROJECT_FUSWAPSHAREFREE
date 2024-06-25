@@ -5428,18 +5428,18 @@
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
     <script>
-                            document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
-                                if (event.key === "Enter") {
-                                    var keyword = document.getElementById("tipue_drop_input").value.trim();
-                                    if (keyword !== "") {
-                                        var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
-                                        window.location.href = url;
-                                    } else {
-                                        alert("Please enter a keyword to search.");
-                                    }
-                                }
-                            });
-    </script>
+    document.getElementById("tipue_drop_input").addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            var keyword = document.getElementById("tipue_drop_input").value.trim();
+            if (keyword !== "") {
+                var url = "/FUSWAPSHAREFREE/SearchHomePage?keyword=" + encodeURIComponent(keyword);
+                window.location.href = url;
+            } else {
+                alert("Please enter a keyword to search.");
+            }
+        }
+    });
+</script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
