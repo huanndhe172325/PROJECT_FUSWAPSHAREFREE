@@ -396,7 +396,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function reloadJs() {
-    initReuqest();
     initShareModal();
     initOpenModalArcive();
     initModalEdit();
