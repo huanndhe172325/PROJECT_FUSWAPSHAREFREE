@@ -10,16 +10,22 @@ import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+@MultipartConfig
 /**
  *
  * @author haoto
  */
+@WebServlet(name = "EditProfileServlet", urlPatterns = {"/editprofile"})
 public class EditProfileServlet extends HttpServlet {
 
     /**
@@ -83,29 +89,14 @@ public class EditProfileServlet extends HttpServlet {
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
 
-        
         DAOProfile db = new DAOProfile();
-        User userId =(User) session.getAttribute("userInfo");
+        User userId = (User) session.getAttribute("userInfo");
         int id = userId.getUserID();
         User u = db.getUserbyId(id);
-        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length()-10) + "web\\FolderImages\\ImagePost";
-        String imgFileName = id + "_image.jpg";
-        String imgFilePath = uploadDirectory + "\\" + imgFileName;
-        String linkDB = "FolderImages/ImagePost/" + imgFileName;
-        try {
-            Part imgPart = request.getPart("imgPath");
 
-          
-                imgPart.write(imgFilePath);
-                response.getWriter().write("success");
-           
-        } catch (Exception e) {
-            response.getWriter().write(" " + e);
-        }
-                
-        db.UpdateProfile(name, email, phone,linkDB,u.getUserID());
-        request.setAttribute("msg", "Update profile successfull");
-        response.sendRedirect("profile");
+        db.UpdateProfile(name, email, phone, u.getUserID());
+
+        response.sendRedirect("profile?id=" + u.getUserID());
 
     }
 

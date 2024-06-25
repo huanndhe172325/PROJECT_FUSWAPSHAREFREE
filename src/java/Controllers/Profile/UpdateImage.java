@@ -5,20 +5,26 @@
 
 package Controllers.Profile;
 
+import DAL.DAOProfile;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 /**
  *
  * @author haoto
  */
-@WebServlet(name="TestProfile", urlPatterns={"/testp"})
-public class TestProfile extends HttpServlet {
+@MultipartConfig
+@WebServlet(name = "UpdateImage", urlPatterns = {"/UpdateImage"})
+public class UpdateImage extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +41,10 @@ public class TestProfile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestProfile</title>");  
+            out.println("<title>Servlet UpdateImage</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestProfile at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet UpdateImage at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,7 +74,26 @@ public class TestProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        DAOProfile db = new DAOProfile();
+        User userId = (User) session.getAttribute("userInfo");
+        int id = userId.getUserID();
+        User u = db.getUserbyId(id);
+        String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length() - 10) + "web\\FolderImages\\ImageUser";
+        String imgFileName = u.getUserID()+"_2003" + "_image.jpg";
+        String imgFilePath = uploadDirectory + "\\" + imgFileName;
+        String linkDB = "FolderImages/ImageUser/" + imgFileName;
+        try {
+            Part imgPart = request.getPart("imgAvatar");
+            imgPart.write(imgFilePath);
+            db.UpdateAvatarProfile(linkDB, u.getUserID());
+            Thread.sleep(4000);
+            response.sendRedirect("profile?id=" + u.getUserID());
+
+        } catch (Exception e) {
+            response.getWriter().write(" " + e);
+        }
+
     }
 
     /** 

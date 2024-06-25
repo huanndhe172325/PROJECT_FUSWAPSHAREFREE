@@ -203,6 +203,22 @@ public class Post {
         return formattedDate;
     }
 
+    public boolean avaiAbleRequest(int userId) {
+        DAOManagePost dao = new DAOManagePost();
+        System.out.println("UserID: " + UserID);
+        System.out.println("StatusID: " + StatusID);
+        System.out.println("PostID: " + PostID);
+        System.out.println("userId: " + userId);
+        System.out.println("dao.checkRequested(userId, PostID) ssssssss: " + dao.checkRequested(1, 93));
+        if (userId != UserID && StatusID == 1 && !dao.checkRequested(userId, PostID)) {
+            System.out.println("result: true");
+            return true;
+        } else {
+            System.out.println("result: false");
+            return false;
+        }
+    }
+
     public String getStatusName() {
         DAOManagePost dao = new DAOManagePost();
         return dao.getStatusPostByIdStatus(StatusID);

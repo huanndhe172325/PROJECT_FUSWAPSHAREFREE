@@ -131,49 +131,6 @@ public class DAOManageUser extends DBContext {
         return users;
     }
 
-    public ArrayList<User> searchUsers(String query, int offset, int limit) {
-        ArrayList<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM [User] WHERE Email LIKE ? "
-                + "OR Phone LIKE ? OR UserName LIKE ? "
-                + "ORDER BY UserID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-
-        try {
-            PreparedStatement st = connect.prepareStatement(sql);
-            String likeQuery = "%" + query + "%";
-            st.setString(1, likeQuery);
-            st.setString(2, likeQuery);
-            st.setString(3, likeQuery);
-            st.setInt(4, offset);
-            st.setInt(5, limit);
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                User user = new User(
-                        rs.getInt("UserID"),
-                        rs.getString("Email"),
-                        rs.getString("Phone"),
-                        rs.getString("AvatarUrl"),
-                        rs.getString("PassWord"),
-                        rs.getString("JoinDate"),
-                        rs.getString("UserName"),
-                        rs.getString("Full_Name"),
-                        rs.getString("District"),
-                        rs.getString("Commune"),
-                        rs.getString("StreetNumber"),
-                        rs.getInt("Point"),
-                        rs.getInt("RoleID"),
-                        rs.getInt("StatusID")
-                );
-                users.add(user);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return users;
-    }
-
     public int getTotalRecords() {
         int totalRecords = 0;
         String sql = "SELECT COUNT(*) FROM [User]";
@@ -405,9 +362,76 @@ public class DAOManageUser extends DBContext {
 
     }
 
+    public boolean ReportUser(String mess, int userIDSend, int userID) {
+        String sql = "INSERT INTO [dbo].[Have_ReportUser]\n"
+                + "           ([reportTime]\n"
+                + "           ,[Message]\n"
+                + "           ,[IdUserSend]\n"
+                + "           ,[IdUserReceive])\n"
+                + "     VALUES\n"
+                + "           (GETDATE()\n"
+                + "           ,?,\n"
+                + "           ?\n"
+                + "           ,?)";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setString(1, mess);
+            st.setInt(2, userIDSend);
+            st.setInt(3, userID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public ArrayList<User> searchUsers(String query, int offset, int limit) {
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM [User] WHERE Email LIKE ? "
+                + "OR Phone LIKE ? OR UserName LIKE ? "
+                + "ORDER BY UserID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            String likeQuery = "%" + query + "%";
+            st.setString(1, likeQuery);
+            st.setString(2, likeQuery);
+            st.setString(3, likeQuery);
+            st.setInt(4, offset);
+            st.setInt(5, limit);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID")
+                );
+                users.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
     public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
-        userDAO.unlockUser(26, 1);
+        boolean userDAO1 = userDAO.ReportUser("alknf", 2, 65);
 //        List<BlockList> userB = userDAO.listBlockUser(1);
 //        System.out.println(userB);
 

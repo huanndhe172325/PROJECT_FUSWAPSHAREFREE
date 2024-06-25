@@ -5,6 +5,8 @@
 
 package Controllers.Profile;
 
+import DAL.DAOManageUser;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,13 +14,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author haoto
  */
-@WebServlet(name="TestProfile", urlPatterns={"/testp"})
-public class TestProfile extends HttpServlet {
+@WebServlet(name="ReportUserServlet", urlPatterns={"/ReportUserServlet"})
+public class ReportUserServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +38,10 @@ public class TestProfile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestProfile</title>");  
+            out.println("<title>Servlet ReportUserServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestProfile at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ReportUserServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,10 +68,39 @@ public class TestProfile extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+     DAOManageUser db = new DAOManageUser();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String idReport = request.getParameter("user_id");
+        String rpRes = request.getParameter("report_reason");
+        String rpMes = request.getParameter("report_reason_other");
+        User uId = (User) session.getAttribute("userInfo");
+        try {
+            int id = uId.getUserID();
+            
+            String actualReportReason;
+            if ("Other".equals(rpRes)) {
+                actualReportReason = rpMes;
+            } else {
+                actualReportReason = rpRes;
+            }
+            if (db.ReportUser(actualReportReason, id, Integer.parseInt(idReport))) {
+
+                response.getWriter().write("Report Succesfully");
+            } else {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        
+        
+        
+        
+        
     }
 
     /** 
