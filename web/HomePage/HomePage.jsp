@@ -1507,14 +1507,13 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Post 1 -->
                             <div class="post-container" data-category="listPost">
                                 <c:forEach var="post" items="${listPost}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiableEditPost(user.userID)}" data-type="newest">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiableEditPost(user.getUserID())}" data-type="newest">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
-                                            
+
                                             <!-- Post header -->
                                             <div class="card-heading">
                                                 <!-- User meta -->

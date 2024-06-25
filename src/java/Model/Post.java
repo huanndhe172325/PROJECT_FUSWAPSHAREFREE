@@ -210,7 +210,7 @@ public class Post {
         System.out.println("PostID: " + PostID);
         System.out.println("userId: " + userId);
         System.out.println("dao.checkRequested(userId, PostID) ssssssss: " + dao.checkRequested(1, 93));
-        if (userId != UserID && StatusID == 1 && !dao.checkRequested(userId, PostID)) {
+        if (userId == UserID && StatusID == 1 && !dao.checkRequested(userId, PostID)) {
             System.out.println("result: true");
             return true;
         } else {
