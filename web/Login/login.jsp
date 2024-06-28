@@ -37,6 +37,11 @@
                 f.parentNode.insertBefore(j, f)
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
         </script>
+        <style>
+            .error {
+                color: red;
+            }
+        </style>
         <!-- End Google Tag Manager -->
 
         <!-- Fonts -->

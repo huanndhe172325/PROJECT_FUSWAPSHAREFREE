@@ -7,14 +7,18 @@ function checkEmail() {
     var email = document.getElementById('email').value.trim();
     var errorEmail = document.getElementById('email-error');
     var emailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     if (email === '' || email === null) {
         errorEmail.innerHTML = "Email is required.";
+        errorEmail.classList.add("error");
         return false;
     } else if (!email.match(emailFormat)) {
         errorEmail.innerHTML = "Invalid email format.";
+        errorEmail.classList.add("error");
         return false;
     } else {
         errorEmail.innerHTML = '';
+        errorEmail.classList.remove("error");
         return true;
     }
 }
@@ -71,17 +75,17 @@ function checkRepeatPassword() {
         return true;
     }
 }
-function validateForm() {   
+function validateForm() {
     var emailValid = checkEmail();
     var usernameValid = checkUserName();
     var passwordValid = checkPassword();
     var repeatPasswordValid = checkRepeatPassword();
-    
-    
+
+
     if (emailValid && usernameValid && passwordValid && repeatPasswordValid) {
-        return true; 
+        return true;
     } else {
-        return false; 
+        return false;
     }
 }
 
