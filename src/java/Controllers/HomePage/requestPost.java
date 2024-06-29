@@ -5,10 +5,12 @@
 package Controllers.HomePage;
 
 import DAL.DAOManagePost;
+import Model.Post;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author FPT
  */
+@WebServlet(name = "requestPost", urlPatterns = {"/requestPost"})
 public class requestPost extends HttpServlet {
 
     /**
@@ -79,8 +82,11 @@ public class requestPost extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             DAOManagePost dao = new DAOManagePost();
+            Post post = dao.getPostByIdPost(Integer.parseInt(idPost));
             if (dao.requestPost(mesage, userSent.getUserID(), Integer.parseInt(idPost))) {
-                out.println(1);
+                if (dao.createNotifycation("sent you a new request on", userSent.getUserID(), Integer.parseInt(idPost), post.getUserID(), 1)) {
+                    out.println(1);
+                }
 //                SentMail sent = new SentMail();
 //                sent.sentEmail(dao.getPostByIdPost(Integer.parseInt(idPost)).getUserOwner().getEmail(), "New Request", "Bạn vừa nhận được 1 request mới");
             } else {

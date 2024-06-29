@@ -6,6 +6,7 @@ package Controllers.HomePage;
 
 import DAL.DAOManageUser;
 import DAL.DAOManagePost;
+import Model.Notification;
 import Model.Post;
 import Model.Quanlity;
 import Model.Type;
@@ -13,6 +14,7 @@ import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,6 +26,7 @@ import java.util.List;
  *
  * @author FPT
  */
+@WebServlet(name = "HomePage", urlPatterns = {"/HomePage"})
 public class HomePage extends HttpServlet {
 
     /**
@@ -79,24 +82,14 @@ public class HomePage extends HttpServlet {
         ArrayList<Type> listType = dao.getAllType();
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         ArrayList<Post> listPost = dao.getAllPost(userInfo_raw.getUserID());
-        ArrayList<Post> listPostNewest = dao.getPostNewest(userInfo_raw.getUserID());
-        ArrayList<Post> listPostExchange = dao.getPostsByTypeID(1, userInfo_raw.getUserID());
-        ArrayList<Post> listPostFree = dao.getPostsByTypeID(2, userInfo_raw.getUserID());
-        ArrayList<Post> listPostUsed = dao.getPostsByQuanlityID(1, userInfo_raw.getUserID());
-        ArrayList<Post> listPostNeedsRepair = dao.getPostsByQuanlityID(2, userInfo_raw.getUserID());
-        ArrayList<Post> listPostNew = dao.getPostsByQuanlityID(3, userInfo_raw.getUserID());
+        ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
+        request.setAttribute("listNoti", listNoti);
         request.setAttribute("listUserDistrict", listUserDistrict);
         request.setAttribute("listPoint", listUserRanking);
         request.setAttribute("listQuanlity", listQuanlity);
         request.setAttribute("listType", listType);
         request.setAttribute("user", userInfor);
-        request.setAttribute("listPost", listPost);
-        request.setAttribute("listPostNewest", listPostNewest);
-        request.setAttribute("listPostExchange", listPostExchange);
-        request.setAttribute("listPostFree", listPostFree);
-        request.setAttribute("listPostUsed", listPostUsed);
-        request.setAttribute("listPostNeedsRepair", listPostNeedsRepair);
-        request.setAttribute("listPostNew", listPostNew);
+        request.setAttribute("listPost", listPost);      
         request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
     }
 

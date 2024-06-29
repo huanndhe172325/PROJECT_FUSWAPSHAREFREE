@@ -1,8 +1,3 @@
-<%-- 
-    Document   : manageUsers
-    Created on : Jun 2, 2024, 4:59:56 PM
-    Author     : admin
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -17,9 +12,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">       
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href="css/ManagerProduct.css" rel="stylesheet" type="text/css"/>
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -38,7 +33,14 @@
             function back() {
                 window.location.href = "home";
             }
-
+            function doDelete(id)
+            {
+                var c = confirm("Are you sure?");
+                if (c)
+                {
+                    window.location.href = "delete?pid=" + id;
+                }
+            }
         </script>
         <script>
             ;
@@ -63,6 +65,10 @@
         <!-- Core CSS -->
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
+        <link rel="stylesheet" href="assets2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets2/css/plugins.min.css" />
+        <link rel="stylesheet" href="assets2/css/kaiadmin.min.css" />
+
     </head>
     <body>
 
@@ -97,7 +103,7 @@
                         <span> List User</span>
                     </div>
                 </a>
-                
+
             </div>
             <div class="dashboard-aside-end">
                 <a href="Preview" class="dashboard-aside-link">
@@ -106,173 +112,125 @@
             </div>
         </div>
 
+    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Search Form</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
-                background-color: #f8f9fa;
-                margin: 0;
-                padding: 0;
-            }
 
-            .container {
-                width: 80%;
-                margin: 20px auto;
-            }
-
-            .table-wrapper {
-                box-shadow: 0 1px 1px rgba(0,0,0,.1);
-                background-color: #fff;
-                border-radius: 5px;
-                overflow: hidden;
-            }
-
-            .table-title {
-                padding: 15px;
-                background: #007bff; /* Màu xanh biển đậm hơn */
-                color: #fff;
-                border-radius: 5px 5px 0 0;
-            }
-
-            .table-title h2 {
-                margin: 0;
-                font-size: 24px;
-            }
-
-            .search-box {
-                float: right;
-            }
-
-            .search-box input[type="text"] {
-                height: 34px;
-                border-radius: 20px;
-                padding: 0 15px;
-                border: 1px solid #ddd;
-                outline: none;
-                width: 200px;
-                transition: width 0.4s ease-in-out;
-                color: #000; /* Màu chữ đen */
-            }
-
-            .search-box input[type="text"]:focus {
-                width: 300px;
-            }
-
-            .search-box button {
-                border: none;
-                background: none;
-                color: #fff;
-                font-size: 18px;
-                margin-left: -30px;
-                cursor: pointer;
-            }
-
-            table.table {
-                width: 100%;
-                margin-top: 20px;
-                border-collapse: collapse;
-            }
-
-            table.table th, table.table td {
-                padding: 12px 15px;
-                text-align: left;
-            }
-
-            table.table th {
-                background: #f4f4f4;
-            }
-
-            table.table-striped tbody tr:nth-of-type(odd) {
-                background-color: #f9f9f9;
-            }
-
-            .btn-primary {
-                background-color:#007bff; /* Màu xanh biển đậm hơn */
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-                text-decoration: none;
-                display: inline-block;
-                margin: 20px 0;
-            }
-
-            .btn-primary:hover {
-                background-color: #006a86;
+                .btn-primary:hover {
+                    background-color: #006a86;
+                }
+                .card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .nav-search {
+                    margin-left: auto;
+                }
             }
         </style>
 
-        <div class="container">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-8"><h2>Manage Report <b> Posts</b></h2></div>
-                        <div class="col-sm-4">
-                            <div class="search-box">
-                                
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-title">List Report Post</div>
+                            <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
+                                <div class="input-group">
+                                    <form action="manageReportUsers" method="get"> 
+                                        <input type="text" name="txtSearch" placeholder="Search ..." class="form-control" />
+                                        <button type="submit" class="btn btn-search pe-0">
+                                            <i class="fa fa-search search-icon"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="card-body">
+                            <table class="table mt-3">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th></th>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Time</th>
+                                        <th>Content</th>                          
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.reportPost}" var="c">
+                                        <tr>
+                                            <th>
+                                            <td>
+                                                <a href="detailPost?idpost=${c.post.postID}">${c.post.postID}</a>
+                                            </td>
+                                            <td>${c.post.title}</td>
+                                            <td>${c.post.description}</td>
+                                            <td>${c.reportTime}</td>
+                                            <td>${c.message}</td>
+                                            <td>
+                                                <button class="btn btn-danger delete-btn" data-post-id="${c.post.postID}">Delete</button>
+                                            </td>
+                                            </th>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="deleteConfirmationModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close cancel-btn" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Confirm Deletion</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete this post?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-danger delete-btn-confirm" id="confirmDeleteBtn">Delete</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>postID</th>
-                            <th>title</th>
-                            <th>description</th>
-                            <th>reportTime</th>
-                            <th>message</th>                          
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${requestScope.reportPost}" var="c">
-                            <tr>
-                                <th>
-                                <td>
-                                    <a href="#">${c.post.postID}</a>
-                                </td>
-                                <td>${c.post.title}</td>
-                                <td>${c.post.description}</td>
-                                <td>${c.reportTime}</td>
-                                <td>${c.message}</td>
-                                <td>
-                                    <button class="btn btn-danger delete-btn" data-post-id="${c.post.postID}">Delete</button>
-                                </td>
-                                </th>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-            <div id="deleteConfirmationModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close cancel-btn" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Confirm Deletion</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure you want to delete this post?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-danger delete-btn-confirm" id="confirmDeleteBtn">Delete</button>
-                        </div>
+                        <a href="SideBarAdmin">
+                            <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+                        </a>
                     </div>
                 </div>
             </div>
-            <a href="SideBarAdmin">
-                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-            </a>
         </div>
+    </div>
 
-    </body>
-</html>
+
+     <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 <script>
     $(document).ready(function () {
         $('.delete-btn').click(function () {
@@ -349,6 +307,8 @@
 <script src="assets/js/app.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 <!-- Core js -->
 <script src="assets/js/global.js"></script>
 

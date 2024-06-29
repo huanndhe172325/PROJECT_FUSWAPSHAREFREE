@@ -79,7 +79,7 @@
         <div class="signup-wrapper">
             <!--Fake navigation-->
             <div class="fake-nav">
-                <a href="index.html" class="logo">
+                <a href="Preview" class="logo">
                     <img class="light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
                     <img class="dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
                 </a>

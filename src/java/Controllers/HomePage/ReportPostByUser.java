@@ -9,6 +9,7 @@ import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Binhtran
  */
+@WebServlet(name = "ReportPostByUser", urlPatterns = {"/reportpostbyuser"})
 public class ReportPostByUser extends HttpServlet {
 
     /**
@@ -89,7 +91,6 @@ public class ReportPostByUser extends HttpServlet {
                 actualReportReason = reportReason;
             }
             if (dmnPost.ReportPost(actualReportReason, userIDReport, newPostId)) {
-
                 response.getWriter().write("Report Succesfully");
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
