@@ -786,7 +786,7 @@
                                                 <i data-feather="list"></i>
                                             </div>
                                             <div class="media-content" data-modal="list-block-modal"  id="list-block-btn">
-                                                <h3>List Block Users</h3>
+                                                <h3>List Users Blocked</h3>
                                                 <small>Users blocked</small>
                                             </div>
                                         </div>
@@ -1506,7 +1506,7 @@
                         <div class="card">
                             <div class="card-heading">
                                 <div class="modal-header">
-                                    <h2  style="margin-left: 167px ; font-weight: bold">List Block Users</h2>
+                                    <h2 style="margin-left: 167px ; font-weight: bold">List Users Blocked</h2>
                                 </div>
                                 <!-- Close X button -->
                                 <div class="close-wrap">
