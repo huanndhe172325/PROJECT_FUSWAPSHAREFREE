@@ -139,7 +139,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <div class="card-title">List Report Users</div>
+                            <div class="card-title">List Report Posts</div>
                             <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
                                 <div class="input-group">
                                     <form action="manageReportUsers" method="get"> 
@@ -169,7 +169,12 @@
                                         <tr>
                                             <th>
                                             <td>
-                                                <a href="#">${c.post.postID}</a>
+                                                <a href="detailPost?idpost=${c.post.postID}">
+                                                    
+                                                    ${c.post.postID}
+                                                </a>
+                                                
+                                                
                                             </td>
                                             <td>${c.post.title}</td>
                                             <td>${c.post.description}</td>

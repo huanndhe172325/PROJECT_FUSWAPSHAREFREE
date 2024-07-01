@@ -9,7 +9,6 @@ import Model.ReportUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
  *
  * @author admin
  */
-@WebServlet(name = "manageReportUsers", urlPatterns = {"/manageReportUsers"})
 public class manageReportUsers extends HttpServlet {
 
     /**
@@ -81,7 +79,7 @@ public class manageReportUsers extends HttpServlet {
             }
         }
 
-        // Lấy số lượng báo cáo và tính số trang cuối cùng
+        // Lấy số lượng báo cáo và   tính số trang cuối cùng
         int count;
         if (txtSearch == null || txtSearch.isEmpty()) {
             count = dao.countReportUsers(); // Lấy tổng số báo cáo nếu không có tìm kiếm
