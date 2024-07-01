@@ -47,6 +47,18 @@ public class DAOManagePost extends DBContext {
         return listType;
     }
 
+    public boolean archivePost(int postId) {
+        String sql = "";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     public ArrayList<Post> getFilteredPosts(int userID, String keyword) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
@@ -94,6 +106,51 @@ public class DAOManagePost extends DBContext {
             // Xử lý exception nếu cần
         }
 
+        return listPost;
+    }
+
+    public ArrayList<Post> getTop5PostsSameDistrict(int userID, String district) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT TOP 3 * \n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
+                    + "WHERE p.StatusID = 1\n"
+                    + "AND p.District = ?\n"
+                    + "AND p.UserID != ?\n"
+                    + "AND p.UserID NOT IN (\n"
+                    + "    SELECT BlockUserID \n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?  \n"
+                    + ")\n"
+                    + "ORDER BY p.CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, district);
+            statement.setInt(2, userID);
+            statement.setInt(3, userID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
         return listPost;
     }
 
@@ -357,7 +414,7 @@ public class DAOManagePost extends DBContext {
             statement.setInt(2, postId);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                return resultSet.next();  
+                return resultSet.next();
             }
         } catch (SQLException e) {
             return false;
@@ -753,8 +810,8 @@ public class DAOManagePost extends DBContext {
     }
 
     public static void main(String[] args) {
-        DAOManagePost dao = new DAOManagePost();
-        System.out.println(dao.checkRequested(1,99));
+        DAOManagePost dao = new DAOManagePost();     
+        System.out.println(dao.getTop5PostsSameDistrict(68, "Huyện Thạch Thất"));
     }
 
     public String calulateDate() {

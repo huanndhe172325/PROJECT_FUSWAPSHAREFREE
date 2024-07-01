@@ -156,11 +156,11 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th></th>
-                                        <th>postID</th>
-                                        <th>title</th>
-                                        <th>description</th>
-                                        <th>reportTime</th>
-                                        <th>message</th>                          
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Time</th>
+                                        <th>Content</th>                          
                                         <th>Action</th>
                                     </tr>
                                 </thead>

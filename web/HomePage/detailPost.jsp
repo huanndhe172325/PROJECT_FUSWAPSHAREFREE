@@ -2582,7 +2582,8 @@
                                         <td></td>
                                     </tr>
                                 </table>
-
+                                <label for="desire" id="titleDesire" style="display: none;">Desire:</label>
+                                <input style="display: none;" type="text" id="desire" name="desire" value="Tôi muốn đổi lấy 1 chiếc điện thoại cũ nhưng vẫn sử dụng được." required>
 
                                 <div id="addNewSnippet" style="margin-top: 10px;">
                                     <div class="input-container" style="display: inline-block; width: 49%;">
@@ -2990,7 +2991,7 @@
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
     <script src="assets/js/reloadJs.js" ></script>
-
+    <script src="assets/js/createpost.js"></script>
     <script>
                             document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
                                 if (event.key === "Enter") {

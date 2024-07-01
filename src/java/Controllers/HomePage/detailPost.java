@@ -70,9 +70,6 @@ public class detailPost extends HttpServlet {
             Post post = dao.getPostByIdPost(Integer.parseInt(idPost));
             ArrayList<Post> listPost = new ArrayList<>();
             listPost.add(post);
-            listPost.add(dao.getPostByIdPost(Integer.parseInt("115")));
-            listPost.add(dao.getPostByIdPost(Integer.parseInt("114")));
-
             request.setAttribute("listPost", listPost);
             request.getRequestDispatcher("HomePage/detailPost.jsp").forward(request, response);
         } catch (Exception e) {

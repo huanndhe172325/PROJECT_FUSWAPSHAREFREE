@@ -312,7 +312,7 @@
         <div id="main-navbar" class="navbar navbar-v1 is-inline-flex is-transparent no-shadow is-hidden-mobile">
             <div class="container is-fluid">
                 <div class="navbar-brand">
-                    <a href="index.html" class="navbar-item">
+                    <a href="HomePage" class="navbar-item">
                         <img class="logo light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
                         <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
                     </a>

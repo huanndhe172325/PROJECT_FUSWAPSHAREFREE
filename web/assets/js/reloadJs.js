@@ -50,6 +50,7 @@ function initializeEditPostModal() {
         });
     });
 }
+
 function applyColorStyles() {
     const statusElements = document.querySelectorAll('.status-post-name');
     const typeElements = document.querySelectorAll('.type-post-name');
@@ -396,7 +397,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function reloadJs() {
-    initReuqest();
     initShareModal();
     initOpenModalArcive();
     initModalEdit();
