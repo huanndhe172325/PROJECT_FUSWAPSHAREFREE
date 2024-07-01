@@ -26,17 +26,17 @@
         <script>
             ;
             (function (w, d, s, l, i) {
-                w[l] = w[l] || []
-                w[l].push({
-                    'gtm.start': new Date().getTime(),
+            w[l] = w[l] || []
+                    w[l].push({
+            'gtm.start': new Date().getTime(),
                     event: 'gtm.js'
-                })
-                var f = d.getElementsByTagName(s)[0],
-                        j = d.createElement(s),
-                        dl = l != 'dataLayer' ? '&l=' + l : ''
-                j.async = true
-                j.src = '../www.googletagmanager.com/gtm5445.html?id=' + i + dl
-                f.parentNode.insertBefore(j, f)
+            })
+                    var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : ''
+                    j.async = true
+                    j.src = '../www.googletagmanager.com/gtm5445.html?id=' + i + dl
+                    f.parentNode.insertBefore(j, f)
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
         </script>
 
@@ -214,82 +214,217 @@
             .quality-options button:hover {
                 background-color: #f1f1f1;
             }
+            /* CSS cho hình ảnh */
+            .user-post-image img {
+                width: 500px;
+                height: 300px; /* Điều chỉnh chiều cao của ảnh */
+                object-fit: cover; /* Đảm bảo ảnh không bị bóp méo */
+            }
 
+            /* CSS cho nút điều hướng */
+            .user-image-btn button {
+                background: rgba(255, 255, 255, 0.7);
+                border: none;
+                border-radius: 50%;
+                padding: 10px;
+                cursor: pointer;
+                font-size: 1.5em; /* Kích thước phù hợp */
+            }
+
+            /* CSS cho nút điều hướng của người dùng */
+            .user-navigation-buttons button {
+                padding: 10px 20px;
+                background-color: #4267B2;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .user-navigation-buttons button:hover {
+                background-color: #345498;
+            }
+            #user-near-me-post-container {
+                max-width: 600px;
+                margin: auto;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                overflow: hidden;
+                background-color: #f5f5f5;
+                padding: 15px;
+            }
+
+            /* Phần tiêu đề */
+            #user-near-me-post-container h4 {
+                margin: 0;
+                font-size: 20px;
+                color: #333;
+                text-align: center;
+            }
+
+            /* Card của sản phẩm */
+            .user-product-card {
+                margin-top: 15px;
+            }
+
+            /* Hình ảnh bài đăng */
+            .user-post-image {
+                position: relative;
+                height: 300px;
+                overflow: hidden;
+            }
+
+            /* Nút điều hướng hình ảnh */
+            .user-image-btn {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                transform: translateY(-50%);
+                display: flex;
+                justify-content: space-between;
+                padding: 0 10px;
+            }
+
+            .user-image-btn button {
+                background: rgba(255, 255, 255, 0.7);
+                border: none;
+                border-radius: 50%;
+                padding: 10px;
+                cursor: pointer;
+            }
+
+            /* Thông tin sản phẩm */
+            .user-product-info {
+                padding: 15px;
+                background-color: #fff;
+                border-radius: 8px;
+                margin-top: -10px;
+            }
+
+            /* Tiêu đề bài đăng */
+            #user-post-title {
+                margin: 0 0 10px;
+                font-size: 18px;
+                color: #6ba4e9;
+                font-weight: bold;
+            }
+
+            /* Mô tả bài đăng */
+            #user-post-description {
+                margin: 0;
+                font-size: 14px;
+                color: #666;
+            }
+
+            /* Các thông tin nhỏ bên dưới */
+            .user-product-info p {
+                margin: 5px 0;
+            }
+
+            /* Nút điều hướng sản phẩm */
+            .user-navigation-buttons {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 15px;
+            }
+
+            .user-navigation-buttons button {
+                padding: 10px 20px;
+                background-color: #4267B2;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            /* Liên kết xem profile */
+            #user-post-owner-link {
+                color: #4267B2;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            #user-post-owner-link:hover {
+                text-decoration: underline;
+            }
+            .type-free {
+                color: #1a936f;
+            }
+
+
+            .type-exchange {
+                color: #d32f2f;
+            }
         </style>
         <!-- End Google Tag Manager -->
 
 
         <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-                const openModalBtn = document.getElementById('open-modal-btn');
-                const modal = document.getElementById('create-post-modal');
-
-                openModalBtn.addEventListener('click', () => {
+                    document.addEventListener('DOMContentLoaded', (event) => {
+                    const openModalBtn = document.getElementById('open-modal-btn');
+                    const modal = document.getElementById('create-post-modal');
+                    openModalBtn.addEventListener('click', () => {
                     modal.classList.add('is-active');
-                });
-            });
+                    });
+                    });
             var districts = document.getElementById("district");
             var wards = document.getElementById("ward");
             var selectedCityValue = 'Thành phố Hà Nội';
-
             var Parameter = {
-                url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-                method: "GET",
-                responseType: "application/json",
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                    method: "GET",
+                    responseType: "application/json",
             };
-
             var promise = axios(Parameter);
-
             promise.then(function (result) {
-                var data = result.data;
-                var selectedCity = data.find((city) => city.Name === selectedCityValue);
-                renderDistricts(selectedCity.Districts);
-                selectDistrictOption(selectedCity.Districts);
-                selectWardOption(selectedCity.Districts);
+            var data = result.data;
+            var selectedCity = data.find((city) => city.Name === selectedCityValue);
+            renderDistricts(selectedCity.Districts);
+            selectDistrictOption(selectedCity.Districts);
+            selectWardOption(selectedCity.Districts);
             });
-
             function renderDistricts(districtsData) {
-                for (const district of districtsData) {
-                    districts.options[districts.options.length] = new Option(district.Name, district.Name);
-                }
+            for (const district of districtsData) {
+            districts.options[districts.options.length] = new Option(district.Name, district.Name);
+            }
 
-                districts.onchange = function () {
-                    wards.length = 1;
-                    const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
-                    if (this.value !== "") {
-                        for (const ward of selectedDistrict.Wards) {
-                            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
-                        }
-                    }
-                };
+            districts.onchange = function () {
+            wards.length = 1;
+            const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+            if (this.value !== "") {
+            for (const ward of selectedDistrict.Wards) {
+            wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+            }
+            }
+            };
             }
 
             function selectDistrictOption(districtsData) {
-                for (let i = 0; i < districtsData.length; i++) {
-                    if (districtsData[i].Name === '${district}') {
-                        districts.options[i + 1].selected = true;
-                        simulateEvent(districts, 'change');
-                        break;
-                    }
-                }
+            for (let i = 0; i < districtsData.length; i++) {
+            if (districtsData[i].Name === '${district}') {
+            districts.options[i + 1].selected = true;
+            simulateEvent(districts, 'change');
+            break;
+            }
+            }
             }
 
             function selectWardOption(districtsData) {
-                const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-                for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                    if (selectedDistrict.Wards[i].Name === '${ward}') {
-                        wards.options[i + 1].selected = true;
-                        simulateEvent(wards, 'change');
-                        break;
-                    }
-                }
+            const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+            for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+            if (selectedDistrict.Wards[i].Name === '${ward}') {
+            wards.options[i + 1].selected = true;
+            simulateEvent(wards, 'change');
+            break;
+            }
+            }
             }
 
             // Function to simulate change event
             function simulateEvent(element, eventName) {
-                var event = new Event(eventName);
-                element.dispatchEvent(event);
+            var event = new Event(eventName);
+            element.dispatchEvent(event);
             }
 
         </script>
@@ -1642,7 +1777,7 @@
                         <!-- /Middle column -->
 
                         <!-- Right side column -->
-                        <div class="column is-3">
+                        <div class="column is-4-fullhd">
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
@@ -1679,6 +1814,45 @@
                                     </c:forEach>
                                 </div>
                             </div>
+
+
+                            <div id="user-near-me-post-container" style="max-width: 600px; margin: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; background-color: #f5f5f5; padding: 15px;">
+                                <h4 style="margin: 0; font-size: 20px; color: #333; text-align: center;">Posts Near You</h4>
+
+                                <div id="current-user-post" class="user-product-card" style="margin-top: 15px;">
+                                    <div class="user-post-image" style="position: relative; height: 300px; overflow: hidden;">
+                                        <img id="user-post-image" src="" alt="Post image" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                                        <div class="user-image-btn" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 10px;">
+                                            <button onclick="prevUserImage()" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">◀</button>
+                                            <button onclick="nextUserImage()" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">▶</button>
+                                        </div>
+                                    </div>
+                                    <div class="user-product-info" style="padding: 15px; background-color: #fff; border-radius: 8px; margin-top: -10px;">
+                                        <h3 id="user-post-title" style="margin: 0 0 10px; font-size: 18px; color: #6ba4e9; font-weight: bold;"></h3>
+                                        <p id="user-post-description" style="margin: 0; font-size: 14px; color: #666;"></p>
+                                        <p><strong>Date:</strong> <span id="user-post-date"></span></p>
+                                        <p><strong>Type:</strong> <span id="user-post-type"></span></p>
+                                        <p><strong>Quanlity:</strong> <span id="user-post-quanlity"></span></p>
+                                        <p><strong>Instructions:</strong> <span id="user-post-instructions"></span></p>                                       
+                                        <p><strong>Owner:</strong> <a id="user-post-owner-link" href="#" onclick="viewUserProfile()">View profile</a></p>
+                                    </div>
+                                </div>
+
+                                <div class="user-navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                                    <button id="user-prev-button" onclick="prevUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Previous</button>
+                                    <button id="user-next-button" onclick="nextUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Next</button>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
                         </div>
 
                         <!-- Add some CSS for the scrollable content -->
@@ -4712,453 +4886,501 @@
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
     <script src="assets/js/createpost.js" ></script>
+
     <script>
-                            document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
-                                if (event.key === "Enter") {
-                                    var keyword = document.getElementById("tipue_drop_input").value.trim();
-                                    if (keyword !== "") {
-                                        var url = "/FUSWAPSHAREFREE/SearchHomePage?keyword=" + encodeURIComponent(keyword);
-                                        window.location.href = url;
-                                    } else {
-                                        alert("Please enter a keyword to search.");
-                                    }
-                                }
-                            });
+                            var posts = [
+        <c:forEach var="p" items="${listPostUserNearMe}" varStatus="status">
+                            {
+                            title: "${p.title}",
+                                    description: "${p.description}",
+                                    images: [
+            <c:forEach var="img" items="${p.getListImg()}" varStatus="imgStatus">
+                                    "${img}"${!imgStatus.last ? ',' : ''}
+            </c:forEach>
+                                    ],
+                                    createTime: "${p.createTime}",
+                                    typeName: "${p.getTypeName()}",
+                                    quanlityName: "${p.getQuanlityName()}",
+                                    intructions: "${p.intructions}",
+                                    ownerName: "${p.getFullNameOwner()}",
+                                    userID: "${p.userID}"
+                            }${!status.last ? ',' : ''}
+        </c:forEach>
+                            ];
+                            var currentPostIndex = 0;
+                            var currentImageIndex = 0;
+                            function displayUserPost(postIndex) {
+                            var post = posts[postIndex];
+                            document.getElementById('user-post-image').src = post.images[currentImageIndex];
+                            document.getElementById('user-post-title').textContent = post.title;
+                            document.getElementById('user-post-description').textContent = post.description;
+                            document.getElementById('user-post-date').textContent = post.createTime;
+                            document.getElementById('user-post-type').textContent = post.typeName;
+                            document.getElementById('user-post-quanlity').textContent = post.quanlityName;
+                            document.getElementById('user-post-instructions').textContent = post.intructions;
+                            var typeElement = document.getElementById('user-post-type');
+                            typeElement.style.color = (post.typeName === 'Free') ? '#1a936f' : (post.typeName === 'Exchange') ? '#d32f2f' : '#333';
+                            document.getElementById('user-post-owner-link').textContent = "View profile of " + post.ownerName;
+                            document.getElementById('user-post-owner-link').onclick = function() {
+                            viewUserProfile(post.userID);
+                            return false;
+                            };
+                            }
+
+                            function nextUserPost() {
+                            if (currentPostIndex < posts.length - 1) {
+                            currentPostIndex++;
+                            currentImageIndex = 0;
+                            displayUserPost(currentPostIndex);
+                            }
+                            }
+
+                            function prevUserPost() {
+                            if (currentPostIndex > 0) {
+                            currentPostIndex--;
+                            currentImageIndex = 0;
+                            displayUserPost(currentPostIndex);
+                            }
+                            }
+
+                            function nextUserImage() {
+                            if (currentImageIndex < posts[currentPostIndex].images.length - 1) {
+                            currentImageIndex++;
+                            document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
+                            }
+                            }
+
+                            function prevUserImage() {
+                            if (currentImageIndex > 0) {
+                            currentImageIndex--;
+                            document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
+                            }
+                            }
+                            function viewUserProfile(userID) {
+
+                            window.location.href = 'otherprofile?id=' + userID;
+                            }
+                            displayUserPost(currentPostIndex);
+    </script>
+
+
+
+
+    <script>
+        document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
+        if (event.key === "Enter") {
+        var keyword = document.getElementById("tipue_drop_input").value.trim();
+        if (keyword !== "") {
+        var url = "/FUSWAPSHAREFREE/SearchHomePage?keyword=" + encodeURIComponent(keyword);
+        window.location.href = url;
+        } else {
+        alert("Please enter a keyword to search.");
+        }
+        }
+        });
     </script>
     <script>
         let originalPostsOrder = [];
         function filterPosts(filter) {
-            const posts = document.querySelectorAll('.post');
-            const buttons = document.querySelectorAll('.button-wrap .button');
+        const posts = document.querySelectorAll('.post');
+        const buttons = document.querySelectorAll('.button-wrap .button');
+        // Remove 'is-active' class from all buttons
+        buttons.forEach(btn => btn.classList.remove('is-active'));
+        // Add 'is-active' class to clicked button
+        const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
+        if (activeButton) {
+        activeButton.classList.add('is-active');
+        }
+        if (filter === 'all') {
+        // Reset to original order
+        resetPostsOrder();
+        } else {
+        posts.forEach(post => {
+        switch (filter) {
+        case 'all':
+                post.style.display = 'block';
+        break;
+        case 'newest':
+                post.style.display = 'block';
+        break;
+        case 'exchange':
+                post.style.display = post.dataset.type.toLowerCase() === 'exchange' ? 'block' : 'none';
+        break;
+        case 'free':
+                post.style.display = post.dataset.type.toLowerCase() === 'free' ? 'block' : 'none';
+        break;
+        case 'used':
+                post.style.display = post.dataset.quality.toLowerCase() === 'used' ? 'block' : 'none';
+        break;
+        case 'needsrepair':
+                post.style.display = post.dataset.quality.toLowerCase() === 'needs repair' ? 'block' : 'none';
+        break;
+        case 'new':
+                post.style.display = post.dataset.quality.toLowerCase() === 'new' ? 'block' : 'none';
+        break;
+        }
+        });
+        if (filter === 'newest' || filter === 'exchange' || filter === 'free' || filter === 'used' || filter === 'free' || filter === 'needsrepair' || filter === 'new') {
+        sortPostsByNewest();
+        }
 
-            // Remove 'is-active' class from all buttons
-            buttons.forEach(btn => btn.classList.remove('is-active'));
-
-            // Add 'is-active' class to clicked button
-            const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
-            if (activeButton) {
-                activeButton.classList.add('is-active');
-            }
-            if (filter === 'all') {
-                // Reset to original order
-                resetPostsOrder();
-            } else {
-                posts.forEach(post => {
-                    switch (filter) {
-                        case 'all':
-                            post.style.display = 'block';
-                            break;
-                        case 'newest':
-                            post.style.display = 'block';
-                            break;
-                        case 'exchange':
-                            post.style.display = post.dataset.type.toLowerCase() === 'exchange' ? 'block' : 'none';
-                            break;
-                        case 'free':
-                            post.style.display = post.dataset.type.toLowerCase() === 'free' ? 'block' : 'none';
-                            break;
-                        case 'used':
-                            post.style.display = post.dataset.quality.toLowerCase() === 'used' ? 'block' : 'none';
-                            break;
-                        case 'needsrepair':
-                            post.style.display = post.dataset.quality.toLowerCase() === 'needs repair' ? 'block' : 'none';
-                            break;
-                        case 'new':
-                            post.style.display = post.dataset.quality.toLowerCase() === 'new' ? 'block' : 'none';
-                            break;
-
-                    }
-                });
-
-                if (filter === 'newest' || filter === 'exchange' || filter === 'free' || filter === 'used' || filter === 'free' || filter === 'needsrepair' || filter === 'new') {
-                    sortPostsByNewest();
-                }
-
-            }
+        }
         }
         function sortPostsByNewest() {
-            const postContainer = document.querySelector('.post-container');
-            const posts = Array.from(postContainer.querySelectorAll('.post'));
-
-            posts.sort((a, b) => {
-                return new Date(b.dataset.createTime) - new Date(a.dataset.createTime);
-            });
-
-            posts.forEach(post => postContainer.appendChild(post));
+        const postContainer = document.querySelector('.post-container');
+        const posts = Array.from(postContainer.querySelectorAll('.post'));
+        posts.sort((a, b) => {
+        return new Date(b.dataset.createTime) - new Date(a.dataset.createTime);
+        });
+        posts.forEach(post => postContainer.appendChild(post));
         }
         function toggleQualityOptions() {
-            const qualityOptions = document.getElementById('quality-options');
-            qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
+        const qualityOptions = document.getElementById('quality-options');
+        qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
         }
         function resetPostsOrder() {
-            const postContainer = document.querySelector('.post-container');
-            postContainer.innerHTML = ''; // Clear existing posts
+        const postContainer = document.querySelector('.post-container');
+        postContainer.innerHTML = ''; // Clear existing posts
 
-            // Append posts in original order
-            originalPostsOrder.forEach(post => postContainer.appendChild(post));
+        // Append posts in original order
+        originalPostsOrder.forEach(post => postContainer.appendChild(post));
         }
         window.addEventListener('load', () => {
-            originalPostsOrder = Array.from(document.querySelectorAll('.post'));
-            filterPosts('all');
+        originalPostsOrder = Array.from(document.querySelectorAll('.post'));
+        filterPosts('all');
         });
     </script>
 
     <script>
         document.getElementById('postButton').addEventListener('click', function () {
-            if (validateForm()) {
-                document.getElementById('submit-create-post').click();
-            }
+        if (validateForm()) {
+        document.getElementById('submit-create-post').click();
+        }
         });
         const titleInput = document.getElementById('title');
         const errorMessage = document.getElementById('title-error');
-
         titleInput.addEventListener('input', function () {
-            const inputValue = titleInput.value.trim();
-
-            if (inputValue.length > 0) {
-                errorMessage.style.display = 'none';
-            } else {
-                errorMessage.style.display = 'block';
-            }
+        const inputValue = titleInput.value.trim();
+        if (inputValue.length > 0) {
+        errorMessage.style.display = 'none';
+        } else {
+        errorMessage.style.display = 'block';
+        }
         });
-
         const descInput = document.getElementById('description');
         const errorMessageDesc = document.getElementById('title-error-desc');
-
         descInput.addEventListener('input', function () {
-            var inputValueDesc = descInput.value.trim();
-
-            if (inputValueDesc.length > 0) {
-                errorMessageDesc.style.display = 'none';
-            } else {
-                errorMessageDesc.style.display = 'block';
-            }
+        var inputValueDesc = descInput.value.trim();
+        if (inputValueDesc.length > 0) {
+        errorMessageDesc.style.display = 'none';
+        } else {
+        errorMessageDesc.style.display = 'block';
+        }
         });
-
-
         const addInput = document.getElementById('Order_name');
         const errorMessageAdd = document.getElementById('title-error-add');
         addInput.addEventListener('input', function () {
-            const inputValueAdd = addInput.value.trim();
-
-            if (inputValueAdd.length > 0) {
-                errorMessageAdd.style.display = 'none';
-            } else {
-                errorMessageAdd.style.display = 'block';
-            }
+        const inputValueAdd = addInput.value.trim();
+        if (inputValueAdd.length > 0) {
+        errorMessageAdd.style.display = 'none';
+        } else {
+        errorMessageAdd.style.display = 'block';
+        }
         });
-
         const instInput = document.getElementById('instructions');
         const errorMessageInst = document.getElementById('title-error-inst');
         instInput.addEventListener('input', function () {
-            const inputValueInst = instInput.value.trim();
-
-            if (inputValueInst.length > 0) {
-                errorMessageInst.style.display = 'none';
-            } else {
-                errorMessageInst.style.display = 'block';
-            }
+        const inputValueInst = instInput.value.trim();
+        if (inputValueInst.length > 0) {
+        errorMessageInst.style.display = 'none';
+        } else {
+        errorMessageInst.style.display = 'block';
+        }
         });
         function validateForm() {
-            var title = document.getElementById('title').value.trim();
-            var description = document.querySelector('textarea[name="description"]').value.trim();
-            var newAddress = document.getElementById('Order_name').value.trim();
-            var instructions = document.getElementById('instructions').value.trim();
+        var title = document.getElementById('title').value.trim();
+        var description = document.querySelector('textarea[name="description"]').value.trim();
+        var newAddress = document.getElementById('Order_name').value.trim();
+        var instructions = document.getElementById('instructions').value.trim();
+        if (title === '') {
+        var titleError = document.getElementById('title-error');
+        titleError.style.display = 'block';
+        return false;
+        }
 
-            if (title === '') {
-                var titleError = document.getElementById('title-error');
-                titleError.style.display = 'block';
-                return false;
-            }
+        if (description === '') {
+        var titleError = document.getElementById('title-error-desc');
+        titleError.style.display = 'block';
+        return false;
+        }
 
-            if (description === '') {
-                var titleError = document.getElementById('title-error-desc');
-                titleError.style.display = 'block';
-                return false;
-            }
+        if (newAddress === '') {
+        var titleError = document.getElementById('title-error-add');
+        titleError.style.display = 'block';
+        return false;
+        }
 
-            if (newAddress === '') {
-                var titleError = document.getElementById('title-error-add');
-                titleError.style.display = 'block';
-                return false;
-            }
-
-            if (instructions === '') {
-                var titleError = document.getElementById('title-error-inst');
-                titleError.style.display = 'block';
-                return false;
-            }
-            return true;
+        if (instructions === '') {
+        var titleError = document.getElementById('title-error-inst');
+        titleError.style.display = 'block';
+        return false;
+        }
+        return true;
         }
     </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const statusElements = document.querySelectorAll('.status-post-name');
-            const typeElements = document.querySelectorAll('.type-post-name');
-            statusElements.forEach(function (element) {
-                const statusName = element.textContent.trim().toLowerCase();
-
-                if (statusName === 'available') {
-                    element.style.color = '#36a955';
-                } else {
-                    element.style.color = 'red';
-                }
-            });
-            typeElements.forEach(function (element) {
-                const statusName = element.textContent.trim().toLowerCase();
-
-                if (statusName === 'free') {
-                    element.style.color = '#6ba4e9';
-                } else {
-                    element.style.color = 'red';
-                }
-            });
+        const statusElements = document.querySelectorAll('.status-post-name');
+        const typeElements = document.querySelectorAll('.type-post-name');
+        statusElements.forEach(function (element) {
+        const statusName = element.textContent.trim().toLowerCase();
+        if (statusName === 'available') {
+        element.style.color = '#36a955';
+        } else {
+        element.style.color = 'red';
+        }
+        });
+        typeElements.forEach(function (element) {
+        const statusName = element.textContent.trim().toLowerCase();
+        if (statusName === 'free') {
+        element.style.color = '#6ba4e9';
+        } else {
+        element.style.color = 'red';
+        }
+        });
         });
         var districts = document.getElementById("district");
         var wards = document.getElementById("ward");
         var selectedCityValue = 'Thành phố Hà Nội';
-
         var Parameter = {
-            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-            method: "GET",
-            responseType: "application/json",
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+                method: "GET",
+                responseType: "application/json",
         };
-
         var promise = axios(Parameter);
-
         promise.then(function (result) {
-            var data = result.data;
-            var selectedCity = data.find((city) => city.Name === selectedCityValue);
-            renderDistricts(selectedCity.Districts);
-            selectDistrictOption(selectedCity.Districts);
-            selectWardOption(selectedCity.Districts);
+        var data = result.data;
+        var selectedCity = data.find((city) => city.Name === selectedCityValue);
+        renderDistricts(selectedCity.Districts);
+        selectDistrictOption(selectedCity.Districts);
+        selectWardOption(selectedCity.Districts);
         });
-
         function renderDistricts(districtsData) {
-            for (const district of districtsData) {
-                districts.options[districts.options.length] = new Option(district.Name, district.Name);
-            }
+        for (const district of districtsData) {
+        districts.options[districts.options.length] = new Option(district.Name, district.Name);
+        }
 
-            districts.onchange = function () {
-                wards.length = 1;
-                const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
-                if (this.value !== "") {
-                    for (const ward of selectedDistrict.Wards) {
-                        wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
-                    }
-                }
-            };
+        districts.onchange = function () {
+        wards.length = 1;
+        const selectedDistrict = districtsData.find((district) => district.Name === this.value);
+        if (this.value !== "") {
+        for (const ward of selectedDistrict.Wards) {
+        wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
+        }
+        }
+        };
         }
 
         function selectDistrictOption(districtsData) {
-            for (let i = 0; i < districtsData.length; i++) {
-                if (districtsData[i].Name === 'Huyện Thạch Thất') {
-                    districts.options[i + 1].selected = true;
-                    simulateEvent(districts, 'change');
-                    break;
-                }
-            }
+        for (let i = 0; i < districtsData.length; i++) {
+        if (districtsData[i].Name === 'Huyện Thạch Thất') {
+        districts.options[i + 1].selected = true;
+        simulateEvent(districts, 'change');
+        break;
+        }
+        }
         }
 
         function selectWardOption(districtsData) {
-            const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
-            for (let i = 0; i < selectedDistrict.Wards.length; i++) {
-                if (selectedDistrict.Wards[i].Name === '${ward}') {
-                    wards.options[i + 1].selected = true;
-                    simulateEvent(wards, 'change');
-                    break;
-                }
-            }
+        const selectedDistrict = districtsData.find((district) => district.Name === '${district}');
+        for (let i = 0; i < selectedDistrict.Wards.length; i++) {
+        if (selectedDistrict.Wards[i].Name === '${ward}') {
+        wards.options[i + 1].selected = true;
+        simulateEvent(wards, 'change');
+        break;
+        }
+        }
         }
 
         function simulateEvent(element, eventName) {
-            var event = new Event(eventName);
-            element.dispatchEvent(event);
+        var event = new Event(eventName);
+        element.dispatchEvent(event);
         }
 
         var form = document.getElementById('create-post');
         form.addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            var formData = new FormData(form);
-
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('POST', 'CreatePost2', true);
-
-            xhr.onload = function () {
-                if (xhr.responseText === "success") {
-                    const modal = document.getElementById('create-post-modal');
-                    modal.classList.remove('is-active');
-                    document.getElementById('create-post').reset();
-                    var form2 = document.getElementById('create-post');
-                    form2.querySelector('.post-image.preview-img').style.display = 'none';
-                    iziToast.show({
-                        maxWidth: "280px",
-                        class: "success-toast",
-                        icon: "mdi mdi-check",
-                        title: "",
-                        message: "Create post successfully",
-                        titleColor: "#fff",
-                        messageColor: "#fff",
-                        iconColor: "#fff",
-                        backgroundColor: "#60c032",
-                        progressBarColor: "#0062ff",
-                        position: "bottomRight",
-                        transitionIn: "fadeInUp",
-                        close: false,
-                        timeout: 1800,
-                        zindex: 99999
-                    });
-                } else {
-                    const modal = document.getElementById('create-post-modal');
-                    modal.classList.remove('is-active');
-                    var form = document.getElementById('create-post');
-                    iziToast.show({
-                        maxWidth: "280px",
-                        class: "success-toast",
-                        icon: "mdi mdi-error",
-                        title: "",
-                        message: "Create post failed",
-                        titleColor: "#fff",
-                        messageColor: "#fff",
-                        iconColor: "#fff",
-                        backgroundColor: "#FF0000",
-                        progressBarColor: "#0062ff",
-                        position: "bottomRight",
-                        transitionIn: "fadeInUp",
-                        close: false,
-                        timeout: 1800,
-                        zindex: 99999
-                    });
-                }
-            };
-
-            xhr.onerror = function () {
-                console.error('Request failed');
-            };
-
-            xhr.send(formData);
+        event.preventDefault();
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'CreatePost2', true);
+        xhr.onload = function () {
+        if (xhr.responseText === "success") {
+        const modal = document.getElementById('create-post-modal');
+        modal.classList.remove('is-active');
+        document.getElementById('create-post').reset();
+        var form2 = document.getElementById('create-post');
+        form2.querySelector('.post-image.preview-img').style.display = 'none';
+        iziToast.show({
+        maxWidth: "280px",
+                class: "success-toast",
+                icon: "mdi mdi-check",
+                title: "",
+                message: "Create post successfully",
+                titleColor: "#fff",
+                messageColor: "#fff",
+                iconColor: "#fff",
+                backgroundColor: "#60c032",
+                progressBarColor: "#0062ff",
+                position: "bottomRight",
+                transitionIn: "fadeInUp",
+                close: false,
+                timeout: 1800,
+                zindex: 99999
+        });
+        } else {
+        const modal = document.getElementById('create-post-modal');
+        modal.classList.remove('is-active');
+        var form = document.getElementById('create-post');
+        iziToast.show({
+        maxWidth: "280px",
+                class: "success-toast",
+                icon: "mdi mdi-error",
+                title: "",
+                message: "Create post failed",
+                titleColor: "#fff",
+                messageColor: "#fff",
+                iconColor: "#fff",
+                backgroundColor: "#FF0000",
+                progressBarColor: "#0062ff",
+                position: "bottomRight",
+                transitionIn: "fadeInUp",
+                close: false,
+                timeout: 1800,
+                zindex: 99999
+        });
+        }
+        };
+        xhr.onerror = function () {
+        console.error('Request failed');
+        };
+        xhr.send(formData);
         });
         document.getElementById('imgPath').addEventListener('change', function (event) {
-            const files = event.target.files;
-            const blockImg = document.querySelector('.post-image.preview-img');
-            const imageContainer = blockImg.querySelector('.style-img-post');
-            imageContainer.innerHTML = '';
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const imageURL = URL.createObjectURL(file);
-                const imgElement = document.createElement('img');
-                imgElement.classList.add('element-img-post');
-                imgElement.src = imageURL;
-                imageContainer.appendChild(imgElement);
-                imgElement.onload = function () {
-                    URL.revokeObjectURL(imageURL);
-                };
-            }
-            if (files.length >= 2) {
-                blockImg.querySelector('.image-btn').style.display = 'block';
-            } else {
-                blockImg.querySelector('.image-btn').style.display = 'none';
-            }
-            blockImg.style.display = 'block';
-            imageContainer.style.transform = 'translateX(0px)';
+        const files = event.target.files;
+        const blockImg = document.querySelector('.post-image.preview-img');
+        const imageContainer = blockImg.querySelector('.style-img-post');
+        imageContainer.innerHTML = '';
+        for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const imageURL = URL.createObjectURL(file);
+        const imgElement = document.createElement('img');
+        imgElement.classList.add('element-img-post');
+        imgElement.src = imageURL;
+        imageContainer.appendChild(imgElement);
+        imgElement.onload = function () {
+        URL.revokeObjectURL(imageURL);
+        };
+        }
+        if (files.length >= 2) {
+        blockImg.querySelector('.image-btn').style.display = 'block';
+        } else {
+        blockImg.querySelector('.image-btn').style.display = 'none';
+        }
+        blockImg.style.display = 'block';
+        imageContainer.style.transform = 'translateX(0px)';
         });
-
         document.addEventListener("DOMContentLoaded", function () {
-            var openModalRequest = document.querySelectorAll('.open-modal-request');
-            const modalRequest = document.getElementById('sent-request-modal');
-            const requestButton = document.getElementById('requestButton');
-            let currentPostRequest = null;
-            openModalRequest.forEach(openModalArchive => {
-                openModalArchive.addEventListener('click', () => {
-                    const postIdRequest = openModalArchive.getAttribute('data-post-id');
-                    currentPostRequest = postIdRequest;
-                    modalRequest.setAttribute('data-post-id', postIdRequest);
-                    modalRequest.querySelector('input[name="idPostRequest"]').value = postIdRequest;
-                    modalRequest.classList.add('is-active');
-                });
-            });
-            document.getElementById('requestButton').addEventListener('click', function () {
-                if (validateFormRequest()) {
-                    document.getElementById('submit-request').click();
-                }
-            });
-            const inputMessage = document.getElementById('messageRequest');
-            const errorMessageRequest = document.getElementById('message-error-request');
-            inputMessage.addEventListener('input', function () {
-                const inputValueRequest = inputMessage.value.trim();
+        var openModalRequest = document.querySelectorAll('.open-modal-request');
+        const modalRequest = document.getElementById('sent-request-modal');
+        const requestButton = document.getElementById('requestButton');
+        let currentPostRequest = null;
+        openModalRequest.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+        const postIdRequest = openModalArchive.getAttribute('data-post-id');
+        currentPostRequest = postIdRequest;
+        modalRequest.setAttribute('data-post-id', postIdRequest);
+        modalRequest.querySelector('input[name="idPostRequest"]').value = postIdRequest;
+        modalRequest.classList.add('is-active');
+        });
+        });
+        document.getElementById('requestButton').addEventListener('click', function () {
+        if (validateFormRequest()) {
+        document.getElementById('submit-request').click();
+        }
+        });
+        const inputMessage = document.getElementById('messageRequest');
+        const errorMessageRequest = document.getElementById('message-error-request');
+        inputMessage.addEventListener('input', function () {
+        const inputValueRequest = inputMessage.value.trim();
+        if (inputValueRequest.length > 0) {
+        errorMessageRequest.style.display = 'none';
+        } else {
+        errorMessageRequest.style.display = 'block';
+        }
+        });
+        function validateFormRequest() {
+        var messageRequestInput = document.getElementById('messageRequest').value.trim();
+        if (messageRequestInput === '') {
+        var titleErrorRequest = document.getElementById('message-error-request');
+        titleErrorRequest.style.display = 'block';
+        return false;
+        }
+        return true;
+        }
 
-                if (inputValueRequest.length > 0) {
-                    errorMessageRequest.style.display = 'none';
-                } else {
-                    errorMessageRequest.style.display = 'block';
-                }
-            });
-            function validateFormRequest() {
-                var messageRequestInput = document.getElementById('messageRequest').value.trim();
-                if (messageRequestInput === '') {
-                    var titleErrorRequest = document.getElementById('message-error-request');
-                    titleErrorRequest.style.display = 'block';
-                    return false;
-                }
-                return true;
-            }
-
-            document.getElementById('sent-request-form').addEventListener('submit', (event) => {
-                var mesageSent = document.getElementById('sent-request-form').querySelector('textarea[name="messageRequest"]').value;
-                event.preventDefault();
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'requestPost', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onload = function () {
-                    console.log(xhr.responseText);
-                    if (xhr.responseText == 1) {
-                        document.getElementById('sent-request-form').reset();
-                        iziToast.show({
-                            maxWidth: "280px",
-                            class: "success-toast",
-                            icon: "mdi mdi-check",
-                            title: "",
-                            message: "Request successfully",
-                            titleColor: "#fff",
-                            messageColor: "#fff",
-                            iconColor: "#fff",
-                            backgroundColor: "#60c032",
-                            progressBarColor: "#0062ff",
-                            position: "bottomRight",
-                            transitionIn: "fadeInUp",
-                            close: false,
-                            timeout: 1800,
-                            zindex: 99999
-                        });
-                        modalRequest.classList.remove('is-active');
-                    } else if (xhr.responseText == 2) {
-                        document.getElementById('sent-request-form').reset();
-                        iziToast.show({
-                            maxWidth: "280px",
-                            class: "success-toast",
-                            icon: "mdi mdi-check",
-                            title: "",
-                            message: "You have requested, cannot request again",
-                            titleColor: "#fff",
-                            messageColor: "#fff",
-                            iconColor: "#fff",
-                            backgroundColor: "#FF0000",
-                            progressBarColor: "#0062ff",
-                            position: "bottomRight",
-                            transitionIn: "fadeInUp",
-                            close: false,
-                            timeout: 1800,
-                            zindex: 99999
-                        });
-                        modalRequest.classList.remove('is-active');
-                    }
-                };
-                xhr.send('id=' + currentPostRequest + '&mesage=' + mesageSent);
-            });
+        document.getElementById('sent-request-form').addEventListener('submit', (event) => {
+        var mesageSent = document.getElementById('sent-request-form').querySelector('textarea[name="messageRequest"]').value;
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'requestPost', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+        console.log(xhr.responseText);
+        if (xhr.responseText == 1) {
+        document.getElementById('sent-request-form').reset();
+        iziToast.show({
+        maxWidth: "280px",
+                class: "success-toast",
+                icon: "mdi mdi-check",
+                title: "",
+                message: "Request successfully",
+                titleColor: "#fff",
+                messageColor: "#fff",
+                iconColor: "#fff",
+                backgroundColor: "#60c032",
+                progressBarColor: "#0062ff",
+                position: "bottomRight",
+                transitionIn: "fadeInUp",
+                close: false,
+                timeout: 1800,
+                zindex: 99999
+        });
+        modalRequest.classList.remove('is-active');
+        } else if (xhr.responseText == 2) {
+        document.getElementById('sent-request-form').reset();
+        iziToast.show({
+        maxWidth: "280px",
+                class: "success-toast",
+                icon: "mdi mdi-check",
+                title: "",
+                message: "You have requested, cannot request again",
+                titleColor: "#fff",
+                messageColor: "#fff",
+                iconColor: "#fff",
+                backgroundColor: "#FF0000",
+                progressBarColor: "#0062ff",
+                position: "bottomRight",
+                transitionIn: "fadeInUp",
+                close: false,
+                timeout: 1800,
+                zindex: 99999
+        });
+        modalRequest.classList.remove('is-active');
+        }
+        };
+        xhr.send('id=' + currentPostRequest + '&mesage=' + mesageSent);
+        });
         });
     </script>
 
