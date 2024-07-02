@@ -163,10 +163,12 @@ public class DAOManagePost extends DBContext {
                     + "AND p.UserID NOT IN (\n"
                     + "    SELECT BlockUserID \n"
                     + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
-                    + "    WHERE UserID = ?  \n"
-                    + ")";
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID != ?";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, userID);
+            statement.setInt(2, userID);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Post post = new Post();
@@ -810,7 +812,7 @@ public class DAOManagePost extends DBContext {
     }
 
     public static void main(String[] args) {
-        DAOManagePost dao = new DAOManagePost();     
+        DAOManagePost dao = new DAOManagePost();
         System.out.println(dao.getTop5PostsSameDistrict(68, "Huyện Thạch Thất"));
     }
 
