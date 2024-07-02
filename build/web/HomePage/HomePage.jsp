@@ -2750,6 +2750,9 @@
                             <button id="requestThis" style="width: 100%;" type="button" class="open-modal-request button is-solid primary-button">
                                 Request This
                             </button>
+                            <button id="swapThis" style="width: 100%;" type="button" class="open-modal-swap button is-solid primary-button">
+                                Swap This
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -4945,6 +4948,7 @@
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
     <script src="assets/js/createpost.js" ></script>
+    <script src="assets/js/swapPost.js" ></script>
 
     <script>
                             document.addEventListener('DOMContentLoaded', function () {

@@ -29,7 +29,7 @@ document.getElementById('imgPathSwap').addEventListener('change', function (even
         var imgErrorSwap = document.getElementById('img-error-swap');
         imgErrorSwap.style.display = 'block';
     } else {
-         var imgErrorSwap = document.getElementById('img-error-swap');
+        var imgErrorSwap = document.getElementById('img-error-swap');
         imgErrorSwap.style.display = 'none';
     }
 });
@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currentPostSwap = postIdSwap;
             modalSwap.setAttribute('data-post-id', postIdSwap);
             modalSwap.querySelector('input[name="idPostSwap"]').value = postIdSwap;
+            console.log(modalSwap.querySelector('input[name="idPostSwap"]').value);
             modalSwap.classList.add('is-active');
         });
     });
