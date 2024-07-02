@@ -256,7 +256,10 @@ public class Post {
         }
         return listImg;
     }
-
+    public String getFirstImage(){
+        String[] listImg = ImageUrl.split(",");
+        return listImg[0];
+    }
     public boolean avaiableEditPost(int idUser) {
         if (idUser == UserID) {
             return true;
