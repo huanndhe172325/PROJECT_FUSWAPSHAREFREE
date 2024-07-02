@@ -84,7 +84,9 @@ public class HomePage extends HttpServlet {
         ArrayList<Post> listPost = dao.getAllPost(userInfo_raw.getUserID());
         ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
         ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), district);
-
+        ArrayList<Post> listMyPostExchange = dao.getMyPostExchange(userInfo_raw.getUserID());
+        
+        request.setAttribute("listMyPostExchange", listMyPostExchange);
         request.setAttribute("listNoti", listNoti);
         request.setAttribute("listUserDistrict", listUserDistrict);
         request.setAttribute("listPoint", listUserRanking);

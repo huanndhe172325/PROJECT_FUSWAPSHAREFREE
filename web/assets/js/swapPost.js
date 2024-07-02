@@ -26,4 +26,45 @@ document.getElementById('imgPathSwap').addEventListener('change', function (even
     imageContainerSwap.style.transform = 'translateX(0px)';
 });
 
-    
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    var openModalSwap = document.querySelectorAll('.open-modal-swap');
+    const modalSwap = document.getElementById('sent-swap-modal');
+    const swapButton = document.getElementById('swapButton');
+    let currentPostSwap = null;
+    openModalSwap.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            const postIdSwap = openModalArchive.getAttribute('data-post-id');
+            currentPostSwap = postIdSwap;
+            modalSwap.setAttribute('data-post-id', postIdSwap);
+            modalSwap.querySelector('input[name="idPostSwap"]').value = postIdSwap;
+            modalSwap.classList.add('is-active');
+        });
+    });
+    document.getElementById('swapButton').addEventListener('click', function () {
+        if (validateFormSwap()) {
+            console.log("submit");
+//            document.getElementById('submit-swap').click();
+        }
+    });
+    const inputMessage = document.getElementById('messageSwap');
+    const errorMessageSwap = document.getElementById('message-error-swap');
+    inputMessage.addEventListener('input', function () {
+        const inputValueSwap = inputMessage.value.trim();
+        if (inputValueSwap.length > 0) {
+            errorMessageSwap.style.display = 'none';
+        } else {
+            errorMessageSwap.style.display = 'block';
+        }
+    });
+    function validateFormSwap() {
+        var messageSwapInput = document.getElementById('messageSwap').value.trim();
+        if (messageSwapInput === '') {
+            var titleErrorSwap = document.getElementById('message-error-swap');
+            titleErrorSwap.style.display = 'block';
+            return false;
+        }
+        return true;
+    }
+});

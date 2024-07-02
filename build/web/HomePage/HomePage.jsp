@@ -2742,13 +2742,16 @@
                             <button id="requestThis" style="width: 100%;" type="button" class="open-modal-request button is-solid primary-button">
                                 Request This
                             </button>
+                            <button id="swapThis" style="width: 100%;" type="button" class="open-modal-swap button is-solid primary-button">
+                                Swap This
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
+       
 
         <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
@@ -4816,6 +4819,7 @@
                             <label for="Title">Description: </label>
                             <textarea id="descriptionSwap" required class="textarea comment-textarea" name="descriptionSwap" rows="5" placeholder="Message the message you want to send to the owner"></textarea>
                             <span id="message-error-swap" class="error-message-swap" style="display: none; color: red;">Please input description!!!</span>
+
                             <input type="submit" id="submit-swap" style="display : none;" value="Submit">
                         </form>
                     </div>
@@ -5343,10 +5347,10 @@
         blockImg.style.display = 'block';
         imageContainer.style.transform = 'translateX(0px)';
         });
-        
-        
-        
-       
+
+
+
+
     </script>
 
 </body>
