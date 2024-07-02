@@ -195,26 +195,19 @@
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('open-modal-btn');
                 const modal = document.getElementById('edit-location-modal');
-
                 openModalBtn.addEventListener('click', () => {
                     modal.classList.add('is-active');
                 });
             });
-
-
-
             var districts = document.getElementById("district");
             var wards = document.getElementById("ward");
             var selectedCityValue = 'Thành phố Hà Nội';
-
             var Parameter = {
                 url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
                 method: "GET",
                 responseType: "application/json",
             };
-
             var promise = axios(Parameter);
-
             promise.then(function (result) {
                 var data = result.data;
                 var selectedCity = data.find((city) => city.Name === selectedCityValue);
@@ -222,7 +215,6 @@
                 selectDistrictOption(selectedCity.Districts);
                 selectWardOption(selectedCity.Districts);
             });
-
             function renderDistricts(districtsData) {
                 for (const district of districtsData) {
                     districts.options[districts.options.length] = new Option(district.Name, district.Name);
@@ -231,7 +223,6 @@
                 districts.onchange = function () {
                     wards.length = 1;
                     const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
                     if (this.value !== "") {
                         for (const ward of selectedDistrict.Wards) {
                             wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
@@ -274,7 +265,6 @@
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('open-modal-btn1');
                 const modal = document.getElementById('edit-profile-modal');
-
                 openModalBtn.addEventListener('click', () => {
                     modal.classList.add('is-active');
                 });
@@ -282,15 +272,12 @@
             var districts = document.getElementById("district");
             var wards = document.getElementById("ward");
             var selectedCityValue = 'Thành phố Hà Nội';
-
             var Parameter = {
                 url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
                 method: "GET",
                 responseType: "application/json",
             };
-
             var promise = axios(Parameter);
-
             promise.then(function (result) {
                 var data = result.data;
                 var selectedCity = data.find((city) => city.Name === selectedCityValue);
@@ -298,7 +285,6 @@
                 selectDistrictOption(selectedCity.Districts);
                 selectWardOption(selectedCity.Districts);
             });
-
             function renderDistricts(districtsData) {
                 for (const district of districtsData) {
                     districts.options[districts.options.length] = new Option(district.Name, district.Name);
@@ -307,7 +293,6 @@
                 districts.onchange = function () {
                     wards.length = 1;
                     const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
                     if (this.value !== "") {
                         for (const ward of selectedDistrict.Wards) {
                             wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
@@ -350,18 +335,40 @@
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('list-block-btn');
                 const modal = document.getElementById('list-block-modal');
+                const userBlockingAddBtn = document.querySelector('.user-blocking-initial__add-btn');
+                const userBlockingPopup = document.getElementById('userBlockingPopup');
+                const listBlockedUsers = document.getElementById('listBlockedUsers');
+                const backBtn = document.querySelector('.user-blocking-popup__back-btn');
+                const closeBtn = document.querySelector('.user-blocking-popup__close-btn');
+                const closeModal = document.querySelector('.close-modal');
 
                 openModalBtn.addEventListener('click', () => {
                     modal.classList.add('is-active');
                 });
+
+                userBlockingAddBtn.addEventListener('click', () => {
+                    listBlockedUsers.style.display = 'none';
+                    userBlockingPopup.style.display = 'block';
+                });
+
+                function showListBlockedUsers() {
+                    userBlockingPopup.style.display = 'none';
+                    listBlockedUsers.style.display = 'block';
+                }
+
+                backBtn.addEventListener('click', showListBlockedUsers);
+                closeBtn.addEventListener('click', showListBlockedUsers);
+
+                closeModal.addEventListener('click', () => {
+                    modal.classList.remove('is-active');
+                });
             });
 
-            // Function to simulate change event
+// Function to simulate change event
             function simulateEvent(element, eventName) {
                 var event = new Event(eventName);
                 element.dispatchEvent(event);
             }
-
         </script>
 
 
@@ -1328,12 +1335,14 @@
                                             <input id="email" name="email" type="text" class="form-control" value="${profile.getEmail()}">
                                             <div style="color: red" id="errorEmail"></div>
                                         </div>
+
                                         <div class="col-md-12">
                                             <label class="labels">Phone Number</label>
                                             <input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
                                             <div style="color: red" id="errorPhone"></div>
                                         </div>
-                                        <input type="submit" id="submit-update-profile1" style="display : none;" value="Submit">
+
+                                        <input type="submit" id="submit-update-profile1" style="display: none;" value="Submit">
                                     </form>
                                 </div>
                             </div>
@@ -1409,6 +1418,8 @@
                 </div>
             </div>
 
+
+
             <style>
                 block-list {
                     font-family: Arial, sans-serif;
@@ -1432,21 +1443,19 @@
                     margin: 0;
                 }
 
-
-
                 .description {
                     font-size: 14px;
                     color: #606770;
                     margin-bottom: 20px;
                 }
 
-                .search-box {
+                .user-blocking-initial__search-input {
                     display: flex;
                     align-items: center;
                     margin-bottom: 20px;
                 }
 
-                .add-block-btn {
+                .user-blocking-initial__add-btn {
                     background-color: #1877f2;
                     color: white;
                     border: none;
@@ -1457,11 +1466,11 @@
                     flex-shrink: 0;
                 }
 
-                .add-block-btn:hover {
+                .user-blocking-initial__add-btn:hover {
                     background-color: #155dc2;
                 }
 
-                .search-input {
+                .user-blocking-initial__search-input {
                     flex-grow: 1;
                     padding: 10px;
                     border-radius: 5px;
@@ -1499,8 +1508,137 @@
                 }
             </style>
 
+            <style>
+                .user-blocking-popup {
+                    display: none;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                }
+                .user-blocking-popup__header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 15px;
+                }
+                .user-blocking-popup__close-btn {
+                    cursor: pointer;
+                }
+                .user-blocking-popup__search-container {
+                    margin-top: 10px;
+                }
+                .user-blocking-popup__search-input {
+                    width: 100%;
+                    padding: 8px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+
+
+
+                .user-blocking-popup__header {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .user-blocking-popup__back-btn {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 5px;
+                    margin-right: 10px;
+                }
+
+                .user-blocking-popup__back-btn svg {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                .user-blocking-popup__header h2 {
+                    flex-grow: 1;
+                    text-align: center;
+                    margin: 0;
+                }
+
+                .user-blocking-popup__close-btn {
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding: 5px;
+                }
+
+                .user-blocking-popup__search-input {
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 10px;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 4px;
+                }
+                .user-blocking-popup {
+                    background-color: white;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    width: 100%;
+                    max-width: 400px;
+                    margin: auto;
+                }
+
+                .user-blocking-popup__header {
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .user-blocking-popup__back-btn,
+                .user-blocking-popup__close-btn {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                }
+
+                .user-blocking-popup__back-btn svg,
+                .user-blocking-popup__close-btn svg {
+                    width: 24px;
+                    height: 24px;
+                    color: #666;
+                }
+
+                .user-blocking-popup__header h2 {
+                    flex-grow: 1;
+                    text-align: center;
+                    margin: 0;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+                .user-blocking-popup__search {
+                    padding: 16px;
+                }
+
+                .user-blocking-popup__search-input {
+                    width: 100%;
+                    padding: 10px 12px;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 4px;
+                    font-size: 14px;
+                }
+
+                .user-blocking-popup__search-input::placeholder {
+                    color: #999;
+                }
+            </style>
+
+
             <!-- Block list users -->
-            <div id="list-block-modal" class="modal share-modal is-xsmall has-light-bg" >
+            <div id="list-block-modal" class="modal share-modal is-xsmall has-light-bg">
                 <div class="modal-background">
                     <div class="modal-content">
                         <div class="card">
@@ -1518,18 +1656,15 @@
 
                             <div class="card-body block-list">
                                 <div class="control">
-                                    <div class="modal-body">
-                                        <!--                                        <form action="profile" id="list-block-modal" method="post">-->
-
+                                    <div class="modal-body" id="listBlockedUsers">
                                         <p class="description">
                                             Khi bạn chặn ai đó, họ sẽ không xem được nội dung bạn đăng trên dòng thời gian của mình,thêm bạn làm bạn bè và trao đổi các đồ dùng.
                                             Lưu ý: Điều này không bao gồm các trao đổi mà cả bạn và người này đều tham gia trước đó.
                                         </p>
-                                        <div class="search-box">
-                                            <button type="button" class="add-block-btn">+ Thêm vào danh sách chặn</button>
-                                            <input type="text" placeholder="Search..." class="search-input" />
+                                        <div class="user-blocking-initial">
+                                            <button type="button" class="user-blocking-initial__add-btn">+ Thêm vào danh sách chặn</button>
+                                            <input type="text" placeholder="Search..." class="user-blocking-initial__search-input" />
                                         </div>
-
                                         <div class="col-md-12 user-block-list">
                                             <c:forEach var="bl" items="${userBlock}">
                                                 <form action="UnBlockUser" method="post" class="user">
@@ -1540,7 +1675,27 @@
                                                 </form>
                                             </c:forEach>
                                         </div>
-                                        <!--</form>-->
+                                    </div>
+
+                                    <div class="user-blocking-popup" id="userBlockingPopup" style="display: none;">
+                                        <div class="user-blocking-popup__header">
+                                            <button class="user-blocking-popup__back-btn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <line x1="19" y1="12" x2="5" y2="12"></line>
+                                                <polyline points="12 19 5 12 12 5"></polyline>
+                                                </svg>
+                                            </button>
+                                            <h2>Chặn người dùng</h2>
+                                            <button class="user-blocking-popup__close-btn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div class="user-blocking-popup__search">
+                                            <input type="text" placeholder="Nhập tên một người" class="user-blocking-popup__search-input" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1561,14 +1716,12 @@
                 }
 
                 // Select the search input and the container for the blocked users
-                const searchInput = document.querySelector('.search-input');
+                const searchInput = document.querySelector('.user-blocking-initial__search-input');
                 const userBlockList = document.querySelector('.user-block-list');
-
                 // Add event listener to the search input
                 searchInput.addEventListener('input', function () {
                     const searchTerm = normalizeString(this.value);
                     const users = userBlockList.querySelectorAll('.user');
-
                     users.forEach(user => {
                         const userName = normalizeString(user.querySelector('span').textContent);
                         if (userName.includes(searchTerm)) {
@@ -1836,18 +1989,13 @@
                                     var form1 = document.getElementById('edit-profile');
                                     form1.addEventListener('submit', function (event) {
                                         event.preventDefault();
-
                                         var formData = new FormData(form1);
-
                                         var xhr = new XMLHttpRequest();
-
                                         xhr.open('POST', 'editprofile', true);
-
                                         xhr.onload = function () {
                                             if (xhr.status >= 200 && xhr.status < 300) {
                                                 const modal = document.getElementById('edit-profile-modal');
                                                 modal.classList.remove('is-active');
-
                                                 iziToast.show({
                                                     maxWidth: "280px",
                                                     class: "success-toast",
@@ -1889,11 +2037,9 @@
                                                 });
                                             }
                                         };
-
                                         xhr.onerror = function () {
                                             console.error('Request failed');
                                         };
-
                                         xhr.send(formData);
                                     });
             </script>
@@ -1902,15 +2048,12 @@
                 var districts = document.getElementById("district");
                 var wards = document.getElementById("ward");
                 var selectedCityValue = 'Thành phố Hà Nội';
-
                 var Parameter = {
                     url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
                     method: "GET",
                     responseType: "application/json",
                 };
-
                 var promise = axios(Parameter);
-
                 promise.then(function (result) {
                     var data = result.data;
                     var selectedCity = data.find((city) => city.Name === selectedCityValue);
@@ -1918,7 +2061,6 @@
                     selectDistrictOption(selectedCity.Districts);
                     selectWardOption(selectedCity.Districts);
                 });
-
                 function renderDistricts(districtsData) {
                     for (const district of districtsData) {
                         districts.options[districts.options.length] = new Option(district.Name, district.Name);
@@ -1927,7 +2069,6 @@
                     districts.onchange = function () {
                         wards.length = 1;
                         const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
                         if (this.value !== "") {
                             for (const ward of selectedDistrict.Wards) {
                                 wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
@@ -1965,18 +2106,13 @@
                 var form2 = document.getElementById('edit-location');
                 form2.addEventListener('submit', function (event) {
                     event.preventDefault();
-
                     var formData = new FormData(form2);
-
                     var xhr = new XMLHttpRequest();
-
                     xhr.open('POST', 'managelocation', true);
-
                     xhr.onload = function () {
                         if (xhr.status >= 200 && xhr.status < 300) {
                             const modal = document.getElementById('edit-location-modal');
                             modal.classList.remove('is-active');
-
                             iziToast.show({
                                 maxWidth: "280px",
                                 class: "success-toast",
@@ -2018,60 +2154,69 @@
                             });
                         }
                     };
-
                     xhr.onerror = function () {
                         console.error('Request failed');
                     };
-
                     xhr.send(formData);
                 });
             </script>
 
             <script>
-                function FormValidate() {
-                    var isValid = true;
-
-                    // Validate Full Name
+                function validateFullName() {
                     var fname = document.getElementById('fname').value.trim();
                     var errorFname = document.getElementById('errorFname');
                     if (fname === "") {
                         errorFname.textContent = "Full Name is required";
-                        isValid = false;
+                        return false;
                     } else {
                         errorFname.textContent = "";
+                        return true;
                     }
+                }
 
-                    // Validate Email
+                function validateEmail() {
                     var email = document.getElementById('email').value.trim();
                     var errorEmail = document.getElementById('errorEmail');
                     var reGexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (email === "") {
                         errorEmail.textContent = "Email is required";
-                        isValid = false;
+                        return false;
                     } else if (!reGexEmail.test(email)) {
                         errorEmail.textContent = "Please enter a valid email address";
-                        isValid = false;
+                        return false;
                     } else {
                         errorEmail.textContent = "";
+                        return true;
                     }
+                }
 
-                    // Validate Phone Number
+                function validatePhoneNumber() {
                     var phoneNum = document.getElementById('phoneNum').value.trim();
                     var errorPhone = document.getElementById('errorPhone');
                     var reGexPhone = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
                     if (phoneNum === "") {
                         errorPhone.textContent = "Phone Number is required";
-                        isValid = false;
+                        return false;
                     } else if (!reGexPhone.test(phoneNum)) {
                         errorPhone.textContent = "Please enter a valid phone number";
-                        isValid = false;
+                        return false;
                     } else {
                         errorPhone.textContent = "";
+                        return true;
                     }
+                }
 
+                function FormValidate() {
+                    var isValid = true;
+                    isValid &= validateFullName();
+                    isValid &= validateEmail();
+                    isValid &= validatePhoneNumber();
                     return isValid;
                 }
 
+                document.getElementById('fname').addEventListener('input', validateFullName);
+                document.getElementById('email').addEventListener('input', validateEmail);
+                document.getElementById('phoneNum').addEventListener('input', validatePhoneNumber);
             </script>
 
             <script>
@@ -2104,12 +2249,6 @@
                     blockImg.style.display = 'block';
                     imageContainer.style.transform = 'translateX(0px)';
                 });
-
-
-
-
-
-
             </script>
 
             <script>
@@ -2118,16 +2257,13 @@
                 const historyBtn = document.getElementById('history-btn');
                 const listPostsForm = document.getElementById('list-posts-form');
                 const historyForm = document.getElementById('history-form');
-
                 // Ẩn các form ban đầu
                 historyForm.style.display = 'none';
-
                 // Thêm sự kiện click cho nút "List Posts"
                 listPostsBtn.addEventListener('click', () => {
                     listPostsForm.style.display = 'block';
                     historyForm.style.display = 'none';
                 });
-
                 // Thêm sự kiện click cho nút "History"
                 historyBtn.addEventListener('click', () => {
                     listPostsForm.style.display = 'none';
