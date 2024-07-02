@@ -811,9 +811,29 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public int getNumberLikeOfPost(int PostID) {
+        int numberOfLikes = 0;
+
+        String sql = "SELECT COUNT(*) AS NumberOfLikes FROM [FUSWAPSHAREFREE].[dbo].[Like] WHERE PostID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, PostID);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    numberOfLikes = rs.getInt("NumberOfLikes");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return numberOfLikes;
+    }
+
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-        System.out.println(dao.getTop5PostsSameDistrict(68, "Huyện Thạch Thất"));
+        System.out.println(dao.getNumberLikeOfPost(50));
     }
 
     public String calulateDate() {
@@ -832,6 +852,33 @@ public class DAOManagePost extends DBContext {
             return hours + " hours";
         } else {
             return days + " days";
+        }
+    }
+
+    public void addLikePost(String postId, String userId) {
+        String sql = "INSERT INTO [FUSWAPSHAREFREE].[dbo].[Like] (PostID, UserID) VALUES (?, ?)";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setString(1, postId);
+            statement.setString(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteLikePost(String postId, String userId) {
+        String sql = "DELETE FROM [FUSWAPSHAREFREE].[dbo].[Like] WHERE PostID = ? AND UserID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setString(1, postId);
+            statement.setString(2, userId);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

@@ -356,6 +356,7 @@
             .type-exchange {
                 color: #d32f2f;
             }
+
         </style>
         <!-- End Google Tag Manager -->
 
@@ -1645,7 +1646,7 @@
                             <!-- Post 1 -->
                             <div class="post-container" data-category="listPost">
                                 <c:forEach var="post" items="${listPost}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiableEditPost(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiableEditPost(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
 
@@ -1667,6 +1668,7 @@
                                                         <span class="desire-post" style="display: none; float: right;">${post.desire}</span>
                                                     </div>
                                                 </div>
+
                                                 <!-- Right side dropdown -->
                                                 <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
                                                 <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
@@ -1730,6 +1732,7 @@
                                                             </a>
                                                         </c:forEach>     
                                                     </div>
+
                                                     <c:if test="${fn:length(post.listImg) >= 2}">
                                                         <div class="image-btn">
                                                             <div class="btn-image-next btn-image">
@@ -1745,14 +1748,19 @@
                                                         </div>
                                                     </c:if>
                                                 </div>
-
                                             </div>
-
+                                            <div class="like-wrapper" style="position: absolute; right: 10px;">
+                                                <a  class="like-button">
+                                                    <i class="mdi mdi-heart not-liked bouncy"></i>
+                                                    <i class="mdi mdi-heart is-liked bouncy"></i>
+                                                    <span class="like-overlay"></span>
+                                                </a>
+                                            </div>
                                             <div class="card-footer">
                                                 <div class="social-count" style="margin-left: 0px;">
                                                     <div class="likes-count">
                                                         <i data-feather="heart"></i>
-                                                        <span>27</span>
+                                                        <span id="likeCountSpan">${post.getCountLikeOfPost()}</span>
                                                     </div>
                                                     <div class="shares-count">
                                                         <i data-feather="link-2"></i>
@@ -4888,79 +4896,121 @@
     <script src="assets/js/createpost.js" ></script>
 
     <script>
-                            var posts = [
-        <c:forEach var="p" items="${listPostUserNearMe}" varStatus="status">
-                            {
-                            title: "${p.title}",
-                                    description: "${p.description}",
-                                    images: [
-            <c:forEach var="img" items="${p.getListImg()}" varStatus="imgStatus">
-                                    "${img}"${!imgStatus.last ? ',' : ''}
-            </c:forEach>
-                                    ],
-                                    createTime: "${p.createTime}",
-                                    typeName: "${p.getTypeName()}",
-                                    quanlityName: "${p.getQuanlityName()}",
-                                    intructions: "${p.intructions}",
-                                    ownerName: "${p.getFullNameOwner()}",
-                                    userID: "${p.userID}"
-                            }${!status.last ? ',' : ''}
-        </c:forEach>
-                            ];
-                            var currentPostIndex = 0;
-                            var currentImageIndex = 0;
-                            function displayUserPost(postIndex) {
-                            var post = posts[postIndex];
-                            document.getElementById('user-post-image').src = post.images[currentImageIndex];
-                            document.getElementById('user-post-title').textContent = post.title;
-                            document.getElementById('user-post-description').textContent = post.description;
-                            document.getElementById('user-post-date').textContent = post.createTime;
-                            document.getElementById('user-post-type').textContent = post.typeName;
-                            document.getElementById('user-post-quanlity').textContent = post.quanlityName;
-                            document.getElementById('user-post-instructions').textContent = post.intructions;
-                            var typeElement = document.getElementById('user-post-type');
-                            typeElement.style.color = (post.typeName === 'Free') ? '#1a936f' : (post.typeName === 'Exchange') ? '#d32f2f' : '#333';
-                            document.getElementById('user-post-owner-link').textContent = "View profile of " + post.ownerName;
-                            document.getElementById('user-post-owner-link').onclick = function() {
-                            viewUserProfile(post.userID);
-                            return false;
+                            document.addEventListener('DOMContentLoaded', function () {
+                            document.querySelectorAll('.like-button').forEach(button => {
+                            button.addEventListener('click', function () {
+                            const postElement = this.closest('.post');
+                            const postId = postElement.getAttribute('data-post-id');
+                            const userId = postElement.getAttribute('data-user-id');
+                            const isLiked = this.classList.contains('is-active');
+                            const likeCountElement = postElement.querySelector('.likes-count span');
+                            const params = 'postId=' + encodeURIComponent(postId) +
+                                    '&userId=' + encodeURIComponent(userId) +
+                                    '&action=' + encodeURIComponent(isLiked ? 'unlike' : 'like');
+                            const xhr = new XMLHttpRequest();
+                            xhr.open('POST', '/FUSWAPSHAREFREE/LikePost', true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+
+                            if (!isLiked) {
+                            button.classList.add('is-active');
+                            likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+                            } else {
+                            button.classList.remove('is-active');
+                            likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
+                            }
+                            } else {
+                            console.error('Request failed. Status:', xhr.status);
+                            }
                             };
-                            }
+                            xhr.send(params);
+                            });
+                            });
+                            });
+    </script>
 
-                            function nextUserPost() {
-                            if (currentPostIndex < posts.length - 1) {
-                            currentPostIndex++;
-                            currentImageIndex = 0;
-                            displayUserPost(currentPostIndex);
-                            }
-                            }
 
-                            function prevUserPost() {
-                            if (currentPostIndex > 0) {
-                            currentPostIndex--;
-                            currentImageIndex = 0;
-                            displayUserPost(currentPostIndex);
-                            }
-                            }
 
-                            function nextUserImage() {
-                            if (currentImageIndex < posts[currentPostIndex].images.length - 1) {
-                            currentImageIndex++;
-                            document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
-                            }
-                            }
 
-                            function prevUserImage() {
-                            if (currentImageIndex > 0) {
-                            currentImageIndex--;
-                            document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
-                            }
-                            }
-                            function viewUserProfile(userID) {
 
-                            window.location.href = 'otherprofile?id=' + userID;
-                            }
-                            displayUserPost(currentPostIndex);
+
+
+
+    <script>
+        var posts = [
+        <c:forEach var="p" items="${listPostUserNearMe}" varStatus="status">
+        {
+        title: "${p.title}",
+                description: "${p.description}",
+                images: [
+            <c:forEach var="img" items="${p.getListImg()}" varStatus="imgStatus">
+                "${img}"${!imgStatus.last ? ',' : ''}
+            </c:forEach>
+                ],
+                createTime: "${p.createTime}",
+                typeName: "${p.getTypeName()}",
+                quanlityName: "${p.getQuanlityName()}",
+                intructions: "${p.intructions}",
+                ownerName: "${p.getFullNameOwner()}",
+                userID: "${p.userID}"
+        }${!status.last ? ',' : ''}
+        </c:forEach>
+        ];
+        var currentPostIndex = 0;
+        var currentImageIndex = 0;
+        function displayUserPost(postIndex) {
+        var post = posts[postIndex];
+        document.getElementById('user-post-image').src = post.images[currentImageIndex];
+        document.getElementById('user-post-title').textContent = post.title;
+        document.getElementById('user-post-description').textContent = post.description;
+        document.getElementById('user-post-date').textContent = post.createTime;
+        document.getElementById('user-post-type').textContent = post.typeName;
+        document.getElementById('user-post-quanlity').textContent = post.quanlityName;
+        document.getElementById('user-post-instructions').textContent = post.intructions;
+        var typeElement = document.getElementById('user-post-type');
+        typeElement.style.color = (post.typeName === 'Free') ? '#1a936f' : (post.typeName === 'Exchange') ? '#d32f2f' : '#333';
+        document.getElementById('user-post-owner-link').textContent = "View profile of " + post.ownerName;
+        document.getElementById('user-post-owner-link').onclick = function() {
+        viewUserProfile(post.userID);
+        return false;
+        };
+        }
+
+        function nextUserPost() {
+        if (currentPostIndex < posts.length - 1) {
+        currentPostIndex++;
+        currentImageIndex = 0;
+        displayUserPost(currentPostIndex);
+        }
+        }
+
+        function prevUserPost() {
+        if (currentPostIndex > 0) {
+        currentPostIndex--;
+        currentImageIndex = 0;
+        displayUserPost(currentPostIndex);
+        }
+        }
+
+        function nextUserImage() {
+        if (currentImageIndex < posts[currentPostIndex].images.length - 1) {
+        currentImageIndex++;
+        document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
+        }
+        }
+
+        function prevUserImage() {
+        if (currentImageIndex > 0) {
+        currentImageIndex--;
+        document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
+        }
+        }
+        function viewUserProfile(userID) {
+
+        window.location.href = 'otherprofile?id=' + userID;
+        }
+        displayUserPost(currentPostIndex);
     </script>
 
 
