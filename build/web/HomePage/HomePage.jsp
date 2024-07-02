@@ -4783,7 +4783,7 @@
         </div>
     </div>
 
-    <div id="sent-swap-modal" class="modal share-modal is-xsmall has-light-bg is-active" style="z-index: 1100;">
+    <div id="sent-swap-modal" class="modal share-modal is-xsmall has-light-bg" style="z-index: 1100;">
         <div class="modal-background"></div>
         <div class="modal-content">
             <div class="card">
@@ -4799,7 +4799,8 @@
                         <form enctype="multipart/form-data" id="sent-swap-form" method="post">   
                             <input type="text" name="idPostSwap" style="display: none;">
                             <label for="imgPath">Image:</label>
-                            <input type="file" id="imgPathSwap" name="imgPathSwap" accept="image/*" required="" multiple>
+                            <input required type="file" id="imgPathSwap" name="imgPathSwap" accept="image/*" multiple>
+                            <span id="img-error-swap" class="error-message-swap" style="display: none; color: red;">Please input image!!!</span>
                             <div class="post-image preview-img preview-swap" style="display: none;">
                                 <div class="style-img-post block-img-swap">
                                 </div>

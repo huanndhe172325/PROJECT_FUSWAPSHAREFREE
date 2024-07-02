@@ -24,6 +24,14 @@ document.getElementById('imgPathSwap').addEventListener('change', function (even
     }
     blockImgSwap.style.display = 'block';
     imageContainerSwap.style.transform = 'translateX(0px)';
+    var imgPathSwapInput = document.getElementById('imgPathSwap').files;
+    if (imgPathSwapInput.length === 0) {
+        var imgErrorSwap = document.getElementById('img-error-swap');
+        imgErrorSwap.style.display = 'block';
+    } else {
+         var imgErrorSwap = document.getElementById('img-error-swap');
+        imgErrorSwap.style.display = 'none';
+    }
 });
 
 
@@ -48,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //            document.getElementById('submit-swap').click();
         }
     });
-    const inputMessage = document.getElementById('messageSwap');
+    const inputMessage = document.getElementById('descriptionSwap');
     const errorMessageSwap = document.getElementById('message-error-swap');
     inputMessage.addEventListener('input', function () {
         const inputValueSwap = inputMessage.value.trim();
@@ -59,10 +67,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
     function validateFormSwap() {
-        var messageSwapInput = document.getElementById('messageSwap').value.trim();
+        var imgPathSwapInput = document.getElementById('imgPathSwap').files;
+        var messageSwapInput = document.getElementById('descriptionSwap').value.trim();
         if (messageSwapInput === '') {
             var titleErrorSwap = document.getElementById('message-error-swap');
             titleErrorSwap.style.display = 'block';
+            return false;
+        }
+        if (imgPathSwapInput.length === 0) {
+            var imgErrorSwap = document.getElementById('img-error-swap');
+            imgErrorSwap.style.display = 'block';
             return false;
         }
         return true;
