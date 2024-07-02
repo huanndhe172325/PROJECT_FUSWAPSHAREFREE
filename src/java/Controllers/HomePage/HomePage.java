@@ -83,13 +83,16 @@ public class HomePage extends HttpServlet {
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         ArrayList<Post> listPost = dao.getAllPost(userInfo_raw.getUserID());
         ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
+        ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), district);
+
         request.setAttribute("listNoti", listNoti);
         request.setAttribute("listUserDistrict", listUserDistrict);
         request.setAttribute("listPoint", listUserRanking);
         request.setAttribute("listQuanlity", listQuanlity);
         request.setAttribute("listType", listType);
         request.setAttribute("user", userInfor);
-        request.setAttribute("listPost", listPost);      
+        request.setAttribute("listPost", listPost);
+        request.setAttribute("listPostUserNearMe", listPostUserNearMe);
         request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
     }
 

@@ -47,8 +47,8 @@ public class DAOManagePost extends DBContext {
         return listType;
     }
 
-    public boolean archivePost(int postId){
-                String sql = "";
+    public boolean archivePost(int postId) {
+        String sql = "";
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, postId);
@@ -58,9 +58,7 @@ public class DAOManagePost extends DBContext {
             return false;
         }
     }
-    
-    
-    
+
     public ArrayList<Post> getFilteredPosts(int userID, String keyword) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
@@ -111,6 +109,51 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
+    public ArrayList<Post> getTop5PostsSameDistrict(int userID, String district) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT TOP 3 * \n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
+                    + "WHERE p.StatusID = 1\n"
+                    + "AND p.District = ?\n"
+                    + "AND p.UserID != ?\n"
+                    + "AND p.UserID NOT IN (\n"
+                    + "    SELECT BlockUserID \n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?  \n"
+                    + ")\n"
+                    + "ORDER BY p.CreateTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, district);
+            statement.setInt(2, userID);
+            statement.setInt(3, userID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
     public ArrayList<Post> getAllPost(int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
@@ -120,10 +163,12 @@ public class DAOManagePost extends DBContext {
                     + "AND p.UserID NOT IN (\n"
                     + "    SELECT BlockUserID \n"
                     + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
-                    + "    WHERE UserID = ?  \n"
-                    + ")";
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID != ?";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, userID);
+            statement.setInt(2, userID);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Post post = new Post();
@@ -371,7 +416,7 @@ public class DAOManagePost extends DBContext {
             statement.setInt(2, postId);
 
             try (ResultSet resultSet = statement.executeQuery()) {
-                return resultSet.next();  
+                return resultSet.next();
             }
         } catch (SQLException e) {
             return false;
@@ -766,9 +811,29 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public int getNumberLikeOfPost(int PostID) {
+        int numberOfLikes = 0;
+
+        String sql = "SELECT COUNT(*) AS NumberOfLikes FROM [FUSWAPSHAREFREE].[dbo].[Like] WHERE PostID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, PostID);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    numberOfLikes = rs.getInt("NumberOfLikes");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return numberOfLikes;
+    }
+
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-        System.out.println(dao.checkRequested(1,99));
+        System.out.println(dao.getNumberLikeOfPost(50));
     }
 
     public String calulateDate() {
@@ -787,6 +852,33 @@ public class DAOManagePost extends DBContext {
             return hours + " hours";
         } else {
             return days + " days";
+        }
+    }
+
+    public void addLikePost(String postId, String userId) {
+        String sql = "INSERT INTO [FUSWAPSHAREFREE].[dbo].[Like] (PostID, UserID) VALUES (?, ?)";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setString(1, postId);
+            statement.setString(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteLikePost(String postId, String userId) {
+        String sql = "DELETE FROM [FUSWAPSHAREFREE].[dbo].[Like] WHERE PostID = ? AND UserID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setString(1, postId);
+            statement.setString(2, userId);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

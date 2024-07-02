@@ -263,4 +263,9 @@ public class Post {
         }
         return false;
     }
+
+    public int getCountLikeOfPost() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getNumberLikeOfPost(PostID);
+    }
 }
