@@ -1646,7 +1646,7 @@
                             <!-- Post 1 -->
                             <div class="post-container" data-category="listPost">
                                 <c:forEach var="post" items="${listPost}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiableEditPost(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
 
@@ -2766,7 +2766,7 @@
                                     <p id="share-modal-quanlity">-</p>
                                 </div>
                                 <div class="detail-row">
-                                    <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <h2 style="font-weight: 500;">Address:</h2>
                                     <p id="share-modal-address">-</p>
                                 </div>
                                 <div class="detail-row">
@@ -2787,6 +2787,9 @@
                             </button>
                             <button id="swapThis" style="width: 100%;" type="button" class="open-modal-swap button is-solid primary-button">
                                 Swap This
+                            </button>
+                            <button id="requested" style="width: 100%;" type="button" class="button is-solid primary-button">
+                                Requested
                             </button>
                         </div>
                     </div>
@@ -5523,7 +5526,7 @@
         });
         });
     </script>
-    
+
 
 
 </body>
