@@ -524,15 +524,30 @@ function initShareModal() {
                 $("#swapThis").attr("data-post-id", postId)
                 ;
 
+
+
         if (type === 'Exchange') {
-            $('#share-modal-desire-block').css('display', 'block');
+            $("#share-modal-desire-block").css('display', 'block');
             $('#requestThis').css('display', 'none');
             $('#swapThis').css('display', 'block');
+            $('#requested').css('display', 'none');
+            if (avaiableRequest === "false") {
+                $('#requested').css('display', 'block');
+                $('#requestThis').css('display', 'none');
+                $('#swapThis').css('display', 'none');
+            }
         } else {
             $('#share-modal-desire-block').css('display', 'none');
             $('#requestThis').css('display', 'block');
             $('#swapThis').css('display', 'none');
+            $('#requested').css('display', 'none');
+            if (avaiableRequest === "false") {
+                $('#requested').css('display', 'block');
+                $('#requestThis').css('display', 'none');
+                $('#swapThis').css('display', 'none');
+            }
         }
+
 
     }
     ))

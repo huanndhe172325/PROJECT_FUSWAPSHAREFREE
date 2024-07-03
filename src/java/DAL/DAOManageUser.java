@@ -306,6 +306,23 @@ public class DAOManageUser extends DBContext {
         return null;
     }
 
+    public boolean insertRequestFriends(int senderUserID, int receiverUserID) {
+        String sql = "INSERT INTO RequestFriends ( Status,SenderUserID, ReceiverUserID) VALUES ('pending',?, ?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, senderUserID);
+            statement.setInt(2, receiverUserID);
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
     public void blockUser(int UserID, int BlockID) {
 
         try {
@@ -385,7 +402,7 @@ public class DAOManageUser extends DBContext {
             return false;
         }
     }
-    
+
     public ArrayList<User> searchUsers(String query, int offset, int limit) {
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM [User] WHERE Email LIKE ? "
