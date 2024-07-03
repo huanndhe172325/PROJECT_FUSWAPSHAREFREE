@@ -882,4 +882,23 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean checkPostLikedByUser(int postId, int userId) {
+        String sql = "SELECT 1 FROM [FUSWAPSHAREFREE].[dbo].[Like] WHERE PostID = ? AND UserID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setInt(1, postId);
+            statement.setInt(2, userId);
+
+            try (ResultSet rs = statement.executeQuery()) {
+
+                return rs.next();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
+
 }
