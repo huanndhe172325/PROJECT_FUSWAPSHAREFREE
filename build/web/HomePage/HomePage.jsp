@@ -459,7 +459,7 @@
 
                         <div class="navbar-item is-icon drop-trigger">
                             <a class="icon-link is-friends" href="javascript:void(0);">
-                                <i data-feather="heart"></i>
+                                <i data-feather="user-plus"></i>
                                 <span class="indicator"></span>
                             </a>
 
