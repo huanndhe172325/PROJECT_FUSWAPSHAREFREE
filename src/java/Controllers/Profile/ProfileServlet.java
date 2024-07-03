@@ -8,6 +8,7 @@ import DAL.DAOManagePost;
 import DAL.DAOManageUser;
 import DAL.DAOProfile;
 import Model.BlockList;
+import Model.Like;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -70,6 +71,7 @@ public class ProfileServlet extends HttpServlet {
         DAOProfile db = new DAOProfile();
         DAOManageUser db1 = new DAOManageUser();
         
+        
         User userId = (User) session.getAttribute("userInfo");
         int id = userId.getUserID();
         User u = db.getUserbyId(id);
@@ -80,7 +82,9 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("userBlock", userBlock);
         DAOManagePost daoPost = new DAOManagePost();
         ArrayList<Post> hisPost = daoPost.getAllPostHistory(u.getUserID());
+        List<Like> like = db.getPostsByLike(u.getUserID());
         myPost = daoPost.getAllPostByIdUser(u.getUserID());
+        request.setAttribute("listLiked", like);
         request.setAttribute("hisPost", hisPost);
         request.setAttribute("myPost", myPost);
         request.setAttribute("profile", u);

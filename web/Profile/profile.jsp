@@ -341,16 +341,13 @@
                 const backBtn = document.querySelector('.user-blocking-popup__back-btn');
                 const closeBtn = document.querySelector('.user-blocking-popup__close-btn');
                 const closeModal = document.querySelector('.close-modal');
-
                 openModalBtn.addEventListener('click', () => {
                     modal.classList.add('is-active');
                 });
-
                 userBlockingAddBtn.addEventListener('click', () => {
                     listBlockedUsers.style.display = 'none';
                     userBlockingPopup.style.display = 'block';
                 });
-
                 function showListBlockedUsers() {
                     userBlockingPopup.style.display = 'none';
                     listBlockedUsers.style.display = 'block';
@@ -358,12 +355,10 @@
 
                 backBtn.addEventListener('click', showListBlockedUsers);
                 closeBtn.addEventListener('click', showListBlockedUsers);
-
                 closeModal.addEventListener('click', () => {
                     modal.classList.remove('is-active');
                 });
             });
-
 // Function to simulate change event
             function simulateEvent(element, eventName) {
                 var event = new Event(eventName);
@@ -1035,13 +1030,444 @@
 
                                 <!-- Schedule calendar widget -->
                                 <!-- html/partials/widgets/schedule/schedule-widget.html -->
+                                <style>
+                                    .post-image {
+                                        overflow: hidden;
+                                        position: relative;
+                                        width: 100%;
+                                    }
+                                    .style-img-post {
+                                        display: flex;
+                                        transition: transform 0.5s ease;
+                                    }
+                                    .style-img-post a {
+                                        flex-shrink: 0;
+                                        width: 100%;
+                                    }
+                                    .image-btn {
+                                        position: absolute;
+                                        top: 41%;
+                                        width: 100%;
+                                        display: flex;
+                                        justify-content: space-between;
+                                        transform: translateY(-50%);
+                                        z-index: 10;
+                                    }
+                                    .btn-image {
+                                        font-size: 40px;
+                                        color: white;
+                                        cursor: pointer;
+                                        user-select: none;
+                                        position: absolute;
+                                    }
+                                    .btn-image-pre {
+                                        left: 10px;
+                                    }
+                                    .btn-image-next {
+                                        right: 10px;
+                                    }
 
+                                    form {
+                                        max-width: 500px;
+                                        margin: 0 auto;
+                                        border-radius: 5px;
+                                    }
+
+                                    input[type="text"],
+                                    input[type="number"],
+                                    input[type="file"],
+                                    select,
+                                    textarea {
+                                        width: 100%;
+                                        padding: 10px;
+                                        margin: 5px 0;
+                                        border: 1px solid #ccc;
+                                        border-radius: 3px;
+                                        box-sizing: border-box;
+                                    }
+
+                                    input[type="submit"] {
+                                        width: 100%;
+                                        background-color: #007bff;
+                                        color: #fff;
+                                        padding: 10px;
+                                        border: none;
+                                        border-radius: 3px;
+                                        cursor: pointer;
+                                    }
+
+                                    input[type="submit"]:hover {
+                                        background-color: #0056b3;
+                                    }
+                                    .account-item {
+                                        display: block;
+                                        text-decoration: none;
+                                        color: inherit;
+                                        cursor: pointer;
+                                    }
+                                    .media {
+                                        display: flex;
+                                        align-items: center;
+                                    }
+                                    .icon-wrap {
+                                        margin-right: 10px;
+                                    }
+                                    .button-link {
+                                        border: none;
+                                        background: none;
+                                        padding: 0;
+                                        cursor: pointer;
+                                        color: inherit;
+                                        font: inherit;
+                                        display: block;
+                                        width: 100%;
+                                        text-align: left;
+                                    }
+                                    .detail-row {
+                                        display: flex;
+                                        align-items: center;
+                                        margin-bottom: 10px;
+                                    }
+
+                                    .detail-row h2 {
+                                        margin: 0;
+                                        padding-right: 10px;
+                                        font-size: 16px;
+                                    }
+
+                                    .detail-row p {
+                                        margin: 0;
+                                        font-size: 16px;
+                                    }
+
+                                    #btn-all,
+                                    #btn-newest,
+                                    #btn-exchange,
+                                    #btn-free,
+                                    #btn-quality {
+                                        background-color: #007bff;
+                                        color: white;
+                                        border-color: #007bff;
+                                    }
+
+                                    /* Thiết lập màu khi di chuột qua */
+                                    #btn-all:hover,
+                                    #btn-newest:hover,
+                                    #btn-exchange:hover,
+                                    #btn-free:hover,
+                                    #btn-quality:hover {
+                                        background-color: #0056b3;
+                                        border-color: #0056b3;
+                                    }
+                                    .quality-options {
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        justify-content: center;
+                                        margin-top: 10px;
+                                    }
+
+                                    .quality-button {
+                                        position: relative;
+                                        display: inline-block;
+                                    }
+
+                                    .quality-options {
+                                        position: absolute;
+                                        top: 100%;
+                                        left: 0;
+                                        z-index: 1;
+                                        display: none;
+                                        background-color: #f9f9f9;
+                                        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+                                        padding: 5px;
+                                        min-width: auto;
+                                    }
+
+                                    .quality-options button {
+                                        display: block;
+                                        width: 100%;
+                                        padding: 10px;
+                                        text-align: left;
+                                        border: none;
+                                        background-color: transparent;
+                                        cursor: pointer;
+                                    }
+
+                                    .quality-options button:hover {
+                                        background-color: #f1f1f1;
+                                    }
+                                    /* CSS cho hình ảnh */
+                                    .user-post-image1 img {
+                                        width: 500px;
+                                        height: 300px; /* Điều chỉnh chiều cao của ảnh */
+                                        object-fit: cover; /* Đảm bảo ảnh không bị bóp méo */
+                                    }
+
+                                    /* CSS cho nút điều hướng */
+                                    .user-image-btn1 button {
+                                        background: rgba(255, 255, 255, 0.7);
+                                        border: none;
+                                        border-radius: 50%;
+                                        padding: 10px;
+                                        cursor: pointer;
+                                        font-size: 1.5em; /* Kích thước phù hợp */
+                                    }
+
+                                    /* CSS cho nút điều hướng của người dùng */
+                                    .user-navigation-buttons button {
+                                        padding: 10px 20px;
+                                        background-color: #4267B2;
+                                        color: white;
+                                        border: none;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                    }
+
+                                    .user-navigation-buttons button:hover {
+                                        background-color: #345498;
+                                    }
+                                    #user-near-me-post-container1 {
+                                        max-width: 600px;
+                                        margin: auto;
+                                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                        border-radius: 8px;
+                                        overflow: hidden;
+                                        background-color: #f5f5f5;
+                                        padding: 15px;
+                                    }
+
+                                    /* Phần tiêu đề */
+                                    #user-near-me-post-container1 h4 {
+                                        margin: 0;
+                                        font-size: 20px;
+                                        color: #333;
+                                        text-align: center;
+                                    }
+
+                                    /* Card của sản phẩm */
+                                    .user-product-card1 {
+                                        margin-top: 15px;
+                                    }
+
+                                    /* Hình ảnh bài đăng */
+                                    .user-post-image1 {
+                                        position: relative;
+                                        height: 300px;
+                                        overflow: hidden;
+                                    }
+
+                                    /* Nút điều hướng hình ảnh */
+                                    .user-image-btn1 {
+                                        position: absolute;
+                                        top: 50%;
+                                        left: 0;
+                                        right: 0;
+                                        transform: translateY(-50%);
+                                        display: flex;
+                                        justify-content: space-between;
+                                        padding: 0 10px;
+                                    }
+
+                                    .user-image-btn1 button {
+                                        background: rgba(255, 255, 255, 0.7);
+                                        border: none;
+                                        border-radius: 50%;
+                                        padding: 10px;
+                                        cursor: pointer;
+                                    }
+
+                                    /* Thông tin sản phẩm */
+                                    .user-product-info1 {
+                                        padding: 15px;
+                                        background-color: #fff;
+                                        border-radius: 8px;
+                                        margin-top: -10px;
+                                    }
+
+                                    /* Tiêu đề bài đăng */
+                                    #user-post-title1 {
+                                        margin: 0 0 10px;
+                                        font-size: 18px;
+                                        color: #6ba4e9;
+                                        font-weight: bold;
+                                    }
+
+                                    /* Mô tả bài đăng */
+                                    #user-post-description1 {
+                                        margin: 0;
+                                        font-size: 14px;
+                                        color: #666;
+                                    }
+
+                                    /* Các thông tin nhỏ bên dưới */
+                                    .user-product-info1 p {
+                                        margin: 5px 0;
+                                    }
+
+                                    /* Nút điều hướng sản phẩm */
+                                    .user-navigation-buttons {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-top: 15px;
+                                    }
+
+                                    .user-navigation-buttons button {
+                                        padding: 10px 20px;
+                                        background-color: #4267B2;
+                                        color: white;
+                                        border: none;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                    }
+
+                                    /* Liên kết xem profile */
+                                    #user-post-owner-link {
+                                        color: #4267B2;
+                                        text-decoration: none;
+                                        cursor: pointer;
+                                    }
+
+                                    #user-post-owner-link:hover {
+                                        text-decoration: underline;
+                                    }
+                                    .type-free {
+                                        color: #1a936f;
+                                    }
+
+
+                                    .type-exchange {
+                                        color: #d32f2f;
+                                    }
+
+                                </style>                            
+
+                                <div id="user-near-me-post-container1" style="max-width: 600px; margin: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; background-color: #f5f5f5; padding: 15px;">
+                                    <h4 style="margin: 0; font-size: 20px; color: #333; text-align: center;">Posts Liked</h4>
+                                    <c:forEach items="${listLiked}" var="listLiked" varStatus="postStatus">
+                                        <div id="user-post-${postStatus.index}" class="user-product-card1" style="margin-top: 15px; display: none;">
+                                            <div style="position: relative; height: 300px;">
+                                                <c:forEach items="${listLiked.listPostLiked().getListImg()}" var="img" varStatus="imgStatus">
+                                                    <img src="${pageContext.request.contextPath}/${img}" alt="Post image ${imgStatus.index + 1}" 
+                                                         style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s ease;" 
+                                                         class="post-image" data-index="${imgStatus.index}">
+                                                </c:forEach>
+
+                                                <div class="user-image-btn1" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 10px; z-index: 10;">
+                                                    <button onclick="prevUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">◀</button>
+                                                    <button onclick="nextUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">▶</button>
+                                                </div>
+                                            </div>
+                                            <div class="user-product-info1" style="padding: 15px; background-color: #fff; border-radius: 8px; margin-top: -10px;">
+                                                <h3 id="user-post-title1" style="margin: 0 0 10px; font-size: 18px; color: #6ba4e9; font-weight: bold;"> ${listLiked.listPostLiked().getTitle()}</h3>
+                                                <p id="user-post-description1" style="margin: 0; font-size: 14px; color: #666;">${listLiked.listPostLiked().getDescription()}</p>
+                                                <p><strong>Date:</strong> <span>${listLiked.listPostLiked().getCreateTime()}</span></p>
+                                                <p><strong>Type:</strong> <span id="user-post-type1">${listLiked.listPostLiked().getTypeName()}</span></p>
+                                                <p><strong>Quanlity:</strong> <span id="user-post-quanlity1">${listLiked.listPostLiked().getQuanlityName()}</span></p>
+                                                <p><strong>Instructions:</strong> <span id="user-post-instructions1">${listLiked.listPostLiked().getIntructions()}</span></p>
+                                                <p><strong>Owner:</strong> <a id="user-post-owner-link" href="otherprofile?id=${listLiked.listPostLiked().getUserID()}" onclick="viewUserProfile()">View profile ${listLiked.listPostLiked().getFullNameOwner()} </a></p>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+
+                                    <div class="user-navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                                        <button id="user-prev-button" onclick="prevUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Previous</button>
+                                        <button id="user-next-button" onclick="nextUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Next</button>
+                                    </div>
+                                </div>
                             </div>
+
+                            <script>
+                                function showImage(container, index) {
+                                    const images = container.querySelectorAll('.post-image');
+                                    images.forEach(img => img.style.opacity = '0');
+                                    if (images[index]) {
+                                        images[index].style.opacity = '1';
+                                    }
+                                }
+
+                                function prevUserImage(button) {
+                                    const container = button.closest('.user-product-card1');
+                                    const images = container.querySelectorAll('.post-image');
+                                    let currentIndex = Array.from(images).findIndex(img => img.style.opacity === '1');
+                                    let newIndex = (currentIndex - 1 + images.length) % images.length;
+                                    showImage(container, newIndex);
+                                }
+
+                                function nextUserImage(button) {
+                                    const container = button.closest('.user-product-card1');
+                                    const images = container.querySelectorAll('.post-image');
+                                    let currentIndex = Array.from(images).findIndex(img => img.style.opacity === '1');
+                                    let newIndex = (currentIndex + 1) % images.length;
+                                    showImage(container, newIndex);
+                                }
+
+// Hiển thị ảnh đầu tiên cho mỗi bài post khi trang được tải
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    document.querySelectorAll('.user-product-card1').forEach(container => {
+                                        showImage(container, 0);
+                                    });
+                                });
+                            </script>
+                            <script>
+                                let currentPostIndex = 0;
+                                const posts = document.querySelectorAll('.user-product-card1');
+
+                                function showPost(index) {
+                                    posts.forEach(post => post.style.display = 'none');
+                                    if (posts[index]) {
+                                        posts[index].style.display = 'block';
+                                        showImage(posts[index], 0);  // Hiển thị ảnh đầu tiên của bài post
+                                    }
+                                }
+
+                                function prevUserPost() {
+                                    currentPostIndex = (currentPostIndex - 1 + posts.length) % posts.length;
+                                    showPost(currentPostIndex);
+                                }
+
+                                function nextUserPost() {
+                                    currentPostIndex = (currentPostIndex + 1) % posts.length;
+                                    showPost(currentPostIndex);
+                                }
+
+                                function showImage(container, index) {
+                                    const images = container.querySelectorAll('.post-image');
+                                    images.forEach(img => img.style.opacity = '0');
+                                    if (images[index]) {
+                                        images[index].style.opacity = '1';
+                                    }
+                                }
+
+                                function prevUserImage(button) {
+                                    const container = button.closest('.user-product-card1');
+                                    const images = container.querySelectorAll('.post-image');
+                                    let currentIndex = Array.from(images).findIndex(img => img.style.opacity === '1');
+                                    let newIndex = (currentIndex - 1 + images.length) % images.length;
+                                    showImage(container, newIndex);
+                                }
+
+                                function nextUserImage(button) {
+                                    const container = button.closest('.user-product-card1');
+                                    const images = container.querySelectorAll('.post-image');
+                                    let currentIndex = Array.from(images).findIndex(img => img.style.opacity === '1');
+                                    let newIndex = (currentIndex + 1) % images.length;
+                                    showImage(container, newIndex);
+                                }
+
+// Hiển thị bài post đầu tiên khi trang được tải
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    showPost(currentPostIndex);
+                                });
+                            </script>
+
+
+
                             <style>
                                 #history-form {
                                     display: none;
                                 }
                             </style>
+
                             <div class="column is-8">
                                 <div id="profile-timeline-posts" class="box-heading">
                                     <h4>Posts</h4>
@@ -1306,14 +1732,13 @@
                     </div>
                 </div>
             </div>
-                                            
+
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     const posts = document.querySelectorAll(".post");
                     const loadMoreButton = document.querySelector(".load-more-button");
                     let currentIndex = 0;
                     const postsPerPage = 3;
-
                     function showPosts(startIndex, endIndex) {
                         for (let i = startIndex; i < endIndex && i < posts.length; i++) {
                             posts[i].style.display = "block";
@@ -1327,19 +1752,16 @@
                     function handleLoadMore() {
                         currentIndex += postsPerPage;
                         showPosts(currentIndex, currentIndex + postsPerPage);
-
                         if (currentIndex + postsPerPage >= posts.length) {
                             loadMoreButton.style.display = "none";
                         }
                     }
 
-            // Initially hide all posts
+                    // Initially hide all posts
                     hideAllPosts();
-
-            // Show initial posts
+                    // Show initial posts
                     showPosts(0, postsPerPage);
-
-            // Add event listener to Load More button
+                    // Add event listener to Load More button
                     loadMoreButton.addEventListener("click", function (e) {
                         e.preventDefault();
                         handleLoadMore();
