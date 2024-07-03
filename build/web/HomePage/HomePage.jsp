@@ -1750,7 +1750,7 @@
                                                 </div>
                                             </div>
                                             <div class="like-wrapper" style="position: absolute; right: 10px;">
-                                                <a  class="like-button">
+                                                <a class="like-button ${post.isLikedByUser(user.getUserID()) ? 'is-active' : ''}">
                                                     <i class="mdi mdi-heart not-liked bouncy"></i>
                                                     <i class="mdi mdi-heart is-liked bouncy"></i>
                                                     <span class="like-overlay"></span>

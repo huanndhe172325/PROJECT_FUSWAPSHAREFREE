@@ -268,4 +268,9 @@ public class Post {
         DAOManagePost dao = new DAOManagePost();
         return dao.getNumberLikeOfPost(PostID);
     }
+
+    public boolean isLikedByUser(int userId) {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.checkPostLikedByUser(PostID, userId);
+    }
 }
