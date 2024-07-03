@@ -519,13 +519,19 @@ function initShareModal() {
                 $("#share-modal-desire").html(desire),
                 $(".featured-image").html(postImageDiv),
                 $("#requestThis").attr("data-post-id", postId),
-                $("#requestThis").attr("data-post-id", postId)
+                $("#requestThis").attr("data-post-id", postId),
+                $("#swapThis").attr("data-post-id", postId),
+                $("#swapThis").attr("data-post-id", postId)
                 ;
 
         if (type === 'Exchange') {
             $('#share-modal-desire-block').css('display', 'block');
+            $('#requestThis').css('display', 'none');
+            $('#swapThis').css('display', 'block');
         } else {
             $('#share-modal-desire-block').css('display', 'none');
+            $('#requestThis').css('display', 'block');
+            $('#swapThis').css('display', 'none');
         }
 
     }

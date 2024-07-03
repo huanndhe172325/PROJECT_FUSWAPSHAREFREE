@@ -2750,6 +2750,9 @@
                             <button id="requestThis" style="width: 100%;" type="button" class="open-modal-request button is-solid primary-button">
                                 Request This
                             </button>
+                            <button id="swapThis" style="width: 100%;" type="button" class="open-modal-swap button is-solid primary-button">
+                                Swap This
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -4787,7 +4790,58 @@
             </div>
         </div>
     </div>
+    <div id="sent-swap-modal" class="modal share-modal is-xsmall has-light-bg" style="z-index: 1100;">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="close-wrap">
+                        <span class="close-modal" onclick="document.getElementById('sent-swap-form').reset();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="control">
+                        <form enctype="multipart/form-data" id="sent-swap-form" method="post">   
+                            <input type="text" name="idPostSwap" style="display: none;">
+                            <label for="imgPath">Image:</label>
+                            <input required type="file" id="imgPathSwap" name="imgPathSwap" accept="image/*" multiple>
+                            <span id="img-error-swap" class="error-message-swap" style="display: none; color: red;">Please input image!!!</span>
+                            <div class="post-image preview-img preview-swap" style="display: none;">
+                                <div class="style-img-post block-img-swap">
+                                </div>
+                                <div class="image-btn image-btn-swap-preview" style="display: none;">
+                                    <div class="btn-image-next btn-image" style="font-size: 26px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                        <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                        </svg>
+                                    </div>
+                                    <div class="btn-image-pre btn-image" style="font-size: 26px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                        <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div> 
+                            <label for="Title">Description: </label>
+                            <textarea id="descriptionSwap" required class="textarea comment-textarea" name="descriptionSwap" rows="5" placeholder="Message the message you want to send to the owner"></textarea>
+                            <span id="message-error-swap" class="error-message-swap" style="display: none; color: red;">Please input description!!!</span>
 
+                            <input type="submit" id="submit-swap" style="display : none;" value="Submit">
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="button-wrap" style="width: 98%;">
+                        <button type="button" id="swapButton" class="button is-solid primary-button" style="width: 100%;">
+                            Swap
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="sent-request-modal" class="modal share-modal is-xsmall has-light-bg" style="z-index: 1100;">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -4894,6 +4948,7 @@
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
     <script src="assets/js/createpost.js" ></script>
+    <script src="assets/js/swapPost.js" ></script>
 
     <script>
                             document.addEventListener('DOMContentLoaded', function () {
