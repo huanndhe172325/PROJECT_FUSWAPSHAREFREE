@@ -4838,8 +4838,8 @@
                 </div>
                 <div class="card-body">
                     <div class="control">
-                        <form enctype="multipart/form-data" id="sent-swap-form" method="post">   
-                            <input type="text" name="idPostSwap" style="display: none;">
+                        <form enctype="multipart/form-data" action="requestSwap" id="sent-swap-form" method="POST">   
+                            <input type="text" id="idPostSwap" name="idPostSwap" style="display: none;">
                             <label for="imgPath">Image:</label>
                             <input required type="file" id="imgPathSwap" name="imgPathSwap" accept="image/*" multiple>
                             <span id="img-error-swap" class="error-message-swap" style="display: none; color: red;">Please input image!!!</span>
@@ -5523,6 +5523,8 @@
         });
         });
     </script>
+    
+
 
 </body>
 

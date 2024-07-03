@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('swapButton').addEventListener('click', function () {
         if (validateFormSwap()) {
             console.log("submit");
-//            document.getElementById('submit-swap').click();
+            document.getElementById('submit-swap').click();
         }
     });
     const inputMessage = document.getElementById('descriptionSwap');
@@ -82,4 +82,71 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return true;
     }
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('sent-swap-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var formSwapppp = event.target;
+        var formDataSwappppp = new FormData(formSwapppp);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', formSwapppp.action, true);
+
+        xhr.onload = function () {
+            console.log('Response:', xhr.responseText);
+            if (xhr.responseText === "successfull") {
+                document.getElementById('sent-swap-modal').classList.remove('is-active');
+                document.getElementById('sent-swap-form').reset();
+                document.getElementById('sent-swap-form').querySelector('.post-image.preview-img.preview-swap').style.display = 'none';
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Request swap successfully",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#60c032",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            } else {
+                document.getElementById('sent-swap-modal').classList.remove('is-active');
+                document.getElementById('sent-swap-form').reset();
+                document.getElementById('sent-swap-form').querySelector('.post-image.preview-img.preview-swap').style.display = 'none';
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Request swap failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+
+        xhr.onerror = function () {
+            console.error('Request error...');
+        };
+
+        xhr.send(formDataSwappppp); // Gửi FormData
+    });
 });
