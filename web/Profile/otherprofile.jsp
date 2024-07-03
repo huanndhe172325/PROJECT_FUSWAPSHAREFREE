@@ -1466,7 +1466,49 @@
             </div>
         </div>
 
+        <div class="load-more-wrap has-text-centered">
+            <a href="#" class="load-more-button">Load More</a>
+        </div>
+                                            
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const posts = document.querySelectorAll(".post");
+                const loadMoreButton = document.querySelector(".load-more-button");
+                let currentIndex = 0;
+                const postsPerPage = 3;
 
+                function showPosts(startIndex, endIndex) {
+                    for (let i = startIndex; i < endIndex && i < posts.length; i++) {
+                        posts[i].style.display = "block";
+                    }
+                }
+
+                function hideAllPosts() {
+                    posts.forEach(post => post.style.display = "none");
+                }
+
+                function handleLoadMore() {
+                    currentIndex += postsPerPage;
+                    showPosts(currentIndex, currentIndex + postsPerPage);
+
+                    if (currentIndex + postsPerPage >= posts.length) {
+                        loadMoreButton.style.display = "none";
+                    }
+                }
+
+                // Initially hide all posts
+                hideAllPosts();
+
+                // Show initial posts
+                showPosts(0, postsPerPage);
+
+                // Add event listener to Load More button
+                loadMoreButton.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    handleLoadMore();
+                });
+            });
+        </script>
 
 
 
@@ -1504,9 +1546,7 @@
             </div>
         </div>
         <!-- Load more images -->
-        <div class="load-more-wrap has-text-centered">
-            <a href="#" class="load-more-button">Load More</a>
-        </div>
+
         <!-- /Load more images -->
 
         <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
