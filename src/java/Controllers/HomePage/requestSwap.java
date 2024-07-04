@@ -4,6 +4,8 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManagePost;
+import Model.HaveSwap;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -78,20 +80,22 @@ public class requestSwap extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        DAOManagePost dao = new DAOManagePost();
+
         String idPostSwap = request.getParameter("idPostSwap");
         String descriptionSwap = request.getParameter("descriptionSwap");
-        
+
         Collection<Part> parts = request.getParts();
         HttpSession session = request.getSession();
         User userInfor = (User) session.getAttribute("userInfo");
-        
+
         String uploadDirectory = getServletContext().getRealPath("/").substring(0, getServletContext().getRealPath("/").length() - 10) + "web\\FolderImages\\ImageSwap";
         StringBuilder linkDBBuilder = new StringBuilder();
         try {
-            int partIndex = 0; 
+            int partIndex = 0;
             for (Part part : parts) {
                 if (part.getName().equals("imgPath") && part.getSize() > 0) {
-                    String imgFileName = userInfor.getUserID()+"_" + idPostSwap + "_image_" + partIndex + ".jpg";
+                    String imgFileName = userInfor.getUserID() + "_" + idPostSwap + "_image_" + partIndex + ".jpg";
                     String imgFilePath = uploadDirectory + "\\" + imgFileName;
                     String linkDB = "FolderImages/ImageSwap/" + imgFileName;
 
@@ -101,18 +105,31 @@ public class requestSwap extends HttpServlet {
                         linkDBBuilder.append(",");
                     }
                     linkDBBuilder.append(linkDB);
+                    System.out.println(linkDB);
                     partIndex++;
                 }
             }
+            
+            System.out.println("linkDB: ");
+            System.out.println(linkDBBuilder.toString());
+            
+            HaveSwap newSwap = new HaveSwap();
+            newSwap.setDescription(descriptionSwap);
+            newSwap.setUserID(userInfor.getUserID());
+            newSwap.setStatus("pending");
+            newSwap.setImage(linkDBBuilder.toString());
+            newSwap.setPostID(Integer.parseInt(idPostSwap));
+            
+            Post ownPost = dao.getPostByIdPost(Integer.parseInt(idPostSwap));
+            if (dao.createRequestSwap(newSwap) && dao.createNotifycation("sent you a new request swap on", userInfor.getUserID(), Integer.parseInt(idPostSwap), ownPost.getUserID(), 1)) {
+                response.getWriter().write("successfull");
+            } else {
+                response.getWriter().write("failed");
+            }
 
-            
-            
-            
-            
         } catch (Exception e) {
             response.getWriter().write("Error: " + e.getMessage());
         }
-        response.getWriter().write(idPostSwap + "   " + descriptionSwap);
     }
 
     /**

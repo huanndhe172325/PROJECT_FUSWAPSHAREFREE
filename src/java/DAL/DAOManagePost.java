@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Model.HaveSwap;
 import Model.Notification;
 import Model.Post;
 import Model.Quanlity;
@@ -402,6 +403,34 @@ public class DAOManagePost extends DBContext {
             statement.setInt(3, postId);
             statement.setInt(4, userIdReceive);
             statement.setInt(5, status);
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public boolean createRequestSwap(HaveSwap newSwap) {
+        String sql = "INSERT INTO [dbo].[have_swap]\n"
+                + "           ([requestTime]\n"
+                + "           ,[Description]\n"
+                + "           ,[Status]\n"
+                + "           ,[Image]\n"
+                + "           ,[MyPostIdSwap]\n"
+                + "           ,[UserID]\n"
+                + "           ,[PostID])\n"
+                + "     VALUES\n"
+                + "           (GETDATE(),?,?,?,?,?,?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, newSwap.getDescription());
+            statement.setString(2, newSwap.getStatus());
+            statement.setString(3, newSwap.getImage());
+            statement.setString(4, null);
+            statement.setInt(5, newSwap.getUserID());
+            statement.setInt(6, newSwap.getPostID());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
