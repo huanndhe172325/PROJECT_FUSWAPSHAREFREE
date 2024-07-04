@@ -4584,7 +4584,7 @@
                         <h4>Feed</h4>
                     </a>
                     <!--item-->
-                    <a href="navbar-v1-profile-friends.html" class="explore-item">
+                    <a href="ListFriends" class="explore-item">
                         <img src="assets/img/icons/explore/friends.svg" alt="" />
                         <h4>Friends</h4>
                     </a>

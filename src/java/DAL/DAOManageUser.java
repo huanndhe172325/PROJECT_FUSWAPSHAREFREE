@@ -4,7 +4,9 @@
  */
 package DAL;
 
+import Controllers.HomePage.ListFriends;
 import Model.BlockList;
+import Model.Friends;
 import Model.FriendsRequest;
 import Model.Quanlity;
 import Model.ReportUser;
@@ -461,12 +463,35 @@ public class DAOManageUser extends DBContext {
         }
     }
 
+    public ArrayList<Friends> getListFriends(int userID) {
+        ArrayList<Friends> listFriends = new ArrayList<>();
+        String sql = "SELECT [FriendUserID] "
+                + "FROM [FUSWAPSHAREFREE].[dbo].[ListFriends] "
+                + "WHERE [UserID] = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, userID);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int friendUserId = rs.getInt("FriendUserID");
+
+                Friends friend = new Friends(userID, friendUserId);
+                listFriends.add(friend);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return listFriends;
+    }
+
     public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
         boolean userDAO1 = userDAO.ReportUser("alknf", 2, 65);
 //        List<BlockList> userB = userDAO.listBlockUser(1);
 //        System.out.println(userB);
-
+        System.out.println(userDAO.getListFriends(68));
         System.out.println();
 //   public static void main(String[] args) {
 //        DAOManageUser userDAO = new DAOManageUser();

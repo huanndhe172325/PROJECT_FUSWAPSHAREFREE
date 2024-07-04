@@ -902,6 +902,55 @@ public class DAOManagePost extends DBContext {
 
         return false;
     }
-    
+
+    public int getNumberPostOfFriends(int friendUserID) {
+        int numberOfPosts = 0;
+        String sql = "SELECT COUNT(*) AS NumberOfPosts "
+                + "FROM [FUSWAPSHAREFREE].[dbo].[Post] "
+                + "WHERE [UserID] = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, friendUserID);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    numberOfPosts = rs.getInt("NumberOfPosts");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return numberOfPosts;
+    }
+
+    public int getNumberFriends(int friendUserID) {
+        int numberOfFriends = 0;
+        String sql = "SELECT COUNT(*) AS NumberOfFriends\n"
+                + "FROM (\n"
+                + "    SELECT DISTINCT FriendUserID\n"
+                + "    FROM [FUSWAPSHAREFREE].[dbo].[ListFriends]\n"
+                + "    WHERE [UserID] = ?\n"
+                + "    UNION\n"
+                + "    SELECT DISTINCT UserID\n"
+                + "    FROM [FUSWAPSHAREFREE].[dbo].[ListFriends]\n"
+                + "    WHERE [FriendUserID] = ?\n"
+                + ") AS UniqueFriends";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, friendUserID);
+            statement.setInt(2, friendUserID);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    numberOfFriends = rs.getInt("NumberOfFriends");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return numberOfFriends;
+    }
 
 }
