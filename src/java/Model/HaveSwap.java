@@ -5,6 +5,8 @@
 package Model;
 
 import DAL.DAOManagePost;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -102,4 +104,19 @@ public class HaveSwap {
         return getUserOwner().getFull_Name();
     }
     
+    public String firstImage(){
+        String[] i = image.split(",");
+        return i[0];
+    }
+    public List<String> getListImg() {
+        if (image == null || image.isEmpty()) {
+            return List.of();
+        }
+        List<String> listImg = new ArrayList<>();
+        String[] allImg = image.split(",");
+        for (String img : allImg) {
+            listImg.add(img);
+        }
+        return listImg;
+    }
 }

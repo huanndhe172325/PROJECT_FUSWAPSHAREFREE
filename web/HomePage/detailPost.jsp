@@ -1451,28 +1451,47 @@
                                         <div class="card is-friend-card">
                                             <c:forEach var="req" items="${post.getListRequest()}">
                                                 <div class="friend-item">
-                                                    <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt="" style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
+                                                    <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt="" style="border-radius: 0%; width: auto;"   onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
                                                     <div class="text-content">
-                                                        <a>${req.getFullNameOwner()}</a>
+                                                        <a target="_blank">${req.getFullNameOwner()}</a>
                                                         <span>${req.message}</span>
-                                                    </div>
-                                                    <div class="star-friend">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                                                     </div>
                                                 </div>
                                             </c:forEach>
 
                                             <c:forEach var="swap" items="${post.getListRequestSwap()}">
-                                                <div class="friend-item">
-                                                    <img src="${swap.getAvatarOwner()}" data-demo-src="${swap.getAvatarOwner()}" alt="" style="cursor: pointer; border-radius: 0%; width: auto;"  data-user-popover="1">
+                                                <div class="friend-item modal-trigger open-response-swap-model">
+                                                    <img src="${swap.firstImage()}" data-demo-src="${swap.firstImage()}" alt="" style="border-radius: 0%; width: auto;"  data-user-popover="1">
                                                     <div class="text-content">
                                                         <a href="otherprofile?id=${swap.userID}" target="_blank">${swap.getFullNameOwner()}</a>
                                                         <span>${swap.description}</span>
                                                     </div>
-                                                    <div class="star-friend">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                                                    </div>
+
+                                                    <div class="post-image" style="display:none;">
+                                                        <div class="style-img-post">
+                                                            <c:forEach var="img" items="${swap.getListImg()}">
+                                                                <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                    <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                </a>
+                                                            </c:forEach>     
+                                                        </div>
+
+                                                        <c:if test="${fn:length(swap.listImg) >= 2}">
+                                                            <div class="image-btn">
+                                                                <div class="btn-image-next btn-image">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="btn-image-pre btn-image">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </c:if>
+                                                    </div>                                            
+
                                                 </div>
                                             </c:forEach>
                                         </div>
@@ -1603,791 +1622,7 @@
             </div>
             <!-- /Feed page main wrapper -->
         </div>
-        <!-- /Container -->
 
-        <!-- Create group modal in compose card -->
-        <!-- /partials/pages/feed/modals/create-group-modal.html -->
-        <div id="create-group-modal" class="modal create-group-modal is-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>Create group</h3>
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <!-- Modal subheading -->
-                    <div class="subheading">
-                        <!-- Group avatar -->
-                        <div class="group-avatar">
-                            <input id="group-avatar-upload" type="file" />
-                            <div class="add-photo">
-                                <i data-feather="plus"></i>
-                            </div>
-                        </div>
-                        <!-- Group name -->
-                        <div class="control">
-                            <input type="text" class="input" placeholder="Give the group a name" />
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="inner">
-                            <div class="left-section">
-                                <div class="search-subheader">
-                                    <div class="control">
-                                        <input type="text" class="input" placeholder="Search for friends to add" />
-                                        <span class="icon">
-                                            <i data-feather="search"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div id="new-group-list" class="user-list has-slimscroll">
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-1">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                                        <div class="friend-name">Dan Walker</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-1" />
-                                                <label for="checkbox-group-1"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-2">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                                        <div class="friend-name">Daniel Wellington</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-2" />
-                                                <label for="checkbox-group-2"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-3">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                                        <div class="friend-name">Stella Bergmann</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-3" />
-                                                <label for="checkbox-group-3"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-4">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                                        <div class="friend-name">David Kim</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-4" />
-                                                <label for="checkbox-group-4"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-5">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                                        <div class="friend-name">Nelly Schwartz</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-5" />
-                                                <label for="checkbox-group-5"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-6">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                        <div class="friend-name">Elise Walker</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-6" />
-                                                <label for="checkbox-group-6"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-7">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/bobby.jpg" alt="" />
-                                        <div class="friend-name">Bobby Brown</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-7" />
-                                                <label for="checkbox-group-7"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-8">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/lana.jpeg" alt="" />
-                                        <div class="friend-name">Lana Henrikssen</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-8" />
-                                                <label for="checkbox-group-8"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-9">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/gaelle.jpeg" alt="" />
-                                        <div class="friend-name">Gaelle Morris</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-9" />
-                                                <label for="checkbox-group-9"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-10">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/mike.jpg" alt="" />
-                                        <div class="friend-name">Mike Lasalle</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-10" />
-                                                <label for="checkbox-group-10"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right-section has-slimscroll">
-                                <div class="selected-count">
-                                    <span>Selected</span>
-                                    <span id="selected-friends-count">0</span>
-                                </div>
-
-                                <div id="selected-list" class="selected-list"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="button is-solid grey-button close-modal">
-                            Cancel
-                        </button>
-                        <button type="button" class="button is-solid accent-button close-modal">
-                            Create a Group
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Albums onboarding modal -->
-        <!-- /partials/pages/feed/modals/albums-help-modal.html -->
-        <div id="albums-help-modal" class="modal albums-help-modal is-xsmall has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>Add Photos</h3>
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="content-block is-active">
-                            <img src="assets/img/illustrations/cards/albums.svg" alt="" />
-                            <div class="help-text">
-                                <h3>Manage your photos</h3>
-                                <p>
-                                    Lorem ipsum sit dolor amet is a dummy text used by the typography
-                                    industry and the web industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content-block">
-                            <img src="assets/img/illustrations/cards/upload.svg" alt="" />
-                            <div class="help-text">
-                                <h3>Upload your photos</h3>
-                                <p>
-                                    Lorem ipsum sit dolor amet is a dummy text used by the typography
-                                    industry and the web industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="slide-dots">
-                            <div class="dot is-active"></div>
-                            <div class="dot"></div>
-                        </div>
-                        <div class="action">
-                            <button type="button" class="button is-solid accent-button next-modal raised" data-modal="albums-modal">
-                                Next
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Album upload modal -->
-        <!-- /partials/pages/feed/modals/albums-modal.html -->
-        <div id="albums-modal" class="modal albums-modal is-xxl has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>New album</h3>
-                        <div class="button is-solid accent-button fileinput-button">
-                            <i class="mdi mdi-plus"></i>
-                            Add pictures/videos
-                        </div>
-
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="left-section">
-                            <div class="album-form">
-                                <div class="control">
-                                    <input type="text" class="input is-sm no-radius is-fade" placeholder="Album name" />
-                                    <div class="icon">
-                                        <i data-feather="camera"></i>
-                                    </div>
-                                </div>
-                                <div class="control">
-                                    <textarea class="textarea is-fade no-radius is-sm" rows="3" placeholder="describe your album ..."></textarea>
-                                </div>
-                                <div class="control">
-                                    <input type="text" class="input is-sm no-radius is-fade" placeholder="Place" />
-                                    <div class="icon">
-                                        <i data-feather="map-pin"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="album-date" class="album-date">
-                                <div class="head">
-                                    <h4>Change the date</h4>
-                                    <button type="button" class="button is-solid dark-grey-button icon-button">
-                                        <i data-feather="plus"></i>
-                                    </button>
-                                </div>
-
-                                <p>Set a date for your album. You can always change it later.</p>
-                                <div class="control is-hidden">
-                                    <input id="album-datepicker" type="text" class="input is-sm is-fade" placeholder="Select a date" />
-                                    <div class="icon">
-                                        <i data-feather="calendar"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="tagged-in-album" class="tagged-in-album">
-                                <div class="head">
-                                    <h4>Tag friends in this album</h4>
-                                    <button type="button" class="button is-solid dark-grey-button icon-button">
-                                        <i data-feather="plus"></i>
-                                    </button>
-                                </div>
-
-                                <p>
-                                    Tag friends in this album. Tagged friends can see photos they are
-                                    tagged in.
-                                </p>
-                                <div class="field is-autocomplete is-hidden">
-                                    <div class="control">
-                                        <input id="create-album-friends-autocpl" type="text" class="input is-sm is-fade" placeholder="Search for friends" />
-                                        <div class="icon">
-                                            <i data-feather="search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="album-tag-list" class="album-tag-list"></div>
-                            </div>
-
-                            <div class="shared-album">
-                                <div class="head">
-                                    <h4>Allow friends to add photos</h4>
-                                    <div class="basic-checkbox">
-                                        <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1" />
-                                        <label for="styled-checkbox-1"></label>
-                                    </div>
-                                </div>
-
-                                <p>
-                                    Tagged friends will be able to share content inside this album.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="right-section has-slimscroll">
-                            <div class="modal-uploader">
-                                <div id="actions" class="columns is-multiline no-mb">
-                                    <div class="column is-12">
-                                        <span
-                                            class="button has-icon is-solid grey-button fileinput-button"
-                                            >
-                                            <i data-feather="plus"></i>
-                                        </span>
-                                        <button type="submit" class="button start is-hidden">
-                                            <span>Upload</span>
-                                        </button>
-                                        <button type="reset" class="button is-solid grey-button cancel">
-                                            <span>Clear all</span>
-                                        </button>
-                                        <span class="file-count">
-                                            <span id="modal-uploader-file-count">0</span> file(s) selected
-                                        </span>
-                                    </div>
-
-                                    <div class="column is-12 is-hidden">
-                                        <!-- The global file processing state -->
-                                        <div class="fileupload-process">
-                                            <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                                <div class="progress-bar progress-bar-success" style="width: 0%" data-dz-uploadprogress></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="columns is-multiline" id="previews">
-                                    <div id="template" class="column is-4 is-template">
-                                        <div class="preview-box">
-                                            <!-- This is used as the file preview template -->
-                                            <div class="remove-button" data-dz-remove>
-                                                <i class="mdi mdi-close"></i>
-                                            </div>
-                                            <div>
-                                                <span class="preview"
-                                                      ><img
-                                                        src="https://via.placeholder.com/120x120"
-                                                        data-dz-thumbnail
-                                                        alt=""
-                                                        /></span>
-                                            </div>
-                                            <div class="preview-body">
-                                                <div class="item-meta">
-                                                    <div>
-                                                        <p class="name" data-dz-name></p>
-                                                        <strong
-                                                            class="error text-danger"
-                                                            data-dz-errormessage
-                                                            ></strong>
-                                                    </div>
-                                                    <small class="size" data-dz-size></small>
-                                                </div>
-                                                <div class="upload-item-progress">
-                                                    <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                                        <div class="progress-bar progress-bar-success" data-dz-uploadprogress></div>
-                                                    </div>
-                                                </div>
-                                                <div class="upload-item-description">
-                                                    <div class="control">
-                                                        <textarea class="textarea is-small is-fade no-radius" rows="4" placeholder="Describe this photo ..."></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="upload-item-actions is-hidden">
-                                                    <button class="button start is-hidden">
-                                                        <span>Start</span>
-                                                    </button>
-                                                    <button data-dz-remove class="button cancel is-hidden">
-                                                        <span>Cancel</span>
-                                                    </button>
-                                                    <button data-dz-remove class="button delete is-hidden">
-                                                        <span>Delete</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <!-- Dropdown menu -->
-                        <div class="dropdown is-up is-spaced is-modern is-neutral is-right dropdown-trigger">
-                            <div>
-                                <button class="button" aria-haspopup="true">
-                                    <i class="main-icon" data-feather="smile"></i>
-                                    <span>Friends</span>
-                                    <i class="caret" data-feather="chevron-down"></i>
-                                </button>
-                            </div>
-                            <div class="dropdown-menu" role="menu">
-                                <div class="dropdown-content">
-                                    <a href="#" class="dropdown-item">
-                                        <div class="media">
-                                            <i data-feather="globe"></i>
-                                            <div class="media-content">
-                                                <h3>Public</h3>
-                                                <small>Anyone can see this publication.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item">
-                                        <div class="media">
-                                            <i data-feather="users"></i>
-                                            <div class="media-content">
-                                                <h3>Friends</h3>
-                                                <small>only friends can see this publication.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item">
-                                        <div class="media">
-                                            <i data-feather="user"></i>
-                                            <div class="media-content">
-                                                <h3>Specific friends</h3>
-                                                <small>Don't show it to some friends.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <hr class="dropdown-divider" />
-                                    <a class="dropdown-item">
-                                        <div class="media">
-                                            <i data-feather="lock"></i>
-                                            <div class="media-content">
-                                                <h3>Only me</h3>
-                                                <small>Only me can see this publication.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="button is-solid accent-button close-modal">
-                            Create album
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Live video onboarding modal -->
-        <!-- /partials/pages/feed/modals/videos-help-modal.html -->
-        <div id="videos-help-modal" class="modal videos-help-modal is-xsmall has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>Add Photos</h3>
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="content-block is-active">
-                            <img src="assets/img/illustrations/cards/videotrip.svg" alt="" />
-                            <div class="help-text">
-                                <h3>Share live videos</h3>
-                                <p>
-                                    Lorem ipsum sit dolor amet is a dummy text used by the typography
-                                    industry and the web industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content-block">
-                            <img src="assets/img/illustrations/cards/videocall.svg" alt="" />
-                            <div class="help-text">
-                                <h3>To build your audience</h3>
-                                <p>
-                                    Lorem ipsum sit dolor amet is a dummy text used by the typography
-                                    industry and the web industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="slide-dots">
-                            <div class="dot is-active"></div>
-                            <div class="dot"></div>
-                        </div>
-                        <div class="action">
-                            <button type="button" class="button is-solid accent-button next-modal raised" data-modal="videos-modal">
-                                Next
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Live video modal -->
-        <!-- /partials/pages/feed/modals/videos-modal.html -->
-        <div id="videos-modal" class="modal videos-modal is-xxl has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>Go live</h3>
-                        <div id="stop-stream" class="button is-solid accent-button is-hidden" onclick="stopWebcam();">
-                            <i class="mdi mdi-video-off"></i>
-                            Stop stream
-                        </div>
-                        <div id="start-stream" class="button is-solid accent-button" onclick="startWebcam();">
-                            <i class="mdi mdi-video"></i>
-                            Start stream
-                        </div>
-
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="inner">
-                            <div class="left-section">
-                                <div class="video-wrapper">
-                                    <div class="video-wrap">
-                                        <div id="live-indicator" class="live is-vhidden">Live</div>
-                                        <video id="video" width="400" height="240" controls autoplay></video>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right-section">
-                                <div class="header">
-                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                    <div class="user-meta">
-                                        <span>Jenna Davis <small>is live</small></span>
-                                        <span><small>right now</small></span>
-                                    </div>
-                                    <button type="button" class="button">Follow</button>
-                                    <div class="dropdown is-spaced is-right dropdown-trigger">
-                                        <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <div class="dropdown-item is-title">Who can see this ?</div>
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="globe"></i>
-                                                        <div class="media-content">
-                                                            <h3>Public</h3>
-                                                            <small>Anyone can see this publication.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="users"></i>
-                                                        <div class="media-content">
-                                                            <h3>Friends</h3>
-                                                            <small>only friends can see this publication.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="user"></i>
-                                                        <div class="media-content">
-                                                            <h3>Specific friends</h3>
-                                                            <small>Don't show it to some friends.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider" />
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="lock"></i>
-                                                        <div class="media-content">
-                                                            <h3>Only me</h3>
-                                                            <small>Only me can see this publication.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="inner-content">
-                                    <div class="control">
-                                        <input type="text" class="input is-sm is-fade" placeholder="What is this live about?" />
-                                        <div class="icon">
-                                            <i data-feather="activity"></i>
-                                        </div>
-                                    </div>
-                                    <div class="live-stats">
-                                        <div class="social-count">
-                                            <div class="likes-count">
-                                                <i data-feather="heart"></i>
-                                                <span>0</span>
-                                            </div>
-                                            <div class="shares-count">
-                                                <i data-feather="link-2"></i>
-                                                <span>0</span>
-                                            </div>
-                                            <div class="comments-count">
-                                                <i data-feather="message-circle"></i>
-                                                <span>0</span>
-                                            </div>
-                                        </div>
-                                        <div class="social-count ml-auto">
-                                            <div class="views-count">
-                                                <i data-feather="eye"></i>
-                                                <span>0</span>
-                                                <span class="views"><small>views</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="action">
-                                            <i data-feather="thumbs-up"></i>
-                                            <span>Like</span>
-                                        </div>
-                                        <div class="action">
-                                            <i data-feather="message-circle"></i>
-                                            <span>Comment</span>
-                                        </div>
-                                        <div class="action">
-                                            <i data-feather="link-2"></i>
-                                            <span>Share</span>
-                                        </div>
-                                        <div class="dropdown is-spaced is-right dropdown-trigger">
-                                            <div>
-                                                <div class="avatar-button">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                                    <i data-feather="triangle"></i>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-menu has-margin" role="menu">
-                                                <div class="dropdown-content">
-                                                    <a href="#" class="dropdown-item is-selected">
-                                                        <div class="media">
-                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                                            <div class="media-content">
-                                                                <h3>Jenna Davis</h3>
-                                                                <small>Interact as Jenna Davis.</small>
-                                                            </div>
-                                                            <div class="checkmark">
-                                                                <i data-feather="check"></i>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <hr class="dropdown-divider" />
-                                                    <a href="#" class="dropdown-item">
-                                                        <div class="media">
-                                                            <img src="https://via.placeholder.com/478x344" data-demo-src="assets/img/avatars/hanzo.svg" alt="" />
-                                                            <div class="media-content">
-                                                                <h3>Css Ninja</h3>
-                                                                <small>Interact as Css Ninja.</small>
-                                                            </div>
-                                                            <div class="checkmark">
-                                                                <i data-feather="check"></i>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tabs-wrapper">
-                                    <div class="tabs is-fullwidth">
-                                        <ul>
-                                            <li class="is-active">
-                                                <a>Comments</a>
-                                            </li>
-                                            <li>
-                                                <a>Upcoming</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-content has-slimscroll">
-                                        <div class="media is-comment">
-                                            <figure class="media-left">
-                                                <p class="image is-32x32">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" data-user-popover="1" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <div class="username">Dan Walker</div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Proin ornare magna eros.
-                                                </p>
-                                                <div class="comment-actions">
-                                                    <a href="javascript:void(0);" class="is-inverted">Like</a>
-                                                    <span>3h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="media is-comment">
-                                            <figure class="media-left">
-                                                <p class="image is-32x32">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" data-user-popover="4" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <div class="username">David Kim</div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-                                                <div class="comment-actions">
-                                                    <a href="javascript:void(0);" class="is-inverted">Like</a>
-                                                    <span>4h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="media is-comment">
-                                            <figure class="media-left">
-                                                <p class="image is-32x32">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/rolf.jpg" alt="" data-user-popover="17" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <div class="username">Rolf Krupp</div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Proin ornare magna eros. Consectetur adipiscing elit.
-                                                    Proin ornare magna eros.
-                                                </p>
-                                                <div class="comment-actions">
-                                                    <a href="javascript:void(0);" class="is-inverted">Like</a>
-                                                    <span>4h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="comment-controls">
-                                    <div class="controls-inner">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                        <div class="control">
-                                            <textarea class="textarea comment-textarea is-rounded" rows="1"></textarea>
-                                            <button class="emoji-button">
-                                                <i data-feather="smile"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Share from feed modal -->
-        <!-- /partials/pages/feed/modals/share-modal.html -->
         <div id="share-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
             <div class="modal-content" style="width: 800px;">
@@ -2455,7 +1690,56 @@
             </div>
         </div>
 
-
+        <div id="response-swap-modal" class="modal share-modal is-xsmall has-light-bg is-active">
+            <div class="modal-background"></div>
+            <div class="modal-content" style="width: 800px;">
+                <div class="card">
+                    <div class="card-heading">
+                        <!-- Close X button -->
+                        <div class="close-wrap">
+                            <span class="close-modal">
+                                <i data-feather="x"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shared-publication" style="margin-top: 0px;">
+                            <div class="publication-meta">
+                                <div class="inner-flex" style="align-items: center; margin-bottom: 10px;">
+                                    <div class="detail-post-header-left">
+                                        <img style="cursor: pointer;" id="share-modal-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
+                                    </div>
+                                    <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
+                                        <div class="detail-post-header-infor-owner">
+                                            <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;">-</h2>
+                                            <p style="padding-left: 0;" id="share-modal-date">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
+                                    <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
+                                        -
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="featured-image">
+                                <img id="share-modal-image" src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/1.jpg" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="width: 100%;">
+                        <div class="button-wrap" style="width: 100%;">
+                            <button id="requestThis" style="width: 31%;" type="button" class="button is-solid primary-button">
+                                Reject
+                            </button>
+                            <button id="requestThis" style="width: 67%;" type="button" class="button is-solid primary-button">
+                                Approve
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
@@ -2576,43 +1860,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- No Stream modal -->
-        <!-- /partials/pages/feed/modals/no-stream-modal.html -->
-        <div id="no-stream-modal" class="modal no-stream-modal is-xsmall has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3></h3>
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body has-text-centered">
-                        <div class="image-wrap">
-                            <img src="assets/img/illustrations/characters/no-stream.svg" alt="" />
-                        </div>
-
-                        <h3>Streaming Disabled</h3>
-                        <p>
-                            Streaming is not allowed from mobile web. Please use our mobile apps
-                            for mobile streaming.
-                        </p>
-
-                        <div class="action">
-                            <a href="HomePage" class="button is-solid accent-button raised is-fullwidth">Got It</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Google places Lib -->
-        <script src="https://maps.google.com/maps/api/js?key=AIzaSyAGLO_M5VT7BsVdjMjciKoH1fFJWWdhDPU&amp;libraries=places"></script>
 
     </div>
 
