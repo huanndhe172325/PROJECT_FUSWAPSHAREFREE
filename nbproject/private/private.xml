@@ -21,15 +21,6 @@
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
         </group>
         <group>
-            <file>file:/D:/SWP/src/java/DAL/DBContext.java</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/manageReportPost.java</file>
-            <file>file:/D:/SWP/web/Profile/profile.jsp</file>
-            <file>file:/D:/SWP/web/HomePage/manageReportPost.jsp</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/SideBarAdmin.java</file>
-            <file>file:/D:/SWP/web/HomePage/SideBarAdmin.jsp</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/DeletePostServlet.java</file>
-        </group>
-        <group>
             <file>file:/D:/SWP/src/java/Controllers/HomePage/manageReportPost.java</file>
             <file>file:/D:/SWP/web/Profile/profile.jsp</file>
             <file>file:/D:/SWP/web/HomePage/manageReportPost.jsp</file>
@@ -42,6 +33,17 @@
             <file>file:/D:/SWP/web/HomePage/SideBarAdmin.jsp</file>
             <file>file:/D:/SWP/src/java/DAL/DAOManagePost.java</file>
             <file>file:/D:/SWP/src/java/Controllers/HomePage/DeletePostServlet.java</file>
+        </group>
+        <group>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/assets/js/reloadJs.js</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManagePost.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/assets/js/swapPost.js</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/Profile/editPost.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/Profile/profile.jsp</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/assets/js/huanndhe172325.js</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/assets/js/global.js</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Model/Post.java</file>
         </group>
     </open-files>
 </project-private>

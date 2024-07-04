@@ -147,6 +147,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Request error...');
         };
 
-        xhr.send(formDataSwappppp); // Gửi FormData
+        xhr.send(formDataSwappppp); 
     });
 });

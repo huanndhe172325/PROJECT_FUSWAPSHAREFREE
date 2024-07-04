@@ -4,9 +4,11 @@
  */
 package DAL;
 
+import Model.HaveSwap;
 import Model.Notification;
 import Model.Post;
 import Model.Quanlity;
+import Model.Request;
 import Model.Type;
 import Model.User;
 import java.io.IOException;
@@ -411,6 +413,34 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean createRequestSwap(HaveSwap newSwap) {
+        String sql = "INSERT INTO [dbo].[have_swap]\n"
+                + "           ([requestTime]\n"
+                + "           ,[Description]\n"
+                + "           ,[Status]\n"
+                + "           ,[Image]\n"
+                + "           ,[MyPostIdSwap]\n"
+                + "           ,[UserID]\n"
+                + "           ,[PostID])\n"
+                + "     VALUES\n"
+                + "           (GETDATE(),?,?,?,?,?,?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, newSwap.getDescription());
+            statement.setString(2, newSwap.getStatus());
+            statement.setString(3, newSwap.getImage());
+            statement.setString(4, null);
+            statement.setInt(5, newSwap.getUserID());
+            statement.setInt(6, newSwap.getPostID());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
     public boolean checkRequested(int idUser, int postId) {
         String sql = "SELECT * FROM Request WHERE [UserID] = ? AND [PostID] = ?";
         try (PreparedStatement statement = connect.prepareStatement(sql)) {
@@ -456,6 +486,54 @@ public class DAOManagePost extends DBContext {
             System.out.println(e);
         }
         return listPost;
+    }
+
+    public ArrayList<Request> getListRequestByPostId(int postId) {
+        ArrayList<Request> listRequest = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Request] WHERE PostID = ? ORDER BY requestTIme DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Request req = new Request();
+                req.setRequestTime(rs.getString("requestTIme"));
+                req.setMessage(rs.getString("Message"));
+                req.setStatus(rs.getString("Status"));
+                req.setUserID(rs.getInt("UserID"));
+                req.setPostID(rs.getInt("PostID"));
+                listRequest.add(req);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listRequest;
+    }
+
+    public ArrayList<HaveSwap> getListRequesSwaptByPostId(int postId) {
+        ArrayList<HaveSwap> listRequestSwap = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [have_swap] WHERE PostID = ? ORDER BY requestTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                HaveSwap haSwp = new HaveSwap();
+                haSwp.setRequestTime(rs.getString("requestTime"));
+                haSwp.setDescription(rs.getString("Description"));
+                haSwp.setStatus(rs.getString("Status"));
+                haSwp.setImage(rs.getString("Image"));
+                haSwp.setMyPostIdSwap(rs.getInt("MyPostIdSwap"));
+                haSwp.setUserID(rs.getInt("UserID"));
+                haSwp.setPostID(rs.getInt("PostID"));
+                listRequestSwap.add(haSwp);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listRequestSwap;
     }
 
     public ArrayList<Post> getAllPostHistory(int idUser) {
