@@ -527,7 +527,7 @@ function initShareModal() {
 
 
         if (type === 'Exchange') {
-            $("#share-modal-desire-block").css('display', 'block');
+            $("#share-modal-desire-block").css('display', 'flex');
             $('#requestThis').css('display', 'none');
             $('#swapThis').css('display', 'block');
             $('#requested').css('display', 'none');
