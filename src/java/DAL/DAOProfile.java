@@ -4,6 +4,8 @@
  */
 package DAL;
 
+import Model.Like;
+import Model.Post;
 import Model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -62,14 +64,14 @@ public class DAOProfile extends DBContext {
         } catch (Exception e) {
         }
     }
-    
-     public void UpdateAvatarProfile(String avtUrl, int id) {
+
+    public void UpdateAvatarProfile(String avtUrl, int id) {
         String sql = "UPDATE [dbo].[User]\n"
                 + "   SET [AvatarUrl] = ?\n"
                 + " WHERE UserID = ?";
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
-           
+
             statement.setString(1, avtUrl);
             statement.setInt(2, id);
             ResultSet rs = statement.executeQuery();
@@ -93,11 +95,31 @@ public class DAOProfile extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        DAOProfile dao = new DAOProfile();
-         User n = dao.getUserbyId(2);
-         System.out.println(n.toString());   
+    public ArrayList<Like> getPostsByLike(int userId) {
+        ArrayList<Like> listLike = new ArrayList<>();
+        try {
+            String sql = "select * from [Like] \n"
+                    + "where UserID = ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Like like = new Like(rs.getInt("UserID"), rs.getInt("PostID"));
+                listLike.add(like);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listLike;
     }
 
-   
+    public static void main(String[] args) {
+        DAOProfile dao = new DAOProfile();
+         ArrayList<Like> listLike = dao.getPostsByLike(2);
+        for (Like like : listLike) {
+            System.out.println(like.toString());
+        }
+    }
+
 }
