@@ -1444,57 +1444,40 @@
                 <!-- Feed page main wrapper -->
                 <div id="activity-feed" class="view-wrap true-dom is-hidden">
                     <div class="columns">
-
-
-                        <!-- Add some CSS for the scrollable content -->
-                        <style>
-                            .scrollable-content {
-                                max-height: 400px; /* Set the maximum height for the scrollable content */
-                                overflow-y: auto;  /* Enable vertical scrolling */
-                            }
-                            .page-block {
-                                display: flex;
-                                align-items: center;
-                                justify-content: space-between;
-                                padding: 10px;
-                                border-bottom: 1px solid #ddd; /* Optional: add a bottom border for separation */
-                            }
-                            .page-block img {
-                                border-radius: 50%;
-                                width: 50px;
-                                height: 50px;
-                                object-fit: cover;
-                            }
-                            .page-meta {
-                                margin-left: 10px;
-                            }
-                            .add-page {
-                                cursor: pointer;
-                            }
-                        </style>
-
-                        <!-- /Left side column -->
-
-                        <!-- Middle column -->
                         <div class="column is-12">
                             <c:forEach var="post" items="${listPost}"> 
                                 <div class="columns">
-                                    <div class="friend-cards-list column is-3">
+                                    <div class="friend-cards-list column is-4">
                                         <div class="card is-friend-card">
-                                            <div class="friend-item">
-                                                <img src="assets/img/avatars/dan.jpg" data-demo-src="assets/img/avatars/dan.jpg" alt="" data-user-popover="1">
-                                                <div class="text-content">
-                                                    <a>Dan Walker</a>
-                                                    <span>4 mutual friend(s)</span>
+                                            <c:forEach var="req" items="${post.getListRequest()}">
+                                                <div class="friend-item">
+                                                    <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt="" style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
+                                                    <div class="text-content">
+                                                        <a>${req.getFullNameOwner()}</a>
+                                                        <span>${req.message}</span>
+                                                    </div>
+                                                    <div class="star-friend">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                                    </div>
                                                 </div>
-                                                <div class="star-friend">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                            </c:forEach>
+
+                                            <c:forEach var="swap" items="${post.getListRequestSwap()}">
+                                                <div class="friend-item">
+                                                    <img src="${swap.getAvatarOwner()}" data-demo-src="${swap.getAvatarOwner()}" alt="" style="cursor: pointer; border-radius: 0%; width: auto;"  data-user-popover="1">
+                                                    <div class="text-content">
+                                                        <a href="otherprofile?id=${swap.userID}" target="_blank">${swap.getFullNameOwner()}</a>
+                                                        <span>${swap.description}</span>
+                                                    </div>
+                                                    <div class="star-friend">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </c:forEach>
                                         </div>
                                     </div>
-                                    <!-- Post 1 -->
-                                    <div class="post-container column is-9" data-category="listPost">
+                                    <div class="post-container column is-8" data-category="listPost">
                                         <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
                                             <!-- Main wrap -->
                                             <div class="content-wrap">
@@ -1613,47 +1596,9 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </c:forEach> 
-
                         </div>
-                        <!-- /Middle column -->
-
-                        <!-- Right side column -->
-
-                        <!-- Add some CSS for the scrollable content -->
-                        <style>
-                            .scrollable-content {
-                                max-height: 400px; /* Set the maximum height for the scrollable content */
-                                overflow-y: auto;  /* Enable vertical scrolling */
-                                padding: 10px;
-                                border: 1px solid #ddd; /* Optional: add a border for better visibility */
-                            }
-                            .add-friend-block {
-                                display: flex;
-                                align-items: center;
-                                justify-content: space-between;
-                                padding: 10px;
-                                border-bottom: 1px solid #ddd; /* Optional: add a bottom border */
-                            }
-                            .add-friend-block img {
-                                border-radius: 50%;
-                                width: 50px;
-                                height: 50px;
-                                object-fit: cover;
-                            }
-                            .page-meta {
-                                margin-left: 10px;
-                            }
-                            .add-friend {
-                                cursor: pointer;
-                            }
-                        </style>
-
-
-                        <!-- New job widget -->
                     </div>
-                    <!-- /Right side column -->
                 </div>
             </div>
             <!-- /Feed page main wrapper -->

@@ -208,11 +208,11 @@ public class Post {
         if (dao.checkRequested(userId, PostID)) {
             return false;
         }
-        if(userId == UserID || StatusID != 1){
+        if (userId == UserID || StatusID != 1) {
             return false;
         }
         return true;
-        
+
     }
 
     public String getStatusName() {
@@ -239,6 +239,16 @@ public class Post {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Request> getListRequest() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getListRequestByPostId(PostID);
+    }
+
+    public ArrayList<HaveSwap> getListRequestSwap() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getListRequesSwaptByPostId(PostID);
     }
 
     public List<String> getListImg() {

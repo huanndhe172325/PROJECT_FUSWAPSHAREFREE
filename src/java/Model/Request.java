@@ -10,24 +10,20 @@ import DAL.DAOManagePost;
  *
  * @author FPT
  */
-public class HaveSwap {
+public class Request {
     private String requestTime;
-    private String description;
+    private String message;
     private String status;
-    private String image;
-    private int myPostIdSwap;
     private int userID;
     private int postID;
 
-    public HaveSwap() {
+    public Request() {
     }
 
-    public HaveSwap(String requestTime, String description, String status, String image, int myPostIdSwap, int userID, int postID) {
+    public Request(String requestTime, String message, String status, int userID, int postID) {
         this.requestTime = requestTime;
-        this.description = description;
+        this.message = message;
         this.status = status;
-        this.image = image;
-        this.myPostIdSwap = myPostIdSwap;
         this.userID = userID;
         this.postID = postID;
     }
@@ -40,12 +36,12 @@ public class HaveSwap {
         this.requestTime = requestTime;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMessage() {
+        return message;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getStatus() {
@@ -54,22 +50,6 @@ public class HaveSwap {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public int getMyPostIdSwap() {
-        return myPostIdSwap;
-    }
-
-    public void setMyPostIdSwap(int myPostIdSwap) {
-        this.myPostIdSwap = myPostIdSwap;
     }
 
     public int getUserID() {
@@ -101,5 +81,6 @@ public class HaveSwap {
     public String getFullNameOwner() {
         return getUserOwner().getFull_Name();
     }
+    
     
 }

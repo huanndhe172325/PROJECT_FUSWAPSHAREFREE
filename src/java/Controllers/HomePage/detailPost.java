@@ -71,6 +71,11 @@ public class detailPost extends HttpServlet {
             ArrayList<Post> listPost = new ArrayList<>();
             listPost.add(post);
             request.setAttribute("listPost", listPost);
+            
+            
+            
+            
+            
             request.getRequestDispatcher("HomePage/detailPost.jsp").forward(request, response);
         } catch (Exception e) {
             response.sendRedirect("HomePage");

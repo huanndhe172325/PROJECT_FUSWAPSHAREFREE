@@ -94,7 +94,7 @@ public class requestSwap extends HttpServlet {
         try {
             int partIndex = 0;
             for (Part part : parts) {
-                if (part.getName().equals("imgPath") && part.getSize() > 0) {
+                if (part.getName().equals("imgPathSwap") && part.getSize() > 0) {
                     String imgFileName = userInfor.getUserID() + "_" + idPostSwap + "_image_" + partIndex + ".jpg";
                     String imgFilePath = uploadDirectory + "\\" + imgFileName;
                     String linkDB = "FolderImages/ImageSwap/" + imgFileName;
@@ -105,13 +105,10 @@ public class requestSwap extends HttpServlet {
                         linkDBBuilder.append(",");
                     }
                     linkDBBuilder.append(linkDB);
-                    System.out.println(linkDB);
                     partIndex++;
                 }
             }
             
-            System.out.println("linkDB: ");
-            System.out.println(linkDBBuilder.toString());
             
             HaveSwap newSwap = new HaveSwap();
             newSwap.setDescription(descriptionSwap);
@@ -126,7 +123,6 @@ public class requestSwap extends HttpServlet {
             } else {
                 response.getWriter().write("failed");
             }
-
         } catch (Exception e) {
             response.getWriter().write("Error: " + e.getMessage());
         }
