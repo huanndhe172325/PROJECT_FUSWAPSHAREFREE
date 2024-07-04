@@ -1474,6 +1474,7 @@
                                     <div class="button-wrap">
                                         <button id="list-posts-btn" type="button" class="button is-active">List Posts</button>
                                         <button id="history-btn" type="button" class="button is-active">History</button>
+                                        <button id="view-list-friends" class="button is-active" onclick="window.location.href = 'ListFriends';">List Friends</button>
                                     </div>
                                 </div>
                                 <div id="list-posts-form">
