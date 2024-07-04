@@ -66,35 +66,35 @@
                 justify-content: center;
                 align-items: center;
                 width: 100%;
-                height: 60px; 
+                height: 60px;
             }
 
             .navbar-title {
-                font-size: 24px; 
-                font-weight: bold; 
-                color: #333; 
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
             }
             .navbar-button-container {
-                margin-top: auto; 
-                text-align: center; 
-                padding: 20px 0; 
+                margin-top: auto;
+                text-align: center;
+                padding: 20px 0;
             }
 
-            
+
             .home-button {
-                background-color: #4CAF50; 
-                color: white; 
+                background-color: #4CAF50;
+                color: white;
                 border: none;
                 padding: 10px 20px;
                 font-size: 16px;
                 cursor: pointer;
                 border-radius: 5px;
-                text-decoration: none; 
+                text-decoration: none;
                 transition: background-color 0.3s ease;
             }
 
             .home-button:hover {
-                background-color: #45a049; 
+                background-color: #45a049;
             }
         </style>
     </head>

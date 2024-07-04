@@ -870,12 +870,28 @@
                                                 <i class="active-icon" data-feather="bell-off"></i>
                                             </a>
                                         </div>
-                                        <div id="add-friend-pop" class="pop-button pop-shift is-center has-tooltip" data-placement="top" data-title="Add Friend">
-                                            <a href="#" class="inner" id="add-friend-button">
-                                                <i class="inactive-icon" data-feather="user-plus"></i>
-                                                <i class="active-icon" data-feather="user-check"></i>
-                                            </a>
-                                        </div>
+                                        <c:choose>
+                                            <c:when test="${isfriend}">
+
+                                                <div id="cancel-friend-pop" class="pop-button pop-shift is-center has-tooltip" data-placement="top" data-title="Cancel Friend">
+                                                    <a href="#" class="inner" id="cancel-friend-button">
+                                                        <i class="inactive-icon" data-feather="user-minus"></i>
+                                                        <i class="active-icon" data-feather="user-x"></i>
+                                                    </a>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+
+                                                <div id="add-friend-pop" class="pop-button pop-shift is-center has-tooltip" data-placement="top" data-title="Add Friend">
+                                                    <a href="#" class="inner" id="add-friend-button">
+                                                        <i class="inactive-icon" data-feather="user-plus"></i>
+                                                        <i class="active-icon" data-feather="user-check"></i>
+                                                    </a>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+
+
 
 
                                         <div class="pop-button is-right haschat-pop-tooltip chat-pop" data-placement="top" data-title="Report user" report_user_target_id="${profile.getUserID()}" data-modal="report-user-modal-container" class="modal share-modal is-xsmall has-light-bg">
@@ -1470,6 +1486,43 @@
                     </div>
                 </div>
             </div>
+            <!-- Hủy kết bạn Modal -->
+            <div id="cancel-friend-modal" class="modal share-modal is-xsmall has-light-bg">
+                <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-heading">
+                            <h2 style="margin-left: 88px; font-weight: bold">Hủy kết bạn với ${profile.getFull_Name()}?</h2>
+                            <div class="close-wrap">
+                                <span class="close-modal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="control">
+                                <p class="block-desc">Bạn có chắc muốn hủy kết bạn với ${profile.getFull_Name()}?</p>
+                            </div>
+                        </div>
+                        <div class="card-footer"> 
+                            <div class="button-wrap">
+                                <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px; background-color: #bfbfbf; border: none; color: #000;" id="close-cancel-modal-button">
+                                    Cancel
+                                </button>
+                            </div>
+                            <div class="close-modal">
+                                <button type="button" class="button is-solid primary-button" style="width: 95%; padding: 0 5px;" id="confirm-cancel-button">
+                                    Cancel Friend
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Report User -->
             <div id="report-user-modal-container" class="modal share-modal is-xsmall has-light-bg">
@@ -1528,7 +1581,7 @@
         <div class="load-more-wrap has-text-centered">
             <a href="#" class="load-more-button">Load More</a>
         </div>
-                                            
+
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const posts = document.querySelectorAll(".post");
@@ -1906,32 +1959,27 @@
         <!-- elements page js -->
         <script>
                                                 document.addEventListener('DOMContentLoaded', function () {
-
-                                                    function initializeAddFriendButtons() {
-                                                        document.querySelectorAll('#add-friend-pop').forEach(function (addFriendButton) {
-                                                            addFriendButton.addEventListener('click', function (e) {
+                                                    function initializeCancelFriendButtons() {
+                                                        document.querySelectorAll('#cancel-friend-pop').forEach(function (cancelFriendButton) {
+                                                            cancelFriendButton.addEventListener('click', function (e) {
                                                                 e.preventDefault();
-                                                                document.getElementById('add-friends-modal').classList.add('is-active');
+                                                                document.getElementById('cancel-friend-modal').classList.add('is-active');
                                                             });
                                                         });
                                                     }
 
+                                                    initializeCancelFriendButtons();
 
-                                                    initializeAddFriendButtons();
-                                                    document.querySelectorAll('.close-modal').forEach(function (closeButton) {
-                                                        closeButton.addEventListener('click', function () {
-                                                            document.getElementById('add-friends-modal').classList.remove('is-active');
+                                                    document.querySelectorAll('.close-modal').forEach(function (btn) {
+                                                        btn.addEventListener('click', function () {
+                                                            document.getElementById('cancel-friend-modal').classList.remove('is-active');
                                                         });
                                                     });
 
-
-                                                    document.getElementById('add-friends-form').addEventListener('submit', function (event) {
-                                                        event.preventDefault();
-
+                                                    document.getElementById('confirm-cancel-button').addEventListener('click', function () {
                                                         var userId = document.getElementById('user-id').value;
-
                                                         var xhr = new XMLHttpRequest();
-                                                        xhr.open('POST', '/FUSWAPSHAREFREE/RequestFriends', true);
+                                                        xhr.open('POST', '/FUSWAPSHAREFREE/CancelFriend', true);
                                                         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                                                         xhr.onreadystatechange = function () {
                                                             if (xhr.readyState === 4) {
@@ -1941,7 +1989,7 @@
                                                                         class: "success-toast",
                                                                         icon: "mdi mdi-check",
                                                                         title: "",
-                                                                        message: "Friend request sent successfully",
+                                                                        message: "Hủy kết bạn thành công",
                                                                         titleColor: "#fff",
                                                                         messageColor: "#fff",
                                                                         iconColor: "#fff",
@@ -1953,15 +2001,14 @@
                                                                         timeout: 1800,
                                                                         zindex: 99999
                                                                     });
-                                                                    document.getElementById('add-friends-modal').classList.remove('is-active');
-                                                                    document.getElementById('add-friends-form').reset();
+                                                                    document.getElementById('cancel-friend-modal').classList.remove('is-active');
                                                                 } else {
                                                                     iziToast.show({
                                                                         maxWidth: "280px",
                                                                         class: "error-toast",
                                                                         icon: "mdi mdi-close",
                                                                         title: "",
-                                                                        message: "Failed to send friend request",
+                                                                        message: "Hủy kết bạn không thành công",
                                                                         titleColor: "#fff",
                                                                         messageColor: "#fff",
                                                                         iconColor: "#fff",
@@ -1973,16 +2020,14 @@
                                                                         timeout: 1800,
                                                                         zindex: 99999
                                                                     });
-                                                                    document.getElementById('add-friends-modal').classList.remove('is-active');
-                                                                    document.getElementById('add-friends-form').reset();
                                                                 }
                                                             }
                                                         };
 
                                                         xhr.onerror = function () {
                                                             iziToast.error({
-                                                                title: 'Error',
-                                                                message: 'Failed to send request',
+                                                                title: 'Lỗi',
+                                                                message: 'Gửi yêu cầu thất bại',
                                                                 position: 'bottomRight'
                                                             });
                                                         };
@@ -1990,15 +2035,110 @@
                                                         var params = 'user_id=' + encodeURIComponent(userId);
                                                         xhr.send(params);
                                                     });
-                                                    document.getElementById('add-friend-submit-button').addEventListener('click', function () {
-                                                        this.disabled = true;
-                                                        document.getElementById('submit-add-friend').click();
+
+                                                    document.getElementById('close-cancel-modal-button').addEventListener('click', function () {
+                                                        document.getElementById('cancel-friend-modal').classList.remove('is-active');
                                                     });
                                                 });
+        </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+
+                function initializeAddFriendButtons() {
+                    document.querySelectorAll('#add-friend-pop').forEach(function (addFriendButton) {
+                        addFriendButton.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            document.getElementById('add-friends-modal').classList.add('is-active');
+                        });
+                    });
+                }
+
+
+                initializeAddFriendButtons();
+                document.querySelectorAll('.close-modal').forEach(function (closeButton) {
+                    closeButton.addEventListener('click', function () {
+                        document.getElementById('add-friends-modal').classList.remove('is-active');
+                    });
+                });
+
+
+                document.getElementById('add-friends-form').addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    var userId = document.getElementById('user-id').value;
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/FUSWAPSHAREFREE/RequestFriends', true);
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                iziToast.show({
+                                    maxWidth: "280px",
+                                    class: "success-toast",
+                                    icon: "mdi mdi-check",
+                                    title: "",
+                                    message: "Friend request sent successfully",
+                                    titleColor: "#fff",
+                                    messageColor: "#fff",
+                                    iconColor: "#fff",
+                                    backgroundColor: "#60c032",
+                                    progressBarColor: "#0062ff",
+                                    position: "bottomRight",
+                                    transitionIn: "fadeInUp",
+                                    close: false,
+                                    timeout: 1800,
+                                    zindex: 99999
+                                });
+                                document.getElementById('add-friends-modal').classList.remove('is-active');
+                                document.getElementById('add-friends-form').reset();
+                            } else {
+                                iziToast.show({
+                                    maxWidth: "280px",
+                                    class: "error-toast",
+                                    icon: "mdi mdi-close",
+                                    title: "",
+                                    message: "Failed to send friend request",
+                                    titleColor: "#fff",
+                                    messageColor: "#fff",
+                                    iconColor: "#fff",
+                                    backgroundColor: "#FF0000",
+                                    progressBarColor: "#0062ff",
+                                    position: "bottomRight",
+                                    transitionIn: "fadeInUp",
+                                    close: false,
+                                    timeout: 1800,
+                                    zindex: 99999
+                                });
+                                document.getElementById('add-friends-modal').classList.remove('is-active');
+                                document.getElementById('add-friends-form').reset();
+                            }
+                        }
+                    };
+
+                    xhr.onerror = function () {
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Failed to send request',
+                            position: 'bottomRight'
+                        });
+                    };
+
+                    var params = 'user_id=' + encodeURIComponent(userId);
+                    xhr.send(params);
+                });
+                document.getElementById('add-friend-submit-button').addEventListener('click', function () {
+                    this.disabled = true;
+                    document.getElementById('submit-add-friend').click();
+                });
+            });
 
 
 
         </script>
+
+
         <script>
             var form1 = document.getElementById('edit-profile');
             form1.addEventListener('submit', function (event) {

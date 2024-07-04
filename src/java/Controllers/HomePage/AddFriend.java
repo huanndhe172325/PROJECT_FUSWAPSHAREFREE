@@ -82,22 +82,20 @@ public class AddFriend extends HttpServlet {
                 int senderUserId = Integer.parseInt(request.getParameter("sender_user_id"));
                 int receiverUserId = Integer.parseInt(request.getParameter("receiver_user_id"));
 
-                boolean isUpdated = dmng.updateRequestStatus(requestId, status);
+                boolean isUpdated = dmng.deleteRejectedRequest(requestId);
 
                 if (isUpdated) {
-
                     boolean isInserted = dmng.insertIntoListFriends(senderUserId, receiverUserId);
 
                     if (isInserted) {
                         response.getWriter().write("Friend request accepted and added to ListFriends");
                     } else {
-
                         response.getWriter().write("Failed to add to ListFriends");
                     }
                 } else {
-
                     response.getWriter().write("Failed to update request status");
                 }
+
             } else if ("rejected".equals(status)) {
                 boolean isDelete = dmng.deleteRejectedRequest(requestId);
                 if (isDelete) {

@@ -5,6 +5,7 @@
 package Model;
 
 import DAL.DAOManagePost;
+import DAL.DAOManageUser;
 
 /**
  *
@@ -62,8 +63,6 @@ public class User {
     public void setUserID(int userID) {
         this.UserID = userID;
     }
-
-    
 
     public String getEmail() {
         return Email;
@@ -160,16 +159,15 @@ public class User {
     public void setStatusID(int StatusID) {
         this.StatusID = StatusID;
     }
-        public int getPostCount() {
-            DAOManagePost dao = new DAOManagePost();
+
+    public int getPostCount() {
+        DAOManagePost dao = new DAOManagePost();
         return dao.countPostsByUserId(UserID);
     }
+
     @Override
     public String toString() {
         return "User{" + "UserID=" + UserID + ", Email=" + Email + ", Phone=" + Phone + ", avatarUrl=" + avatarUrl + ", PassWord=" + PassWord + ", JoinDate=" + JoinDate + ", UserName=" + UserName + ", Full_Name=" + Full_Name + ", District=" + District + ", Commune=" + Commune + ", StreetNumber=" + StreetNumber + ", Point=" + Point + ", RoleID=" + RoleID + ", StatusID=" + StatusID + '}';
     }
 
-
-    
-    
 }

@@ -491,7 +491,7 @@ public class DAOManageUser extends DBContext {
         boolean userDAO1 = userDAO.ReportUser("alknf", 2, 65);
 //        List<BlockList> userB = userDAO.listBlockUser(1);
 //        System.out.println(userB);
-        System.out.println(userDAO.getListFriends(68));
+
         System.out.println();
 //   public static void main(String[] args) {
 //        DAOManageUser userDAO = new DAOManageUser();
@@ -585,6 +585,48 @@ public class DAOManageUser extends DBContext {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean checkisFriends(int userID, int friendID) {
+        String sql = "SELECT COUNT(*) AS count FROM ListFriends WHERE (UserID = ? AND FriendUserID = ?) OR (UserID = ? AND FriendUserID = ?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
+            statement.setInt(2, friendID);
+            statement.setInt(3, friendID);
+            statement.setInt(4, userID);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteFriends(int senderUserID, int receiverUserID) {
+        boolean success = false;
+
+        String sql = "DELETE FROM ListFriends WHERE (UserID = ? AND FriendUserID = ?) OR (UserID = ? AND FriendUserID = ?)";
+
+        try (
+                PreparedStatement stmt = connect.prepareStatement(sql)) {
+
+            stmt.setInt(1, senderUserID);
+            stmt.setInt(2, receiverUserID);
+            stmt.setInt(3, receiverUserID);
+            stmt.setInt(4, senderUserID);
+
+            int rowsAffected = stmt.executeUpdate();
+            success = (rowsAffected > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
     }
 
 }
