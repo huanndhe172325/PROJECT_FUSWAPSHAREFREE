@@ -5,13 +5,6 @@
 package Controllers.HomePage;
 
 import DAL.DAOManageUser;
-import DAL.DAOManagePost;
-import Model.FriendsRequest;
-import Model.Notification;
-import Model.Post;
-import Model.Quanlity;
-import Model.Type;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,16 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author FPT
+ * @author Binhtran
  */
-@WebServlet(name = "HomePage", urlPatterns = {"/HomePage"})
-public class HomePage extends HttpServlet {
+@WebServlet(name = "AddFriend", urlPatterns = {"/AddFriend"})
+public class AddFriend extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,11 +37,10 @@ public class HomePage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePage</title>");
+            out.println("<title>Servlet AddFriend</title>");
             out.println("</head>");
             out.println("<body>");
-
-            out.println("<h1>Servlet HomePage at " + "</h1>");
+            out.println("<h1>Servlet AddFriend at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,33 +58,7 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        DAOManageUser daoManagerUser = new DAOManageUser();
-        HttpSession session = request.getSession();
-        User userInfo_raw = (User) session.getAttribute("userInfo");
-        User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
-        String district = userInfor.getDistrict();
-        ArrayList<User> listUserDistrict = daoManagerUser.getUsersInSameDistrict(district);
-        ArrayList<User> listUserRanking = daoManagerUser.getListUserRanking();
-
-        DAOManagePost dao = new DAOManagePost();
-
-        ArrayList<Type> listType = dao.getAllType();
-        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
-        ArrayList<Post> listPost = dao.getAllPost(userInfo_raw.getUserID());
-        ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
-        ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), district);
-        ArrayList<FriendsRequest> listFriendsRq = daoManagerUser.getListFriendRequest(userInfo_raw.getUserID());
-        request.setAttribute("listNoti", listNoti);
-        request.setAttribute("listFriendsRq", listFriendsRq);
-        request.setAttribute("listUserDistrict", listUserDistrict);
-        request.setAttribute("listPoint", listUserRanking);
-        request.setAttribute("listQuanlity", listQuanlity);
-        request.setAttribute("listType", listType);
-        request.setAttribute("user", userInfor);
-        request.setAttribute("listPost", listPost);
-        request.setAttribute("listPostUserNearMe", listPostUserNearMe);
-        request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -109,7 +72,44 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            int requestId = Integer.parseInt(request.getParameter("request_id"));
+            String status = request.getParameter("status");
+
+            DAOManageUser dmng = new DAOManageUser();
+
+            if ("accepted".equals(status)) {
+                int senderUserId = Integer.parseInt(request.getParameter("sender_user_id"));
+                int receiverUserId = Integer.parseInt(request.getParameter("receiver_user_id"));
+
+                boolean isUpdated = dmng.updateRequestStatus(requestId, status);
+
+                if (isUpdated) {
+
+                    boolean isInserted = dmng.insertIntoListFriends(senderUserId, receiverUserId);
+
+                    if (isInserted) {
+                        response.getWriter().write("Friend request accepted and added to ListFriends");
+                    } else {
+
+                        response.getWriter().write("Failed to add to ListFriends");
+                    }
+                } else {
+
+                    response.getWriter().write("Failed to update request status");
+                }
+            } else if ("rejected".equals(status)) {
+                boolean isDelete = dmng.deleteRejectedRequest(requestId);
+                if (isDelete) {
+                    response.getWriter().write("Friend request rejected");
+                } else {
+                    response.getWriter().write("Failed to update request status");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("Error processing friend request");
+        }
     }
 
     /**

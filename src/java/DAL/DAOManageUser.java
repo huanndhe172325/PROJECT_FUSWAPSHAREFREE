@@ -5,6 +5,7 @@
 package DAL;
 
 import Model.BlockList;
+import Model.FriendsRequest;
 import Model.Quanlity;
 import Model.ReportUser;
 import Model.User;
@@ -446,6 +447,20 @@ public class DAOManageUser extends DBContext {
         return users;
     }
 
+    public boolean deleteRejectedRequest(int requestId) {
+        String sql = "DELETE FROM RequestFriends WHERE RequestID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, requestId);
+
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
         boolean userDAO1 = userDAO.ReportUser("alknf", 2, 65);
@@ -487,4 +502,64 @@ public class DAOManageUser extends DBContext {
 //            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
 //        }
 //    }
+
+    public ArrayList<FriendsRequest> getListFriendRequest(int userID) {
+        ArrayList<FriendsRequest> friendRequests = new ArrayList<>();
+        String sql = "SELECT [RequestID], [Status], [SenderUserID], [ReceiverUserID] FROM [RequestFriends] WHERE [ReceiverUserID] = ? AND [Status] = 'pending'";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int requestId = rs.getInt("RequestID");
+                String status = rs.getString("Status");
+                int senderUserId = rs.getInt("SenderUserID");
+                int receiverUserId = rs.getInt("ReceiverUserID");
+
+                FriendsRequest friendRequest = new FriendsRequest(requestId, status, senderUserId, receiverUserId);
+                friendRequests.add(friendRequest);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return friendRequests;
+    }
+
+    public boolean updateRequestStatus(int requestId, String status) {
+        String sql = "UPDATE RequestFriends SET Status = ? WHERE RequestID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, status);
+            statement.setInt(2, requestId);
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean insertIntoListFriends(int senderUserId, int receiverUserId) {
+        String sql1 = "INSERT INTO ListFriends (UserID, FriendUserID) VALUES (?, ?)";
+        String sql2 = "INSERT INTO ListFriends (UserID, FriendUserID) VALUES (?, ?)";
+        try {
+            PreparedStatement statement1 = connect.prepareStatement(sql1);
+            statement1.setInt(1, senderUserId);
+            statement1.setInt(2, receiverUserId);
+            int rowsInserted1 = statement1.executeUpdate();
+
+            PreparedStatement statement2 = connect.prepareStatement(sql2);
+            statement2.setInt(1, receiverUserId);
+            statement2.setInt(2, senderUserId);
+            int rowsInserted2 = statement2.executeUpdate();
+
+            return rowsInserted1 > 0 && rowsInserted2 > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

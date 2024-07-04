@@ -459,7 +459,7 @@
 
                         <div class="navbar-item is-icon drop-trigger">
                             <a class="icon-link is-friends" href="javascript:void(0);">
-                                <i data-feather="user-plus"></i>
+                                <i data-feather="user"></i>
                                 <span class="indicator"></span>
                             </a>
 
@@ -472,120 +472,29 @@
                                         </a>
                                     </div>
                                     <div class="nav-drop-body is-friend-requests">
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/bobby.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Bobby Brown</a>
-                                                <span>Najeel verwick is a common friend</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Dan Walker</a>
-                                                <span>You have 4 common friends</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Nelly Schwartz</a>. Check
-                                                    her <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
+                                        <c:forEach var="frirq" items="${listFriendsRq}">
+                                            <!-- Friend request -->
+                                            <div class="media">
+                                                <figure class="media-left">
+                                                    <p class="image" onclick="window.location.href = 'otherprofile?id=${frirq.senderUserId}'">
+                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="${frirq.getAvatarOwner()}" alt="" />
+                                                    </p>
+                                                </figure>
+                                                <div class="media-content">
+                                                    <a href="otherprofile?id=${frirq.senderUserId}">${frirq.getFullNameOwner()}</a>
+                                                    <span>đã gửi lời mời kết bạn cho bạn</span>
+                                                </div>
+                                                <div class="media-right">
+                                                    <button class="button icon-button is-solid grey-button raised accept-request"  data-request-id="${frirq.requestId}" data-sender-id="${frirq.senderUserId}" data-receiver-id="${frirq.receiverUserId}">
+                                                        <i data-feather="user-plus"></i>
+                                                    </button>
+                                                    <button class="button icon-button is-solid grey-button raised reject-request"  data-request-id="${frirq.requestId}" data-sender-id="${frirq.senderUserId}" 
+                                                            data-receiver-id="${frirq.receiverUserId}">
+                                                        <i data-feather="user-minus"></i>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Milly Augustine</a>
-                                                <span>You have 8 common friends</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Elise Walker</a>. Check her
-                                                    <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Edward Mayers</a>. Check his
-                                                    <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </c:forEach>                                    
                                     </div>
                                     <div class="nav-drop-footer">
                                         <a href="#">View All</a>
@@ -4984,40 +4893,91 @@
     <script src="assets/js/ReportPost.js" ></script>
     <script src="assets/js/createpost.js" ></script>
     <script src="assets/js/swapPost.js" ></script>
-
     <script>
                             document.addEventListener('DOMContentLoaded', function () {
-                            document.querySelectorAll('.like-button').forEach(button => {
+                            // Thêm sự kiện click cho các nút accept
+                            document.querySelectorAll('.accept-request').forEach(function (button) {
                             button.addEventListener('click', function () {
-                            const postElement = this.closest('.post');
-                            const postId = postElement.getAttribute('data-post-id');
-                            const userId = postElement.getAttribute('data-user-id');
-                            const isLiked = this.classList.contains('is-active');
-                            const likeCountElement = postElement.querySelector('.likes-count span');
-                            const params = 'postId=' + encodeURIComponent(postId) +
-                                    '&userId=' + encodeURIComponent(userId) +
-                                    '&action=' + encodeURIComponent(isLiked ? 'unlike' : 'like');
-                            const xhr = new XMLHttpRequest();
-                            xhr.open('POST', '/FUSWAPSHAREFREE/LikePost', true);
+                            var requestId = this.getAttribute('data-request-id');
+                            var senderUserId = this.getAttribute('data-sender-id');
+                            var receiverUserId = this.getAttribute('data-receiver-id');
+                            updateFriendRequestStatus(requestId, 'accepted', senderUserId, receiverUserId, this);
+                            });
+                            });
+                            // Thêm sự kiện click cho các nút reject
+                            document.querySelectorAll('.reject-request').forEach(function (button) {
+                            button.addEventListener('click', function () {
+                            var requestId = this.getAttribute('data-request-id');
+                            var senderUserId = this.getAttribute('data-sender-id');
+                            var receiverUserId = this.getAttribute('data-receiver-id');
+                            updateFriendRequestStatus(requestId, 'rejected', senderUserId, receiverUserId, this);
+                            });
+                            });
+                            function updateFriendRequestStatus(requestId, status, senderUserId, receiverUserId, button) {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '/FUSWAPSHAREFREE/AddFriend', true);
                             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                             xhr.onreadystatechange = function () {
-                            if (xhr.readyState === 4) {
-
-                            if (!isLiked) {
-                            button.classList.add('is-active');
-                            likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
-                            } else {
-                            button.classList.remove('is-active');
-                            likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                            iziToast.show({
+                            message: 'Friend request ' + status,
+                                    position: 'bottomRight'
+                            });
+                            var parentDiv = button.closest('.media');
+                            if (status === 'accepted') {
+                            parentDiv.querySelector('.media-content').innerHTML += '<span class="tag is-success">Accepted</span>';
+                            } else if (status === 'rejected') {
+                            parentDiv.querySelector('.media-content').innerHTML += '<span class="tag is-danger">Rejected</span>';
                             }
-                            } else {
-                            console.error('Request failed. Status:', xhr.status);
+
+                            parentDiv.querySelectorAll('.accept-request, .reject-request').forEach(function (btn) {
+                            btn.style.display = 'none';
+                            });
                             }
                             };
+                            var params = 'request_id=' + requestId + '&status=' + status;
+                            if (senderUserId && receiverUserId) {
+                            params += '&sender_user_id=' + senderUserId + '&receiver_user_id=' + receiverUserId;
+                            }
                             xhr.send(params);
+                            }
                             });
-                            });
-                            });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', function () {
+        const postElement = this.closest('.post');
+        const postId = postElement.getAttribute('data-post-id');
+        const userId = postElement.getAttribute('data-user-id');
+        const isLiked = this.classList.contains('is-active');
+        const likeCountElement = postElement.querySelector('.likes-count span');
+        const params = 'postId=' + encodeURIComponent(postId) +
+                '&userId=' + encodeURIComponent(userId) +
+                '&action=' + encodeURIComponent(isLiked ? 'unlike' : 'like');
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/FUSWAPSHAREFREE/LikePost', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+
+        if (!isLiked) {
+        button.classList.add('is-active');
+        likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+        } else {
+        button.classList.remove('is-active');
+        likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
+        }
+        } else {
+        console.error('Request failed. Status:', xhr.status);
+        }
+        };
+        xhr.send(params);
+        });
+        });
+        });
     </script>
 
 
