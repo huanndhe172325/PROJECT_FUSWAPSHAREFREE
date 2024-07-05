@@ -200,6 +200,54 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
+    public ArrayList<Post> getAllPostOfFriends(int userID) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * \n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
+                    + "WHERE p.StatusID = 1\n"
+                    + "AND p.UserID IN (\n"
+                    + "    SELECT [FriendUserID]\n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[ListFriends]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID NOT IN (\n"
+                    + "    SELECT BlockUserID\n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID != ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
+            statement.setInt(2, userID);
+            statement.setInt(3, userID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
     public ArrayList<Post> getPostNewest(int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {

@@ -162,7 +162,8 @@
             #btn-newest,
             #btn-exchange,
             #btn-free,
-            #btn-quality {
+            #btn-quality,
+            #btn-post-of-friends{
                 background-color: #007bff;
                 color: white;
                 border-color: #007bff;
@@ -173,7 +174,8 @@
             #btn-newest:hover,
             #btn-exchange:hover,
             #btn-free:hover,
-            #btn-quality:hover {
+            #btn-quality:hover,
+            #btn-post-of-friends:hover{
                 background-color: #0056b3;
                 border-color: #0056b3;
             }
@@ -1550,6 +1552,7 @@
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
                                     </div>
+                                    <a id="btn-post-of-friends" class="button" href="HomePageFriend">Post of friends</a>
                                 </div>
                             </div>
                             <!-- Post 1 -->
