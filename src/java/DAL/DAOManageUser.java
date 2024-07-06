@@ -133,6 +133,7 @@ public class DAOManageUser extends DBContext {
 
         return users;
     }
+
     public int countUsersByJoinDate(int year, int month) {
         int count = 0;
         try {
@@ -151,6 +152,7 @@ public class DAOManageUser extends DBContext {
         }
         return count;
     }
+
     public int getTotalRecords() {
         int totalRecords = 0;
         String sql = "SELECT COUNT(*) FROM [User]";
@@ -645,13 +647,20 @@ public class DAOManageUser extends DBContext {
 
         return success;
     }
-    
-    public ArrayList<User> getAllUsersToBlockList() {
+
+    public ArrayList<User> getAllUsersToBlockList(int UserID) {
         ArrayList<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM [User]";
+        String sql = "SELECT U.*\n"
+                + "FROM [User] U\n"
+                + "WHERE U.UserID NOT IN (\n"
+                + "    SELECT BlockUserID\n"
+                + "    FROM BlockList\n"
+                + "    WHERE UserID = ?\n"
+                + "	)";
 
         try {
             PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, UserID);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
