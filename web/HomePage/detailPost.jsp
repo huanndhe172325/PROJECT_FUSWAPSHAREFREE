@@ -1445,59 +1445,9 @@
                 <div id="activity-feed" class="view-wrap true-dom is-hidden">
                     <div class="columns">
                         <div class="column is-12">
-                            <c:forEach var="post" items="${listPost}"> 
-                                <div class="columns">
-                                    <div class="friend-cards-list column is-4">
-                                        <c:forEach var="req" items="${post.getListRequest()}">
-                                            <div class="card is-friend-card">
-                                                <div class="friend-item">
-                                                    <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt="" style="border-radius: 0%; width: auto;"   onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
-                                                    <div class="text-content">
-                                                        <a target="_blank">${req.getFullNameOwner()}</a>
-                                                        <span>${req.message}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-
-                                        <c:forEach var="swap" items="${post.getListRequestSwap()}">
-                                            <div class="card is-friend-card is-swap" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" data-swap-avatar="${swap.getAvatarOwner()}" data-swap-full-name="${swap.getFullNameOwner()}" data-swap-desc="${swap.description}">
-                                                <div class="friend-item modal-trigger open-response-swap-model">
-                                                    <img src="${swap.firstImage()}" data-demo-src="${swap.firstImage()}" alt="" style="border-radius: 0%; width: auto;"  data-user-popover="1">
-                                                    <div class="text-content">
-                                                        <a href="otherprofile?id=${swap.userID}" target="_blank">${swap.getFullNameOwner()}</a>
-                                                        <span>${swap.description}</span>
-                                                    </div>
-
-                                                    <div class="post-image is-hidden">
-                                                        <div class="style-img-post">
-                                                            <c:forEach var="img" items="${swap.getListImg()}">
-                                                                <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
-                                                                    <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
-                                                                </a>
-                                                            </c:forEach>     
-                                                        </div>
-
-                                                        <c:if test="${fn:length(swap.listImg) >= 2}">
-                                                            <div class="image-btn">
-                                                                <div class="btn-image-next btn-image">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="btn-image-pre btn-image">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </c:if>
-                                                    </div>                                            
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="post-container column is-8" data-category="listPost">
+                            <c:if test="${roleView == 1}">
+                                <c:forEach var="post" items="${listPost}"> 
+                                    <div class="post-container column is-12" data-category="listPost">
                                         <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
                                             <!-- Main wrap -->
                                             <div class="content-wrap">
@@ -1615,8 +1565,781 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </c:forEach> 
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${roleView == 2}">
+                                <c:forEach var="post" items="${listPost}"> 
+                                    <c:if test="${post.statusID == 1}">
+                                        <div class="columns">
+                                            <div class="friend-cards-list column is-4">
+                                                <c:forEach var="req" items="${post.getListRequest()}">
+                                                    <div class="card is-friend-card">
+                                                        <div class="friend-item">
+                                                            <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt="" onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
+                                                            <div class="text-content">
+                                                                <a target="_blank">${req.getFullNameOwner()}</a>
+                                                                <span>${req.message}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                </c:forEach>
+
+                                                <c:forEach var="swap" items="${post.getListRequestSwap()}">
+                                                    <div class="card is-friend-card is-swap" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" data-swap-avatar="${swap.getAvatarOwner()}" data-swap-full-name="${swap.getFullNameOwner()}" data-swap-desc="${swap.description}">
+                                                        <div class="friend-item modal-trigger open-response-swap-model">
+                                                            <img src="${swap.firstImage()}" data-demo-src="${swap.firstImage()}" alt="" style="border-radius: 0%; width: auto;"  data-user-popover="1">
+                                                            <div class="text-content">
+                                                                <a href="otherprofile?id=${swap.userID}" target="_blank">${swap.getFullNameOwner()}</a>
+                                                                <span>${swap.description}</span>
+                                                            </div>
+
+                                                            <div class="post-image is-hidden">
+                                                                <div class="style-img-post">
+                                                                    <c:forEach var="img" items="${swap.getListImg()}">
+                                                                        <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                        </a>
+                                                                    </c:forEach>     
+                                                                </div>
+
+                                                                <c:if test="${fn:length(swap.listImg) >= 2}">
+                                                                    <div class="image-btn">
+                                                                        <div class="btn-image-next btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="btn-image-pre btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                            </div>                                            
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                            </div>
+                                            <div class="post-container column is-8" data-category="listPost">
+                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                                    <!-- Main wrap -->
+                                                    <div class="content-wrap">
+                                                        <!-- Post header -->
+                                                        <div class="card-heading">
+                                                            <!-- User meta -->
+                                                            <div class="user-block" style="width: 100%;">
+                                                                <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
+                                                                </div>
+                                                                <div class="user-info" style="width: 100%;">
+                                                                    <a class="post-name-owner"  href="otherprofile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                                    <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                                    <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                                    <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                                    <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                                    <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                                    <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- Right side dropdown -->
+                                                            <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                            <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                                <div>
+                                                                    <div class="button">
+                                                                        <i data-feather="more-vertical"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="dropdown-menu" role="menu">
+                                                                    <div class="dropdown-content">
+                                                                        <a href="#" class="dropdown-item">
+                                                                            <div class="media">
+                                                                                <i data-feather="bookmark"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Bookmark</h3>
+                                                                                    <small>Add this post to your bookmarks.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                        <a class="dropdown-item">
+                                                                            <div class="media">
+                                                                                <i data-feather="bell"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Notify me</h3>
+                                                                                    <small>Send me the updates.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                        <hr class="dropdown-divider" />
+                                                                        <a class="dropdown-item flag-link" post-id="${post.postID}">
+                                                                            <div class="media">
+                                                                                <i data-feather="flag"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Flag</h3>
+                                                                                    <small>In case of inappropriate content.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="post-text">
+                                                                <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                                    ${post.title}
+                                                                </h3>
+                                                            </div>
+                                                            <div class="post-text">
+                                                                <p class="post-text-description">
+                                                                    ${post.description}
+                                                                </p>
+                                                            </div>
+
+                                                            <!-- Featured image -->
+                                                            <div class="post-image">
+                                                                <div class="style-img-post">
+                                                                    <c:forEach var="img" items="${post.getListImg()}">
+                                                                        <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                        </a>
+                                                                    </c:forEach>     
+                                                                </div>
+                                                                <c:if test="${fn:length(post.listImg) >= 2}">
+                                                                    <div class="image-btn">
+                                                                        <div class="btn-image-next btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="btn-image-pre btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="card-footer">
+                                                            <div class="social-count" style="margin-left: 0px;">
+                                                                <div class="likes-count">
+                                                                    <i data-feather="heart"></i>
+                                                                    <span>27</span>
+                                                                </div>
+                                                                <div class="shares-count">
+                                                                    <i data-feather="link-2"></i>
+                                                                    <span>9</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${post.statusID == 2}">
+                                        <div class="columns">
+
+                                            <div class="friend-cards-list column is-4">
+                                                <c:forEach var="req" items="${post.getListRequestApproved()}">
+                                                    <div class="card is-friend-card">
+                                                        <div class="friend-item">
+                                                            <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt=""  onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
+                                                            <div class="text-content">
+                                                                <a target="_blank">${req.getFullNameOwner()}</a>
+                                                                <span>${req.message}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+
+                                                <c:forEach var="swap" items="${post.getListRequestSwapApproved()}">
+                                                    <div class="card is-friend-card is-swap" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" data-swap-avatar="${swap.getAvatarOwner()}" data-swap-full-name="${swap.getFullNameOwner()}" data-swap-desc="${swap.description}">
+                                                        <div class="friend-item modal-trigger open-response-swap-model">
+                                                            <img src="${swap.firstImage()}" data-demo-src="${swap.firstImage()}" alt="" style="border-radius: 0%; width: auto;"  data-user-popover="1">
+                                                            <div class="text-content">
+                                                                <a href="otherprofile?id=${swap.userID}" target="_blank">${swap.getFullNameOwner()}</a>
+                                                                <span>${swap.description}</span>
+                                                            </div>
+
+                                                            <div class="post-image is-hidden">
+                                                                <div class="style-img-post">
+                                                                    <c:forEach var="img" items="${swap.getListImg()}">
+                                                                        <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                        </a>
+                                                                    </c:forEach>     
+                                                                </div>
+
+                                                                <c:if test="${fn:length(swap.listImg) >= 2}">
+                                                                    <div class="image-btn">
+                                                                        <div class="btn-image-next btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="btn-image-pre btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                            </div>                                            
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                                <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
+                                                    <div class="button-wrap">
+                                                        <button type="button" id="btn-all" class="button is-active" data-filter="all" onclick="filterPosts('all')">All</button>
+                                                        <button type="button" id="btn-newest" class="button" data-filter="newest" onclick="filterPosts('newest')">Newest</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="post-container column is-8" data-category="listPost">
+                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                                    <!-- Main wrap -->
+                                                    <div class="content-wrap">
+                                                        <!-- Post header -->
+                                                        <div class="card-heading">
+                                                            <!-- User meta -->
+                                                            <div class="user-block" style="width: 100%;">
+                                                                <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
+                                                                </div>
+                                                                <div class="user-info" style="width: 100%;">
+                                                                    <a class="post-name-owner"  href="otherprofile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                                    <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                                    <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                                    <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                                    <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                                    <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                                    <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- Right side dropdown -->
+                                                            <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                            <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                                <div>
+                                                                    <div class="button">
+                                                                        <i data-feather="more-vertical"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="dropdown-menu" role="menu">
+                                                                    <div class="dropdown-content">
+                                                                        <a href="#" class="dropdown-item">
+                                                                            <div class="media">
+                                                                                <i data-feather="bookmark"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Bookmark</h3>
+                                                                                    <small>Add this post to your bookmarks.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                        <a class="dropdown-item">
+                                                                            <div class="media">
+                                                                                <i data-feather="bell"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Notify me</h3>
+                                                                                    <small>Send me the updates.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                        <hr class="dropdown-divider" />
+                                                                        <a class="dropdown-item flag-link" post-id="${post.postID}">
+                                                                            <div class="media">
+                                                                                <i data-feather="flag"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Flag</h3>
+                                                                                    <small>In case of inappropriate content.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="post-text">
+                                                                <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                                    ${post.title}
+                                                                </h3>
+                                                            </div>
+                                                            <div class="post-text">
+                                                                <p class="post-text-description">
+                                                                    ${post.description}
+                                                                </p>
+                                                            </div>
+
+                                                            <!-- Featured image -->
+                                                            <div class="post-image">
+                                                                <div class="style-img-post">
+                                                                    <c:forEach var="img" items="${post.getListImg()}">
+                                                                        <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                        </a>
+                                                                    </c:forEach>     
+                                                                </div>
+                                                                <c:if test="${fn:length(post.listImg) >= 2}">
+                                                                    <div class="image-btn">
+                                                                        <div class="btn-image-next btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="btn-image-pre btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="card-footer">
+                                                            <div class="social-count" style="margin-left: 0px;">
+                                                                <div class="likes-count">
+                                                                    <i data-feather="heart"></i>
+                                                                    <span>27</span>
+                                                                </div>
+                                                                <div class="shares-count">
+                                                                    <i data-feather="link-2"></i>
+                                                                    <span>9</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${post.statusID == 3 || post.statusID == 4}">
+                                        <c:forEach var="post" items="${listPost}"> 
+                                            <div class="post-container column is-12" data-category="listPost">
+                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                                    <!-- Main wrap -->
+                                                    <div class="content-wrap">
+                                                        <!-- Post header -->
+                                                        <div class="card-heading">
+                                                            <!-- User meta -->
+                                                            <div class="user-block" style="width: 100%;">
+                                                                <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
+                                                                </div>
+                                                                <div class="user-info" style="width: 100%;">
+                                                                    <a class="post-name-owner"  href="otherprofile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                                    <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                                    <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                                    <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                                    <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                                    <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                                    <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- Right side dropdown -->
+                                                            <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                            <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                                <div>
+                                                                    <div class="button">
+                                                                        <i data-feather="more-vertical"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="dropdown-menu" role="menu">
+                                                                    <div class="dropdown-content">
+                                                                        <a href="#" class="dropdown-item">
+                                                                            <div class="media">
+                                                                                <i data-feather="bookmark"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Bookmark</h3>
+                                                                                    <small>Add this post to your bookmarks.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                        <a class="dropdown-item">
+                                                                            <div class="media">
+                                                                                <i data-feather="bell"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Notify me</h3>
+                                                                                    <small>Send me the updates.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                        <hr class="dropdown-divider" />
+                                                                        <a class="dropdown-item flag-link" post-id="${post.postID}">
+                                                                            <div class="media">
+                                                                                <i data-feather="flag"></i>
+                                                                                <div class="media-content">
+                                                                                    <h3>Flag</h3>
+                                                                                    <small>In case of inappropriate content.</small>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="post-text">
+                                                                <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                                    ${post.title}
+                                                                </h3>
+                                                            </div>
+                                                            <div class="post-text">
+                                                                <p class="post-text-description">
+                                                                    ${post.description}
+                                                                </p>
+                                                            </div>
+
+                                                            <!-- Featured image -->
+                                                            <div class="post-image">
+                                                                <div class="style-img-post">
+                                                                    <c:forEach var="img" items="${post.getListImg()}">
+                                                                        <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                            <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                        </a>
+                                                                    </c:forEach>     
+                                                                </div>
+                                                                <c:if test="${fn:length(post.listImg) >= 2}">
+                                                                    <div class="image-btn">
+                                                                        <div class="btn-image-next btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="btn-image-pre btn-image">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                            </svg>
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="card-footer">
+                                                            <div class="social-count" style="margin-left: 0px;">
+                                                                <div class="likes-count">
+                                                                    <i data-feather="heart"></i>
+                                                                    <span>27</span>
+                                                                </div>
+                                                                <div class="shares-count">
+                                                                    <i data-feather="link-2"></i>
+                                                                    <span>9</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </c:if>
+                                </c:forEach> 
+                            </c:if>
+                            <c:if test="${roleView == 3}">
+                                <c:forEach var="post" items="${listPost}"> 
+                                    <div class="columns">
+                                        <div class="friend-cards-list column is-4">
+                                            <c:forEach var="req" items="${post.getListRequestApproved()}">
+                                                <div class="card is-friend-card">
+                                                    <div class="friend-item">
+                                                        <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt="" style="border-radius: 0%; width: auto;"   onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
+                                                        <div class="text-content">
+                                                            <a target="_blank">${req.getFullNameOwner()}</a>
+                                                            <span>${req.message}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+
+                                            <c:forEach var="swap" items="${post.getListRequestSwapApproved()}">
+                                                <div class="card is-friend-card is-swap" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" data-swap-avatar="${swap.getAvatarOwner()}" data-swap-full-name="${swap.getFullNameOwner()}" data-swap-desc="${swap.description}">
+                                                    <div class="friend-item modal-trigger open-response-swap-model">
+                                                        <img src="${swap.firstImage()}" data-demo-src="${swap.firstImage()}" alt="" style="border-radius: 0%; width: auto;"  data-user-popover="1">
+                                                        <div class="text-content">
+                                                            <a href="otherprofile?id=${swap.userID}" target="_blank">${swap.getFullNameOwner()}</a>
+                                                            <span>${swap.description}</span>
+                                                        </div>
+
+                                                        <div class="post-image is-hidden">
+                                                            <div class="style-img-post">
+                                                                <c:forEach var="img" items="${swap.getListImg()}">
+                                                                    <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                    </a>
+                                                                </c:forEach>     
+                                                            </div>
+
+                                                            <c:if test="${fn:length(swap.listImg) >= 2}">
+                                                                <div class="image-btn">
+                                                                    <div class="btn-image-next btn-image">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                        <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="btn-image-pre btn-image">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                        <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </c:if>
+                                                        </div>                                            
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="post-container column is-8" data-category="listPost">
+                                            <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                                <!-- Main wrap -->
+                                                <div class="content-wrap">
+                                                    <!-- Post header -->
+                                                    <div class="card-heading">
+                                                        <!-- User meta -->
+                                                        <div class="user-block" style="width: 100%;">
+                                                            <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                                <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
+                                                            </div>
+                                                            <div class="user-info" style="width: 100%;">
+                                                                <a class="post-name-owner"  href="otherprofile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                                <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                                <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                                <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                                <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                                <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                                <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- Right side dropdown -->
+                                                        <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                        <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                            <div>
+                                                                <div class="button">
+                                                                    <i data-feather="more-vertical"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="dropdown-menu" role="menu">
+                                                                <div class="dropdown-content">
+                                                                    <a href="#" class="dropdown-item">
+                                                                        <div class="media">
+                                                                            <i data-feather="bookmark"></i>
+                                                                            <div class="media-content">
+                                                                                <h3>Bookmark</h3>
+                                                                                <small>Add this post to your bookmarks.</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a class="dropdown-item">
+                                                                        <div class="media">
+                                                                            <i data-feather="bell"></i>
+                                                                            <div class="media-content">
+                                                                                <h3>Notify me</h3>
+                                                                                <small>Send me the updates.</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                    <hr class="dropdown-divider" />
+                                                                    <a class="dropdown-item flag-link" post-id="${post.postID}">
+                                                                        <div class="media">
+                                                                            <i data-feather="flag"></i>
+                                                                            <div class="media-content">
+                                                                                <h3>Flag</h3>
+                                                                                <small>In case of inappropriate content.</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="post-text">
+                                                            <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                                ${post.title}
+                                                            </h3>
+                                                        </div>
+                                                        <div class="post-text">
+                                                            <p class="post-text-description">
+                                                                ${post.description}
+                                                            </p>
+                                                        </div>
+
+                                                        <!-- Featured image -->
+                                                        <div class="post-image">
+                                                            <div class="style-img-post">
+                                                                <c:forEach var="img" items="${post.getListImg()}">
+                                                                    <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                        <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                    </a>
+                                                                </c:forEach>     
+                                                            </div>
+                                                            <c:if test="${fn:length(post.listImg) >= 2}">
+                                                                <div class="image-btn">
+                                                                    <div class="btn-image-next btn-image">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                        <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="btn-image-pre btn-image">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                        <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </c:if>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="card-footer">
+                                                        <div class="social-count" style="margin-left: 0px;">
+                                                            <div class="likes-count">
+                                                                <i data-feather="heart"></i>
+                                                                <span>27</span>
+                                                            </div>
+                                                            <div class="shares-count">
+                                                                <i data-feather="link-2"></i>
+                                                                <span>9</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${roleView == 4}">
+                                <c:forEach var="post" items="${listPost}"> 
+                                    <div class="post-container column is-12" data-category="listPost">
+                                        <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                            <!-- Main wrap -->
+                                            <div class="content-wrap">
+                                                <!-- Post header -->
+                                                <div class="card-heading">
+                                                    <!-- User meta -->
+                                                    <div class="user-block" style="width: 100%;">
+                                                        <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
+                                                        </div>
+                                                        <div class="user-info" style="width: 100%;">
+                                                            <a class="post-name-owner"  href="otherprofile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                            <span class="time" style="display: inline-block">${post.createTime}</span>
+                                                            <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
+                                                            <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
+                                                            <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
+                                                            <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
+                                                            <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- Right side dropdown -->
+                                                    <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
+                                                    <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
+                                                        <div>
+                                                            <div class="button">
+                                                                <i data-feather="more-vertical"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="dropdown-menu" role="menu">
+                                                            <div class="dropdown-content">
+                                                                <a href="#" class="dropdown-item">
+                                                                    <div class="media">
+                                                                        <i data-feather="bookmark"></i>
+                                                                        <div class="media-content">
+                                                                            <h3>Bookmark</h3>
+                                                                            <small>Add this post to your bookmarks.</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <a class="dropdown-item">
+                                                                    <div class="media">
+                                                                        <i data-feather="bell"></i>
+                                                                        <div class="media-content">
+                                                                            <h3>Notify me</h3>
+                                                                            <small>Send me the updates.</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                                <hr class="dropdown-divider" />
+                                                                <a class="dropdown-item flag-link" post-id="${post.postID}">
+                                                                    <div class="media">
+                                                                        <i data-feather="flag"></i>
+                                                                        <div class="media-content">
+                                                                            <h3>Flag</h3>
+                                                                            <small>In case of inappropriate content.</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="post-text">
+                                                        <h3 style="font-weight: 500; color: #6ba4e9; margin-bottom: 10px;">
+                                                            ${post.title}
+                                                        </h3>
+                                                    </div>
+                                                    <div class="post-text">
+                                                        <p class="post-text-description">
+                                                            ${post.description}
+                                                        </p>
+                                                    </div>
+
+                                                    <!-- Featured image -->
+                                                    <div class="post-image">
+                                                        <div class="style-img-post">
+                                                            <c:forEach var="img" items="${post.getListImg()}">
+                                                                <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
+                                                                    <img class="element-img-post" src="https://via.placeholder.com/1600x900" data-demo-src="${img}" alt="" />
+                                                                </a>
+                                                            </c:forEach>     
+                                                        </div>
+                                                        <c:if test="${fn:length(post.listImg) >= 2}">
+                                                            <div class="image-btn">
+                                                                <div class="btn-image-next btn-image">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                                                    </svg>
+                                                                </div>
+                                                                <div class="btn-image-pre btn-image">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                    <path stroke-width="1.5" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </c:if>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-footer">
+                                                    <div class="social-count" style="margin-left: 0px;">
+                                                        <div class="likes-count">
+                                                            <i data-feather="heart"></i>
+                                                            <span>27</span>
+                                                        </div>
+                                                        <div class="shares-count">
+                                                            <i data-feather="link-2"></i>
+                                                            <span>9</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -1727,16 +2450,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer" style="width: 100%;">
-                        <div class="button-wrap" style="width: 100%;">
-                            <button id="rejectThis" style="width: 31%;" type="button" class="close-modal button is-solid primary-button">
-                                Reject
-                            </button>
-                            <button id="approveThis" style="width: 67%;" type="button" class="open-modal-approve-swap button is-solid primary-button">
-                                Approve
-                            </button>
+                    <c:if test="${roleView != 3}">
+                        <div class="card-footer" style="width: 100%;">
+                            <div class="button-wrap" style="width: 100%;">
+                                <button id="rejectThis" style="width: 31%;" type="button" class="close-modal button is-solid primary-button">
+                                    Reject
+                                </button>
+                                <button id="approveThis" style="width: 67%;" type="button" class="open-modal-approve-swap button is-solid primary-button">
+                                    Approve
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
                 </div>
             </div>
         </div>

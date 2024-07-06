@@ -149,18 +149,106 @@ function initOpenModalApproveSwap() {
     approveSwapButton.addEventListener('click', () => {
         console.log(currentPostIdSwap);
         console.log(currentUserIdSwap);
-
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'approveSwap', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if (xhr.responseText == 1) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Approve swap successfully",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#60c032",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Approve swap failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
     });
     rejectSwapButton.addEventListener('click', () => {
         const postId = rejectSwapButton.getAttribute('data-swap-postid');
         const userId = rejectSwapButton.getAttribute('data-swap-usersent');
         currentUserIdSwap = userId;
         currentPostIdSwap = postId;
-        
-        
-        
-        console.log(currentPostIdSwap);
-        console.log(currentUserIdSwap);
+
+
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'rejectSwap', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if (xhr.responseText == 1) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Reject swap successfully",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#60c032",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+                var element = document.querySelector(`.card.is-swap[data-swap-usersent="${currentUserIdSwap}"][data-swap-postid="${currentPostIdSwap}"]`);
+                element.remove();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Reject swap failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
 
     });
 

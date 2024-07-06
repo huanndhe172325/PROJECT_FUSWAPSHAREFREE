@@ -13,6 +13,7 @@ import java.util.List;
  * @author FPT
  */
 public class HaveSwap {
+
     private String requestTime;
     private String description;
     private String status;
@@ -89,25 +90,31 @@ public class HaveSwap {
     public void setPostID(int postID) {
         this.postID = postID;
     }
-    
+
     public User getUserOwner() {
         DAOManagePost dao = new DAOManagePost();
         User user = dao.getUserIdByUserId(userID);
         return user;
     }
-    
+
     public String getAvatarOwner() {
         return getUserOwner().getAvatarUrl();
+    }
+
+    public boolean avaiableViewSwap(int userId) {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.checkAvaiableViewRequest(userId, postID);
     }
 
     public String getFullNameOwner() {
         return getUserOwner().getFull_Name();
     }
-    
-    public String firstImage(){
+
+    public String firstImage() {
         String[] i = image.split(",");
         return i[0];
     }
+
     public List<String> getListImg() {
         if (image == null || image.isEmpty()) {
             return List.of();

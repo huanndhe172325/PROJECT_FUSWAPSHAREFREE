@@ -413,6 +413,51 @@ public class DAOManagePost extends DBContext {
         return statusID;
     }
 
+    public boolean approveRequestSwap(int userId, int postId) {
+        String sql = "UPDATE [dbo].[have_swap]\n"
+                + "   SET [Status] = N'approved'\n"
+                + " WHERE UserID = ? and PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean rejectRequestSwap(int userId, int postId) {
+        String sql = "UPDATE [dbo].[have_swap]\n"
+                + "   SET [Status] = N'reject'\n"
+                + " WHERE UserID = ? and PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean updateStatusPost(int postId, int statusId) {
+        String sql = "UPDATE [dbo].[Post]\n"
+                + "   SET [StatusID] = ?\n"
+                + " WHERE PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, statusId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     public boolean requestPost(String message, int userIdSent, int postId) {
         String sql = "INSERT INTO [dbo].[Request]\n"
                 + "           ([requestTIme]\n"
@@ -503,6 +548,18 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean checkAvaiableViewRequest(int idUser, int postId) {
+        String sql = "SELECT * FROM have_swap WHERE [UserID] = ? AND [PostID] = ?";
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, idUser);
+            statement.setInt(2, postId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
@@ -539,7 +596,29 @@ public class DAOManagePost extends DBContext {
     public ArrayList<Request> getListRequestByPostId(int postId) {
         ArrayList<Request> listRequest = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM [Request] WHERE PostID = ? ORDER BY requestTIme DESC";
+            String sql = "SELECT * FROM [Request] WHERE PostID = ? and [Status] = N'pending' ORDER BY requestTIme DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Request req = new Request();
+                req.setRequestTime(rs.getString("requestTIme"));
+                req.setMessage(rs.getString("Message"));
+                req.setStatus(rs.getString("Status"));
+                req.setUserID(rs.getInt("UserID"));
+                req.setPostID(rs.getInt("PostID"));
+                listRequest.add(req);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listRequest;
+    }
+    public ArrayList<Request> getListRequestApprovedByPostId(int postId) {
+        ArrayList<Request> listRequest = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Request] WHERE PostID = ? and [Status] = N'approved' ORDER BY requestTIme DESC";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, postId);
             ResultSet rs = statement.executeQuery();
@@ -562,7 +641,31 @@ public class DAOManagePost extends DBContext {
     public ArrayList<HaveSwap> getListRequesSwaptByPostId(int postId) {
         ArrayList<HaveSwap> listRequestSwap = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM [have_swap] WHERE PostID = ? ORDER BY requestTime DESC";
+            String sql = "SELECT * FROM [have_swap] WHERE PostID = ? and [Status] = N'pending' ORDER BY requestTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                HaveSwap haSwp = new HaveSwap();
+                haSwp.setRequestTime(rs.getString("requestTime"));
+                haSwp.setDescription(rs.getString("Description"));
+                haSwp.setStatus(rs.getString("Status"));
+                haSwp.setImage(rs.getString("Image"));
+                haSwp.setMyPostIdSwap(rs.getInt("MyPostIdSwap"));
+                haSwp.setUserID(rs.getInt("UserID"));
+                haSwp.setPostID(rs.getInt("PostID"));
+                listRequestSwap.add(haSwp);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listRequestSwap;
+    }
+    public ArrayList<HaveSwap> getListRequesApproveSwaptByPostId(int postId) {
+        ArrayList<HaveSwap> listRequestSwap = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [have_swap] WHERE PostID = ? and [Status] = N'approved' ORDER BY requestTime DESC";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, postId);
             ResultSet rs = statement.executeQuery();
@@ -959,11 +1062,6 @@ public class DAOManagePost extends DBContext {
         return numberOfLikes;
     }
 
-    public static void main(String[] args) {
-        DAOManagePost dao = new DAOManagePost();
-        System.out.println(dao.getNumberLikeOfPost(50));
-    }
-
     public String calulateDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         LocalDateTime pastDateTime = LocalDateTime.parse("2024-06-25 00:55:13.430", formatter);
@@ -1079,4 +1177,8 @@ public class DAOManagePost extends DBContext {
         return numberOfFriends;
     }
 
+    public static void main(String[] args) {
+        DAOManagePost dao = new DAOManagePost();
+        System.out.println(dao.approveRequestSwap(9, 122));
+    }
 }
