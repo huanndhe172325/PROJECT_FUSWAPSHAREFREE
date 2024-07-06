@@ -254,6 +254,115 @@ function initOpenModalApproveSwap() {
 
 }
 
+function initCancelTransaction() {
+    const openCancelTransaction = document.querySelectorAll('.open-modal-cancel-transaction');
+    const modalCancelTransaction = document.getElementById('cancel-transaction-modal');
+    const yesCancelButton = document.getElementById('yesCancelButton');
+    let currentPostIdSwap = null;
+    let currentUserIdSwap = null;
+
+    openCancelTransaction.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            const postId = openModalArchive.getAttribute('data-swap-postid');
+            const userId = openModalArchive.getAttribute('data-swap-usersent');
+            currentUserIdSwap = userId;
+            currentPostIdSwap = postId;
+            modalCancelTransaction.setAttribute('data-swap-postid', postId);
+            modalCancelTransaction.setAttribute('data-swap-usersent', userId);
+            modalCancelTransaction.classList.add('is-active');
+        });
+    });
+
+    yesCancelButton.addEventListener('click', () => {
+        console.log(currentPostIdSwap);
+        console.log(currentUserIdSwap);
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'cancelTransaction', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if(xhr.responseText == 1){
+                location.reload();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Cancel transaction failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
+    });
+}
+
+function initCompelteTransaction() {
+    const openCancelTransaction = document.querySelectorAll('.open-modal-complete-transaction');
+    const modalCancelTransaction = document.getElementById('complete-transaction-modal');
+    const yesCompleteButton = document.getElementById('yesCompleteButton');
+    let currentPostIdSwap = null;
+    let currentUserIdSwap = null;
+
+    openCancelTransaction.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            const postId = openModalArchive.getAttribute('data-swap-postid');
+            const userId = openModalArchive.getAttribute('data-swap-usersent');
+            currentUserIdSwap = userId;
+            currentPostIdSwap = postId;
+            modalCancelTransaction.setAttribute('data-swap-postid', postId);
+            modalCancelTransaction.setAttribute('data-swap-usersent', userId);
+            modalCancelTransaction.classList.add('is-active');
+        });
+    });
+
+    yesCompleteButton.addEventListener('click', () => {
+        console.log(currentPostIdSwap);
+        console.log(currentUserIdSwap);
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'completeTransaction', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if(xhr.responseText == 1){
+                location.reload();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Complete transaction failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
+    });
+}
+
+
 function initReuqest() {
     const openModalRequest = document.querySelectorAll('.open-modal-request');
     const modalRequest = document.getElementById('sent-request-modal');

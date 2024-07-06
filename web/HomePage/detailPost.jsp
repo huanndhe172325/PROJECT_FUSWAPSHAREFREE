@@ -1793,12 +1793,14 @@
                                                         </div>
                                                     </div>
                                                 </c:forEach>
-                                                <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
-                                                    <div class="button-wrap">
-                                                        <button type="button" id="btn-all" class="button is-active" data-filter="all" onclick="filterPosts('all')">All</button>
-                                                        <button type="button" id="btn-newest" class="button" data-filter="newest" onclick="filterPosts('newest')">Newest</button>
+                                                <c:forEach var="swap" items="${post.getListRequestSwapApproved()}">
+                                                    <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
+                                                        <div class="button-wrap"  style="width: 100%;">
+                                                            <button type="button" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" style="width: 49%;" class="button open-modal-cancel-transaction" >Cancel transaction</button>
+                                                            <button type="button" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" style="width: 49%; background-color: #007bff; color: white;" class="button open-modal-complete-transaction" >Completed transaction</button>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </c:forEach>
                                             </div>
                                             <div class="post-container column is-8" data-category="listPost">
                                                 <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
@@ -2868,9 +2870,71 @@
         </div>
     </div>
 
+    <div id="cancel-transaction-modal" class="modal albums-help-modal is-xsmall has-light-bg">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-heading">
+                    <h3>Cancel transaction</h3>
+                    <!-- Close X button -->
+                    <div class="close-wrap">
+                        <span class="close-modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="content-archive-post" style="margin: 20px 5px;">
+                        <div class="help-text">
+                            <h3>Do you want to cancel this transaction ?</h3>
+                        </div>
+                    </div>
 
+                    <div class="action" style="text-align: right;">
+                        <button type="button" class="button is-solid accent-button next-modal raised close-modal" style="background-color: white; color: #5596e6; border: none;">
+                            No
+                        </button>
+                        <button id="yesCancelButton" type="button" class="button is-solid accent-button next-modal raised close-modal">
+                            Yes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="complete-transaction-modal" class="modal albums-help-modal is-xsmall has-light-bg">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-heading">
+                    <h3>Complete transaction</h3>
+                    <!-- Close X button -->
+                    <div class="close-wrap">
+                        <span class="close-modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="content-archive-post" style="margin: 20px 5px;">
+                        <div class="help-text">
+                            <h3>Do you want to complete this transaction  ?</h3>
+                        </div>
+                    </div>
 
+                    <div class="action" style="text-align: right;">
+                        <button type="button" class="button is-solid accent-button next-modal raised close-modal" style="background-color: white; color: #5596e6; border: none;">
+                            No
+                        </button>
+                        <button id="yesCompleteButton" type="button" class="button is-solid accent-button next-modal raised close-modal">
+                            Yes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Concatenated js plugins and jQuery -->
     <script src="assets/js/app.js"></script>
