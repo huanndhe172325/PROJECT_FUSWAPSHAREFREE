@@ -250,6 +250,16 @@ public class Post {
         DAOManagePost dao = new DAOManagePost();
         return dao.getListRequesSwaptByPostId(PostID);
     }
+    
+    public ArrayList<Request> getListRequestApproved() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getListRequestApprovedByPostId(PostID);
+    }
+
+    public ArrayList<HaveSwap> getListRequestSwapApproved() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getListRequesApproveSwaptByPostId(PostID);
+    }
 
     public List<String> getListImg() {
         if (ImageUrl == null || ImageUrl.isEmpty()) {

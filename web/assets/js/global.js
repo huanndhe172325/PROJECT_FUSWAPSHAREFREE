@@ -556,26 +556,25 @@ function initShareModal() {
 function initResponseSwapModal() {
     $(".modal-trigger.open-response-swap-model").on("click", (function () {
         var t = $(this)
-                , o = t.closest(".is-post").find(".post-image img").attr("src")
-                , i = t.closest(".is-post").find(".user-block .image img").attr("src")
-                , time = t.closest(".is-post").find(".user-info .time").html()
-                , intrusction = t.closest(".is-post").find(".user-info .intrucstion-post").html()
-                , postImageDiv = t.closest(".is-post").find(".post-image").clone()
-                , postId = t.closest(".is-post").attr("data-post-id")
-                , avaiableRequest = t.closest(".is-post").attr("data-avaiable-request");
-
-        void 0 !== o ? $("#share-modal-image").attr("src", o).removeClass("is-hidden") : $("#share-modal-image").addClass("is-hidden"),
-                $("#share-modal-avatar").attr("src", i),
-                $("#share-modal-avatar").attr("data-demo-src", i),
-                $("#share-modal-name").html(name),
-                $("#share-modal-intruc").html(intrusction),
-                $("#share-modal-date").html(time),
+                , avatar = t.closest(".is-swap").attr("data-swap-avatar")
+                , fullName = t.closest(".is-swap").attr("data-swap-full-name")
+                , desc = t.closest(".is-swap").attr("data-swap-desc")
+                , postImageDiv = t.closest(".is-swap").find(".post-image").clone()
+                , postId = t.closest(".is-swap").attr("data-swap-postId")
+                , userId = t.closest(".is-swap").attr("data-swap-userSent");
+                
+        void 0 !== avatar ? $("#swap-modal-image").attr("src", avatar).removeClass("is-hidden") : $("#swap-modal-image").addClass("is-hidden"),
+                $("#response-swap-modal-avatar").attr("src", avatar),
+                $("#response-swap-modal-avatar").attr("data-demo-src", avatar),
+                $("#response-swap-modal-name").html(fullName),
+                $("#response-swap-modal-text").html(desc),
                 $(".featured-image").html(postImageDiv),
-                $("#requestThis").attr("data-post-id", postId),
-                $("#requestThis").attr("data-post-id", postId),
-                $("#swapThis").attr("data-post-id", postId),
-                $("#swapThis").attr("data-post-id", postId)
+                $("#rejectThis").attr("data-swap-postId", postId),
+                $("#rejectThis").attr("data-swap-userSent", userId),
+                $("#approveThis").attr("data-swap-postId", postId),
+                $("#approveThis").attr("data-swap-userSent", userId)
                 ;
+                $("#featured-image-response-swap").find(".post-image").removeClass("is-hidden");
     }
     ))
 }

@@ -39,3 +39,13 @@ function ajaxSwapPost() {
 document.addEventListener("DOMContentLoaded", function () {
     ajaxSwapPost();
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const openModalResponseSwap = document.querySelectorAll('.open-response-swap-model');
+    const modalResponseSwap = document.getElementById('response-swap-modal');
+    openModalResponseSwap.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            modalResponseSwap.classList.add('is-active');
+        });
+    });
+});

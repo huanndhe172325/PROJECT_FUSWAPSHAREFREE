@@ -6,7 +6,6 @@ package Controllers.HomePage;
 
 import DAL.DAOManagePost;
 import Model.Post;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 
 /**
  *
  * @author FPT
  */
-@WebServlet(name = "detailPost", urlPatterns = {"/detailPost"})
-public class detailPost extends HttpServlet {
+@WebServlet(name = "rejectSwap", urlPatterns = {"/rejectSwap"})
+public class rejectSwap extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +38,10 @@ public class detailPost extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet detailPost</title>");
+            out.println("<title>Servlet rejectSwap</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet detailPost at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet rejectSwap at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,38 +59,7 @@ public class detailPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idPost = request.getParameter("idpost");
-
-        if (idPost == null) {
-            response.sendRedirect("HomePage");
-        }
-        DAOManagePost dao = new DAOManagePost();
-        try {
-            Post post = dao.getPostByIdPost(Integer.parseInt(idPost));
-            ArrayList<Post> listPost = new ArrayList<>();
-            listPost.add(post);
-            request.setAttribute("listPost", listPost);
-
-            HttpSession session = request.getSession();
-            User userInfo_raw = (User) session.getAttribute("userInfo");
-
-            //guest
-            if (userInfo_raw == null) {
-                request.setAttribute("roleView", 1);
-            } //own post
-            else if (post.getUserID() == userInfo_raw.getUserID()) {
-                request.setAttribute("roleView", 2);
-            }//user requested 
-            else if (dao.checkAvaiableViewRequest(userInfo_raw.getUserID(), post.getPostID())) {
-                request.setAttribute("roleView", 3);
-            } else {
-                request.setAttribute("roleView", 4);
-            }
-
-            request.getRequestDispatcher("HomePage/detailPost.jsp").forward(request, response);
-        } catch (Exception e) {
-            response.sendRedirect("HomePage");
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -107,7 +73,23 @@ public class detailPost extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String idPost_raw = request.getParameter("idPost");
+        String userIdSentRequest_raw = request.getParameter("userIdSentRequest");
+        DAOManagePost dao = new DAOManagePost();
+
+        try {
+            int idPost = Integer.parseInt(idPost_raw);
+            int userSent = Integer.parseInt(userIdSentRequest_raw);
+            Post post = dao.getPostByIdPost(idPost);
+            if (post.getStatusID() == 1 && dao.rejectRequestSwap(userSent, idPost)) {
+                response.getWriter().println(1);
+            } else {
+                response.getWriter().println(2);
+            }
+
+        } catch (Exception e) {
+            response.getWriter().println(2);
+        }
     }
 
     /**

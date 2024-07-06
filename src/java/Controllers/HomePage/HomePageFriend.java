@@ -5,7 +5,12 @@
 package Controllers.HomePage;
 
 import DAL.DAOManagePost;
+import DAL.DAOManageUser;
+import Model.FriendsRequest;
+import Model.Notification;
 import Model.Post;
+import Model.Quanlity;
+import Model.Type;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,10 +24,10 @@ import java.util.ArrayList;
 
 /**
  *
- * @author FPT
+ * @author Binhtran
  */
-@WebServlet(name = "detailPost", urlPatterns = {"/detailPost"})
-public class detailPost extends HttpServlet {
+@WebServlet(name = "HomePageFriend", urlPatterns = {"/HomePageFriend"})
+public class HomePageFriend extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +46,10 @@ public class detailPost extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet detailPost</title>");
+            out.println("<title>Servlet HomePageFriend</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet detailPost at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HomePageFriend at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,38 +67,32 @@ public class detailPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idPost = request.getParameter("idpost");
+        DAOManageUser daoManagerUser = new DAOManageUser();
+        HttpSession session = request.getSession();
+        User userInfo_raw = (User) session.getAttribute("userInfo");
+        User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
+        String district = userInfor.getDistrict();
+        ArrayList<User> listUserDistrict = daoManagerUser.getUsersInSameDistrict(district);
+        ArrayList<User> listUserRanking = daoManagerUser.getListUserRanking();
 
-        if (idPost == null) {
-            response.sendRedirect("HomePage");
-        }
         DAOManagePost dao = new DAOManagePost();
-        try {
-            Post post = dao.getPostByIdPost(Integer.parseInt(idPost));
-            ArrayList<Post> listPost = new ArrayList<>();
-            listPost.add(post);
-            request.setAttribute("listPost", listPost);
 
-            HttpSession session = request.getSession();
-            User userInfo_raw = (User) session.getAttribute("userInfo");
-
-            //guest
-            if (userInfo_raw == null) {
-                request.setAttribute("roleView", 1);
-            } //own post
-            else if (post.getUserID() == userInfo_raw.getUserID()) {
-                request.setAttribute("roleView", 2);
-            }//user requested 
-            else if (dao.checkAvaiableViewRequest(userInfo_raw.getUserID(), post.getPostID())) {
-                request.setAttribute("roleView", 3);
-            } else {
-                request.setAttribute("roleView", 4);
-            }
-
-            request.getRequestDispatcher("HomePage/detailPost.jsp").forward(request, response);
-        } catch (Exception e) {
-            response.sendRedirect("HomePage");
-        }
+        ArrayList<Type> listType = dao.getAllType();
+        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
+        ArrayList<Post> listPost = dao.getAllPostOfFriends(userInfo_raw.getUserID());
+        ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
+        ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), district);
+        ArrayList<FriendsRequest> listFriendsRq = daoManagerUser.getListFriendRequest(userInfo_raw.getUserID());
+        request.setAttribute("listNoti", listNoti);
+        request.setAttribute("listFriendsRq", listFriendsRq);
+        request.setAttribute("listUserDistrict", listUserDistrict);
+        request.setAttribute("listPoint", listUserRanking);
+        request.setAttribute("listQuanlity", listQuanlity);
+        request.setAttribute("listType", listType);
+        request.setAttribute("user", userInfor);
+        request.setAttribute("listPost", listPost);
+        request.setAttribute("listPostUserNearMe", listPostUserNearMe);
+        request.getRequestDispatcher("HomePage/HomePagePostFriend.jsp").forward(request, response);
     }
 
     /**

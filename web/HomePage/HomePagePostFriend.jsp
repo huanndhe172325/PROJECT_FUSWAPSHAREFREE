@@ -1,7 +1,7 @@
 <%-- 
-    Document   : HomePage
-    Created on : May 20, 2024, 10:37:57 PM
-    Author     : FPT
+    Document   : HomePagePostFriend
+    Created on : Jul 5, 2024, 3:02:23 PM
+    Author     : Binhtran
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -450,7 +450,7 @@
         <div id="main-navbar" class="navbar navbar-v1 is-inline-flex is-transparent no-shadow is-hidden-mobile">
             <div class="container is-fluid">
                 <div class="navbar-brand">
-                    <a href="#" class="navbar-item">
+                    <a href="HomePage" class="navbar-item">
                         <img class="logo light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
                         <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
                     </a>
@@ -1551,8 +1551,7 @@
                                             <button type="button" class="button" data-filter="needsrepair" onclick="filterPosts('needsrepair')">Needs Repair</button>
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
-                                    </div>
-                                    <a id="btn-post-of-friends" class="button" href="HomePageFriend">Post of friends</a>
+                                    </div>                                   
                                 </div>
                             </div>
                             <!-- Post 1 -->
