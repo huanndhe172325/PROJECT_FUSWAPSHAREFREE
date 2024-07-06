@@ -394,6 +394,7 @@ document.addEventListener("DOMContentLoaded", function () {
     initShareModal();
     ajaxEditPost();
     initReuqest();
+    initResponseSwapModal();
 });
 
 function reloadJs() {

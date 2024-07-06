@@ -1448,8 +1448,8 @@
                             <c:forEach var="post" items="${listPost}"> 
                                 <div class="columns">
                                     <div class="friend-cards-list column is-4">
-                                        <div class="card is-friend-card">
-                                            <c:forEach var="req" items="${post.getListRequest()}">
+                                        <c:forEach var="req" items="${post.getListRequest()}">
+                                            <div class="card is-friend-card">
                                                 <div class="friend-item">
                                                     <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt="" style="border-radius: 0%; width: auto;"   onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
                                                     <div class="text-content">
@@ -1457,9 +1457,11 @@
                                                         <span>${req.message}</span>
                                                     </div>
                                                 </div>
-                                            </c:forEach>
+                                            </div>
+                                        </c:forEach>
 
-                                            <c:forEach var="swap" items="${post.getListRequestSwap()}">
+                                        <c:forEach var="swap" items="${post.getListRequestSwap()}">
+                                            <div class="card is-friend-card is-swap" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" data-swap-avatar="${swap.getAvatarOwner()}" data-swap-full-name="${swap.getFullNameOwner()}" data-swap-desc="${swap.description}">
                                                 <div class="friend-item modal-trigger open-response-swap-model">
                                                     <img src="${swap.firstImage()}" data-demo-src="${swap.firstImage()}" alt="" style="border-radius: 0%; width: auto;"  data-user-popover="1">
                                                     <div class="text-content">
@@ -1467,7 +1469,7 @@
                                                         <span>${swap.description}</span>
                                                     </div>
 
-                                                    <div class="post-image" style="display:none;">
+                                                    <div class="post-image is-hidden">
                                                         <div class="style-img-post">
                                                             <c:forEach var="img" items="${swap.getListImg()}">
                                                                 <a style="margin: auto;" href="javascript:void(0);" class="modal-trigger post-detail post-open-detail" data-modal="share-modal">
@@ -1491,10 +1493,9 @@
                                                             </div>
                                                         </c:if>
                                                     </div>                                            
-
                                                 </div>
-                                            </c:forEach>
-                                        </div>
+                                            </div>
+                                        </c:forEach>
                                     </div>
                                     <div class="post-container column is-8" data-category="listPost">
                                         <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
@@ -1690,7 +1691,7 @@
             </div>
         </div>
 
-        <div id="response-swap-modal" class="modal share-modal is-xsmall has-light-bg is-active">
+        <div id="response-swap-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
             <div class="modal-content" style="width: 800px;">
                 <div class="card">
@@ -1707,32 +1708,31 @@
                             <div class="publication-meta">
                                 <div class="inner-flex" style="align-items: center; margin-bottom: 10px;">
                                     <div class="detail-post-header-left">
-                                        <img style="cursor: pointer;" id="share-modal-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
+                                        <img style="cursor: pointer;" id="response-swap-modal-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
                                     </div>
                                     <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
                                         <div class="detail-post-header-infor-owner">
-                                            <h2 id="share-modal-name" style="cursor: pointer;font-weight: 500;">-</h2>
-                                            <p style="padding-left: 0;" id="share-modal-date">-</p>
+                                            <h2 id="response-swap-modal-name" style="cursor: pointer;font-weight: 500;">-</h2>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
-                                    <p id="share-modal-text" style="max-height: none;padding: 0; width: 100%;">
+                                    <p id="response-swap-modal-text" style="max-height: none;padding: 0; width: 100%;">
                                         -
                                     </p>
                                 </div>
                             </div>
-                            <div class="featured-image">
-                                <img id="share-modal-image" src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/1.jpg" alt="" />
+                            <div class="featured-image" id="featured-image-response-swap">
+                                <img id="swap-modal-image" src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/1.jpg" alt="" />
                             </div>
                         </div>
                     </div>
                     <div class="card-footer" style="width: 100%;">
                         <div class="button-wrap" style="width: 100%;">
-                            <button id="requestThis" style="width: 31%;" type="button" class="button is-solid primary-button">
+                            <button id="rejectThis" style="width: 31%;" type="button" class="button is-solid primary-button">
                                 Reject
                             </button>
-                            <button id="requestThis" style="width: 67%;" type="button" class="button is-solid primary-button">
+                            <button id="approveThis" style="width: 67%;" type="button" class="button is-solid primary-button">
                                 Approve
                             </button>
                         </div>
@@ -2184,6 +2184,8 @@
     <script src="assets/js/ReportPost.js" ></script>
     <script src="assets/js/reloadJs.js" ></script>
     <script src="assets/js/createpost.js"></script>
+    <script src="assets/js/requestSwap.js"></script>
+
     <script>
                             document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
                                 if (event.key === "Enter") {
