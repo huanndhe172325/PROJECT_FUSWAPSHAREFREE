@@ -4,6 +4,7 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManageReport;
 import DAL.DAOManageUser;
 import Model.User;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -60,36 +62,50 @@ public class manageUsers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManageUser dao = new DAOManageUser();
-        int page = 1;
-        int recordsPerPage = 15;
+        DAOManageUser r = new DAOManageUser();
+        ArrayList UserList = new ArrayList();
+        ArrayList listYear = new ArrayList();
+        int count = 0;
+        String yearParam = request.getParameter("year");
 
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
+        // lấy ra năm hiện tại 
+        LocalDate currentDate = LocalDate.now();
+        int currentYear = currentDate.getYear();
+
+        if (yearParam != null) {
+            currentYear = Integer.parseInt(yearParam);
         }
 
-        ArrayList<User> users = dao.getAllUsers((page - 1) * recordsPerPage, recordsPerPage);
-        int noOfRecords = dao.getTotalRecords();
-        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+        // lấy ra list năm
+        while (count <= 4) {
+            listYear.add(currentYear - count);
+            count++;
+        }
 
-        request.setAttribute("users", users);
-        request.setAttribute("noOfPages", noOfPages);
-        request.setAttribute("currentPage", page);
+        // lấy ra số lượng người bị report từ thnags 1 - tháng 12
+        for (int i = 1; i <= 12; i++) {
+            UserList.add(r.countUsersByJoinDate(currentYear, i));
+        }
+
+        // chuyển array sang string "[1,2,3,4,5,6,7,8,9,10,11,12]"
+        String requestJson = convertToStringArray(UserList).toString();
+
+        request.setAttribute("monthOfRevenue", requestJson);
+        request.setAttribute("listYear", listYear);
 
         request.getRequestDispatcher("HomePage/manageUsers.jsp").forward(request, response);
     }
 
-
-/**
- * Handles the HTTP <code>POST</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -100,8 +116,23 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
      * @return a String containing servlet description
      */
     @Override
-public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
+    public StringBuilder convertToStringArray(ArrayList a) {
+        // Chuyển đổi mảng Java thành chuỗi JSON thủ công
+        StringBuilder json = new StringBuilder("[");
+        for (int i = 0; i < a.size(); i++) {
+            json.append(a.get(i));
+            if (i < a.size() - 1) {
+                json.append(",");
+            }
+        }
+        json.append("]");
+        if (json != null) {
+            return json;
+        }
+        return null;
+    }
 }

@@ -133,7 +133,24 @@ public class DAOManageUser extends DBContext {
 
         return users;
     }
-
+    public int countUsersByJoinDate(int year, int month) {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) AS UserCount "
+                    + "FROM [dbo].[User] "
+                    + "WHERE YEAR(JoinDate) = ? AND MONTH(JoinDate) = ?";
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("UserCount");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
     public int getTotalRecords() {
         int totalRecords = 0;
         String sql = "SELECT COUNT(*) FROM [User]";
@@ -627,6 +644,41 @@ public class DAOManageUser extends DBContext {
         }
 
         return success;
+    }
+    
+    public ArrayList<User> getAllUsersToBlockList() {
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM [User]";
+
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID")
+                );
+                users.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return users;
     }
 
 }

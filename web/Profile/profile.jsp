@@ -794,17 +794,6 @@
                                         </div>
                                     </a>
 
-                                    <a class="account-item">
-                                        <div class="media">
-                                            <div class="icon-wrap">
-                                                <i data-feather="life-buoy"></i>
-                                            </div>
-                                            <div class="media-content">
-                                                <h3>Help</h3>
-                                                <small>Contact our support.</small>
-                                            </div>
-                                        </div>
-                                    </a>
                                     <form action="logout" method="POST">
                                         <button type="submit" class="button-link account-item">
                                             <div class="media">
@@ -1973,6 +1962,92 @@
 
             <style>
                 .user-blocking-popup {
+                    width: 100%;
+                    max-width: 400px;
+                    background-color: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                }
+
+                .user-blocking-popup__header {
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .user-blocking-popup__back-btn,
+                .user-blocking-popup__close-btn {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 4px;
+                }
+
+                .user-blocking-popup__header h2 {
+                    flex-grow: 1;
+                    text-align: center;
+                    font-size: 18px;
+                    margin: 0;
+                }
+
+                .user-blocking-popup__search {
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .user-blocking-popup__search-input {
+                    width: 100%;
+                    padding: 8px 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 20px;
+                    font-size: 14px;
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #f0f0f0;
+                }
+
+                .avatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    margin-right: 12px;
+                    object-fit: cover;
+                }
+
+                .user span {
+                    flex-grow: 1;
+                    font-size: 14px;
+                }
+
+                .btn-block {
+                    background-color: #f0f0f0;
+                    border: none;
+                    padding: 6px 12px;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    cursor: pointer;
+                }
+
+                .btn-block:hover {
+                    background-color: #e0e0e0;
+                }
+                .user-blocking-popup__search {
+                    border-bottom: 1px solid #e0e0e0;
+                }
+                .user-blocking-popup__divider {
+                    border: none;
+                    border-top: 1px solid #e0e0e0;
+                    margin: 0;
+                }
+            </style>
+
+            <style>
+                .user-blocking-popup {
                     display: none;
                     position: fixed;
                     top: 50%;
@@ -2128,6 +2203,7 @@
                                             <button type="button" class="user-blocking-initial__add-btn">+ Thêm vào danh sách chặn</button>
                                             <input type="text" placeholder="Search..." class="user-blocking-initial__search-input" />
                                         </div>
+                                        <hr class="user-blocking-popup__divider">
                                         <div class="col-md-12 user-block-list">
                                             <c:forEach var="bl" items="${userBlock}">
                                                 <form action="UnBlockUser" method="post" class="user">
@@ -2154,11 +2230,19 @@
                                                 <line x1="18" y1="6" x2="6" y2="18"></line>
                                                 <line x1="6" y1="6" x2="18" y2="18"></line>
                                                 </svg>
-                                            </button>
+                                            </button>                                              
                                         </div>
                                         <div class="user-blocking-popup__search">
                                             <input type="text" placeholder="Nhập tên một người" class="user-blocking-popup__search-input" />
                                         </div>
+                                        <c:forEach var="l" items="${userList}">
+                                            <form action="BlockUser" method="get" class="user user-item">
+                                                <input type="hidden" name="blockUserId" value="${l.getUserID()}" />
+                                                <img src="${l.getAvatarUrl()}" alt="Avatar" class="avatar" />
+                                                <span class="user-name">${l.getFull_Name()}</span>
+                                                <button type="submit" class="btn-block">Chặn</button>
+                                            </form>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
@@ -2167,7 +2251,38 @@
                 </div>
             </div>
 
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const searchInput = document.querySelector('.user-blocking-popup__search-input');
+                    const userItems = document.querySelectorAll('.user-item');
 
+                    // Ẩn tất cả người dùng khi trang được tải
+                    function hideAllUsers() {
+                        userItems.forEach(item => item.style.display = 'none');
+                    }
+
+                    // Gọi hàm để ẩn tất cả người dùng khi trang được tải
+                    hideAllUsers();
+
+                    searchInput.addEventListener('input', function () {
+                        const searchTerm = this.value.trim().toLowerCase();
+
+                        if (searchTerm === '') {
+                            // Nếu ô tìm kiếm trống, ẩn tất cả người dùng
+                            hideAllUsers();
+                        } else {
+                            userItems.forEach(item => {
+                                const userName = item.querySelector('.user-name').textContent.toLowerCase();
+                                if (userName.includes(searchTerm)) {
+                                    item.style.display = 'flex'; // hoặc 'block', tùy thuộc vào styling của bạn
+                                } else {
+                                    item.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
             <script>
                 // Hàm để loại bỏ dấu và khoảng trống từ chuỗi
                 function normalizeString(str) {

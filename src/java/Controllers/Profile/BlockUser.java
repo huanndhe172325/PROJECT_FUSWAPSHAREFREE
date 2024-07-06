@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  *
@@ -60,7 +61,7 @@ public class BlockUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+
     } 
 
     /** 
@@ -78,6 +79,7 @@ public class BlockUser extends HttpServlet {
         DAOProfile db = new DAOProfile();
         DAOManageUser db1 = new DAOManageUser();
         User userId = (User) session.getAttribute("userInfo");
+        
         int id = userId.getUserID();
         User u = db.getUserbyId(id);
         db1.blockUser(u.getUserID(), Integer.parseInt(idBlock));
