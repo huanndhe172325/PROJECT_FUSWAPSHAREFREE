@@ -1729,10 +1729,10 @@
                     </div>
                     <div class="card-footer" style="width: 100%;">
                         <div class="button-wrap" style="width: 100%;">
-                            <button id="rejectThis" style="width: 31%;" type="button" class="button is-solid primary-button">
+                            <button id="rejectThis" style="width: 31%;" type="button" class="close-modal button is-solid primary-button">
                                 Reject
                             </button>
-                            <button id="approveThis" style="width: 67%;" type="button" class="button is-solid primary-button">
+                            <button id="approveThis" style="width: 67%;" type="button" class="open-modal-approve-swap button is-solid primary-button">
                                 Approve
                             </button>
                         </div>
@@ -2110,7 +2110,38 @@
         </div>
     </div>
 
+    <div id="approve-swap-modal" class="modal albums-help-modal is-xsmall has-light-bg">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-heading">
+                    <h3>Approve Swap</h3>
+                    <!-- Close X button -->
+                    <div class="close-wrap">
+                        <span class="close-modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="content-archive-post" style="margin: 20px 5px;">
+                        <div class="help-text">
+                            <h3>Do you want to approve swap this post ?</h3>
+                        </div>
+                    </div>
 
+                    <div class="action" style="text-align: right;">
+                        <button type="button" class="button is-solid accent-button next-modal raised close-modal" data-modal="albums-modal" style="background-color: white; color: #5596e6; border: none;">
+                            Cancel
+                        </button>
+                        <button id="approveSwapButton" type="button" class="button is-solid accent-button next-modal raised close-modal" data-modal="albums-modal">
+                            Approve
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

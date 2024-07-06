@@ -125,6 +125,47 @@ function initOpenModalArcive() {
     });
 }
 
+function initOpenModalApproveSwap() {
+    const openModalApproveSwap = document.querySelectorAll('.open-modal-approve-swap');
+    const modalApproveSwap = document.getElementById('approve-swap-modal');
+    const approveSwapButton = document.getElementById('approveSwapButton');
+    const rejectSwapButton = document.getElementById('rejectThis');
+    let currentPostIdSwap = null;
+    let currentUserIdSwap = null;
+
+    openModalApproveSwap.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            const postId = openModalArchive.getAttribute('data-swap-postid');
+            const userId = openModalArchive.getAttribute('data-swap-usersent');
+            currentUserIdSwap = userId;
+            currentPostIdSwap = postId;
+            modalApproveSwap.setAttribute('data-swap-postid', postId);
+            modalApproveSwap.setAttribute('data-swap-usersent', userId);
+
+            modalApproveSwap.classList.add('is-active');
+        });
+    });
+
+    approveSwapButton.addEventListener('click', () => {
+        console.log(currentPostIdSwap);
+        console.log(currentUserIdSwap);
+
+    });
+    rejectSwapButton.addEventListener('click', () => {
+        const postId = rejectSwapButton.getAttribute('data-swap-postid');
+        const userId = rejectSwapButton.getAttribute('data-swap-usersent');
+        currentUserIdSwap = userId;
+        currentPostIdSwap = postId;
+        
+        
+        
+        console.log(currentPostIdSwap);
+        console.log(currentUserIdSwap);
+
+    });
+
+}
+
 function initReuqest() {
     const openModalRequest = document.querySelectorAll('.open-modal-request');
     const modalRequest = document.getElementById('sent-request-modal');
@@ -395,6 +436,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ajaxEditPost();
     initReuqest();
     initResponseSwapModal();
+    initOpenModalApproveSwap();
 });
 
 function reloadJs() {
