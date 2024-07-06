@@ -2236,8 +2236,8 @@
                                             <input type="text" placeholder="Nhập tên một người" class="user-blocking-popup__search-input" />
                                         </div>
                                         <c:forEach var="l" items="${userList}">
-                                            <form action="BlockUser" method="get" class="user user-item">
-                                                <input type="hidden" name="blockUserId" value="${l.getUserID()}" />
+                                            <form action="BlockUser" method="post" class="user user-item">
+                                                <input type="hidden" name="id" value="${l.getUserID()}" />
                                                 <img src="${l.getAvatarUrl()}" alt="Avatar" class="avatar" />
                                                 <span class="user-name">${l.getFull_Name()}</span>
                                                 <button type="submit" class="btn-block">Chặn</button>
