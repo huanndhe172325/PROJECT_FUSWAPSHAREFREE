@@ -70,6 +70,9 @@ public class ProfileServlet extends HttpServlet {
         HttpSession session = request.getSession();
         DAOProfile db = new DAOProfile();
         DAOManageUser db1 = new DAOManageUser();
+        ArrayList<User> userList = db1.getAllUsersToBlockList();
+        request.setAttribute("userList", userList);
+        
         
         
         User userId = (User) session.getAttribute("userInfo");
