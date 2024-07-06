@@ -40,6 +40,9 @@
         <!-- Core CSS -->
         <link rel="stylesheet" href="assets/css/app.css" />
         <link rel="stylesheet" href="assets/css/core.css" />
+        <link rel="stylesheet" href="assets2/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets2/css/plugins.min.css" />
+        <link rel="stylesheet" href="assets2/css/kaiadmin.min.css" />
     </head>
 
     <body>
@@ -56,38 +59,32 @@
                 <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
             </a>
             <div class="dashboard-aside-body">
-                <a href="adminHome" class="dashboard-aside-link">
+                <a href="SideBarAdmin" class="dashboard-aside-link">
                     <div>
-                        <i data-feather="home"></i>
+                        <i data-feather="adminHome"></i>
                         <span>Home</span>
-                    </div>
-                </a>
-
-                <a href="manageUsers" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="file"></i>
-                        <span>Manage Users</span>
-                    </div>
-                </a>   
-                <a href="adminReportPost" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="file"></i>
-                        <span>Manager Report Post</span>
                     </div>
                 </a>
                 <a href="adminReportUsers" class="dashboard-aside-link">
                     <div>
-                        <i data-feather="video"></i>
-                        <span>Manager Report Users</span>
+                        <i data-feather="file"></i>
+                        <span>Manage Report Users</span>
                     </div>
                 </a>
-                <a href="navbar-v1-settings-v1.html" class="dashboard-aside-link">
+                <a href="adminReportPost" class="dashboard-aside-link">
                     <div>
-                        <i data-feather="settings"></i>
-                        <span>Settings</span>
+                        <i data-feather="file"></i>
+                        <span> Manage Report Posts</span>
                     </div>
                 </a>
-            </div>
+                <a href="manageUsers" class="dashboard-aside-link">
+                    <div>
+                        <i data-feather="file"></i>
+                        <span> List User</span>
+                    </div>
+                </a>
+               
+            </div>                                                                
             <div class="dashboard-aside-end">
 
                 <a href="Preview" class="dashboard-aside-link">
