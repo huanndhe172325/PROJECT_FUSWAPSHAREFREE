@@ -49,7 +49,46 @@ public class DAOManageReport extends DBContext {
         }
         return null;
     }
-
+    public int countReportedPPosts(int year, int month) {
+        int count = 0;
+        try {
+            String sql = "SELECT \n"
+                    + "    COUNT(DISTINCT IdUserSend) AS countReportedUsers\n"
+                    + "FROM \n"
+                    + "    [dbo].[Have_ReportPost]\n"
+                    + "WHERE \n"
+                    + "    YEAR(reportTime) = ?\n"
+                    + "    AND MONTH(reportTime) = ?;";
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("countReportedUsers");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+    public int countReportedUsers(int year, int month) {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(DISTINCT IdUserReceive) AS ReportCount "
+                    + "FROM Have_ReportUser "
+                    + "WHERE YEAR(reportTime) = ? AND MONTH(reportTime) = ?";
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("ReportCount");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
     public int countSearchReportUsers(String txtSearch) {
         int count = 0;
         try {
@@ -70,6 +109,7 @@ public class DAOManageReport extends DBContext {
         }
         return count;
     }
+    
 
     public ArrayList<ReportUser> searchReportUsers(String txtSearch, int index, int size) {
         ArrayList<ReportUser> reportUsers = new ArrayList<>();
@@ -176,17 +216,10 @@ public class DAOManageReport extends DBContext {
 
     public static void main(String[] args) {
 
-        DAOManageReport daoManageReport = new DAOManageReport();
-
-        int count = daoManageReport.countReportUsers();
-        System.out.println(count);
-//        ArrayList<ReportUser> list = daoManageReport.getAllReportUsers(1, 5);
-//        for (ReportUser reportUser : list) {
-//            System.out.println("Report Time: " + reportUser.getReportTime());
-//            System.out.println("Message: " + reportUser.getMessage());
-//            System.out.println("IdUserSend: " + reportUser.getIdUserSend());
-//            System.out.println("IdUserReceive: " + reportUser.getIdUserReceive());
-//            System.out.println("----------------------");
-//        }
+        DAOManageReport dao = new DAOManageReport();
+        int year = 2024;
+        int month = 6;
+        int reportedUsers = dao.countReportedUsers(year, month);
+        System.out.println("Số lượng người dùng bị report trong tháng " + month + " năm " + year + ": " + reportedUsers);
     }
 }

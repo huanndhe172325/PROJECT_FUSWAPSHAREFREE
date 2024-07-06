@@ -4,6 +4,7 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManageReport;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -56,7 +59,37 @@ public class adminReportUsers extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {DAOManageReport r = new DAOManageReport();
+        ArrayList UsersReports = new ArrayList();
+        ArrayList listYear = new ArrayList();
+        int count = 0;
+        String yearParam = request.getParameter("year");
+        
+        // lấy ra năm hiện tại 
+        LocalDate currentDate = LocalDate.now();
+        int currentYear = currentDate.getYear();
+
+        if (yearParam != null) {
+            currentYear = Integer.parseInt(yearParam);
+        }
+
+        // lấy ra list năm
+        while (count <= 4) {
+            listYear.add(currentYear - count);
+            count++;
+        }
+
+        // lấy ra số lượng người bị report từ thnags 1 - tháng 12
+        for (int i = 1; i <= 12; i++) {
+           UsersReports.add(r.countReportedUsers(currentYear, i));
+        }
+        
+        // chuyển array sang string "[1,2,3,4,5,6,7,8,9,10,11,12]"
+        String requestJson = convertToStringArray(UsersReports).toString();
+
+        request.setAttribute("monthOfRevenue", requestJson);
+        request.setAttribute("listYear", listYear);
+      
         request.getRequestDispatcher("HomePage/adminReportUsers.jsp").forward(request, response);
     }
 
@@ -83,5 +116,19 @@ public class adminReportUsers extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+ public StringBuilder convertToStringArray(ArrayList a) {
+        // Chuyển đổi mảng Java thành chuỗi JSON thủ công
+        StringBuilder json = new StringBuilder("[");
+        for (int i = 0; i < a.size(); i++) {
+            json.append(a.get(i));
+            if (i < a.size() - 1) {
+                json.append(",");
+            }
+        }
+        json.append("]");
+        if (json != null) {
+            return json;
+        }
+        return null;
+    }
 }

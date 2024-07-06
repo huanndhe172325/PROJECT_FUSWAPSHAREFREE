@@ -130,7 +130,24 @@ public class DAOManageUser extends DBContext {
 
         return users;
     }
-
+    public int countUsersByJoinDate(int year, int month) {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) AS UserCount "
+                    + "FROM [dbo].[User] "
+                    + "WHERE YEAR(JoinDate) = ? AND MONTH(JoinDate) = ?";
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("UserCount");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
     public int getTotalRecords() {
         int totalRecords = 0;
         String sql = "SELECT COUNT(*) FROM [User]";
