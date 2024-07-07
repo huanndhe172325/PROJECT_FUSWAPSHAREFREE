@@ -1573,8 +1573,8 @@
                                         <div class="columns">
                                             <div class="friend-cards-list column is-4">
                                                 <c:forEach var="req" items="${post.getListRequest()}">
-                                                    <div class="card is-friend-card">
-                                                        <div class="friend-item">
+                                                    <div class="card is-friend-card is-req" data-swap-userSent="${req.userID}" data-swap-postId="${req.postID}" data-swap-avatar="${req.getAvatarOwner()}" data-swap-full-name="${req.getFullNameOwner()}" data-swap-desc="${req.message}">
+                                                        <div class="friend-item modal-trigger open-response-request-model">
                                                             <img src="${req.getAvatarOwner()}" data-demo-src="${req.getAvatarOwner()}" alt="" onclick="window.location.href = 'otherprofile?id=${req.userID}'" data-user-popover="1">
                                                             <div class="text-content">
                                                                 <a target="_blank">${req.getFullNameOwner()}</a>
@@ -2623,7 +2623,7 @@
                             </div>
                         </div>
                     </div>
-                    <c:if test="${roleView != 3}">
+                    <c:if test="${roleView != 3 && displayConfirm == 1}">
                         <div class="card-footer" style="width: 100%;">
                             <div class="button-wrap" style="width: 100%;">
                                 <button id="rejectThis" style="width: 31%;" type="button" class="close-modal button is-solid primary-button">
@@ -2639,6 +2639,58 @@
             </div>
         </div>
 
+        <div id="response-request-modal" class="modal share-modal is-xsmall has-light-bg">
+            <div class="modal-background"></div>
+            <div class="modal-content" style="width: 800px;">
+                <div class="card">
+                    <div class="card-heading">
+                        <!-- Close X button -->
+                        <div class="close-wrap">
+                            <span class="close-modal">
+                                <i data-feather="x"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="shared-publication" style="margin-top: 0px;">
+                            <div class="publication-meta">
+                                <div class="inner-flex" style="align-items: center; margin-bottom: 10px;">
+                                    <div class="detail-post-header-left">
+                                        <img style="cursor: pointer;" id="response-request-modal-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
+                                    </div>
+                                    <div class="detail-post-header-right inner-flex" style="justify-content: space-between;flex-grow: 1;margin-left: 10px;margin-top: 8px;">
+                                        <div class="detail-post-header-infor-owner">
+                                            <h2 id="response-request-modal-name" style="cursor: pointer;font-weight: 500;">-</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-flex" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">
+                                    <p id="response-request-modal-text" style="max-height: none;padding: 0; width: 100%;">
+                                        -
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <c:if test="${roleView != 3 && displayConfirm == 1}">
+                        <div class="card-footer" style="width: 100%;">
+                            <div class="button-wrap" style="width: 100%;">
+                                <button id="rejectRequest" style="width: 31%;" type="button" class="close-modal button is-solid primary-button">
+                                    Reject
+                                </button>
+                                <button id="approveRequest" style="width: 67%;" type="button" class="open-modal-approve-request button is-solid primary-button">
+                                    Approve
+                                </button>
+                            </div>
+                        </div>
+                    </c:if>
+                </div>
+            </div>
+        </div>                                           
+
+                                                    
+                                                    
+                                                    
         <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
             <div class="modal-content">
