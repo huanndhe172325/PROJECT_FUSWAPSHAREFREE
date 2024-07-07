@@ -1800,6 +1800,14 @@
                                                         </div>
                                                     </div>
                                                 </c:forEach>
+                                                 <c:forEach var="swap" items="${post.getListRequestApproved()}">
+                                                    <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
+                                                        <div class="button-wrap"  style="width: 100%;">
+                                                            <button type="button" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" style="width: 49%;" class="button open-modal-cancel-transaction" >Cancel transaction</button>
+                                                            <button type="button" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" style="width: 49%; background-color: #007bff; color: white;" class="button open-modal-complete-transaction" >Completed transaction</button>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
                                             </div>
                                             <div class="post-container column is-8" data-category="listPost">
                                                 <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
