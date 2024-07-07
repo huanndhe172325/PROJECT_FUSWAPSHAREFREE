@@ -6,7 +6,6 @@ package Controllers.HomePage;
 
 import DAL.DAOManagePost;
 import Model.Post;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,7 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -85,12 +83,8 @@ public class approveSwap extends HttpServlet {
             int userSent = Integer.parseInt(userIdSentRequest_raw);
             String emailReceive = dao.getUserIdByUserId(userSent).getEmail();
             Post post = dao.getPostByIdPost(idPost);
-            HttpSession session = request.getSession();
-            User userLogin = (User) session.getAttribute("userInfo");
-            if (post.getStatusID() == 1 
-                    && dao.approveRequestSwap(userSent, idPost)
-                    && dao.updateStatusPost(idPost, 2) 
-                    && dao.createNotifycation("has accepted your exchange request", userLogin.getUserID(), idPost, userSent, 1)) {
+            if (post.getStatusID() == 1 && dao.approveRequestSwap(userSent, idPost)
+                    && dao.updateStatusPost(idPost, 2)) {
                 sent.sentEmail(emailReceive, "Bạn đã được chấp nhận trao đổi", "Yêu cầu trao đổi của bạn đã được chấp nhận nhanh chân tới địa điểm để trao đổi.");
                 response.getWriter().println(1);
             } else {

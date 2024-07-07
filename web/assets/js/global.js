@@ -575,38 +575,10 @@ function initResponseSwapModal() {
                 $("#approveThis").attr("data-swap-userSent", userId)
                 ;
                 $("#featured-image-response-swap").find(".post-image").removeClass("is-hidden");
-                
-                
-                
     }
     ))
 }
 
-function initResponseRequestModal() {
-    $(".modal-trigger.open-response-request-model").on("click", (function () {
-        var t = $(this)
-                , avatar = t.closest(".is-req").attr("data-swap-avatar")
-                , fullName = t.closest(".is-req").attr("data-swap-full-name")
-                , desc = t.closest(".is-req").attr("data-swap-desc")
-                , postId = t.closest(".is-req").attr("data-swap-postId")
-                , userId = t.closest(".is-req").attr("data-swap-userSent");
-                
-        void 0 !== avatar ? console.log(1) : console.log(2),
-                $("#response-request-modal-avatar").attr("src", avatar),
-                $("#response-request-modal-avatar").attr("data-demo-src", avatar),
-                $("#response-request-modal-name").html(fullName),
-                $("#response-request-modal-text").html(desc),
-                $("#rejectRequest").attr("data-swap-postId", postId),
-                $("#rejectRequest").attr("data-swap-userSent", userId),
-                $("#approveRequest").attr("data-swap-postId", postId),
-                $("#approveRequest").attr("data-swap-userSent", userId)
-                ;
-                
-                
-                
-    }
-    ))
-}
 
 
 function initAboutGlider() {

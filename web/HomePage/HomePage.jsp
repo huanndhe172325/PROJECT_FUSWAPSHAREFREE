@@ -529,7 +529,7 @@
                                                 </figure>
                                                 <div class="media-content">
                                                     <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
-                                                        <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
+                                                        <a href="detailPost?idpost=${noti.postID}">your post</a>.</span>
                                                     <span class="time">${noti.getCreateTime()}</span>
                                                 </div>
                                                 <div class="media-right">

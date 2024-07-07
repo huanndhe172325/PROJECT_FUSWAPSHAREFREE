@@ -6,7 +6,6 @@ package Controllers.HomePage;
 
 import DAL.DAOManagePost;
 import Model.Post;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,7 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -85,11 +83,7 @@ public class cancelTransaction extends HttpServlet {
             Post post = dao.getPostByIdPost(idPost);
             SentMail sent = new SentMail();
             String mailReceive = dao.getUserIdByUserId(userSent).getEmail();
-            HttpSession session = request.getSession();
-            User userLogin = (User) session.getAttribute("userInfo");
-            if (dao.rejectRequestSwap(userSent, idPost) 
-                    && dao.updateStatusPost(idPost, 1)
-                    && dao.createNotifycation("has cancel transaction on", userLogin.getUserID(), idPost, userSent, 1)) {
+            if (dao.rejectRequestSwap(userSent, idPost) && dao.updateStatusPost(idPost, 1)) {
                 sent.sentEmail(mailReceive, "Giao dịch đã bị hủy", "Giao dịch của bạn đã bị hủy.");
                 response.getWriter().println(1);
             } else {
