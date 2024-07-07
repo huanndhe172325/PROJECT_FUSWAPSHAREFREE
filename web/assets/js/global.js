@@ -562,7 +562,7 @@ function initResponseSwapModal() {
                 , postImageDiv = t.closest(".is-swap").find(".post-image").clone()
                 , postId = t.closest(".is-swap").attr("data-swap-postId")
                 , userId = t.closest(".is-swap").attr("data-swap-userSent");
-                
+
         void 0 !== avatar ? $("#swap-modal-image").attr("src", avatar).removeClass("is-hidden") : $("#swap-modal-image").addClass("is-hidden"),
                 $("#response-swap-modal-avatar").attr("src", avatar),
                 $("#response-swap-modal-avatar").attr("data-demo-src", avatar),
@@ -574,10 +574,10 @@ function initResponseSwapModal() {
                 $("#approveThis").attr("data-swap-postId", postId),
                 $("#approveThis").attr("data-swap-userSent", userId)
                 ;
-                $("#featured-image-response-swap").find(".post-image").removeClass("is-hidden");
-                
-                
-                
+        $("#featured-image-response-swap").find(".post-image").removeClass("is-hidden");
+
+
+
     }
     ))
 }
@@ -587,7 +587,7 @@ function initOpenModalApproveSwap() {
     const modalApproveSwap = document.getElementById('approve-swap-modal');
     const approveSwapButton = document.getElementById('approveSwapButton');
     const rejectSwapButton = document.getElementById('rejectThis');
-    if(rejectSwapButton == null || approveSwapButton == null){
+    if (rejectSwapButton == null || approveSwapButton == null) {
         return;
     }
     let currentPostIdSwap = null;
@@ -704,7 +704,8 @@ function initOpenModalApproveRequest() {
     const modalApproveRequest = document.getElementById('response-request-modal');
     const approveRequest = document.getElementById('approveRequest');
     const rejectRequest = document.getElementById('rejectRequest');
-    if(approveRequest == null || rejectRequest == null){
+
+    if (approveRequest == null || rejectRequest == null) {
         return;
     }
     let currentPostIdRequest = null;
@@ -712,20 +713,19 @@ function initOpenModalApproveRequest() {
 
     openModalApproveRequest.forEach(openModalArchive => {
         openModalArchive.addEventListener('click', () => {
-            const postId = openModalArchive.getAttribute('data-request-postid');
-            const userId = openModalArchive.getAttribute('data-request-usersent');
+            const postId = document.getElementById('approveRequest').getAttribute('data-swap-postid');
+            const userId = document.getElementById('approveRequest').getAttribute('data-swap-usersent');
             currentUserIdRequest = userId;
             currentPostIdRequest = postId;
             modalApproveRequest.setAttribute('data-request-postid', postId);
             modalApproveRequest.setAttribute('data-request-usersent', userId);
-
             modalApproveRequest.classList.add('is-active');
         });
     });
 
     approveRequest.addEventListener('click', () => {
-        const postId = rejectRequest.getAttribute('data-request-postid');
-        const userId = rejectRequest.getAttribute('data-request-usersent');
+        const postId = document.getElementById('approveRequest').getAttribute('data-swap-postid');
+        const userId = document.getElementById('approveRequest').getAttribute('data-swap-usersent');
         currentUserIdRequest = userId;
         currentPostIdRequest = postId;
         console.log(currentPostIdRequest);
@@ -761,8 +761,8 @@ function initOpenModalApproveRequest() {
         xhr.send('idPost=' + currentPostIdRequest + '&userIdSentRequest=' + currentUserIdRequest);
     });
     rejectRequest.addEventListener('click', () => {
-        const postId = rejectRequest.getAttribute('data-request-postid');
-        const userId = rejectRequest.getAttribute('data-request-usersent');
+        const postId = rejectRequest.getAttribute('data-swap-postid');
+        const userId = rejectRequest.getAttribute('data-swap-usersent');
         currentUserIdRequest = userId;
         currentPostIdRequest = postId;
         console.log(currentPostIdRequest);
@@ -791,7 +791,7 @@ function initOpenModalApproveRequest() {
                     timeout: 1800,
                     zindex: 99999
                 });
-                var element = document.querySelector(`.card.is-req[data-request-usersent="${currentUserIdRequest}"][data-request-postid="${currentPostIdRequest}"]`);
+                var element = document.querySelector(`.card.is-req[data-swap-userSent="${currentUserIdRequest}"][data-swap-postId="${currentPostIdRequest}"]`);
                 element.remove();
             } else if (xhr.responseText == 2) {
                 iziToast.show({
@@ -936,7 +936,7 @@ function initResponseRequestModal() {
                 , desc = t.closest(".is-req").attr("data-swap-desc")
                 , postId = t.closest(".is-req").attr("data-swap-postId")
                 , userId = t.closest(".is-req").attr("data-swap-userSent");
-                
+
         void 0 !== avatar ? console.log(1) : console.log(2),
                 $("#response-request-modal-avatar").attr("src", avatar),
                 $("#response-request-modal-avatar").attr("data-demo-src", avatar),
@@ -947,9 +947,9 @@ function initResponseRequestModal() {
                 $("#approveRequest").attr("data-swap-postId", postId),
                 $("#approveRequest").attr("data-swap-userSent", userId)
                 ;
-                
-                
-                
+
+
+
     }
     ))
 }
