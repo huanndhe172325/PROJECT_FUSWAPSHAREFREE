@@ -76,6 +76,12 @@ public class detailPost extends HttpServlet {
 
             HttpSession session = request.getSession();
             User userInfo_raw = (User) session.getAttribute("userInfo");
+            //display
+            if (post.getStatusID() == 1) {
+                request.setAttribute("displayConfirm", 1);
+            } else {
+                request.setAttribute("displayConfirm", 0);
+            }
 
             //guest
             if (userInfo_raw == null) {
