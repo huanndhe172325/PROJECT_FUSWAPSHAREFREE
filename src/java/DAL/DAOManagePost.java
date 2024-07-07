@@ -428,8 +428,38 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean approveRequest(int userId, int postId) {
+        String sql = "UPDATE [dbo].[Request]\n"
+                + "   SET [Status] = N'approved'\n"
+                + " WHERE UserID = ? and PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     public boolean rejectRequestSwap(int userId, int postId) {
         String sql = "UPDATE [dbo].[have_swap]\n"
+                + "   SET [Status] = N'reject'\n"
+                + " WHERE UserID = ? and PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean rejectRequest(int userId, int postId) {
+        String sql = "UPDATE [dbo].[Request]\n"
                 + "   SET [Status] = N'reject'\n"
                 + " WHERE UserID = ? and PostID = ?";
         try {
@@ -560,6 +590,7 @@ public class DAOManagePost extends DBContext {
             return false;
         }
     }
+
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
@@ -615,6 +646,7 @@ public class DAOManagePost extends DBContext {
         }
         return listRequest;
     }
+
     public ArrayList<Request> getListRequestApprovedByPostId(int postId) {
         ArrayList<Request> listRequest = new ArrayList<>();
         try {
@@ -662,6 +694,7 @@ public class DAOManagePost extends DBContext {
         }
         return listRequestSwap;
     }
+
     public ArrayList<HaveSwap> getListRequesApproveSwaptByPostId(int postId) {
         ArrayList<HaveSwap> listRequestSwap = new ArrayList<>();
         try {
