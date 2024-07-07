@@ -825,11 +825,12 @@ function initCancelTransaction() {
     const yesCancelButton = document.getElementById('yesCancelButton');
     let currentPostIdSwap = null;
     let currentUserIdSwap = null;
-
+    let type = null;
     openCancelTransaction.forEach(openModalArchive => {
         openModalArchive.addEventListener('click', () => {
             const postId = openModalArchive.getAttribute('data-swap-postid');
             const userId = openModalArchive.getAttribute('data-swap-usersent');
+            type = openModalArchive.getAttribute('data-type-post');
             currentUserIdSwap = userId;
             currentPostIdSwap = postId;
             modalCancelTransaction.setAttribute('data-swap-postid', postId);
@@ -843,7 +844,11 @@ function initCancelTransaction() {
         console.log(currentUserIdSwap);
         event.preventDefault();
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'cancelTransaction', true);
+        if (type === "req") {
+            xhr.open('POST', 'cancelTransactionRequest', true);
+        } else {
+            xhr.open('POST', 'cancelTransaction', true);
+        }
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function () {
             console.log(xhr.responseText);
@@ -872,7 +877,6 @@ function initCancelTransaction() {
         xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
     });
 }
-
 
 function initCompelteTransaction() {
     const openCancelTransaction = document.querySelectorAll('.open-modal-complete-transaction');
