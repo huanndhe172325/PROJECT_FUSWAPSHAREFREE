@@ -1,5 +1,8 @@
 function ajaxSwapPost() {
     var swapPostForm = document.getElementById('sent-swap-form');
+    if(swapPostForm == null){
+        return;
+    }
     swapPostForm.addEventListener('submit', function (event) {
         event.preventDefault();
         var formDataForSwapPost = new FormData(swapPostForm);

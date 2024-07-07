@@ -1800,14 +1800,6 @@
                                                         </div>
                                                     </div>
                                                 </c:forEach>
-                                                <c:forEach var="req" items="${post.getListRequestApproved()}">
-                                                    <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
-                                                        <div class="button-wrap"  style="width: 100%;">
-                                                            <button type="button" data-swap-userSent="${req.userID}" data-swap-postId="${req.postID}" style="width: 49%;" class="button open-modal-cancel-transaction" >Cancel transaction</button>
-                                                            <button type="button" data-swap-userSent="${req.userID}" data-swap-postId="${req.postID}" style="width: 49%; background-color: #007bff; color: white;" class="button open-modal-complete-transaction" >Completed transaction</button>
-                                                        </div>
-                                                    </div>
-                                                </c:forEach>
                                             </div>
                                             <div class="post-container column is-8" data-category="listPost">
                                                 <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
@@ -2696,9 +2688,9 @@
             </div>
         </div>                                           
 
-                                                    
-                                                    
-                                                    
+
+
+
         <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
             <div class="modal-content">
@@ -3236,19 +3228,18 @@
     <script src="assets/js/reloadJs.js" ></script>
     <script src="assets/js/createpost.js"></script>
     <script src="assets/js/requestSwap.js"></script>
-
     <script>
-                            document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
-                                if (event.key === "Enter") {
-                                    var keyword = document.getElementById("tipue_drop_input").value.trim();
-                                    if (keyword !== "") {
-                                        var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
-                                        window.location.href = url;
-                                    } else {
-                                        alert("Please enter a keyword to search.");
-                                    }
-                                }
-                            });
+        document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                var keyword = document.getElementById("tipue_drop_input").value.trim();
+                if (keyword !== "") {
+                    var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
+                    window.location.href = url;
+                } else {
+                    alert("Please enter a keyword to search.");
+                }
+            }
+        });
     </script>
 
     <script>
