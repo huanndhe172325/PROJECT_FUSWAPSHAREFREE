@@ -2688,9 +2688,9 @@
             </div>
         </div>                                           
 
-                                                    
-                                                    
-                                                    
+
+
+
         <div id="create-post-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
             <div class="modal-content">
@@ -3228,19 +3228,18 @@
     <script src="assets/js/reloadJs.js" ></script>
     <script src="assets/js/createpost.js"></script>
     <script src="assets/js/requestSwap.js"></script>
-
     <script>
-                            document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
-                                if (event.key === "Enter") {
-                                    var keyword = document.getElementById("tipue_drop_input").value.trim();
-                                    if (keyword !== "") {
-                                        var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
-                                        window.location.href = url;
-                                    } else {
-                                        alert("Please enter a keyword to search.");
-                                    }
-                                }
-                            });
+        document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                var keyword = document.getElementById("tipue_drop_input").value.trim();
+                if (keyword !== "") {
+                    var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
+                    window.location.href = url;
+                } else {
+                    alert("Please enter a keyword to search.");
+                }
+            }
+        });
     </script>
 
     <script>
