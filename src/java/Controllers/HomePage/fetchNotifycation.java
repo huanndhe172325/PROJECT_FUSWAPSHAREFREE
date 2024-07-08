@@ -4,13 +4,8 @@
  */
 package Controllers.HomePage;
 
-import DAL.DAOManageUser;
 import DAL.DAOManagePost;
-import Model.FriendsRequest;
 import Model.Notification;
-import Model.Post;
-import Model.Quanlity;
-import Model.Type;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,14 +16,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author FPT
  */
-@WebServlet(name = "HomePage", urlPatterns = {"/HomePage"})
-public class HomePage extends HttpServlet {
+@WebServlet(name = "fetchNotifycation", urlPatterns = {"/fetchNotifycation"})
+public class fetchNotifycation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,11 +41,10 @@ public class HomePage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePage</title>");
+            out.println("<title>Servlet fetchNotifycation</title>");
             out.println("</head>");
             out.println("<body>");
-
-            out.println("<h1>Servlet HomePage at " + "</h1>");
+            out.println("<h1>Servlet fetchNotifycation at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,34 +62,38 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        DAOManageUser daoManagerUser = new DAOManageUser();
+        DAOManagePost dao = new DAOManagePost();
         HttpSession session = request.getSession();
         User userInfo_raw = (User) session.getAttribute("userInfo");
-        User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
-        String district = userInfor.getDistrict();
-        ArrayList<User> listUserDistrict = daoManagerUser.getUsersInSameDistrict(district);
-        ArrayList<User> listUserRanking = daoManagerUser.getListUserRanking();
-
-        DAOManagePost dao = new DAOManagePost();
-
-        ArrayList<Type> listType = dao.getAllType();
-        ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
-        ArrayList<Post> listPost = dao.getAllPost(userInfo_raw.getUserID());
+        if(userInfo_raw == null){
+            return;
+        }
         ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
-        ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), district);
-        ArrayList<FriendsRequest> listFriendsRq = daoManagerUser.getListFriendRequest(userInfo_raw.getUserID());
-        
-        request.setAttribute("listNoti", listNoti);
-        request.setAttribute("listFriendsRq", listFriendsRq);
-        request.setAttribute("listUserDistrict", listUserDistrict);
-        request.setAttribute("listPoint", listUserRanking);
-        request.setAttribute("listQuanlity", listQuanlity);
-        request.setAttribute("listType", listType);
-        request.setAttribute("user", userInfor);
-        request.setAttribute("listPost", listPost);
-        request.setAttribute("listPostUserNearMe", listPostUserNearMe);
-        request.getRequestDispatcher("HomePage/HomePage.jsp").forward(request, response);
+        if(listNoti.size() == 0){
+            return;
+        }
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            for (Notification noti : listNoti) {
+                out.println("<div class=\"media\" onclick=\"window.location.href = 'detailPost?idpost="+noti.getPostID()+"'\" style=\"cursor: pointer;\">\n"
+                        + "                                                <figure class=\"media-left\">\n"
+                        + "                                                    <p class=\"image\">\n"
+                        + "                                                        <img src=\""+noti.getAvatarUserSent()+"\" onclick=\"window.location.href = 'otherprofile?id="+noti.getUserSent().getUserID()+"'\" data-demo-src=\""+noti.getAvatarUserSent()+"\" alt=\"\" style=\"cursor: pointer;\" />\n"
+                        + "                                                    </p>\n"
+                        + "                                                </figure>\n"
+                        + "                                                <div class=\"media-content\">\n"
+                        + "                                                    <span><a href=\"otherprofile?id="+noti.getUserSent().getUserID()+"\">"+noti.getFullNameUserSent()+"</a> "+noti.getDescripton()+"\n"
+                        + "                                                        <a href=\"detailPost?idpost="+noti.getPostID()+"\">post</a>.</span>\n"
+                        + "                                                    <span class=\"time\">"+noti.getCreateTime()+"</span>\n"
+                        + "                                                </div>\n"
+                        + "                                                <div class=\"media-right\">\n"
+                        + "                                                    <div class=\"added-icon\">\n"
+                        + "                                                        <i data-feather=\"message-square\"></i>\n"
+                        + "                                                    </div>\n"
+                        + "                                                </div>\n"
+                        + "                                            </div>");
+            }
+        }
     }
 
     /**

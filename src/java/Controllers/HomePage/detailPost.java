@@ -5,6 +5,9 @@
 package Controllers.HomePage;
 
 import DAL.DAOManagePost;
+import DAL.DAOManageUser;
+import Model.FriendsRequest;
+import Model.Notification;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -76,11 +79,21 @@ public class detailPost extends HttpServlet {
 
             HttpSession session = request.getSession();
             User userInfo_raw = (User) session.getAttribute("userInfo");
+            DAOManageUser daoManagerUser = new DAOManageUser();
             //display
             if (post.getStatusID() == 1) {
                 request.setAttribute("displayConfirm", 1);
             } else {
                 request.setAttribute("displayConfirm", 0);
+            }
+
+            if (userInfo_raw != null) {
+                User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
+                ArrayList<FriendsRequest> listFriendsRq = daoManagerUser.getListFriendRequest(userInfo_raw.getUserID());
+                ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
+                request.setAttribute("listNoti", listNoti);
+                request.setAttribute("listFriendsRq", listFriendsRq);
+                request.setAttribute("user", userInfor);
             }
 
             //guest
