@@ -2189,6 +2189,8 @@
     <script src="assets/js/ReportPost.js" ></script>
     <script src="assets/js/createpost.js" ></script>
     <script src="assets/js/swapPost.js" ></script>
+    <script src="assets/js/fetchNotifycation.js" ></script>
+
     <script>
                             document.addEventListener('DOMContentLoaded', function () {
                             // Thêm sự kiện click cho các nút accept

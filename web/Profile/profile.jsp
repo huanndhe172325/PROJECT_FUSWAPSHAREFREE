@@ -2459,6 +2459,7 @@
 
             <!-- profile js -->
             <script src="assets/js/profile.js"></script>
+            <script src="assets/js/fetchNotifycation.js" ></script>
 
             <!-- stories js -->
 

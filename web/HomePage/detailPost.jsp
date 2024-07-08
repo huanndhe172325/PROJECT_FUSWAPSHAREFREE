@@ -3143,6 +3143,8 @@
     <script src="assets/js/reloadJs.js" ></script>
     <script src="assets/js/createpost.js"></script>
     <script src="assets/js/requestSwap.js"></script>
+    <script src="assets/js/fetchNotifycation.js" ></script>
+
     <script>
                             document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
                                 if (event.key === "Enter") {
