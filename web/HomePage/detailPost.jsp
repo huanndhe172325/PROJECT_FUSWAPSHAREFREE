@@ -1430,7 +1430,7 @@
                                                 </c:forEach>
                                             </div>
                                             <div class="post-container column is-8" data-category="listPost">
-                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="false" data-type="newest">
                                                     <!-- Main wrap -->
                                                     <div class="content-wrap">
                                                         <!-- Post header -->
@@ -1618,7 +1618,7 @@
                                                 </c:forEach>
                                             </div>
                                             <div class="post-container column is-8" data-category="listPost">
-                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="false" data-type="newest">
                                                     <!-- Main wrap -->
                                                     <div class="content-wrap">
                                                         <!-- Post header -->
@@ -1740,7 +1740,7 @@
                                     <c:if test="${post.statusID == 3}">
                                         <c:forEach var="post" items="${listPost}"> 
                                             <div class="post-container column is-12" data-category="listPost">
-                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="false" data-type="newest">
                                                     <!-- Main wrap -->
                                                     <div class="content-wrap">
                                                         <!-- Post header -->
@@ -1912,7 +1912,7 @@
                                                 </c:forEach>
                                             </div>
                                             <div class="post-container column is-8" data-category="listPost">
-                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                                <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="false" data-type="newest">
                                                     <!-- Main wrap -->
                                                     <div class="content-wrap">
                                                         <!-- Post header -->
@@ -2087,7 +2087,7 @@
                                             </c:forEach>
                                         </div>
                                         <div class="post-container column is-8" data-category="listPost">
-                                            <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="true" data-type="newest">
+                                            <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="false" data-type="newest">
                                                 <!-- Main wrap -->
                                                 <div class="content-wrap">
                                                     <!-- Post header -->
