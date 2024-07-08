@@ -450,7 +450,7 @@
         <div id="main-navbar" class="navbar navbar-v1 is-inline-flex is-transparent no-shadow is-hidden-mobile">
             <div class="container is-fluid">
                 <div class="navbar-brand">
-                    <a href="#" class="navbar-item">
+                    <a href="HomePage" class="navbar-item">
                         <img class="logo light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
                         <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
                     </a>
@@ -555,8 +555,7 @@
                             <div class="nav-drop">
                                 <div class="inner">
                                     <div class="nav-drop-header">
-                                        <span>Messages</span>
-                                        <a href="messages-inbox.html">Inbox</a>
+                                        <span>My post pick-up arrange</span>
                                     </div>
                                     <div class="nav-drop-body is-friend-requests">
                                         <!-- Message -->
@@ -619,28 +618,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="nav-drop-footer">
-                                        <a href="#">Clear All</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
-
-                        <div class="navbar-item is-icon open-chat">
-                            <a class="icon-link is-primary" href="javascript:void(0);">
-                                <i data-feather="message-square"></i>
-                                <span class="indicator"></span>
-                            </a>
-                        </div>
-
-
-
-                        <div id="explorer-trigger" class="navbar-item is-icon">
-                            <a class="icon-link is-primary">
-                                <i class="mdi mdi-apps"></i>
-                            </a>
-                        </div>
 
                         <div class="navbar-item is-icon">
                             <a class="icon-link is-primary" href="javascript:void(0);" data-modal="create-post-modal" id="open-modal-btn">
@@ -658,7 +639,7 @@
                                     <i data-feather="x"></i>
                                 </span>
                                 <span class="search-icon">
-                                    <i data-feather="search"></i>
+                                    <i data-feather="search" style="margin-top: 10px;"></i>
                                 </span>
 
                                 <div id="tipue_drop_content" class="tipue-drop-content"></div>
@@ -672,23 +653,8 @@
 
                             <div class="nav-drop is-account-dropdown">
                                 <div class="inner">
-                                    <div class="nav-drop-header">
-                                        <span class="username">${user.full_Name}</span>
-                                        <label class="theme-toggle">
-                                            <input type="checkbox" />
-                                            <span class="toggler">
-                                                <span class="dark">
-                                                    <i data-feather="moon"></i>
-                                                </span>
-                                                <span class="light">
-                                                    <i data-feather="sun"></i>
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </div>
                                     <div class="nav-drop-body account-items">
-
-                                        <a id="profile-link" href="profile?id=${sessionScope.userInfo.getUserID()}" class="account-item">
+                                        <a id="profile-link" href="profile" class="account-item">
                                             <div class="media">
                                                 <div class="media-left">
                                                     <div class="image">
@@ -705,18 +671,7 @@
                                             </div>
                                         </a>
                                         <hr class="account-divider" />
-                                        <a class="account-item">
-                                            <div class="media">
-                                                <div class="icon-wrap">
-                                                    <i data-feather="map-pin"></i>
-                                                </div>
-                                                <div class="media-content">
-                                                    <h3>Manage Location</h3>
-                                                    <small>Change your location here</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="options-settings.html" class="account-item">
+                                        <a href="#" class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">
                                                     <i data-feather="settings"></i>
@@ -727,7 +682,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a class="account-item">
+                                        <a href="#" class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">
                                                     <i data-feather="life-buoy"></i>
@@ -1492,13 +1447,10 @@
                                     <!-- Recommended Page -->
                                     <c:forEach var="user" items="${requestScope.listPoint}">
                                         <div class="page-block">
-                                            <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
+                                            <img src="https://via.placeholder.com/300x300" style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
                                             <div class="page-meta">
                                                 <a href="otherprofile?id=${user.userID}"><span>${user.full_Name}</span></a>
                                                 <span>${user.point}</span>
-                                            </div>
-                                            <div class="add-page">
-                                                <i data-feather="eye"></i>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -1591,25 +1543,6 @@
                                                     </div>
                                                     <div class="dropdown-menu" role="menu">
                                                         <div class="dropdown-content">
-                                                            <a href="#" class="dropdown-item">
-                                                                <div class="media">
-                                                                    <i data-feather="bookmark"></i>
-                                                                    <div class="media-content">
-                                                                        <h3>Bookmark</h3>
-                                                                        <small>Add this post to your bookmarks.</small>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a class="dropdown-item">
-                                                                <div class="media">
-                                                                    <i data-feather="bell"></i>
-                                                                    <div class="media-content">
-                                                                        <h3>Notify me</h3>
-                                                                        <small>Send me the updates.</small>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <hr class="dropdown-divider" />
                                                             <a class="dropdown-item flag-link" post-id="${post.postID}">
                                                                 <div class="media">
                                                                     <i data-feather="flag"></i>
@@ -1757,13 +1690,10 @@
                                 <div class="card-body no-padding scrollable-content">
                                     <c:forEach var="user" items="${requestScope.listUserDistrict}">
                                         <div class="add-friend-block transition-block">
-                                            <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
+                                            <img src="https://via.placeholder.com/300x300" style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
                                             <div class="page-meta">
                                                 <a href="otherprofile?id=${user.userID}"><span>${user.full_Name}</span></a>
                                                 <span>${user.district}</span>
-                                            </div>
-                                            <div class="add-friend add-transition">
-                                                <i data-feather="user-plus"></i>
                                             </div>
                                         </div>
                                     </c:forEach>

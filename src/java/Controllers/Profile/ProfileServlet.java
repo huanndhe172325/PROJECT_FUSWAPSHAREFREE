@@ -9,6 +9,7 @@ import DAL.DAOManageUser;
 import DAL.DAOProfile;
 import Model.BlockList;
 import Model.Like;
+import Model.Notification;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -26,7 +27,7 @@ import java.util.List;
  *
  * @author haoto
  */
-@WebServlet(name="ProfileServlet", urlPatterns={"/profile"})
+@WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
 public class ProfileServlet extends HttpServlet {
 
     /**
@@ -77,12 +78,15 @@ public class ProfileServlet extends HttpServlet {
         ArrayList<Post> myPost = new ArrayList<>();
         List<BlockList> userBlock = db1.listBlockUser(u.getUserID());
         ArrayList<User> userList = db1.getAllUsersToBlockList(u.getUserID());
-         request.setAttribute("userList", userList);
+
+        request.setAttribute("userList", userList);
         request.setAttribute("userBlock", userBlock);
         DAOManagePost daoPost = new DAOManagePost();
         ArrayList<Post> hisPost = daoPost.getAllPostHistory(u.getUserID());
         List<Like> like = db.getPostsByLike(u.getUserID());
         myPost = daoPost.getAllPostByIdUser(u.getUserID());
+        ArrayList<Notification> listNoti = daoPost.getListNotiByUserId(userId.getUserID());
+        request.setAttribute("listNoti", listNoti);
         request.setAttribute("listLiked", like);
         request.setAttribute("hisPost", hisPost);
         request.setAttribute("myPost", myPost);
@@ -106,7 +110,7 @@ public class ProfileServlet extends HttpServlet {
         HttpSession session = request.getSession();
         DAOProfile db = new DAOProfile();
         DAOManageUser db1 = new DAOManageUser();
-        
+
         User userId = (User) session.getAttribute("userInfo");
         int id1 = userId.getUserID();
         User u = db.getUserbyId(id1);

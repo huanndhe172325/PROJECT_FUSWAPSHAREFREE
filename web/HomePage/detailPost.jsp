@@ -323,7 +323,7 @@
 
                         <div class="navbar-item is-icon drop-trigger">
                             <a class="icon-link is-friends" href="javascript:void(0);">
-                                <i data-feather="heart"></i>
+                                <i data-feather="user"></i>
                                 <span class="indicator"></span>
                             </a>
 
@@ -336,120 +336,29 @@
                                         </a>
                                     </div>
                                     <div class="nav-drop-body is-friend-requests">
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/bobby.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Bobby Brown</a>
-                                                <span>Najeel verwick is a common friend</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Dan Walker</a>
-                                                <span>You have 4 common friends</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Nelly Schwartz</a>. Check
-                                                    her <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
+                                        <c:forEach var="frirq" items="${listFriendsRq}">
+                                            <!-- Friend request -->
+                                            <div class="media">
+                                                <figure class="media-left">
+                                                    <p class="image" onclick="window.location.href = 'otherprofile?id=${frirq.senderUserId}'">
+                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="${frirq.getAvatarOwner()}" alt="" />
+                                                    </p>
+                                                </figure>
+                                                <div class="media-content">
+                                                    <a href="otherprofile?id=${frirq.senderUserId}">${frirq.getFullNameOwner()}</a>
+                                                    <span>đã gửi lời mời kết bạn cho bạn</span>
+                                                </div>
+                                                <div class="media-right">
+                                                    <button class="button icon-button is-solid grey-button raised accept-request"  data-request-id="${frirq.requestId}" data-sender-id="${frirq.senderUserId}" data-receiver-id="${frirq.receiverUserId}">
+                                                        <i data-feather="user-plus"></i>
+                                                    </button>
+                                                    <button class="button icon-button is-solid grey-button raised reject-request"  data-request-id="${frirq.requestId}" data-sender-id="${frirq.senderUserId}" 
+                                                            data-receiver-id="${frirq.receiverUserId}">
+                                                        <i data-feather="user-minus"></i>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Milly Augustine</a>
-                                                <span>You have 8 common friends</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Elise Walker</a>. Check her
-                                                    <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Edward Mayers</a>. Check his
-                                                    <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </c:forEach>                                    
                                     </div>
                                     <div class="nav-drop-footer">
                                         <a href="#">View All</a>
@@ -472,82 +381,26 @@
                                         </a>
                                     </div>
                                     <div class="nav-drop-body is-notifications">
-                                        <!-- Notification -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    ><a href="#">David Kim</a> commented on
-                                                    <a href="#">your post</a>.</span>
-                                                <span class="time">30 minutes ago</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="message-square"></i>
+                                        <c:forEach var="noti" items="${listNoti}">
+                                            <!-- Notification -->
+                                            <div class="media" onclick="window.location.href = 'detailPost?idpost=${noti.postID}'" style="cursor: pointer;">
+                                                <figure class="media-left">
+                                                    <p class="image">
+                                                        <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${noti.getUserSent().userID}'" data-demo-src="${noti.getAvatarUserSent()}" alt="" style="cursor: pointer;" />
+                                                    </p>
+                                                </figure>
+                                                <div class="media-content">
+                                                    <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
+                                                        <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
+                                                    <span class="time">${noti.getCreateTime()}</span>
+                                                </div>
+                                                <div class="media-right">
+                                                    <div class="added-icon">
+                                                        <i data-feather="message-square"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Notification -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    ><a href="#">Daniel Wellington</a> liked your
-                                                    <a href="#">profile.</a></span>
-                                                <span class="time">43 minutes ago</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="heart"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Notification -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    ><a href="#">Stella Bergmann</a> shared a
-                                                    <a href="#">New video</a> on your wall.</span>
-                                                <span class="time">Yesterday</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="youtube"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Notification -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    ><a href="#">Elise Walker</a> shared an <a href="#">Image</a> with
-                                                    you an 2 other people.</span>
-                                                <span class="time">2 days ago</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="image"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                     <div class="nav-drop-footer">
                                         <a href="#">View All</a>
@@ -564,8 +417,7 @@
                             <div class="nav-drop">
                                 <div class="inner">
                                     <div class="nav-drop-header">
-                                        <span>Messages</span>
-                                        <a href="messages-inbox.html">Inbox</a>
+                                        <span>My post pick-up arrange</span>
                                     </div>
                                     <div class="nav-drop-body is-friend-requests">
                                         <!-- Message -->
@@ -628,28 +480,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="nav-drop-footer">
-                                        <a href="#">Clear All</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
-
-                        <div class="navbar-item is-icon open-chat">
-                            <a class="icon-link is-primary" href="javascript:void(0);">
-                                <i data-feather="message-square"></i>
-                                <span class="indicator"></span>
-                            </a>
-                        </div>
-
-
-
-                        <div id="explorer-trigger" class="navbar-item is-icon">
-                            <a class="icon-link is-primary">
-                                <i class="mdi mdi-apps"></i>
-                            </a>
-                        </div>
 
                         <div class="navbar-item is-icon">
                             <a class="icon-link is-primary" href="javascript:void(0);" data-modal="create-post-modal" id="open-modal-btn">
@@ -667,7 +501,7 @@
                                     <i data-feather="x"></i>
                                 </span>
                                 <span class="search-icon">
-                                    <i data-feather="search"></i>
+                                    <i data-feather="search" style="margin-top: 10px;"></i>
                                 </span>
 
                                 <div id="tipue_drop_content" class="tipue-drop-content"></div>
@@ -681,23 +515,8 @@
 
                             <div class="nav-drop is-account-dropdown">
                                 <div class="inner">
-                                    <div class="nav-drop-header">
-                                        <span class="username">${user.full_Name}</span>
-                                        <label class="theme-toggle">
-                                            <input type="checkbox" />
-                                            <span class="toggler">
-                                                <span class="dark">
-                                                    <i data-feather="moon"></i>
-                                                </span>
-                                                <span class="light">
-                                                    <i data-feather="sun"></i>
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </div>
                                     <div class="nav-drop-body account-items">
-
-                                        <a id="profile-link" href="profile?id=${sessionScope.userInfo.getUserID()}" class="account-item">
+                                        <a id="profile-link" href="profile" class="account-item">
                                             <div class="media">
                                                 <div class="media-left">
                                                     <div class="image">
@@ -714,18 +533,7 @@
                                             </div>
                                         </a>
                                         <hr class="account-divider" />
-                                        <a class="account-item">
-                                            <div class="media">
-                                                <div class="icon-wrap">
-                                                    <i data-feather="map-pin"></i>
-                                                </div>
-                                                <div class="media-content">
-                                                    <h3>Manage Location</h3>
-                                                    <small>Change your location here</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="options-settings.html" class="account-item">
+                                        <a href="#" class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">
                                                     <i data-feather="settings"></i>
@@ -736,7 +544,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a class="account-item">
+                                        <a href="#" class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">
                                                     <i data-feather="life-buoy"></i>
@@ -1800,7 +1608,7 @@
                                                         </div>
                                                     </div>
                                                 </c:forEach>
-                                                 <c:forEach var="swap" items="${post.getListRequestApproved()}">
+                                                <c:forEach var="swap" items="${post.getListRequestApproved()}">
                                                     <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
                                                         <div class="button-wrap"  style="width: 100%;">
                                                             <button type="button" data-swap-userSent="${swap.userID}" data-swap-postId="${swap.postID}" data-type-post="req" style="width: 49%;" class="button open-modal-cancel-transaction" >Cancel transaction</button>
@@ -2574,12 +2382,16 @@
                                     <p id="share-modal-quanlity">-</p>
                                 </div>
                                 <div class="detail-row">
-                                    <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <h2 style="font-weight: 500;">Address:</h2>
                                     <p id="share-modal-address">-</p>
                                 </div>
                                 <div class="detail-row">
                                     <h2 style="font-weight: 500;">Instructions:</h2>
                                     <p id="share-modal-intruc">-</p>
+                                </div>
+                                <div class="detail-row" id="share-modal-desire-block">
+                                    <h2 style="font-weight: 500;">Desire:</h2>
+                                    <p id="share-modal-desire">-</p>
                                 </div>
                             </div>
                         </div>
@@ -2589,12 +2401,19 @@
                             <button id="requestThis" style="width: 100%;" type="button" class="open-modal-request button is-solid primary-button">
                                 Request This
                             </button>
+                            <button id="swapThis" style="width: 100%;" type="button" class="open-modal-swap button is-solid primary-button">
+                                Swap This
+                            </button>
+                            <button id="requested" style="width: 100%;" type="button" class="button is-solid primary-button">
+                                Requested
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+                                                    
         <div id="response-swap-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
             <div class="modal-content" style="width: 800px;">
@@ -2769,6 +2588,7 @@
                                         <td></td>
                                     </tr>
                                 </table>
+
                                 <label for="desire" id="titleDesire" style="display: none;">Desire:</label>
                                 <input style="display: none;" type="text" id="desire" name="desire" value="Tôi muốn đổi lấy 1 chiếc điện thoại cũ nhưng vẫn sử dụng được." required>
 
@@ -2986,7 +2806,61 @@
         </div>
 
     </div>
-    <!-- report form -->
+
+    <div id="sent-swap-modal" class="modal share-modal is-xsmall has-light-bg" style="z-index: 1100;">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="close-wrap">
+                        <span class="close-modal" onclick="document.getElementById('sent-swap-form').reset();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="control">
+                        <form enctype="multipart/form-data" action="requestSwap" id="sent-swap-form" method="POST">   
+                            <input type="text" id="idPostSwap" name="idPostSwap" style="display: none;">
+                            <label for="imgPath">Image:</label>
+                            <input required type="file" id="imgPathSwap" name="imgPathSwap" accept="image/*" multiple>
+                            <span id="img-error-swap" class="error-message-swap" style="display: none; color: red;">Please input image!!!</span>
+                            <div class="post-image preview-img preview-swap" style="display: none;">
+                                <div class="style-img-post block-img-swap">
+                                </div>
+                                <div class="image-btn image-btn-swap-preview" style="display: none;">
+                                    <div class="btn-image-next btn-image" style="font-size: 26px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                        <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                        </svg>
+                                    </div>
+                                    <div class="btn-image-pre btn-image" style="font-size: 26px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                        <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div> 
+                            <label for="Title">Description: </label>
+                            <textarea id="descriptionSwap" required class="textarea comment-textarea" name="descriptionSwap" rows="5" placeholder="Message the message you want to send to the owner"></textarea>
+                            <span id="message-error-swap" class="error-message-swap" style="display: none; color: red;">Please input description!!!</span>
+
+                            <input type="submit" id="submit-swap" style="display : none;" value="Submit">
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="button-wrap" style="width: 98%;">
+                        <button type="button" id="swapButton" class="button is-solid primary-button" style="width: 100%;">
+                            Swap
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div id="report-post-modal" class="modal share-modal is-xsmall has-light-bg">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -3166,7 +3040,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="complete-transaction-modal" class="modal albums-help-modal is-xsmall has-light-bg">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -3270,17 +3144,17 @@
     <script src="assets/js/createpost.js"></script>
     <script src="assets/js/requestSwap.js"></script>
     <script>
-        document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
-            if (event.key === "Enter") {
-                var keyword = document.getElementById("tipue_drop_input").value.trim();
-                if (keyword !== "") {
-                    var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
-                    window.location.href = url;
-                } else {
-                    alert("Please enter a keyword to search.");
-                }
-            }
-        });
+                            document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
+                                if (event.key === "Enter") {
+                                    var keyword = document.getElementById("tipue_drop_input").value.trim();
+                                    if (keyword !== "") {
+                                        var url = "/FUSWAPSHAREFREE/SearchServlet?keyword=" + encodeURIComponent(keyword);
+                                        window.location.href = url;
+                                    } else {
+                                        alert("Please enter a keyword to search.");
+                                    }
+                                }
+                            });
     </script>
 
     <script>
