@@ -5,6 +5,7 @@
 package DAL;
 
 import Controllers.HomePage.ListFriends;
+import Controllers.HomePage.SentMail;
 import Model.BlockList;
 import Model.Friends;
 import Model.FriendsRequest;
@@ -507,45 +508,11 @@ public class DAOManageUser extends DBContext {
 
     public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
-        boolean userDAO1 = userDAO.ReportUser("alknf", 2, 65);
-//        List<BlockList> userB = userDAO.listBlockUser(1);
-//        System.out.println(userB);
-
-        System.out.println();
-//   public static void main(String[] args) {
-//        DAOManageUser userDAO = new DAOManageUser();
-//        ArrayList<User> users = userDAO.getAllUsers();
-//
-//        for (User user : users) {
-//            System.out.println("UserID: " + user.getUserID());
-//            System.out.println("Email: " + user.getEmail());
-//            System.out.println("Phone: " + user.getPhone());
-//            System.out.println("AvatarUrl: " + user.getAvatarUrl());
-//            System.out.println("PassWord: " + user.getPassWord());
-//            System.out.println("JoinDate: " + user.getJoinDate());
-//            System.out.println("UserName: " + user.getUserName());
-//            System.out.println("Full_Name: " + user.getFull_Name());
-//            System.out.println("District: " + user.getDistrict());
-//            System.out.println("Commune: " + user.getCommune());
-//            System.out.println("StreetNumber: " + user.getStreetNumber());
-//            System.out.println("Point: " + user.getPoint());
-//            System.out.println("RoleID: " + user.getRoleID());
-//            System.out.println("StatusID: " + user.getStatusID());
-//            System.out.println("--------------------------------");
-//        }
-//    User u=userDAO.getUserByIdUserSend(1);
-//        System.out.println(u.getEmail());
+        SentMail sent = new SentMail();
+        String content = sent.contentEmailApprove("helo");
+        sent.sentEmail("giautn.cs190417@gmail.com", "Yêu cầu thành công", content);
     }
-//    }
-//    public static void main(String[] args) {
-//        DAOManageUser daomu = new DAOManageUser();
-//        User u = daomu.getUserByIdUserSend(2);
-////        System.out.println(u.getUserID());
-//        Map<ReportUser, Integer> map = daomu.reportRankUser();
-//        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
-//            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
-//        }
-//    }
+
 
     public ArrayList<FriendsRequest> getListFriendRequest(int userID) {
         ArrayList<FriendsRequest> friendRequests = new ArrayList<>();

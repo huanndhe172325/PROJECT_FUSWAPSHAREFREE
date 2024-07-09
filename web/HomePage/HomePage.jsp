@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
-        <title>Friendkit | Feed</title>
+        <title>FUSSF</title>
         <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
 
         <!-- Google Tag Manager -->
@@ -1391,7 +1391,7 @@
                 <div id="activity-feed" class="view-wrap true-dom is-hidden">
                     <div class="columns">
                         <!-- Left side column -->
-                        <div class="column is-3 is-hidden-mobile">
+                        <div class="column is-3 is-hidden-mobile is-hidden-tablet-only">
                             <!-- Weather widget -->
                             <!-- /partials/widgets/weather-widget.html -->
 
@@ -1488,7 +1488,7 @@
                         <!-- /Left side column -->
 
                         <!-- Middle column -->
-                        <div class="column is-6">
+                        <div class="column is-6 is-12-tablet is-12-touch is-6-widescreen is-6-desktop is-12">
                             <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
                                 <h4>Posts</h4>
                                 <div class="button-wrap">
@@ -1665,7 +1665,7 @@
                         <!-- /Middle column -->
 
                         <!-- Right side column -->
-                        <div class="column is-4-fullhd">
+                        <div class="column is-3 is-hidden-mobile is-hidden-tablet-only">
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
