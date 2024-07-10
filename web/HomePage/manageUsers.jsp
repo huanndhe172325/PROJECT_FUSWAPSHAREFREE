@@ -57,7 +57,7 @@
                 <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
             </a>
             <div class="dashboard-aside-body">
-                <a href="SideBarAdmin" class="dashboard-aside-link">
+                <a href="adminHome" class="dashboard-aside-link">
                     <div>
                         <i data-feather="adminHome"></i>
                         <span>Home</span>
@@ -81,7 +81,13 @@
                         <span> List User</span>
                     </div>
                 </a>
-               
+                <a href="manageAdministrator" class="dashboard-aside-link">
+                    <div>
+                        <i data-feather="file"></i>
+                        <span> Manage Administrator</span>
+                    </div>
+                </a>
+
             </div>
             <div class="dashboard-aside-end">
                 <a href="Preview" class="dashboard-aside-link">

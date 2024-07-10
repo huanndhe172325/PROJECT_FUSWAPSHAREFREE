@@ -16,4 +16,4 @@ function fetchNotifications() {
     xhr.send();
 }
 
-setInterval(fetchNotifications, 3000);
+setInterval(fetchNotifications, 5000);

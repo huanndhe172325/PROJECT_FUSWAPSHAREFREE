@@ -15480,7 +15480,7 @@ body.is-dark .child-dropdown .inner ul li .text span:first-child{
     }
     .modal .modal-content{
         max-height:calc(100vh - 80px) !important;
-        max-width:340px
+        max-width:420px
     }
     .modal .modal-content .content-block{
         width:314px

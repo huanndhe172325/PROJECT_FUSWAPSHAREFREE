@@ -5,6 +5,7 @@
 package DAL;
 
 import Controllers.HomePage.ListFriends;
+import Controllers.HomePage.SentMail;
 import Model.BlockList;
 import Model.Friends;
 import Model.FriendsRequest;
@@ -133,6 +134,8 @@ public class DAOManageUser extends DBContext {
 
         return users;
     }
+ 
+    
 
     public int countUsersByJoinDate(int year, int month) {
         int count = 0;
@@ -152,6 +155,101 @@ public class DAOManageUser extends DBContext {
         }
         return count;
     }
+    public int countSearchAdministrator(String txtSearch) {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) AS UserCount "
+                   + "FROM [User] "
+                   + "WHERE RoleID = 3 AND (Full_Name LIKE ? OR Email LIKE ? OR Phone LIKE ?)";
+        PreparedStatement st = connect.prepareStatement(sql);
+        st.setString(1, "%" + txtSearch + "%");
+        st.setString(2, "%" + txtSearch + "%");
+        st.setString(3, "%" + txtSearch + "%");
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt("UserCount");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return count;
+}
+public ArrayList<User> searchAdministrator(String txtSearch, int index, int size) {
+    ArrayList<User> users = new ArrayList<>();
+    String sql = "WITH a AS (\n"
+               + "    SELECT \n"
+               + "        ROW_NUMBER() OVER (ORDER BY JoinDate DESC) AS r,\n"
+               + "        UserID,\n"
+               + "        Email,\n"
+               + "        Phone,\n"
+               + "        AvatarUrl,\n"
+               + "        PassWord,\n"
+               + "        JoinDate,\n"
+               + "        UserName,\n"
+               + "        Full_Name,\n"
+               + "        District,\n"
+               + "        Commune,\n"
+               + "        StreetNumber,\n"
+               + "        Point,\n"
+               + "        RoleID,\n"
+               + "        StatusID\n"
+               + "    FROM \n"
+               + "        [User]\n"
+               + "    WHERE \n"
+               + "        RoleID = 3 AND (Full_Name LIKE ? OR Email LIKE ? OR Phone LIKE ?)\n"
+               + ")\n"
+               + "SELECT * FROM a WHERE r BETWEEN (? - 1) * ? + 1 AND ? * ?";
+    
+    try {
+        PreparedStatement st = connect.prepareStatement(sql);
+        st.setString(1, "%" + txtSearch + "%");
+        st.setString(2, "%" + txtSearch + "%");
+        st.setString(3, "%" + txtSearch + "%");
+        st.setInt(4, index);
+        st.setInt(5, size);
+        st.setInt(6, index);
+        st.setInt(7, size);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            User user = new User(
+                rs.getInt("UserID"),
+                rs.getString("Email"),
+                rs.getString("Phone"),
+                rs.getString("AvatarUrl"),
+                rs.getString("PassWord"),
+                rs.getString("JoinDate"),
+                rs.getString("UserName"),
+                rs.getString("Full_Name"),
+                rs.getString("District"),
+                rs.getString("Commune"),
+                rs.getString("StreetNumber"),
+                rs.getInt("Point"),
+                rs.getInt("RoleID"),
+                rs.getInt("StatusID")
+            );
+            users.add(user);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return users;
+}
+public int countAdministrator() {
+    int count = 0;
+    try {
+        String sql = "SELECT COUNT(*) AS UserCount "
+                   + "FROM [User] "
+                   + "WHERE RoleID = 3";
+        PreparedStatement st = connect.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt("UserCount");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return count;
+}
 
     public int getTotalRecords() {
         int totalRecords = 0;
@@ -169,6 +267,64 @@ public class DAOManageUser extends DBContext {
 
         return totalRecords;
     }
+    public ArrayList<User> getAllAdministrator(int index, int size) {
+    ArrayList<User> users = new ArrayList<>();
+    String sql = "WITH a AS (\n"
+               + "    SELECT \n"
+               + "        ROW_NUMBER() OVER (ORDER BY JoinDate DESC) AS r,\n"
+               + "        UserID,\n"
+               + "        Email,\n"
+               + "        Phone,\n"
+               + "        AvatarUrl,\n"
+               + "        PassWord,\n"
+               + "        JoinDate,\n"
+               + "        UserName,\n"
+               + "        Full_Name,\n"
+               + "        District,\n"
+               + "        Commune,\n"
+               + "        StreetNumber,\n"
+               + "        Point,\n"
+               + "        RoleID,\n"
+               + "        StatusID\n"
+               + "    FROM \n"
+               + "        [User]\n"
+               + "    WHERE \n"
+               + "        RoleID = 3\n"
+               + ")\n"
+               + "SELECT * FROM a WHERE r BETWEEN (? - 1) * ? + 1 AND ? * ?";
+
+    try {
+        PreparedStatement st = connect.prepareStatement(sql);
+        st.setInt(1, index);
+        st.setInt(2, size);
+        st.setInt(3, index);
+        st.setInt(4, size);
+        ResultSet rs = st.executeQuery();
+        while (rs.next()) {
+            User user = new User(
+                rs.getInt("UserID"),
+                rs.getString("Email"),
+                rs.getString("Phone"),
+                rs.getString("AvatarUrl"),
+                rs.getString("PassWord"),
+                rs.getString("JoinDate"),
+                rs.getString("UserName"),
+                rs.getString("Full_Name"),
+                rs.getString("District"),
+                rs.getString("Commune"),
+                rs.getString("StreetNumber"),
+                rs.getInt("Point"),
+                rs.getInt("RoleID"),
+                rs.getInt("StatusID")
+            );
+            users.add(user);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return users;
+}
+
 
     public void updateUser(User user) {
 
@@ -231,7 +387,7 @@ public class DAOManageUser extends DBContext {
     }
 
     public User getUserByIdUserReceive(int id) {
-        String sql = "      SELECT * FROM Have_ReportUser h join [User] u on h.IdUserReceive=u.UserID where h.IdUserReceive=?";
+        String sql = " SELECT * FROM Have_ReportUser h join [User] u on h.IdUserReceive=u.UserID where h.IdUserReceive=?";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
             st.setInt(1, id);
@@ -507,45 +663,11 @@ public class DAOManageUser extends DBContext {
 
     public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
-        boolean userDAO1 = userDAO.ReportUser("alknf", 2, 65);
-//        List<BlockList> userB = userDAO.listBlockUser(1);
-//        System.out.println(userB);
-
-        System.out.println();
-//   public static void main(String[] args) {
-//        DAOManageUser userDAO = new DAOManageUser();
-//        ArrayList<User> users = userDAO.getAllUsers();
-//
-//        for (User user : users) {
-//            System.out.println("UserID: " + user.getUserID());
-//            System.out.println("Email: " + user.getEmail());
-//            System.out.println("Phone: " + user.getPhone());
-//            System.out.println("AvatarUrl: " + user.getAvatarUrl());
-//            System.out.println("PassWord: " + user.getPassWord());
-//            System.out.println("JoinDate: " + user.getJoinDate());
-//            System.out.println("UserName: " + user.getUserName());
-//            System.out.println("Full_Name: " + user.getFull_Name());
-//            System.out.println("District: " + user.getDistrict());
-//            System.out.println("Commune: " + user.getCommune());
-//            System.out.println("StreetNumber: " + user.getStreetNumber());
-//            System.out.println("Point: " + user.getPoint());
-//            System.out.println("RoleID: " + user.getRoleID());
-//            System.out.println("StatusID: " + user.getStatusID());
-//            System.out.println("--------------------------------");
-//        }
-//    User u=userDAO.getUserByIdUserSend(1);
-//        System.out.println(u.getEmail());
+        SentMail sent = new SentMail();
+        String content = sent.contentEmailApprove("helo");
+        sent.sentEmail("giautn.cs190417@gmail.com", "Yêu cầu thành công", content);
     }
-//    }
-//    public static void main(String[] args) {
-//        DAOManageUser daomu = new DAOManageUser();
-//        User u = daomu.getUserByIdUserSend(2);
-////        System.out.println(u.getUserID());
-//        Map<ReportUser, Integer> map = daomu.reportRankUser();
-//        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
-//            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
-//        }
-//    }
+
 
     public ArrayList<FriendsRequest> getListFriendRequest(int userID) {
         ArrayList<FriendsRequest> friendRequests = new ArrayList<>();
