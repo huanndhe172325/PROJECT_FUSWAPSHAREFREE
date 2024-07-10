@@ -4,12 +4,15 @@
  */
 package DAL;
 
+import Model.HaveSwap;
 import Model.Notification;
 import Model.Post;
 import Model.Quanlity;
+import Model.Request;
 import Model.Type;
 import Model.User;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,6 +23,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -163,10 +167,60 @@ public class DAOManagePost extends DBContext {
                     + "AND p.UserID NOT IN (\n"
                     + "    SELECT BlockUserID \n"
                     + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
-                    + "    WHERE UserID = ?  \n"
-                    + ")";
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID != ?";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, userID);
+            statement.setInt(2, userID);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+                post.setPostID(rs.getInt("PostID"));
+                post.setTitle(rs.getString("Title"));
+                post.setDescription(rs.getString("Description"));
+                post.setIntructions(rs.getString("intructions"));
+                post.setExpiresDate(rs.getString("ExpiresDate"));
+                post.setImageUrl(rs.getString("ImageUrl"));
+                post.setDesire(rs.getString("Desire"));
+                post.setCommune(rs.getString("Commune"));
+                post.setDistrict(rs.getString("District"));
+                post.setStreet_Number(rs.getString("Street_Number"));
+                post.setCreateTime(rs.getString("CreateTime"));
+                post.setUserID(rs.getInt("UserID"));
+                post.setStatusID(rs.getInt("StatusID"));
+                post.setQuanlityID(rs.getInt("QuanlityID"));
+                post.setTypeID(rs.getInt("TypeID"));
+                listPost.add(post);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listPost;
+    }
+
+    public ArrayList<Post> getAllPostOfFriends(int userID) {
+        ArrayList<Post> listPost = new ArrayList<>();
+        try {
+            String sql = "SELECT * \n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
+                    + "WHERE p.StatusID = 1\n"
+                    + "AND p.UserID IN (\n"
+                    + "    SELECT [FriendUserID]\n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[ListFriends]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID NOT IN (\n"
+                    + "    SELECT BlockUserID\n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID != ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
+            statement.setInt(2, userID);
+            statement.setInt(3, userID);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Post post = new Post();
@@ -359,6 +413,81 @@ public class DAOManagePost extends DBContext {
         return statusID;
     }
 
+    public boolean approveRequestSwap(int userId, int postId) {
+        String sql = "UPDATE [dbo].[have_swap]\n"
+                + "   SET [Status] = N'approved'\n"
+                + " WHERE UserID = ? and PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean approveRequest(int userId, int postId) {
+        String sql = "UPDATE [dbo].[Request]\n"
+                + "   SET [Status] = N'approved'\n"
+                + " WHERE UserID = ? and PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean rejectRequestSwap(int userId, int postId) {
+        String sql = "UPDATE [dbo].[have_swap]\n"
+                + "   SET [Status] = N'reject'\n"
+                + " WHERE UserID = ? and PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean rejectRequest(int userId, int postId) {
+        String sql = "UPDATE [dbo].[Request]\n"
+                + "   SET [Status] = N'reject'\n"
+                + " WHERE UserID = ? and PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean updateStatusPost(int postId, int statusId) {
+        String sql = "UPDATE [dbo].[Post]\n"
+                + "   SET [StatusID] = ?\n"
+                + " WHERE PostID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, statusId);
+            statement.setInt(2, postId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     public boolean requestPost(String message, int userIdSent, int postId) {
         String sql = "INSERT INTO [dbo].[Request]\n"
                 + "           ([requestTIme]\n"
@@ -407,12 +536,53 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean createRequestSwap(HaveSwap newSwap) {
+        String sql = "INSERT INTO [dbo].[have_swap]\n"
+                + "           ([requestTime]\n"
+                + "           ,[Description]\n"
+                + "           ,[Status]\n"
+                + "           ,[Image]\n"
+                + "           ,[MyPostIdSwap]\n"
+                + "           ,[UserID]\n"
+                + "           ,[PostID])\n"
+                + "     VALUES\n"
+                + "           (GETDATE(),?,?,?,?,?,?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, newSwap.getDescription());
+            statement.setString(2, newSwap.getStatus());
+            statement.setString(3, newSwap.getImage());
+            statement.setString(4, null);
+            statement.setInt(5, newSwap.getUserID());
+            statement.setInt(6, newSwap.getPostID());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
     public boolean checkRequested(int idUser, int postId) {
         String sql = "SELECT * FROM Request WHERE [UserID] = ? AND [PostID] = ?";
         try (PreparedStatement statement = connect.prepareStatement(sql)) {
             statement.setInt(1, idUser);
             statement.setInt(2, postId);
 
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean checkAvaiableViewRequest(int idUser, int postId) {
+        String sql = "SELECT * FROM have_swap WHERE [UserID] = ? AND [PostID] = ?";
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, idUser);
+            statement.setInt(2, postId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next();
             }
@@ -452,6 +622,102 @@ public class DAOManagePost extends DBContext {
             System.out.println(e);
         }
         return listPost;
+    }
+
+    public ArrayList<Request> getListRequestByPostId(int postId) {
+        ArrayList<Request> listRequest = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Request] WHERE PostID = ? and [Status] = N'pending' ORDER BY requestTIme DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Request req = new Request();
+                req.setRequestTime(rs.getString("requestTIme"));
+                req.setMessage(rs.getString("Message"));
+                req.setStatus(rs.getString("Status"));
+                req.setUserID(rs.getInt("UserID"));
+                req.setPostID(rs.getInt("PostID"));
+                listRequest.add(req);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listRequest;
+    }
+
+    public ArrayList<Request> getListRequestApprovedByPostId(int postId) {
+        ArrayList<Request> listRequest = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [Request] WHERE PostID = ? and [Status] = N'approved' ORDER BY requestTIme DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Request req = new Request();
+                req.setRequestTime(rs.getString("requestTIme"));
+                req.setMessage(rs.getString("Message"));
+                req.setStatus(rs.getString("Status"));
+                req.setUserID(rs.getInt("UserID"));
+                req.setPostID(rs.getInt("PostID"));
+                listRequest.add(req);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listRequest;
+    }
+
+    public ArrayList<HaveSwap> getListRequesSwaptByPostId(int postId) {
+        ArrayList<HaveSwap> listRequestSwap = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [have_swap] WHERE PostID = ? and [Status] = N'pending' ORDER BY requestTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                HaveSwap haSwp = new HaveSwap();
+                haSwp.setRequestTime(rs.getString("requestTime"));
+                haSwp.setDescription(rs.getString("Description"));
+                haSwp.setStatus(rs.getString("Status"));
+                haSwp.setImage(rs.getString("Image"));
+                haSwp.setMyPostIdSwap(rs.getInt("MyPostIdSwap"));
+                haSwp.setUserID(rs.getInt("UserID"));
+                haSwp.setPostID(rs.getInt("PostID"));
+                listRequestSwap.add(haSwp);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listRequestSwap;
+    }
+
+    public ArrayList<HaveSwap> getListRequesApproveSwaptByPostId(int postId) {
+        ArrayList<HaveSwap> listRequestSwap = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM [have_swap] WHERE PostID = ? and [Status] = N'approved' ORDER BY requestTime DESC";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                HaveSwap haSwp = new HaveSwap();
+                haSwp.setRequestTime(rs.getString("requestTime"));
+                haSwp.setDescription(rs.getString("Description"));
+                haSwp.setStatus(rs.getString("Status"));
+                haSwp.setImage(rs.getString("Image"));
+                haSwp.setMyPostIdSwap(rs.getInt("MyPostIdSwap"));
+                haSwp.setUserID(rs.getInt("UserID"));
+                haSwp.setPostID(rs.getInt("PostID"));
+                listRequestSwap.add(haSwp);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listRequestSwap;
     }
 
     public ArrayList<Post> getAllPostHistory(int idUser) {
@@ -809,9 +1075,24 @@ public class DAOManagePost extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        DAOManagePost dao = new DAOManagePost();     
-        System.out.println(dao.getTop5PostsSameDistrict(68, "Huyện Thạch Thất"));
+    public int getNumberLikeOfPost(int PostID) {
+        int numberOfLikes = 0;
+
+        String sql = "SELECT COUNT(*) AS NumberOfLikes FROM [FUSWAPSHAREFREE].[dbo].[Like] WHERE PostID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, PostID);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    numberOfLikes = rs.getInt("NumberOfLikes");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return numberOfLikes;
     }
 
     public String calulateDate() {
@@ -833,4 +1114,104 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public void addLikePost(String postId, String userId) {
+        String sql = "INSERT INTO [FUSWAPSHAREFREE].[dbo].[Like] (PostID, UserID) VALUES (?, ?)";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setString(1, postId);
+            statement.setString(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteLikePost(String postId, String userId) {
+        String sql = "DELETE FROM [FUSWAPSHAREFREE].[dbo].[Like] WHERE PostID = ? AND UserID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setString(1, postId);
+            statement.setString(2, userId);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean checkPostLikedByUser(int postId, int userId) {
+        String sql = "SELECT 1 FROM [FUSWAPSHAREFREE].[dbo].[Like] WHERE PostID = ? AND UserID = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+
+            statement.setInt(1, postId);
+            statement.setInt(2, userId);
+
+            try (ResultSet rs = statement.executeQuery()) {
+
+                return rs.next();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public int getNumberPostOfFriends(int friendUserID) {
+        int numberOfPosts = 0;
+        String sql = "SELECT COUNT(*) AS NumberOfPosts "
+                + "FROM [FUSWAPSHAREFREE].[dbo].[Post] "
+                + "WHERE [UserID] = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, friendUserID);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    numberOfPosts = rs.getInt("NumberOfPosts");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return numberOfPosts;
+    }
+
+    public int getNumberFriends(int friendUserID) {
+        int numberOfFriends = 0;
+        String sql = "SELECT COUNT(*) AS NumberOfFriends\n"
+                + "FROM (\n"
+                + "    SELECT DISTINCT FriendUserID\n"
+                + "    FROM [FUSWAPSHAREFREE].[dbo].[ListFriends]\n"
+                + "    WHERE [UserID] = ?\n"
+                + "    UNION\n"
+                + "    SELECT DISTINCT UserID\n"
+                + "    FROM [FUSWAPSHAREFREE].[dbo].[ListFriends]\n"
+                + "    WHERE [FriendUserID] = ?\n"
+                + ") AS UniqueFriends";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, friendUserID);
+            statement.setInt(2, friendUserID);
+
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    numberOfFriends = rs.getInt("NumberOfFriends");
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return numberOfFriends;
+    }
+
+    public static void main(String[] args) {
+        DAOManagePost dao = new DAOManagePost();
+        System.out.println(dao.approveRequestSwap(9, 122));
+    }
 }

@@ -21,27 +21,14 @@
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
         </group>
         <group>
-            <file>file:/D:/SWP/src/java/DAL/DBContext.java</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/manageReportPost.java</file>
-            <file>file:/D:/SWP/web/Profile/profile.jsp</file>
-            <file>file:/D:/SWP/web/HomePage/manageReportPost.jsp</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/SideBarAdmin.java</file>
-            <file>file:/D:/SWP/web/HomePage/SideBarAdmin.jsp</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/DeletePostServlet.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/assets/css/core.css</file>
         </group>
         <group>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/manageReportPost.java</file>
-            <file>file:/D:/SWP/web/Profile/profile.jsp</file>
-            <file>file:/D:/SWP/web/HomePage/manageReportPost.jsp</file>
-            <file>file:/D:/SWP/src/java/DAL/DAOManageUser.java</file>
-            <file>file:/D:/SWP/web/HomePage/manageReportUsers.jsp</file>
-            <file>file:/D:/SWP/src/java/Model/ReportPost.java</file>
-            <file>file:/D:/SWP/src/java/DAL/DAOManageReport.java</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/manageReportUsers.java</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/SideBarAdmin.java</file>
-            <file>file:/D:/SWP/web/HomePage/SideBarAdmin.jsp</file>
-            <file>file:/D:/SWP/src/java/DAL/DAOManagePost.java</file>
-            <file>file:/D:/SWP/src/java/Controllers/HomePage/DeletePostServlet.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/assets/css/core.css</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
         </group>
     </open-files>
 </project-private>

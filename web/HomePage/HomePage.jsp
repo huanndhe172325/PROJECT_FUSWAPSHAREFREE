@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
-        <title>Friendkit | Feed</title>
+        <title>FUSSF</title>
         <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
 
         <!-- Google Tag Manager -->
@@ -162,7 +162,8 @@
             #btn-newest,
             #btn-exchange,
             #btn-free,
-            #btn-quality {
+            #btn-quality,
+            #btn-post-of-friends{
                 background-color: #007bff;
                 color: white;
                 border-color: #007bff;
@@ -173,7 +174,8 @@
             #btn-newest:hover,
             #btn-exchange:hover,
             #btn-free:hover,
-            #btn-quality:hover {
+            #btn-quality:hover,
+            #btn-post-of-friends:hover{
                 background-color: #0056b3;
                 border-color: #0056b3;
             }
@@ -356,6 +358,7 @@
             .type-exchange {
                 color: #d32f2f;
             }
+
         </style>
         <!-- End Google Tag Manager -->
 
@@ -447,7 +450,7 @@
         <div id="main-navbar" class="navbar navbar-v1 is-inline-flex is-transparent no-shadow is-hidden-mobile">
             <div class="container is-fluid">
                 <div class="navbar-brand">
-                    <a href="#" class="navbar-item">
+                    <a href="HomePage" class="navbar-item">
                         <img class="logo light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
                         <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
                     </a>
@@ -458,7 +461,7 @@
 
                         <div class="navbar-item is-icon drop-trigger">
                             <a class="icon-link is-friends" href="javascript:void(0);">
-                                <i data-feather="heart"></i>
+                                <i data-feather="user"></i>
                                 <span class="indicator"></span>
                             </a>
 
@@ -471,120 +474,29 @@
                                         </a>
                                     </div>
                                     <div class="nav-drop-body is-friend-requests">
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/bobby.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Bobby Brown</a>
-                                                <span>Najeel verwick is a common friend</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Dan Walker</a>
-                                                <span>You have 4 common friends</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Nelly Schwartz</a>. Check
-                                                    her <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
+                                        <c:forEach var="frirq" items="${listFriendsRq}">
+                                            <!-- Friend request -->
+                                            <div class="media">
+                                                <figure class="media-left">
+                                                    <p class="image" onclick="window.location.href = 'otherprofile?id=${frirq.senderUserId}'">
+                                                        <img src="https://via.placeholder.com/300x300" data-demo-src="${frirq.getAvatarOwner()}" alt="" />
+                                                    </p>
+                                                </figure>
+                                                <div class="media-content">
+                                                    <a href="otherprofile?id=${frirq.senderUserId}">${frirq.getFullNameOwner()}</a>
+                                                    <span>đã gửi lời mời kết bạn cho bạn</span>
+                                                </div>
+                                                <div class="media-right">
+                                                    <button class="button icon-button is-solid grey-button raised accept-request"  data-request-id="${frirq.requestId}" data-sender-id="${frirq.senderUserId}" data-receiver-id="${frirq.receiverUserId}">
+                                                        <i data-feather="user-plus"></i>
+                                                    </button>
+                                                    <button class="button icon-button is-solid grey-button raised reject-request"  data-request-id="${frirq.requestId}" data-sender-id="${frirq.senderUserId}" 
+                                                            data-receiver-id="${frirq.receiverUserId}">
+                                                        <i data-feather="user-minus"></i>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Milly Augustine</a>
-                                                <span>You have 8 common friends</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-plus"></i>
-                                                </button>
-                                                <button class="button icon-button is-solid grey-button raised">
-                                                    <i data-feather="user-minus"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Elise Walker</a>. Check her
-                                                    <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Friend request -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <span
-                                                    >You are now friends with <a href="#">Edward Mayers</a>. Check his
-                                                    <a href="#">profile</a>.</span>
-                                            </div>
-                                            <div class="media-right">
-                                                <div class="added-icon">
-                                                    <i data-feather="tag"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </c:forEach>                                    
                                     </div>
                                     <div class="nav-drop-footer">
                                         <a href="#">View All</a>
@@ -617,7 +529,7 @@
                                                 </figure>
                                                 <div class="media-content">
                                                     <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
-                                                        <a href="detailPost?idpost=${noti.postID}">your post</a>.</span>
+                                                        <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
                                                     <span class="time">${noti.getCreateTime()}</span>
                                                 </div>
                                                 <div class="media-right">
@@ -643,8 +555,7 @@
                             <div class="nav-drop">
                                 <div class="inner">
                                     <div class="nav-drop-header">
-                                        <span>Messages</span>
-                                        <a href="messages-inbox.html">Inbox</a>
+                                        <span>My post pick-up arrange</span>
                                     </div>
                                     <div class="nav-drop-body is-friend-requests">
                                         <!-- Message -->
@@ -707,28 +618,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="nav-drop-footer">
-                                        <a href="#">Clear All</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
-
-                        <div class="navbar-item is-icon open-chat">
-                            <a class="icon-link is-primary" href="javascript:void(0);">
-                                <i data-feather="message-square"></i>
-                                <span class="indicator"></span>
-                            </a>
-                        </div>
-
-
-
-                        <div id="explorer-trigger" class="navbar-item is-icon">
-                            <a class="icon-link is-primary">
-                                <i class="mdi mdi-apps"></i>
-                            </a>
-                        </div>
 
                         <div class="navbar-item is-icon">
                             <a class="icon-link is-primary" href="javascript:void(0);" data-modal="create-post-modal" id="open-modal-btn">
@@ -746,7 +639,7 @@
                                     <i data-feather="x"></i>
                                 </span>
                                 <span class="search-icon">
-                                    <i data-feather="search"></i>
+                                    <i data-feather="search" style="margin-top: 10px;"></i>
                                 </span>
 
                                 <div id="tipue_drop_content" class="tipue-drop-content"></div>
@@ -760,23 +653,8 @@
 
                             <div class="nav-drop is-account-dropdown">
                                 <div class="inner">
-                                    <div class="nav-drop-header">
-                                        <span class="username">${user.full_Name}</span>
-                                        <label class="theme-toggle">
-                                            <input type="checkbox" />
-                                            <span class="toggler">
-                                                <span class="dark">
-                                                    <i data-feather="moon"></i>
-                                                </span>
-                                                <span class="light">
-                                                    <i data-feather="sun"></i>
-                                                </span>
-                                            </span>
-                                        </label>
-                                    </div>
                                     <div class="nav-drop-body account-items">
-
-                                        <a id="profile-link" href="profile?id=${sessionScope.userInfo.getUserID()}" class="account-item">
+                                        <a id="profile-link" href="profile" class="account-item">
                                             <div class="media">
                                                 <div class="media-left">
                                                     <div class="image">
@@ -793,18 +671,7 @@
                                             </div>
                                         </a>
                                         <hr class="account-divider" />
-                                        <a class="account-item">
-                                            <div class="media">
-                                                <div class="icon-wrap">
-                                                    <i data-feather="map-pin"></i>
-                                                </div>
-                                                <div class="media-content">
-                                                    <h3>Manage Location</h3>
-                                                    <small>Change your location here</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="options-settings.html" class="account-item">
+                                        <a href="#" class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">
                                                     <i data-feather="settings"></i>
@@ -815,7 +682,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a class="account-item">
+                                        <a href="#" class="account-item">
                                             <div class="media">
                                                 <div class="icon-wrap">
                                                     <i data-feather="life-buoy"></i>
@@ -1524,7 +1391,7 @@
                 <div id="activity-feed" class="view-wrap true-dom is-hidden">
                     <div class="columns">
                         <!-- Left side column -->
-                        <div class="column is-3 is-hidden-mobile">
+                        <div class="column is-3 is-hidden-mobile is-hidden-tablet-only">
                             <!-- Weather widget -->
                             <!-- /partials/widgets/weather-widget.html -->
 
@@ -1580,13 +1447,10 @@
                                     <!-- Recommended Page -->
                                     <c:forEach var="user" items="${requestScope.listPoint}">
                                         <div class="page-block">
-                                            <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
+                                            <img src="https://via.placeholder.com/300x300" style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-page-popover="5" alt="" />
                                             <div class="page-meta">
                                                 <a href="otherprofile?id=${user.userID}"><span>${user.full_Name}</span></a>
                                                 <span>${user.point}</span>
-                                            </div>
-                                            <div class="add-page">
-                                                <i data-feather="eye"></i>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -1624,7 +1488,7 @@
                         <!-- /Left side column -->
 
                         <!-- Middle column -->
-                        <div class="column is-6">
+                        <div class="column is-6 is-12-tablet is-12-touch is-6-widescreen is-6-desktop is-12">
                             <div id="profile-timeline-posts" class="box-heading" style="margin-bottom: 24px;">
                                 <h4>Posts</h4>
                                 <div class="button-wrap">
@@ -1640,12 +1504,13 @@
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
                                     </div>
+                                    <a id="btn-post-of-friends" class="button" href="HomePageFriend">Post of friends</a>
                                 </div>
                             </div>
                             <!-- Post 1 -->
                             <div class="post-container" data-category="listPost">
                                 <c:forEach var="post" items="${listPost}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiableEditPost(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
 
@@ -1667,6 +1532,7 @@
                                                         <span class="desire-post" style="display: none; float: right;">${post.desire}</span>
                                                     </div>
                                                 </div>
+
                                                 <!-- Right side dropdown -->
                                                 <!-- /partials/pages/feed/dropdowns/feed-post-dropdown.html -->
                                                 <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
@@ -1677,25 +1543,6 @@
                                                     </div>
                                                     <div class="dropdown-menu" role="menu">
                                                         <div class="dropdown-content">
-                                                            <a href="#" class="dropdown-item">
-                                                                <div class="media">
-                                                                    <i data-feather="bookmark"></i>
-                                                                    <div class="media-content">
-                                                                        <h3>Bookmark</h3>
-                                                                        <small>Add this post to your bookmarks.</small>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <a class="dropdown-item">
-                                                                <div class="media">
-                                                                    <i data-feather="bell"></i>
-                                                                    <div class="media-content">
-                                                                        <h3>Notify me</h3>
-                                                                        <small>Send me the updates.</small>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                            <hr class="dropdown-divider" />
                                                             <a class="dropdown-item flag-link" post-id="${post.postID}">
                                                                 <div class="media">
                                                                     <i data-feather="flag"></i>
@@ -1730,6 +1577,7 @@
                                                             </a>
                                                         </c:forEach>     
                                                     </div>
+
                                                     <c:if test="${fn:length(post.listImg) >= 2}">
                                                         <div class="image-btn">
                                                             <div class="btn-image-next btn-image">
@@ -1745,14 +1593,19 @@
                                                         </div>
                                                     </c:if>
                                                 </div>
-
                                             </div>
-
+                                            <div class="like-wrapper" style="position: absolute; right: 10px;">
+                                                <a class="like-button ${post.isLikedByUser(user.getUserID()) ? 'is-active' : ''}">
+                                                    <i class="mdi mdi-heart not-liked bouncy"></i>
+                                                    <i class="mdi mdi-heart is-liked bouncy"></i>
+                                                    <span class="like-overlay"></span>
+                                                </a>
+                                            </div>
                                             <div class="card-footer">
                                                 <div class="social-count" style="margin-left: 0px;">
                                                     <div class="likes-count">
                                                         <i data-feather="heart"></i>
-                                                        <span>27</span>
+                                                        <span id="likeCountSpan">${post.getCountLikeOfPost()}</span>
                                                     </div>
                                                     <div class="shares-count">
                                                         <i data-feather="link-2"></i>
@@ -1774,10 +1627,45 @@
                             </div>
                             <!-- /Load more posts -->
                         </div>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                            const posts = document.querySelectorAll(".post");
+                            const loadMoreButton = document.querySelector(".load-more-button");
+                            let currentIndex = 0;
+                            const postsPerPage = 3;
+                            function showPosts(startIndex, endIndex) {
+                            for (let i = startIndex; i < endIndex && i < posts.length; i++) {
+                            posts[i].style.display = "block";
+                            }
+                            }
+
+                            function hideAllPosts() {
+                            posts.forEach(post => post.style.display = "none");
+                            }
+
+                            function handleLoadMore() {
+                            currentIndex += postsPerPage;
+                            showPosts(currentIndex, currentIndex + postsPerPage);
+                            if (currentIndex + postsPerPage >= posts.length) {
+                            loadMoreButton.style.display = "none";
+                            }
+                            }
+
+                            // Initially hide all posts
+                            hideAllPosts();
+                            // Show initial posts
+                            showPosts(0, postsPerPage);
+                            // Add event listener to Load More button
+                            loadMoreButton.addEventListener("click", function(e) {
+                            e.preventDefault();
+                            handleLoadMore();
+                            });
+                            });
+                        </script>
                         <!-- /Middle column -->
 
                         <!-- Right side column -->
-                        <div class="column is-4-fullhd">
+                        <div class="column is-3 is-hidden-mobile is-hidden-tablet-only">
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
@@ -1802,13 +1690,10 @@
                                 <div class="card-body no-padding scrollable-content">
                                     <c:forEach var="user" items="${requestScope.listUserDistrict}">
                                         <div class="add-friend-block transition-block">
-                                            <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
+                                            <img src="https://via.placeholder.com/300x300" style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${user.userID}'" data-demo-src="${user.avatarUrl}" data-user-popover="9" alt="" />
                                             <div class="page-meta">
                                                 <a href="otherprofile?id=${user.userID}"><span>${user.full_Name}</span></a>
                                                 <span>${user.district}</span>
-                                            </div>
-                                            <div class="add-friend add-transition">
-                                                <i data-feather="user-plus"></i>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -1894,789 +1779,7 @@
         </div>
         <!-- /Container -->
 
-        <!-- Create group modal in compose card -->
-        <!-- /partials/pages/feed/modals/create-group-modal.html -->
-        <div id="create-group-modal" class="modal create-group-modal is-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>Create group</h3>
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <!-- Modal subheading -->
-                    <div class="subheading">
-                        <!-- Group avatar -->
-                        <div class="group-avatar">
-                            <input id="group-avatar-upload" type="file" />
-                            <div class="add-photo">
-                                <i data-feather="plus"></i>
-                            </div>
-                        </div>
-                        <!-- Group name -->
-                        <div class="control">
-                            <input type="text" class="input" placeholder="Give the group a name" />
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="inner">
-                            <div class="left-section">
-                                <div class="search-subheader">
-                                    <div class="control">
-                                        <input type="text" class="input" placeholder="Search for friends to add" />
-                                        <span class="icon">
-                                            <i data-feather="search"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div id="new-group-list" class="user-list has-slimscroll">
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-1">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                                        <div class="friend-name">Dan Walker</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-1" />
-                                                <label for="checkbox-group-1"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-2">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                                        <div class="friend-name">Daniel Wellington</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-2" />
-                                                <label for="checkbox-group-2"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-3">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                                        <div class="friend-name">Stella Bergmann</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-3" />
-                                                <label for="checkbox-group-3"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-4">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                                        <div class="friend-name">David Kim</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-4" />
-                                                <label for="checkbox-group-4"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-5">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                                        <div class="friend-name">Nelly Schwartz</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-5" />
-                                                <label for="checkbox-group-5"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-6">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                        <div class="friend-name">Elise Walker</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-6" />
-                                                <label for="checkbox-group-6"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-7">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/bobby.jpg" alt="" />
-                                        <div class="friend-name">Bobby Brown</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-7" />
-                                                <label for="checkbox-group-7"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-8">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/lana.jpeg" alt="" />
-                                        <div class="friend-name">Lana Henrikssen</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-8" />
-                                                <label for="checkbox-group-8"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-9">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/gaelle.jpeg" alt="" />
-                                        <div class="friend-name">Gaelle Morris</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-9" />
-                                                <label for="checkbox-group-9"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Friend -->
-                                    <div class="friend-block" data-ref="ref-10">
-                                        <img class="friend-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/mike.jpg" alt="" />
-                                        <div class="friend-name">Mike Lasalle</div>
-                                        <div class="round-checkbox is-small">
-                                            <div>
-                                                <input type="checkbox" id="checkbox-group-10" />
-                                                <label for="checkbox-group-10"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right-section has-slimscroll">
-                                <div class="selected-count">
-                                    <span>Selected</span>
-                                    <span id="selected-friends-count">0</span>
-                                </div>
 
-                                <div id="selected-list" class="selected-list"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="button" class="button is-solid grey-button close-modal">
-                            Cancel
-                        </button>
-                        <button type="button" class="button is-solid accent-button close-modal">
-                            Create a Group
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Albums onboarding modal -->
-        <!-- /partials/pages/feed/modals/albums-help-modal.html -->
-        <div id="albums-help-modal" class="modal albums-help-modal is-xsmall has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>Add Photos</h3>
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="content-block is-active">
-                            <img src="assets/img/illustrations/cards/albums.svg" alt="" />
-                            <div class="help-text">
-                                <h3>Manage your photos</h3>
-                                <p>
-                                    Lorem ipsum sit dolor amet is a dummy text used by the typography
-                                    industry and the web industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content-block">
-                            <img src="assets/img/illustrations/cards/upload.svg" alt="" />
-                            <div class="help-text">
-                                <h3>Upload your photos</h3>
-                                <p>
-                                    Lorem ipsum sit dolor amet is a dummy text used by the typography
-                                    industry and the web industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="slide-dots">
-                            <div class="dot is-active"></div>
-                            <div class="dot"></div>
-                        </div>
-                        <div class="action">
-                            <button type="button" class="button is-solid accent-button next-modal raised" data-modal="albums-modal">
-                                Next
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Album upload modal -->
-        <!-- /partials/pages/feed/modals/albums-modal.html -->
-        <div id="albums-modal" class="modal albums-modal is-xxl has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>New album</h3>
-                        <div class="button is-solid accent-button fileinput-button">
-                            <i class="mdi mdi-plus"></i>
-                            Add pictures/videos
-                        </div>
-
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="left-section">
-                            <div class="album-form">
-                                <div class="control">
-                                    <input type="text" class="input is-sm no-radius is-fade" placeholder="Album name" />
-                                    <div class="icon">
-                                        <i data-feather="camera"></i>
-                                    </div>
-                                </div>
-                                <div class="control">
-                                    <textarea class="textarea is-fade no-radius is-sm" rows="3" placeholder="describe your album ..."></textarea>
-                                </div>
-                                <div class="control">
-                                    <input type="text" class="input is-sm no-radius is-fade" placeholder="Place" />
-                                    <div class="icon">
-                                        <i data-feather="map-pin"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="album-date" class="album-date">
-                                <div class="head">
-                                    <h4>Change the date</h4>
-                                    <button type="button" class="button is-solid dark-grey-button icon-button">
-                                        <i data-feather="plus"></i>
-                                    </button>
-                                </div>
-
-                                <p>Set a date for your album. You can always change it later.</p>
-                                <div class="control is-hidden">
-                                    <input id="album-datepicker" type="text" class="input is-sm is-fade" placeholder="Select a date" />
-                                    <div class="icon">
-                                        <i data-feather="calendar"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="tagged-in-album" class="tagged-in-album">
-                                <div class="head">
-                                    <h4>Tag friends in this album</h4>
-                                    <button type="button" class="button is-solid dark-grey-button icon-button">
-                                        <i data-feather="plus"></i>
-                                    </button>
-                                </div>
-
-                                <p>
-                                    Tag friends in this album. Tagged friends can see photos they are
-                                    tagged in.
-                                </p>
-                                <div class="field is-autocomplete is-hidden">
-                                    <div class="control">
-                                        <input id="create-album-friends-autocpl" type="text" class="input is-sm is-fade" placeholder="Search for friends" />
-                                        <div class="icon">
-                                            <i data-feather="search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div id="album-tag-list" class="album-tag-list"></div>
-                            </div>
-
-                            <div class="shared-album">
-                                <div class="head">
-                                    <h4>Allow friends to add photos</h4>
-                                    <div class="basic-checkbox">
-                                        <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1" />
-                                        <label for="styled-checkbox-1"></label>
-                                    </div>
-                                </div>
-
-                                <p>
-                                    Tagged friends will be able to share content inside this album.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="right-section has-slimscroll">
-                            <div class="modal-uploader">
-                                <div id="actions" class="columns is-multiline no-mb">
-                                    <div class="column is-12">
-                                        <span
-                                            class="button has-icon is-solid grey-button fileinput-button"
-                                            >
-                                            <i data-feather="plus"></i>
-                                        </span>
-                                        <button type="submit" class="button start is-hidden">
-                                            <span>Upload</span>
-                                        </button>
-                                        <button type="reset" class="button is-solid grey-button cancel">
-                                            <span>Clear all</span>
-                                        </button>
-                                        <span class="file-count">
-                                            <span id="modal-uploader-file-count">0</span> file(s) selected
-                                        </span>
-                                    </div>
-
-                                    <div class="column is-12 is-hidden">
-                                        <!-- The global file processing state -->
-                                        <div class="fileupload-process">
-                                            <div id="total-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                                <div class="progress-bar progress-bar-success" style="width: 0%" data-dz-uploadprogress></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="columns is-multiline" id="previews">
-                                    <div id="template" class="column is-4 is-template">
-                                        <div class="preview-box">
-                                            <!-- This is used as the file preview template -->
-                                            <div class="remove-button" data-dz-remove>
-                                                <i class="mdi mdi-close"></i>
-                                            </div>
-                                            <div>
-                                                <span class="preview"
-                                                      ><img
-                                                        src="https://via.placeholder.com/120x120"
-                                                        data-dz-thumbnail
-                                                        alt=""
-                                                        /></span>
-                                            </div>
-                                            <div class="preview-body">
-                                                <div class="item-meta">
-                                                    <div>
-                                                        <p class="name" data-dz-name></p>
-                                                        <strong
-                                                            class="error text-danger"
-                                                            data-dz-errormessage
-                                                            ></strong>
-                                                    </div>
-                                                    <small class="size" data-dz-size></small>
-                                                </div>
-                                                <div class="upload-item-progress">
-                                                    <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                                        <div class="progress-bar progress-bar-success" data-dz-uploadprogress></div>
-                                                    </div>
-                                                </div>
-                                                <div class="upload-item-description">
-                                                    <div class="control">
-                                                        <textarea class="textarea is-small is-fade no-radius" rows="4" placeholder="Describe this photo ..."></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="upload-item-actions is-hidden">
-                                                    <button class="button start is-hidden">
-                                                        <span>Start</span>
-                                                    </button>
-                                                    <button data-dz-remove class="button cancel is-hidden">
-                                                        <span>Cancel</span>
-                                                    </button>
-                                                    <button data-dz-remove class="button delete is-hidden">
-                                                        <span>Delete</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <!-- Dropdown menu -->
-                        <div class="dropdown is-up is-spaced is-modern is-neutral is-right dropdown-trigger">
-                            <div>
-                                <button class="button" aria-haspopup="true">
-                                    <i class="main-icon" data-feather="smile"></i>
-                                    <span>Friends</span>
-                                    <i class="caret" data-feather="chevron-down"></i>
-                                </button>
-                            </div>
-                            <div class="dropdown-menu" role="menu">
-                                <div class="dropdown-content">
-                                    <a href="#" class="dropdown-item">
-                                        <div class="media">
-                                            <i data-feather="globe"></i>
-                                            <div class="media-content">
-                                                <h3>Public</h3>
-                                                <small>Anyone can see this publication.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item">
-                                        <div class="media">
-                                            <i data-feather="users"></i>
-                                            <div class="media-content">
-                                                <h3>Friends</h3>
-                                                <small>only friends can see this publication.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="dropdown-item">
-                                        <div class="media">
-                                            <i data-feather="user"></i>
-                                            <div class="media-content">
-                                                <h3>Specific friends</h3>
-                                                <small>Don't show it to some friends.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <hr class="dropdown-divider" />
-                                    <a class="dropdown-item">
-                                        <div class="media">
-                                            <i data-feather="lock"></i>
-                                            <div class="media-content">
-                                                <h3>Only me</h3>
-                                                <small>Only me can see this publication.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="button is-solid accent-button close-modal">
-                            Create album
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Live video onboarding modal -->
-        <!-- /partials/pages/feed/modals/videos-help-modal.html -->
-        <div id="videos-help-modal" class="modal videos-help-modal is-xsmall has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>Add Photos</h3>
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="content-block is-active">
-                            <img src="assets/img/illustrations/cards/videotrip.svg" alt="" />
-                            <div class="help-text">
-                                <h3>Share live videos</h3>
-                                <p>
-                                    Lorem ipsum sit dolor amet is a dummy text used by the typography
-                                    industry and the web industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="content-block">
-                            <img src="assets/img/illustrations/cards/videocall.svg" alt="" />
-                            <div class="help-text">
-                                <h3>To build your audience</h3>
-                                <p>
-                                    Lorem ipsum sit dolor amet is a dummy text used by the typography
-                                    industry and the web industry.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="slide-dots">
-                            <div class="dot is-active"></div>
-                            <div class="dot"></div>
-                        </div>
-                        <div class="action">
-                            <button type="button" class="button is-solid accent-button next-modal raised" data-modal="videos-modal">
-                                Next
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Live video modal -->
-        <!-- /partials/pages/feed/modals/videos-modal.html -->
-        <div id="videos-modal" class="modal videos-modal is-xxl has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3>Go live</h3>
-                        <div id="stop-stream" class="button is-solid accent-button is-hidden" onclick="stopWebcam();">
-                            <i class="mdi mdi-video-off"></i>
-                            Stop stream
-                        </div>
-                        <div id="start-stream" class="button is-solid accent-button" onclick="startWebcam();">
-                            <i class="mdi mdi-video"></i>
-                            Start stream
-                        </div>
-
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="inner">
-                            <div class="left-section">
-                                <div class="video-wrapper">
-                                    <div class="video-wrap">
-                                        <div id="live-indicator" class="live is-vhidden">Live</div>
-                                        <video id="video" width="400" height="240" controls autoplay></video>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right-section">
-                                <div class="header">
-                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                    <div class="user-meta">
-                                        <span>Jenna Davis <small>is live</small></span>
-                                        <span><small>right now</small></span>
-                                    </div>
-                                    <button type="button" class="button">Follow</button>
-                                    <div class="dropdown is-spaced is-right dropdown-trigger">
-                                        <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown-menu" role="menu">
-                                            <div class="dropdown-content">
-                                                <div class="dropdown-item is-title">Who can see this ?</div>
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="globe"></i>
-                                                        <div class="media-content">
-                                                            <h3>Public</h3>
-                                                            <small>Anyone can see this publication.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="users"></i>
-                                                        <div class="media-content">
-                                                            <h3>Friends</h3>
-                                                            <small>only friends can see this publication.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="user"></i>
-                                                        <div class="media-content">
-                                                            <h3>Specific friends</h3>
-                                                            <small>Don't show it to some friends.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider" />
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="lock"></i>
-                                                        <div class="media-content">
-                                                            <h3>Only me</h3>
-                                                            <small>Only me can see this publication.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="inner-content">
-                                    <div class="control">
-                                        <input type="text" class="input is-sm is-fade" placeholder="What is this live about?" />
-                                        <div class="icon">
-                                            <i data-feather="activity"></i>
-                                        </div>
-                                    </div>
-                                    <div class="live-stats">
-                                        <div class="social-count">
-                                            <div class="likes-count">
-                                                <i data-feather="heart"></i>
-                                                <span>0</span>
-                                            </div>
-                                            <div class="shares-count">
-                                                <i data-feather="link-2"></i>
-                                                <span>0</span>
-                                            </div>
-                                            <div class="comments-count">
-                                                <i data-feather="message-circle"></i>
-                                                <span>0</span>
-                                            </div>
-                                        </div>
-                                        <div class="social-count ml-auto">
-                                            <div class="views-count">
-                                                <i data-feather="eye"></i>
-                                                <span>0</span>
-                                                <span class="views"><small>views</small></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="action">
-                                            <i data-feather="thumbs-up"></i>
-                                            <span>Like</span>
-                                        </div>
-                                        <div class="action">
-                                            <i data-feather="message-circle"></i>
-                                            <span>Comment</span>
-                                        </div>
-                                        <div class="action">
-                                            <i data-feather="link-2"></i>
-                                            <span>Share</span>
-                                        </div>
-                                        <div class="dropdown is-spaced is-right dropdown-trigger">
-                                            <div>
-                                                <div class="avatar-button">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                                    <i data-feather="triangle"></i>
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-menu has-margin" role="menu">
-                                                <div class="dropdown-content">
-                                                    <a href="#" class="dropdown-item is-selected">
-                                                        <div class="media">
-                                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                                            <div class="media-content">
-                                                                <h3>Jenna Davis</h3>
-                                                                <small>Interact as Jenna Davis.</small>
-                                                            </div>
-                                                            <div class="checkmark">
-                                                                <i data-feather="check"></i>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <hr class="dropdown-divider" />
-                                                    <a href="#" class="dropdown-item">
-                                                        <div class="media">
-                                                            <img src="https://via.placeholder.com/478x344" data-demo-src="assets/img/avatars/hanzo.svg" alt="" />
-                                                            <div class="media-content">
-                                                                <h3>Css Ninja</h3>
-                                                                <small>Interact as Css Ninja.</small>
-                                                            </div>
-                                                            <div class="checkmark">
-                                                                <i data-feather="check"></i>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="tabs-wrapper">
-                                    <div class="tabs is-fullwidth">
-                                        <ul>
-                                            <li class="is-active">
-                                                <a>Comments</a>
-                                            </li>
-                                            <li>
-                                                <a>Upcoming</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-content has-slimscroll">
-                                        <div class="media is-comment">
-                                            <figure class="media-left">
-                                                <p class="image is-32x32">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" data-user-popover="1" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <div class="username">Dan Walker</div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Proin ornare magna eros.
-                                                </p>
-                                                <div class="comment-actions">
-                                                    <a href="javascript:void(0);" class="is-inverted">Like</a>
-                                                    <span>3h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="media is-comment">
-                                            <figure class="media-left">
-                                                <p class="image is-32x32">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" data-user-popover="4" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <div class="username">David Kim</div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-                                                <div class="comment-actions">
-                                                    <a href="javascript:void(0);" class="is-inverted">Like</a>
-                                                    <span>4h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="media is-comment">
-                                            <figure class="media-left">
-                                                <p class="image is-32x32">
-                                                    <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/rolf.jpg" alt="" data-user-popover="17" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <div class="username">Rolf Krupp</div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                                    Proin ornare magna eros. Consectetur adipiscing elit.
-                                                    Proin ornare magna eros.
-                                                </p>
-                                                <div class="comment-actions">
-                                                    <a href="javascript:void(0);" class="is-inverted">Like</a>
-                                                    <span>4h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="comment-controls">
-                                    <div class="controls-inner">
-                                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                                        <div class="control">
-                                            <textarea class="textarea comment-textarea is-rounded" rows="1"></textarea>
-                                            <button class="emoji-button">
-                                                <i data-feather="smile"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Share from feed modal -->
-        <!-- /partials/pages/feed/modals/share-modal.html -->
         <div id="share-modal" class="modal share-modal is-xsmall has-light-bg">
             <div class="modal-background"></div>
             <div class="modal-content" style="width: 800px;">
@@ -2723,7 +1826,7 @@
                                     <p id="share-modal-quanlity">-</p>
                                 </div>
                                 <div class="detail-row">
-                                    <svg style="padding-right: 10px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                    <h2 style="font-weight: 500;">Address:</h2>
                                     <p id="share-modal-address">-</p>
                                 </div>
                                 <div class="detail-row">
@@ -2741,6 +1844,12 @@
                         <div class="button-wrap" style="width: 100%;">
                             <button id="requestThis" style="width: 100%;" type="button" class="open-modal-request button is-solid primary-button">
                                 Request This
+                            </button>
+                            <button id="swapThis" style="width: 100%;" type="button" class="open-modal-swap button is-solid primary-button">
+                                Swap This
+                            </button>
+                            <button id="requested" style="width: 100%;" type="button" class="button is-solid primary-button">
+                                Requested
                             </button>
                         </div>
                     </div>
@@ -2871,1866 +1980,8 @@
             </div>
         </div>
 
-        <!-- No Stream modal -->
-        <!-- /partials/pages/feed/modals/no-stream-modal.html -->
-        <div id="no-stream-modal" class="modal no-stream-modal is-xsmall has-light-bg">
-            <div class="modal-background"></div>
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-heading">
-                        <h3></h3>
-                        <!-- Close X button -->
-                        <div class="close-wrap">
-                            <span class="close-modal">
-                                <i data-feather="x"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="card-body has-text-centered">
-                        <div class="image-wrap">
-                            <img src="assets/img/illustrations/characters/no-stream.svg" alt="" />
-                        </div>
-
-                        <h3>Streaming Disabled</h3>
-                        <p>
-                            Streaming is not allowed from mobile web. Please use our mobile apps
-                            for mobile streaming.
-                        </p>
-
-                        <div class="action">
-                            <a href="index.html#demos-section" class="button is-solid accent-button raised is-fullwidth">Got It</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Google places Lib -->
-        <script src="https://maps.google.com/maps/api/js?key=AIzaSyAGLO_M5VT7BsVdjMjciKoH1fFJWWdhDPU&amp;libraries=places"></script>
-
     </div>
 
-    <div class="chat-wrapper">
-        <div class="chat-inner">
-            <!-- Chat top navigation -->
-            <div class="chat-nav">
-                <div class="nav-start">
-                    <div class="recipient-block">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                        </div>
-                        <div class="username">
-                            <span>Dan Walker</span>
-                            <span><i data-feather="star"></i> <span>| Online</span></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="nav-end">
-                    <!-- Settings icon dropdown -->
-                    <div class="dropdown is-spaced is-neutral is-right dropdown-trigger">
-                        <div>
-                            <a class="chat-nav-item is-icon">
-                                <i data-feather="settings"></i>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu" role="menu">
-                            <div class="dropdown-content">
-                                <a href="#" class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="message-square"></i>
-                                        <div class="media-content">
-                                            <h3>Details</h3>
-                                            <small>View this conversation's details.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="settings"></i>
-                                        <div class="media-content">
-                                            <h3>Preferences</h3>
-                                            <small>Define your preferences.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr class="dropdown-divider" />
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="bell"></i>
-                                        <div class="media-content">
-                                            <h3>Notifications</h3>
-                                            <small>Set notifications settings.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="bell-off"></i>
-                                        <div class="media-content">
-                                            <h3>Silence</h3>
-                                            <small>Disable notifications.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr class="dropdown-divider" />
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="box"></i>
-                                        <div class="media-content">
-                                            <h3>Archive</h3>
-                                            <small>Archive this conversation.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="trash-2"></i>
-                                        <div class="media-content">
-                                            <h3>Delete</h3>
-                                            <small>Delete this conversation.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-search">
-                        <div class="control has-icon">
-                            <input type="text" class="input" placeholder="Search messages" />
-                            <div class="form-icon">
-                                <i data-feather="search"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="chat-nav-item is-icon is-hidden-mobile">
-                        <i data-feather="at-sign"></i>
-                    </a>
-                    <a class="chat-nav-item is-icon is-hidden-mobile">
-                        <i data-feather="star"></i>
-                    </a>
-
-                    <!-- More dropdown -->
-                    <div class="dropdown is-spaced is-neutral is-right dropdown-trigger">
-                        <div>
-                            <a class="chat-nav-item is-icon no-margin">
-                                <i data-feather="more-vertical"></i>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu" role="menu">
-                            <div class="dropdown-content">
-                                <a href="#" class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="file-text"></i>
-                                        <div class="media-content">
-                                            <h3>Files</h3>
-                                            <small>View all your files.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="users"></i>
-                                        <div class="media-content">
-                                            <h3>Users</h3>
-                                            <small>View all users you're talking to.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr class="dropdown-divider" />
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="gift"></i>
-                                        <div class="media-content">
-                                            <h3>Daily bonus</h3>
-                                            <small>Get your daily bonus.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="download-cloud"></i>
-                                        <div class="media-content">
-                                            <h3>Downloads</h3>
-                                            <small>See all your downloads.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <hr class="dropdown-divider" />
-                                <a class="dropdown-item">
-                                    <div class="media">
-                                        <i data-feather="life-buoy"></i>
-                                        <div class="media-content">
-                                            <h3>Support</h3>
-                                            <small>Reach our support team.</small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a class="chat-nav-item is-icon close-chat">
-                        <i data-feather="x"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Chat sidebar -->
-            <div id="chat-sidebar" class="users-sidebar">
-                <!-- Header -->
-                <div class="header-item">
-                    <img class="light-image" src="assets/img/vector/logo/friendkit-bold.svg" alt="" />
-                    <img class="dark-image" src="assets/img/vector/logo/friendkit-white.svg" alt="" />
-                </div>
-                <!-- User list -->
-                <div class="conversations-list has-slimscroll-xs">
-                    <!-- User -->
-                    <div class="user-item is-active" data-chat-user="dan" data-full-name="Dan Walker" data-status="Online">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                            <div class="user-status is-online"></div>
-                        </div>
-                    </div>
-                    <!-- User -->
-                    <div class="user-item" data-chat-user="stella" data-full-name="Stella Bergmann" data-status="Busy">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                            <div class="user-status is-busy"></div>
-                        </div>
-                    </div>
-                    <!-- User -->
-                    <div class="user-item" data-chat-user="daniel" data-full-name="Daniel Wellington" data-status="Away">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                            <div class="user-status is-away"></div>
-                        </div>
-                    </div>
-                    <!-- User -->
-                    <div class="user-item" data-chat-user="david" data-full-name="David Kim" data-status="Busy">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                            <div class="user-status is-busy"></div>
-                        </div>
-                    </div>
-                    <!-- User -->
-                    <div class="user-item" data-chat-user="edward" data-full-name="Edward Mayers" data-status="Online">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                            <div class="user-status is-online"></div>
-                        </div>
-                    </div>
-                    <!-- User -->
-                    <div class="user-item" data-chat-user="elise" data-full-name="Elise Walker" data-status="Away">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                            <div class="user-status is-away"></div>
-                        </div>
-                    </div>
-                    <!-- User -->
-                    <div class="user-item" data-chat-user="nelly" data-full-name="Nelly Schwartz" data-status="Busy">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                            <div class="user-status is-busy"></div>
-                        </div>
-                    </div>
-                    <!-- User -->
-                    <div class="user-item" data-chat-user="milly" data-full-name="Milly Augustine" data-status="Busy">
-                        <div class="avatar-container">
-                            <img class="user-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                            <div class="user-status is-busy"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add Conversation -->
-                <div class="footer-item">
-                    <div class="add-button modal-trigger" data-modal="add-conversation-modal">
-                        <i data-feather="user"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Chat body -->
-            <div id="chat-body" class="chat-body is-opened">
-                <!-- Conversation with Dan -->
-                <div id="dan-conversation" class="chat-body-inner has-slimscroll">
-                    <div class="date-divider">
-                        <hr class="date-divider-line" />
-                        <span class="date-divider-text">Today</span>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                        <div class="message-block">
-                            <span>8:03am</span>
-                            <div class="message-text">
-                                Hi Jenna! I made a new design, and i wanted to show it to you.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                        <div class="message-block">
-                            <span>8:03am</span>
-                            <div class="message-text">
-                                It's quite clean and it's inspired from Bulkit.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>8:12am</span>
-                            <div class="message-text">Oh really??! I want to see that.</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                        <div class="message-block">
-                            <span>8:13am</span>
-                            <div class="message-text">FYI it was done in less than a day.</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>8:17am</span>
-                            <div class="message-text">
-                                Great to hear it. Just send me the PSD files so i can have a look at it.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>8:18am</span>
-                            <div class="message-text">
-                                And if you have a prototype, you can also send me the link to it.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conversation with Stella -->
-                <div id="stella-conversation" class="chat-body-inner has-slimscroll is-hidden">
-                    <div class="date-divider">
-                        <hr class="date-divider-line" />
-                        <span class="date-divider-text">Today</span>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>10:34am</span>
-                            <div class="message-text">
-                                Hey Stella! Aren't we supposed to go the theatre after work?.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>10:37am</span>
-                            <div class="message-text">Just remembered it.</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                        <div class="message-block">
-                            <span>11:22am</span>
-                            <div class="message-text">
-                                Yeah you always do that, forget about everything.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conversation with Daniel -->
-                <div id="daniel-conversation" class="chat-body-inner has-slimscroll is-hidden">
-                    <div class="date-divider">
-                        <hr class="date-divider-line" />
-                        <span class="date-divider-text">Yesterday</span>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>3:24pm</span>
-                            <div class="message-text">
-                                Daniel, Amanda told me about your issue, how can I help?
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                        <div class="message-block">
-                            <span>3:42pm</span>
-                            <div class="message-text">
-                                Hey Jenna, thanks for answering so quickly. Iam stuck, i need a car.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                        <div class="message-block">
-                            <span>3:43pm</span>
-                            <div class="message-text">
-                                Can i borrow your car for a quick ride to San Fransisco? Iam running
-                                behind and there' no train in sight.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conversation with David -->
-                <div id="david-conversation" class="chat-body-inner has-slimscroll is-hidden">
-                    <div class="date-divider">
-                        <hr class="date-divider-line" />
-                        <span class="date-divider-text">Today</span>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>12:34pm</span>
-                            <div class="message-text">
-                                Damn you! Why would you even implement this in the game?.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>12:32pm</span>
-                            <div class="message-text">I just HATE aliens.</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                        <div class="message-block">
-                            <span>13:09pm</span>
-                            <div class="message-text">
-                                C'mon, you just gotta learn the tricks. You can't expect aliens to
-                                behave like humans. I mean that's how the mechanics are.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                        <div class="message-block">
-                            <span>13:11pm</span>
-                            <div class="message-text">
-                                I checked the replay and for example, you always get supply blocked.
-                                That's not the right thing to do.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>13:12pm</span>
-                            <div class="message-text">
-                                I know but i struggle when i have to decide what to make from larvas.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                        <div class="message-block">
-                            <span>13:17pm</span>
-                            <div class="message-text">Join me in game, i'll show you.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conversation with Edward -->
-                <div id="edward-conversation" class="chat-body-inner has-slimscroll">
-                    <div class="date-divider">
-                        <hr class="date-divider-line" />
-                        <span class="date-divider-text">Monday</span>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                        <div class="message-block">
-                            <span>4:55pm</span>
-                            <div class="message-text">Hey Jenna, what's up?</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                        <div class="message-block">
-                            <span>4:56pm</span>
-                            <div class="message-text">
-                                Iam coming to LA tomorrow. Interested in having lunch?
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>5:21pm</span>
-                            <div class="message-text">
-                                Hey mate, it's been a while. Sure I would love to.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                        <div class="message-block">
-                            <span>5:27pm</span>
-                            <div class="message-text">
-                                Ok. Let's say i pick you up at 12:30 at work, works?
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>5:43pm</span>
-                            <div class="message-text">Yup, that works great.</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>5:44pm</span>
-                            <div class="message-text">
-                                And yeah, don't forget to bring some of my favourite cheese cake.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                        <div class="message-block">
-                            <span>5:27pm</span>
-                            <div class="message-text">No worries</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conversation with Edward -->
-                <div id="elise-conversation" class="chat-body-inner has-slimscroll is-hidden">
-                    <div class="date-divider">
-                        <hr class="date-divider-line" />
-                        <span class="date-divider-text">September 28</span>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>11:53am</span>
-                            <div class="message-text">
-                                Elise, i forgot my folder at your place yesterday.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>11:53am</span>
-                            <div class="message-text">I need it badly, it's work stuff.</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                        <div class="message-block">
-                            <span>12:19pm</span>
-                            <div class="message-text">
-                                Yeah i noticed. I'll drop it in half an hour at your office.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conversation with Nelly -->
-                <div id="nelly-conversation" class="chat-body-inner has-slimscroll is-hidden">
-                    <div class="date-divider">
-                        <hr class="date-divider-line" />
-                        <span class="date-divider-text">September 17</span>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>8:22pm</span>
-                            <div class="message-text">So you watched the movie?</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>8:22pm</span>
-                            <div class="message-text">Was it scary?</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                        <div class="message-block">
-                            <span>9:03pm</span>
-                            <div class="message-text">
-                                It was so frightening, i felt my heart was about to blow inside my
-                                chest.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conversation with Milly -->
-                <div id="milly-conversation" class="chat-body-inner has-slimscroll">
-                    <div class="date-divider">
-                        <hr class="date-divider-line" />
-                        <span class="date-divider-text">Today</span>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                        <div class="message-block">
-                            <span>2:01pm</span>
-                            <div class="message-text">Hello Jenna, did you read my proposal?</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                        <div class="message-block">
-                            <span>2:01pm</span>
-                            <div class="message-text">Didn't hear from you since i sent it.</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>2:02pm</span>
-                            <div class="message-text">
-                                Hello Milly, Iam really sorry, Iam so busy recently, but i had the time
-                                to read it.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                        <div class="message-block">
-                            <span>2:04pm</span>
-                            <div class="message-text">And what did you think about it?</div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>2:05pm</span>
-                            <div class="message-text">
-                                Actually it's quite good, there might be some small changes but overall
-                                it's great.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-sent">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <div class="message-block">
-                            <span>2:07pm</span>
-                            <div class="message-text">
-                                I think that i can give it to my boss at this stage.
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="chat-message is-received">
-                        <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                        <div class="message-block">
-                            <span>2:09pm</span>
-                            <div class="message-text">Crossing fingers then</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Compose message area -->
-                <div class="chat-action">
-                    <div class="chat-action-inner">
-                        <div class="control">
-                            <textarea class="textarea comment-textarea" rows="1"></textarea>
-                            <div class="dropdown compose-dropdown is-spaced is-accent is-up dropdown-trigger">
-                                <div>
-                                    <div class="add-button">
-                                        <div class="button-inner">
-                                            <i data-feather="plus"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dropdown-menu" role="menu">
-                                    <div class="dropdown-content">
-                                        <a href="#" class="dropdown-item">
-                                            <div class="media">
-                                                <i data-feather="code"></i>
-                                                <div class="media-content">
-                                                    <h3>Code snippet</h3>
-                                                    <small>Add and paste a code snippet.</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item">
-                                            <div class="media">
-                                                <i data-feather="file-text"></i>
-                                                <div class="media-content">
-                                                    <h3>Note</h3>
-                                                    <small>Add and paste a note.</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <hr class="dropdown-divider" />
-                                        <a class="dropdown-item">
-                                            <div class="media">
-                                                <i data-feather="server"></i>
-                                                <div class="media-content">
-                                                    <h3>Remote file</h3>
-                                                    <small>Add a file from a remote drive.</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a class="dropdown-item">
-                                            <div class="media">
-                                                <i data-feather="monitor"></i>
-                                                <div class="media-content">
-                                                    <h3>Local file</h3>
-                                                    <small>Add a file from your computer.</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="chat-panel" class="chat-panel is-opened">
-                <div class="panel-inner">
-                    <div class="panel-header">
-                        <h3>Details</h3>
-                        <div class="panel-close">
-                            <i data-feather="x"></i>
-                        </div>
-                    </div>
-
-                    <!-- Dan details -->
-                    <div id="dan-details" class="panel-body is-user-details">
-                        <div class="panel-body-inner">
-                            <div class="subheader">
-                                <div class="action-icon">
-                                    <i class="mdi mdi-video"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-camera"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-microphone"></i>
-                                </div>
-                                <div class="dropdown details-dropdown is-spaced is-neutral is-right dropdown-trigger ml-auto">
-                                    <div>
-                                        <div class="action-icon">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" role="menu">
-                                        <div class="dropdown-content">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="user"></i>
-                                                    <div class="media-content">
-                                                        <h3>View profile</h3>
-                                                        <small>View this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="mail"></i>
-                                                    <div class="media-content">
-                                                        <h3>Send message</h3>
-                                                        <small>Send a message to the user's inbox.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <hr class="dropdown-divider" />
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="share-2"></i>
-                                                    <div class="media-content">
-                                                        <h3>Share profile</h3>
-                                                        <small>Share this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="x"></i>
-                                                    <div class="media-content">
-                                                        <h3>Block user</h3>
-                                                        <small>Block this user permanently.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="details-avatar">
-                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" alt="" />
-                                <div class="call-me">
-                                    <i class="mdi mdi-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="user-meta has-text-centered">
-                                <h3>Dan Walker</h3>
-                                <h4>IOS Developer</h4>
-                            </div>
-
-                            <div class="user-badges">
-                                <div class="hexagon is-red">
-                                    <div>
-                                        <i class="mdi mdi-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-green">
-                                    <div>
-                                        <i class="mdi mdi-dog"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-flash"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-blue">
-                                    <div>
-                                        <i class="mdi mdi-briefcase"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="user-about">
-                                <label>About Me</label>
-                                <div class="about-block">
-                                    <i class="mdi mdi-domain"></i>
-                                    <div class="about-text">
-                                        <span>Works at</span>
-                                        <span><a class="is-inverted" href="#">WebSmash Inc.</a></span>
-                                    </div>
-                                </div>
-                                <div class="about-block">
-                                    <i class="mdi mdi-school"></i>
-                                    <div class="about-text">
-                                        <span>Studied at</span>
-                                        <span><a class="is-inverted" href="#">Riverdale University</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Stella details -->
-                    <div id="stella-details" class="panel-body is-user-details is-hidden">
-                        <div class="panel-body-inner">
-                            <div class="subheader">
-                                <div class="action-icon">
-                                    <i class="mdi mdi-video"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-camera"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-microphone"></i>
-                                </div>
-                                <div class="dropdown details-dropdown is-spaced is-neutral is-right dropdown-trigger ml-auto">
-                                    <div>
-                                        <div class="action-icon">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" role="menu">
-                                        <div class="dropdown-content">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="user"></i>
-                                                    <div class="media-content">
-                                                        <h3>View profile</h3>
-                                                        <small>View this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="mail"></i>
-                                                    <div class="media-content">
-                                                        <h3>Send message</h3>
-                                                        <small>Send a message to the user's inbox.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <hr class="dropdown-divider" />
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="share-2"></i>
-                                                    <div class="media-content">
-                                                        <h3>Share profile</h3>
-                                                        <small>Share this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="x"></i>
-                                                    <div class="media-content">
-                                                        <h3>Block user</h3>
-                                                        <small>Block this user permanently.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="details-avatar">
-                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                                <div class="call-me">
-                                    <i class="mdi mdi-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="user-meta has-text-centered">
-                                <h3>Stella Bergmann</h3>
-                                <h4>Shop Owner</h4>
-                            </div>
-
-                            <div class="user-badges">
-                                <div class="hexagon is-purple">
-                                    <div>
-                                        <i class="mdi mdi-bomb"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-red">
-                                    <div>
-                                        <i class="mdi mdi-check-decagram"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-flash"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="user-about">
-                                <label>About Me</label>
-                                <div class="about-block">
-                                    <i class="mdi mdi-domain"></i>
-                                    <div class="about-text">
-                                        <span>Works at</span>
-                                        <span><a class="is-inverted" href="#">Trending Fashions</a></span>
-                                    </div>
-                                </div>
-                                <div class="about-block">
-                                    <i class="mdi mdi-map-marker"></i>
-                                    <div class="about-text">
-                                        <span>From</span>
-                                        <span><a class="is-inverted" href="#">Oklahoma City</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Daniel details -->
-                    <div id="daniel-details" class="panel-body is-user-details is-hidden">
-                        <div class="panel-body-inner">
-                            <div class="subheader">
-                                <div class="action-icon">
-                                    <i class="mdi mdi-video"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-camera"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-microphone"></i>
-                                </div>
-                                <div class="dropdown details-dropdown is-spaced is-neutral is-right dropdown-trigger ml-auto">
-                                    <div>
-                                        <div class="action-icon">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" role="menu">
-                                        <div class="dropdown-content">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="user"></i>
-                                                    <div class="media-content">
-                                                        <h3>View profile</h3>
-                                                        <small>View this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="mail"></i>
-                                                    <div class="media-content">
-                                                        <h3>Send message</h3>
-                                                        <small>Send a message to the user's inbox.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <hr class="dropdown-divider" />
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="share-2"></i>
-                                                    <div class="media-content">
-                                                        <h3>Share profile</h3>
-                                                        <small>Share this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="x"></i>
-                                                    <div class="media-content">
-                                                        <h3>Block user</h3>
-                                                        <small>Block this user permanently.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="details-avatar">
-                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                                <div class="call-me">
-                                    <i class="mdi mdi-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="user-meta has-text-centered">
-                                <h3>Daniel Wellington</h3>
-                                <h4>Senior Executive</h4>
-                            </div>
-
-                            <div class="user-badges">
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-google-cardboard"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-blue">
-                                    <div>
-                                        <i class="mdi mdi-pizza"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-linux"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-red">
-                                    <div>
-                                        <i class="mdi mdi-puzzle"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="user-about">
-                                <label>About Me</label>
-                                <div class="about-block">
-                                    <i class="mdi mdi-domain"></i>
-                                    <div class="about-text">
-                                        <span>Works at</span>
-                                        <span><a class="is-inverted" href="#">Peelman & Sons</a></span>
-                                    </div>
-                                </div>
-                                <div class="about-block">
-                                    <i class="mdi mdi-map-marker"></i>
-                                    <div class="about-text">
-                                        <span>From</span>
-                                        <span><a class="is-inverted" href="#">Los Angeles</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- David details -->
-                    <div id="david-details" class="panel-body is-user-details is-hidden">
-                        <div class="panel-body-inner">
-                            <div class="subheader">
-                                <div class="action-icon">
-                                    <i class="mdi mdi-video"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-camera"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-microphone"></i>
-                                </div>
-                                <div class="dropdown details-dropdown is-spaced is-neutral is-right dropdown-trigger ml-auto">
-                                    <div>
-                                        <div class="action-icon">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" role="menu">
-                                        <div class="dropdown-content">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="user"></i>
-                                                    <div class="media-content">
-                                                        <h3>View profile</h3>
-                                                        <small>View this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="mail"></i>
-                                                    <div class="media-content">
-                                                        <h3>Send message</h3>
-                                                        <small>Send a message to the user's inbox.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <hr class="dropdown-divider" />
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="share-2"></i>
-                                                    <div class="media-content">
-                                                        <h3>Share profile</h3>
-                                                        <small>Share this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="x"></i>
-                                                    <div class="media-content">
-                                                        <h3>Block user</h3>
-                                                        <small>Block this user permanently.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="details-avatar">
-                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                                <div class="call-me">
-                                    <i class="mdi mdi-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="user-meta has-text-centered">
-                                <h3>David Kim</h3>
-                                <h4>Senior Developer</h4>
-                            </div>
-
-                            <div class="user-badges">
-                                <div class="hexagon is-red">
-                                    <div>
-                                        <i class="mdi mdi-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-green">
-                                    <div>
-                                        <i class="mdi mdi-dog"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-flash"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-blue">
-                                    <div>
-                                        <i class="mdi mdi-briefcase"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="user-about">
-                                <label>About Me</label>
-                                <div class="about-block">
-                                    <i class="mdi mdi-domain"></i>
-                                    <div class="about-text">
-                                        <span>Works at</span>
-                                        <span><a class="is-inverted" href="#">Frost Entertainment</a></span>
-                                    </div>
-                                </div>
-                                <div class="about-block">
-                                    <i class="mdi mdi-map-marker"></i>
-                                    <div class="about-text">
-                                        <span>From</span>
-                                        <span><a class="is-inverted" href="#">Chicago</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Edward details -->
-                    <div id="edward-details" class="panel-body is-user-details is-hidden">
-                        <div class="panel-body-inner">
-                            <div class="subheader">
-                                <div class="action-icon">
-                                    <i class="mdi mdi-video"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-camera"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-microphone"></i>
-                                </div>
-                                <div class="dropdown details-dropdown is-spaced is-neutral is-right dropdown-trigger ml-auto">
-                                    <div>
-                                        <div class="action-icon">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" role="menu">
-                                        <div class="dropdown-content">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="user"></i>
-                                                    <div class="media-content">
-                                                        <h3>View profile</h3>
-                                                        <small>View this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="mail"></i>
-                                                    <div class="media-content">
-                                                        <h3>Send message</h3>
-                                                        <small>Send a message to the user's inbox.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <hr class="dropdown-divider" />
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="share-2"></i>
-                                                    <div class="media-content">
-                                                        <h3>Share profile</h3>
-                                                        <small>Share this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="x"></i>
-                                                    <div class="media-content">
-                                                        <h3>Block user</h3>
-                                                        <small>Block this user permanently.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="details-avatar">
-                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/edward.jpeg" alt="" />
-                                <div class="call-me">
-                                    <i class="mdi mdi-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="user-meta has-text-centered">
-                                <h3>Edward Mayers</h3>
-                                <h4>Financial analyst</h4>
-                            </div>
-
-                            <div class="user-badges">
-                                <div class="hexagon is-red">
-                                    <div>
-                                        <i class="mdi mdi-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-green">
-                                    <div>
-                                        <i class="mdi mdi-dog"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-flash"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="user-about">
-                                <label>About Me</label>
-                                <div class="about-block">
-                                    <i class="mdi mdi-domain"></i>
-                                    <div class="about-text">
-                                        <span>Works at</span>
-                                        <span><a class="is-inverted" href="#">Brettmann Bank</a></span>
-                                    </div>
-                                </div>
-                                <div class="about-block">
-                                    <i class="mdi mdi-map-marker"></i>
-                                    <div class="about-text">
-                                        <span>From</span>
-                                        <span><a class="is-inverted" href="#">Santa Fe</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Elise details -->
-                    <div id="elise-details" class="panel-body is-user-details is-hidden">
-                        <div class="panel-body-inner">
-                            <div class="subheader">
-                                <div class="action-icon">
-                                    <i class="mdi mdi-video"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-camera"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-microphone"></i>
-                                </div>
-                                <div class="dropdown details-dropdown is-spaced is-neutral is-right dropdown-trigger ml-auto">
-                                    <div>
-                                        <div class="action-icon">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" role="menu">
-                                        <div class="dropdown-content">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="user"></i>
-                                                    <div class="media-content">
-                                                        <h3>View profile</h3>
-                                                        <small>View this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="mail"></i>
-                                                    <div class="media-content">
-                                                        <h3>Send message</h3>
-                                                        <small>Send a message to the user's inbox.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <hr class="dropdown-divider" />
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="share-2"></i>
-                                                    <div class="media-content">
-                                                        <h3>Share profile</h3>
-                                                        <small>Share this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="x"></i>
-                                                    <div class="media-content">
-                                                        <h3>Block user</h3>
-                                                        <small>Block this user permanently.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="details-avatar">
-                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                <div class="call-me">
-                                    <i class="mdi mdi-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="user-meta has-text-centered">
-                                <h3>Elise Walker</h3>
-                                <h4>Social influencer</h4>
-                            </div>
-
-                            <div class="user-badges">
-                                <div class="hexagon is-red">
-                                    <div>
-                                        <i class="mdi mdi-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-flash"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="user-about">
-                                <label>About Me</label>
-                                <div class="about-block">
-                                    <i class="mdi mdi-domain"></i>
-                                    <div class="about-text">
-                                        <span>Works at</span>
-                                        <span><a class="is-inverted" href="#">Social Media</a></span>
-                                    </div>
-                                </div>
-                                <div class="about-block">
-                                    <i class="mdi mdi-map-marker"></i>
-                                    <div class="about-text">
-                                        <span>From</span>
-                                        <span><a class="is-inverted" href="#">London</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Nelly details -->
-                    <div id="nelly-details" class="panel-body is-user-details is-hidden">
-                        <div class="panel-body-inner">
-                            <div class="subheader">
-                                <div class="action-icon">
-                                    <i class="mdi mdi-video"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-camera"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-microphone"></i>
-                                </div>
-                                <div class="dropdown details-dropdown is-spaced is-neutral is-right dropdown-trigger ml-auto">
-                                    <div>
-                                        <div class="action-icon">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" role="menu">
-                                        <div class="dropdown-content">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="user"></i>
-                                                    <div class="media-content">
-                                                        <h3>View profile</h3>
-                                                        <small>View this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="mail"></i>
-                                                    <div class="media-content">
-                                                        <h3>Send message</h3>
-                                                        <small>Send a message to the user's inbox.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <hr class="dropdown-divider" />
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="share-2"></i>
-                                                    <div class="media-content">
-                                                        <h3>Share profile</h3>
-                                                        <small>Share this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="x"></i>
-                                                    <div class="media-content">
-                                                        <h3>Block user</h3>
-                                                        <small>Block this user permanently.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="details-avatar">
-                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" alt="" />
-                                <div class="call-me">
-                                    <i class="mdi mdi-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="user-meta has-text-centered">
-                                <h3>Nelly Schwartz</h3>
-                                <h4>HR Manager</h4>
-                            </div>
-
-                            <div class="user-badges">
-                                <div class="hexagon is-red">
-                                    <div>
-                                        <i class="mdi mdi-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-green">
-                                    <div>
-                                        <i class="mdi mdi-dog"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-flash"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-blue">
-                                    <div>
-                                        <i class="mdi mdi-briefcase"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="user-about">
-                                <label>About Me</label>
-                                <div class="about-block">
-                                    <i class="mdi mdi-domain"></i>
-                                    <div class="about-text">
-                                        <span>Works at</span>
-                                        <span><a class="is-inverted" href="#">Carrefour</a></span>
-                                    </div>
-                                </div>
-                                <div class="about-block">
-                                    <i class="mdi mdi-map-marker"></i>
-                                    <div class="about-text">
-                                        <span>From</span>
-                                        <span><a class="is-inverted" href="#">Melbourne</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Milly details -->
-                    <div id="milly-details" class="panel-body is-user-details is-hidden">
-                        <div class="panel-body-inner">
-                            <div class="subheader">
-                                <div class="action-icon">
-                                    <i class="mdi mdi-video"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-camera"></i>
-                                </div>
-                                <div class="action-icon">
-                                    <i class="mdi mdi-microphone"></i>
-                                </div>
-                                <div class="dropdown details-dropdown is-spaced is-neutral is-right dropdown-trigger ml-auto">
-                                    <div>
-                                        <div class="action-icon">
-                                            <i class="mdi mdi-dots-vertical"></i>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-menu" role="menu">
-                                        <div class="dropdown-content">
-                                            <a href="#" class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="user"></i>
-                                                    <div class="media-content">
-                                                        <h3>View profile</h3>
-                                                        <small>View this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="mail"></i>
-                                                    <div class="media-content">
-                                                        <h3>Send message</h3>
-                                                        <small>Send a message to the user's inbox.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <hr class="dropdown-divider" />
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="share-2"></i>
-                                                    <div class="media-content">
-                                                        <h3>Share profile</h3>
-                                                        <small>Share this user's profile.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <a class="dropdown-item">
-                                                <div class="media">
-                                                    <i data-feather="x"></i>
-                                                    <div class="media-content">
-                                                        <h3>Block user</h3>
-                                                        <small>Block this user permanently.</small>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="details-avatar">
-                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/milly.jpg" alt="" />
-                                <div class="call-me">
-                                    <i class="mdi mdi-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="user-meta has-text-centered">
-                                <h3>Milly Augustine</h3>
-                                <h4>Sales Manager</h4>
-                            </div>
-
-                            <div class="user-badges">
-                                <div class="hexagon is-red">
-                                    <div>
-                                        <i class="mdi mdi-heart"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-green">
-                                    <div>
-                                        <i class="mdi mdi-dog"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-accent">
-                                    <div>
-                                        <i class="mdi mdi-flash"></i>
-                                    </div>
-                                </div>
-                                <div class="hexagon is-blue">
-                                    <div>
-                                        <i class="mdi mdi-briefcase"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="user-about">
-                                <label>About Me</label>
-                                <div class="about-block">
-                                    <i class="mdi mdi-domain"></i>
-                                    <div class="about-text">
-                                        <span>Works at</span>
-                                        <span><a class="is-inverted" href="#">Salesforce</a></span>
-                                    </div>
-                                </div>
-                                <div class="about-block">
-                                    <i class="mdi mdi-map-marker"></i>
-                                    <div class="about-text">
-                                        <span>From</span>
-                                        <span><a class="is-inverted" href="#">Seattle</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="add-conversation-modal" class="modal add-conversation-modal is-xsmall has-light-bg">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="card">
-                <div class="card-heading">
-                    <h3>New Conversation</h3>
-                    <!-- Close X button -->
-                    <div class="close-wrap">
-                        <span class="close-modal">
-                            <i data-feather="x"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <img src="assets/img/icons/chat/bubbles.svg" alt="" />
-
-                    <div class="field is-autocomplete">
-                        <div class="control has-icon">
-                            <input type="text" class="input simple-users-autocpl" placeholder="Search a user" />
-                            <div class="form-icon">
-                                <i data-feather="search"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="help-text">
-                        Select a user to start a new conversation. You'll be able to add other
-                        users later.
-                    </div>
-
-                    <div class="action has-text-centered">
-                        <button type="button" class="button is-solid accent-button raised">
-                            Start conversation
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="explorer-menu">
-        <div class="explorer-inner">
-            <div class="explorer-container">
-                <!--Header-->
-                <div class="explorer-header">
-                    <h3>Explore</h3>
-                    <div class="control">
-                        <input type="text" class="input is-rounded is-fade" placeholder="Filter" />
-                        <div class="form-icon">
-                            <i data-feather="filter"></i>
-                        </div>
-                    </div>
-                </div>
-                <!--List-->
-                <div class="explore-list has-slimscroll">
-                    <!--item-->
-                    <a href="navbar-v1-feed.html" class="explore-item">
-                        <img src="assets/img/icons/explore/clover.svg" alt="" />
-                        <h4>Feed</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-profile-friends.html" class="explore-item">
-                        <img src="assets/img/icons/explore/friends.svg" alt="" />
-                        <h4>Friends</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-videos-home.html" class="explore-item">
-                        <img src="assets/img/icons/explore/videos.svg" alt="" />
-                        <h4>Videos</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-pages-main.html" class="explore-item">
-                        <img src="assets/img/icons/explore/tag-euro.svg" alt="" />
-                        <h4>Pages</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-ecommerce-products.html" class="explore-item">
-                        <img src="assets/img/icons/explore/cart.svg" alt="" />
-                        <h4>Commerce</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-groups.html" class="explore-item">
-                        <img src="assets/img/icons/explore/house.svg" alt="" />
-                        <h4>Interests</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-stories-main.html" class="explore-item">
-                        <img src="assets/img/icons/explore/chrono.svg" alt="" />
-                        <h4>Stories</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-questions-home.html" class="explore-item">
-                        <img src="assets/img/icons/explore/question.svg" alt="" />
-                        <h4>Questions</h4>
-                    </a>
-                    <!--item-->
-                    <a href="news.html" class="explore-item">
-                        <img src="assets/img/icons/explore/news.svg" alt="" />
-                        <h4>News</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-groups.html" class="explore-item">
-                        <img src="assets/img/icons/explore/cake.svg" alt="" />
-                        <h4>Groups</h4>
-                    </a>
-                    <!--item-->
-                    <a href="https://envato.com/" class="explore-item">
-                        <img src="assets/img/icons/explore/envato.svg" alt="" />
-                        <h4>Envato</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-events.html" class="explore-item">
-                        <img src="assets/img/icons/explore/calendar.svg" alt="" />
-                        <h4>Events</h4>
-                    </a>
-                    <!--item-->
-                    <a href="https://cssninja.io/" target="_blank" class="explore-item">
-                        <img src="assets/img/icons/explore/pin.svg" alt="" />
-                        <h4>Css Ninja</h4>
-                    </a>
-                    <!--item-->
-                    <a href="elements.html" class="explore-item">
-                        <img src="assets/img/icons/explore/idea.svg" alt="" />
-                        <h4>Elements</h4>
-                    </a>
-                    <!--item-->
-                    <a href="navbar-v1-settings.html" class="explore-item">
-                        <img src="assets/img/icons/explore/settings.svg" alt="" />
-                        <h4>Settings</h4>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="end-tour-modal" class="modal end-tour-modal is-xsmall has-light-bg">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="card">
-                <div class="card-heading">
-                    <h3></h3>
-                    <!-- Close X button -->
-                    <div class="close-wrap">
-                        <span class="close-modal">
-                            <i data-feather="x"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="card-body has-text-centered">
-                    <div class="image-wrap">
-                        <img src="assets/img/vector/logo/friendkit.svg" alt="" />
-                    </div>
-
-                    <h3>That's all folks!</h3>
-                    <p>
-                        Thanks for taking the friendkit tour. There are still tons of other
-                        features for you to discover!
-                    </p>
-
-                    <div class="action">
-                        <a href="index.html#demos-section" class="button is-solid accent-button raised is-fullwidth">Explore</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
     <!-- report form -->
     <div id="report-post-modal" class="modal share-modal is-xsmall has-light-bg">
         <div class="modal-background"></div>
@@ -4779,7 +2030,58 @@
             </div>
         </div>
     </div>
+    <div id="sent-swap-modal" class="modal share-modal is-xsmall has-light-bg" style="z-index: 1100;">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-heading">
+                    <div class="close-wrap">
+                        <span class="close-modal" onclick="document.getElementById('sent-swap-form').reset();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="control">
+                        <form enctype="multipart/form-data" action="requestSwap" id="sent-swap-form" method="POST">   
+                            <input type="text" id="idPostSwap" name="idPostSwap" style="display: none;">
+                            <label for="imgPath">Image:</label>
+                            <input required type="file" id="imgPathSwap" name="imgPathSwap" accept="image/*" multiple>
+                            <span id="img-error-swap" class="error-message-swap" style="display: none; color: red;">Please input image!!!</span>
+                            <div class="post-image preview-img preview-swap" style="display: none;">
+                                <div class="style-img-post block-img-swap">
+                                </div>
+                                <div class="image-btn image-btn-swap-preview" style="display: none;">
+                                    <div class="btn-image-next btn-image" style="font-size: 26px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                        <path stroke-width="1" stroke="black" fill="currentColor" d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886"/>
+                                        </svg>
+                                    </div>
+                                    <div class="btn-image-pre btn-image" style="font-size: 26px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                        <path stroke-width="1" stroke="black" fill="currentColor" d="m4.431 12.822l13 9A1 1 0 0 0 19 21V3a1 1 0 0 0-1.569-.823l-13 9a1.003 1.003 0 0 0 0 1.645"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div> 
+                            <label for="Title">Description: </label>
+                            <textarea id="descriptionSwap" required class="textarea comment-textarea" name="descriptionSwap" rows="5" placeholder="Message the message you want to send to the owner"></textarea>
+                            <span id="message-error-swap" class="error-message-swap" style="display: none; color: red;">Please input description!!!</span>
 
+                            <input type="submit" id="submit-swap" style="display : none;" value="Submit">
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="button-wrap" style="width: 98%;">
+                        <button type="button" id="swapButton" class="button is-solid primary-button" style="width: 100%;">
+                            Swap
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="sent-request-modal" class="modal share-modal is-xsmall has-light-bg" style="z-index: 1100;">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -4886,81 +2188,177 @@
     <script src="assets/js/jsslideimage.js"></script>
     <script src="assets/js/ReportPost.js" ></script>
     <script src="assets/js/createpost.js" ></script>
+    <script src="assets/js/swapPost.js" ></script>
+    <script src="assets/js/fetchNotifycation.js" ></script>
 
     <script>
-                            var posts = [
-        <c:forEach var="p" items="${listPostUserNearMe}" varStatus="status">
-                            {
-                            title: "${p.title}",
-                                    description: "${p.description}",
-                                    images: [
-            <c:forEach var="img" items="${p.getListImg()}" varStatus="imgStatus">
-                                    "${img}"${!imgStatus.last ? ',' : ''}
-            </c:forEach>
-                                    ],
-                                    createTime: "${p.createTime}",
-                                    typeName: "${p.getTypeName()}",
-                                    quanlityName: "${p.getQuanlityName()}",
-                                    intructions: "${p.intructions}",
-                                    ownerName: "${p.getFullNameOwner()}",
-                                    userID: "${p.userID}"
-                            }${!status.last ? ',' : ''}
-        </c:forEach>
-                            ];
-                            var currentPostIndex = 0;
-                            var currentImageIndex = 0;
-                            function displayUserPost(postIndex) {
-                            var post = posts[postIndex];
-                            document.getElementById('user-post-image').src = post.images[currentImageIndex];
-                            document.getElementById('user-post-title').textContent = post.title;
-                            document.getElementById('user-post-description').textContent = post.description;
-                            document.getElementById('user-post-date').textContent = post.createTime;
-                            document.getElementById('user-post-type').textContent = post.typeName;
-                            document.getElementById('user-post-quanlity').textContent = post.quanlityName;
-                            document.getElementById('user-post-instructions').textContent = post.intructions;
-                            var typeElement = document.getElementById('user-post-type');
-                            typeElement.style.color = (post.typeName === 'Free') ? '#1a936f' : (post.typeName === 'Exchange') ? '#d32f2f' : '#333';
-                            document.getElementById('user-post-owner-link').textContent = "View profile of " + post.ownerName;
-                            document.getElementById('user-post-owner-link').onclick = function() {
-                            viewUserProfile(post.userID);
-                            return false;
+                            document.addEventListener('DOMContentLoaded', function () {
+                            // Thêm sự kiện click cho các nút accept
+                            document.querySelectorAll('.accept-request').forEach(function (button) {
+                            button.addEventListener('click', function () {
+                            var requestId = this.getAttribute('data-request-id');
+                            var senderUserId = this.getAttribute('data-sender-id');
+                            var receiverUserId = this.getAttribute('data-receiver-id');
+                            updateFriendRequestStatus(requestId, 'accepted', senderUserId, receiverUserId, this);
+                            });
+                            });
+                            // Thêm sự kiện click cho các nút reject
+                            document.querySelectorAll('.reject-request').forEach(function (button) {
+                            button.addEventListener('click', function () {
+                            var requestId = this.getAttribute('data-request-id');
+                            var senderUserId = this.getAttribute('data-sender-id');
+                            var receiverUserId = this.getAttribute('data-receiver-id');
+                            updateFriendRequestStatus(requestId, 'rejected', senderUserId, receiverUserId, this);
+                            });
+                            });
+                            function updateFriendRequestStatus(requestId, status, senderUserId, receiverUserId, button) {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '/FUSWAPSHAREFREE/AddFriend', true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                            xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                            iziToast.show({
+                            message: 'Friend request ' + status,
+                                    position: 'bottomRight'
+                            });
+                            var parentDiv = button.closest('.media');
+                            if (status === 'accepted') {
+                            parentDiv.querySelector('.media-content').innerHTML += '<span class="tag is-success">Accepted</span>';
+                            } else if (status === 'rejected') {
+                            parentDiv.querySelector('.media-content').innerHTML += '<span class="tag is-danger">Rejected</span>';
+                            }
+
+                            parentDiv.querySelectorAll('.accept-request, .reject-request').forEach(function (btn) {
+                            btn.style.display = 'none';
+                            });
+                            }
                             };
+                            var params = 'request_id=' + requestId + '&status=' + status;
+                            if (senderUserId && receiverUserId) {
+                            params += '&sender_user_id=' + senderUserId + '&receiver_user_id=' + receiverUserId;
                             }
+                            xhr.send(params);
+                            }
+                            });
+    </script>
 
-                            function nextUserPost() {
-                            if (currentPostIndex < posts.length - 1) {
-                            currentPostIndex++;
-                            currentImageIndex = 0;
-                            displayUserPost(currentPostIndex);
-                            }
-                            }
 
-                            function prevUserPost() {
-                            if (currentPostIndex > 0) {
-                            currentPostIndex--;
-                            currentImageIndex = 0;
-                            displayUserPost(currentPostIndex);
-                            }
-                            }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.like-button').forEach(button => {
+        button.addEventListener('click', function () {
+        const postElement = this.closest('.post');
+        const postId = postElement.getAttribute('data-post-id');
+        const userId = postElement.getAttribute('data-user-id');
+        const isLiked = this.classList.contains('is-active');
+        const likeCountElement = postElement.querySelector('.likes-count span');
+        const params = 'postId=' + encodeURIComponent(postId) +
+                '&userId=' + encodeURIComponent(userId) +
+                '&action=' + encodeURIComponent(isLiked ? 'unlike' : 'like');
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/FUSWAPSHAREFREE/LikePost', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
 
-                            function nextUserImage() {
-                            if (currentImageIndex < posts[currentPostIndex].images.length - 1) {
-                            currentImageIndex++;
-                            document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
-                            }
-                            }
+        if (!isLiked) {
+        button.classList.add('is-active');
+        likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
+        } else {
+        button.classList.remove('is-active');
+        likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
+        }
+        } else {
+        console.error('Request failed. Status:', xhr.status);
+        }
+        };
+        xhr.send(params);
+        });
+        });
+        });
+    </script>
 
-                            function prevUserImage() {
-                            if (currentImageIndex > 0) {
-                            currentImageIndex--;
-                            document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
-                            }
-                            }
-                            function viewUserProfile(userID) {
 
-                            window.location.href = 'otherprofile?id=' + userID;
-                            }
-                            displayUserPost(currentPostIndex);
+
+
+
+
+
+
+    <script>
+        var posts = [
+        <c:forEach var="p" items="${listPostUserNearMe}" varStatus="status">
+        {
+        title: "${p.title}",
+                description: "${p.description}",
+                images: [
+            <c:forEach var="img" items="${p.getListImg()}" varStatus="imgStatus">
+                "${img}"${!imgStatus.last ? ',' : ''}
+            </c:forEach>
+                ],
+                createTime: "${p.createTime}",
+                typeName: "${p.getTypeName()}",
+                quanlityName: "${p.getQuanlityName()}",
+                intructions: "${p.intructions}",
+                ownerName: "${p.getFullNameOwner()}",
+                userID: "${p.userID}"
+        }${!status.last ? ',' : ''}
+        </c:forEach>
+        ];
+        var currentPostIndex = 0;
+        var currentImageIndex = 0;
+        function displayUserPost(postIndex) {
+        var post = posts[postIndex];
+        document.getElementById('user-post-image').src = post.images[currentImageIndex];
+        document.getElementById('user-post-title').textContent = post.title;
+        document.getElementById('user-post-description').textContent = post.description;
+        document.getElementById('user-post-date').textContent = post.createTime;
+        document.getElementById('user-post-type').textContent = post.typeName;
+        document.getElementById('user-post-quanlity').textContent = post.quanlityName;
+        document.getElementById('user-post-instructions').textContent = post.intructions;
+        var typeElement = document.getElementById('user-post-type');
+        typeElement.style.color = (post.typeName === 'Free') ? '#1a936f' : (post.typeName === 'Exchange') ? '#d32f2f' : '#333';
+        document.getElementById('user-post-owner-link').textContent = "View profile of " + post.ownerName;
+        document.getElementById('user-post-owner-link').onclick = function() {
+        viewUserProfile(post.userID);
+        return false;
+        };
+        }
+
+        function nextUserPost() {
+        if (currentPostIndex < posts.length - 1) {
+        currentPostIndex++;
+        currentImageIndex = 0;
+        displayUserPost(currentPostIndex);
+        }
+        }
+
+        function prevUserPost() {
+        if (currentPostIndex > 0) {
+        currentPostIndex--;
+        currentImageIndex = 0;
+        displayUserPost(currentPostIndex);
+        }
+        }
+
+        function nextUserImage() {
+        if (currentImageIndex < posts[currentPostIndex].images.length - 1) {
+        currentImageIndex++;
+        document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
+        }
+        }
+
+        function prevUserImage() {
+        if (currentImageIndex > 0) {
+        currentImageIndex--;
+        document.getElementById('user-post-image').src = posts[currentPostIndex].images[currentImageIndex];
+        }
+        }
+        function viewUserProfile(userID) {
+
+        window.location.href = 'otherprofile?id=' + userID;
+        }
+        displayUserPost(currentPostIndex);
     </script>
 
 
@@ -5383,6 +2781,8 @@
         });
         });
     </script>
+
+
 
 </body>
 

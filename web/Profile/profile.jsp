@@ -195,26 +195,19 @@
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('open-modal-btn');
                 const modal = document.getElementById('edit-location-modal');
-
                 openModalBtn.addEventListener('click', () => {
                     modal.classList.add('is-active');
                 });
             });
-
-
-
             var districts = document.getElementById("district");
             var wards = document.getElementById("ward");
             var selectedCityValue = 'Thành phố Hà Nội';
-
             var Parameter = {
                 url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
                 method: "GET",
                 responseType: "application/json",
             };
-
             var promise = axios(Parameter);
-
             promise.then(function (result) {
                 var data = result.data;
                 var selectedCity = data.find((city) => city.Name === selectedCityValue);
@@ -222,7 +215,6 @@
                 selectDistrictOption(selectedCity.Districts);
                 selectWardOption(selectedCity.Districts);
             });
-
             function renderDistricts(districtsData) {
                 for (const district of districtsData) {
                     districts.options[districts.options.length] = new Option(district.Name, district.Name);
@@ -231,7 +223,6 @@
                 districts.onchange = function () {
                     wards.length = 1;
                     const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
                     if (this.value !== "") {
                         for (const ward of selectedDistrict.Wards) {
                             wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
@@ -274,7 +265,6 @@
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('open-modal-btn1');
                 const modal = document.getElementById('edit-profile-modal');
-
                 openModalBtn.addEventListener('click', () => {
                     modal.classList.add('is-active');
                 });
@@ -282,15 +272,12 @@
             var districts = document.getElementById("district");
             var wards = document.getElementById("ward");
             var selectedCityValue = 'Thành phố Hà Nội';
-
             var Parameter = {
                 url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
                 method: "GET",
                 responseType: "application/json",
             };
-
             var promise = axios(Parameter);
-
             promise.then(function (result) {
                 var data = result.data;
                 var selectedCity = data.find((city) => city.Name === selectedCityValue);
@@ -298,7 +285,6 @@
                 selectDistrictOption(selectedCity.Districts);
                 selectWardOption(selectedCity.Districts);
             });
-
             function renderDistricts(districtsData) {
                 for (const district of districtsData) {
                     districts.options[districts.options.length] = new Option(district.Name, district.Name);
@@ -307,7 +293,6 @@
                 districts.onchange = function () {
                     wards.length = 1;
                     const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
                     if (this.value !== "") {
                         for (const ward of selectedDistrict.Wards) {
                             wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
@@ -350,18 +335,35 @@
             document.addEventListener('DOMContentLoaded', (event) => {
                 const openModalBtn = document.getElementById('list-block-btn');
                 const modal = document.getElementById('list-block-modal');
-
+                const userBlockingAddBtn = document.querySelector('.user-blocking-initial__add-btn');
+                const userBlockingPopup = document.getElementById('userBlockingPopup');
+                const listBlockedUsers = document.getElementById('listBlockedUsers');
+                const backBtn = document.querySelector('.user-blocking-popup__back-btn');
+                const closeBtn = document.querySelector('.user-blocking-popup__close-btn');
+                const closeModal = document.querySelector('.close-modal');
                 openModalBtn.addEventListener('click', () => {
                     modal.classList.add('is-active');
                 });
-            });
+                userBlockingAddBtn.addEventListener('click', () => {
+                    listBlockedUsers.style.display = 'none';
+                    userBlockingPopup.style.display = 'block';
+                });
+                function showListBlockedUsers() {
+                    userBlockingPopup.style.display = 'none';
+                    listBlockedUsers.style.display = 'block';
+                }
 
-            // Function to simulate change event
+                backBtn.addEventListener('click', showListBlockedUsers);
+                closeBtn.addEventListener('click', showListBlockedUsers);
+                closeModal.addEventListener('click', () => {
+                    modal.classList.remove('is-active');
+                });
+            });
+// Function to simulate change event
             function simulateEvent(element, eventName) {
                 var event = new Event(eventName);
                 element.dispatchEvent(event);
             }
-
         </script>
 
 
@@ -404,12 +406,6 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div class="navbar-item is-icon">
-                        <a class="icon-link is-primary" href="CreatePost">
-                            <i data-feather="plus"></i>
-                            <span class="indicator"></span>
-                        </a>
-                    </div>
                     <div class="navbar-item is-icon drop-trigger">
                         <a class="icon-link is-friends" href="javascript:void(0);">
                             <i data-feather="heart"></i>
@@ -547,103 +543,47 @@
                         </div>
                     </div>
                     <div class="navbar-item is-icon drop-trigger">
-                        <a class="icon-link" href="javascript:void(0);">
-                            <i data-feather="bell"></i>
-                            <span class="indicator"></span>
-                        </a>
+                            <a class="icon-link" href="javascript:void(0);">
+                                <i data-feather="bell"></i>
+                                <span class="indicator"></span>
+                            </a>
 
-                        <div class="nav-drop is-right">
-                            <div class="inner">
-                                <div class="nav-drop-header">
-                                    <span>Notifications</span>
-                                    <a href="#">
-                                        <i data-feather="bell"></i>
-                                    </a>
-                                </div>
-                                <div class="nav-drop-body is-notifications">
-                                    <!-- Notification -->
-                                    <div class="media">
-                                        <figure class="media-left">
-                                            <p class="image">
-                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                                            </p>
-                                        </figure>
-                                        <div class="media-content">
-                                            <span
-                                                ><a href="#">David Kim</a> commented on
-                                                <a href="#">your post</a>.</span>
-                                            <span class="time">30 minutes ago</span>
-                                        </div>
-                                        <div class="media-right">
-                                            <div class="added-icon">
-                                                <i data-feather="message-square"></i>
-                                            </div>
-                                        </div>
+                            <div class="nav-drop">
+                                <div class="inner">
+                                    <div class="nav-drop-header">
+                                        <span>Notifications</span>
+                                        <a href="#">
+                                            <i data-feather="bell"></i>
+                                        </a>
                                     </div>
-                                    <!-- Notification -->
-                                    <div class="media">
-                                        <figure class="media-left">
-                                            <p class="image">
-                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                                            </p>
-                                        </figure>
-                                        <div class="media-content">
-                                            <span
-                                                ><a href="#">Daniel Wellington</a> liked your
-                                                <a href="#">profile.</a></span>
-                                            <span class="time">43 minutes ago</span>
-                                        </div>
-                                        <div class="media-right">
-                                            <div class="added-icon">
-                                                <i data-feather="heart"></i>
+                                    <div class="nav-drop-body is-notifications">
+                                        <c:forEach var="noti" items="${listNoti}">
+                                            <!-- Notification -->
+                                            <div class="media" onclick="window.location.href = 'detailPost?idpost=${noti.postID}'" style="cursor: pointer;">
+                                                <figure class="media-left">
+                                                    <p class="image">
+                                                        <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${noti.getUserSent().userID}'" data-demo-src="${noti.getAvatarUserSent()}" alt="" style="cursor: pointer;" />
+                                                    </p>
+                                                </figure>
+                                                <div class="media-content">
+                                                    <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
+                                                        <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
+                                                    <span class="time">${noti.getCreateTime()}</span>
+                                                </div>
+                                                <div class="media-right">
+                                                    <div class="added-icon">
+                                                        <i data-feather="message-square"></i>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
-                                    <!-- Notification -->
-                                    <div class="media">
-                                        <figure class="media-left">
-                                            <p class="image">
-                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                                            </p>
-                                        </figure>
-                                        <div class="media-content">
-                                            <span
-                                                ><a href="#">Stella Bergmann</a> shared a
-                                                <a href="#">New video</a> on your wall.</span>
-                                            <span class="time">Yesterday</span>
-                                        </div>
-                                        <div class="media-right">
-                                            <div class="added-icon">
-                                                <i data-feather="youtube"></i>
-                                            </div>
-                                        </div>
+                                    <div class="nav-drop-footer">
+                                        <a href="#">View All</a>
                                     </div>
-                                    <!-- Notification -->
-                                    <div class="media">
-                                        <figure class="media-left">
-                                            <p class="image">
-                                                <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                            </p>
-                                        </figure>
-                                        <div class="media-content">
-                                            <span
-                                                ><a href="#">Elise Walker</a> shared an <a href="#">Image</a> with
-                                                you an 2 other people.</span>
-                                            <span class="time">2 days ago</span>
-                                        </div>
-                                        <div class="media-right">
-                                            <div class="added-icon">
-                                                <i data-feather="image"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="nav-drop-footer">
-                                    <a href="#">View All</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                     <div class="navbar-item is-icon drop-trigger">
                         <a class="icon-link is-active" href="javascript:void(0);">
@@ -651,11 +591,10 @@
                             <span class="indicator"></span>
                         </a>
 
-                        <div class="nav-drop is-right">
+                        <div class="nav-drop">
                             <div class="inner">
                                 <div class="nav-drop-header">
-                                    <span>Messages</span>
-                                    <a href="messages-inbox.html">Inbox</a>
+                                    <span>My post pick-up arrange</span>
                                 </div>
                                 <div class="nav-drop-body is-friend-requests">
                                     <!-- Message -->
@@ -718,9 +657,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="nav-drop-footer">
-                                    <a href="#">Clear All</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -735,21 +671,6 @@
 
                         <div class="nav-drop is-account-dropdown">
                             <div class="inner">
-                                <div class="nav-drop-header">
-                                    <span class="username">${profile.getFull_Name()}</span>
-                                    <label class="theme-toggle">
-                                        <input type="checkbox" />
-                                        <span class="toggler">
-                                            <span class="dark">
-                                                <i data-feather="moon"></i>
-                                            </span>
-                                            <span class="light">
-                                                <i data-feather="sun"></i>
-                                            </span>
-                                        </span>
-                                    </label>
-                                </div>
-
                                 <div class="nav-drop-body account-items">
                                     <a id="profile-link" href="profile?id=${sessionScope.userInfo.getUserID()}" class="account-item">
                                         <div class="media">
@@ -792,17 +713,6 @@
                                         </div>
                                     </a>
 
-                                    <a class="account-item">
-                                        <div class="media">
-                                            <div class="icon-wrap">
-                                                <i data-feather="life-buoy"></i>
-                                            </div>
-                                            <div class="media-content">
-                                                <h3>Help</h3>
-                                                <small>Contact our support.</small>
-                                            </div>
-                                        </div>
-                                    </a>
                                     <form action="logout" method="POST">
                                         <button type="submit" class="button-link account-item">
                                             <div class="media">
@@ -1028,43 +938,473 @@
 
                                 <!-- Schedule calendar widget -->
                                 <!-- html/partials/widgets/schedule/schedule-widget.html -->
+                                <style>
+                                    .post-image {
+                                        overflow: hidden;
+                                        position: relative;
+                                        width: 100%;
+                                    }
+                                    .style-img-post {
+                                        display: flex;
+                                        transition: transform 0.5s ease;
+                                    }
+                                    .style-img-post a {
+                                        flex-shrink: 0;
+                                        width: 100%;
+                                    }
+                                    .image-btn {
+                                        position: absolute;
+                                        top: 41%;
+                                        width: 100%;
+                                        display: flex;
+                                        justify-content: space-between;
+                                        transform: translateY(-50%);
+                                        z-index: 10;
+                                    }
+                                    .btn-image {
+                                        font-size: 40px;
+                                        color: white;
+                                        cursor: pointer;
+                                        user-select: none;
+                                        position: absolute;
+                                    }
+                                    .btn-image-pre {
+                                        left: 10px;
+                                    }
+                                    .btn-image-next {
+                                        right: 10px;
+                                    }
 
+                                    form {
+                                        max-width: 500px;
+                                        margin: 0 auto;
+                                        border-radius: 5px;
+                                    }
+
+                                    input[type="text"],
+                                    input[type="number"],
+                                    input[type="file"],
+                                    select,
+                                    textarea {
+                                        width: 100%;
+                                        padding: 10px;
+                                        margin: 5px 0;
+                                        border: 1px solid #ccc;
+                                        border-radius: 3px;
+                                        box-sizing: border-box;
+                                    }
+
+                                    input[type="submit"] {
+                                        width: 100%;
+                                        background-color: #007bff;
+                                        color: #fff;
+                                        padding: 10px;
+                                        border: none;
+                                        border-radius: 3px;
+                                        cursor: pointer;
+                                    }
+
+                                    input[type="submit"]:hover {
+                                        background-color: #0056b3;
+                                    }
+                                    .account-item {
+                                        display: block;
+                                        text-decoration: none;
+                                        color: inherit;
+                                        cursor: pointer;
+                                    }
+                                    .media {
+                                        display: flex;
+                                        align-items: center;
+                                    }
+                                    .icon-wrap {
+                                        margin-right: 10px;
+                                    }
+                                    .button-link {
+                                        border: none;
+                                        background: none;
+                                        padding: 0;
+                                        cursor: pointer;
+                                        color: inherit;
+                                        font: inherit;
+                                        display: block;
+                                        width: 100%;
+                                        text-align: left;
+                                    }
+                                    .detail-row {
+                                        display: flex;
+                                        align-items: center;
+                                        margin-bottom: 10px;
+                                    }
+
+                                    .detail-row h2 {
+                                        margin: 0;
+                                        padding-right: 10px;
+                                        font-size: 16px;
+                                    }
+
+                                    .detail-row p {
+                                        margin: 0;
+                                        font-size: 16px;
+                                    }
+
+                                    #btn-all,
+                                    #btn-newest,
+                                    #btn-exchange,
+                                    #btn-free,
+                                    #btn-quality {
+                                        background-color: #007bff;
+                                        color: white;
+                                        border-color: #007bff;
+                                    }
+
+                                    /* Thiết lập màu khi di chuột qua */
+                                    #btn-all:hover,
+                                    #btn-newest:hover,
+                                    #btn-exchange:hover,
+                                    #btn-free:hover,
+                                    #btn-quality:hover {
+                                        background-color: #0056b3;
+                                        border-color: #0056b3;
+                                    }
+                                    .quality-options {
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        justify-content: center;
+                                        margin-top: 10px;
+                                    }
+
+                                    .quality-button {
+                                        position: relative;
+                                        display: inline-block;
+                                    }
+
+                                    .quality-options {
+                                        position: absolute;
+                                        top: 100%;
+                                        left: 0;
+                                        z-index: 1;
+                                        display: none;
+                                        background-color: #f9f9f9;
+                                        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+                                        padding: 5px;
+                                        min-width: auto;
+                                    }
+
+                                    .quality-options button {
+                                        display: block;
+                                        width: 100%;
+                                        padding: 10px;
+                                        text-align: left;
+                                        border: none;
+                                        background-color: transparent;
+                                        cursor: pointer;
+                                    }
+
+                                    .quality-options button:hover {
+                                        background-color: #f1f1f1;
+                                    }
+                                    /* CSS cho hình ảnh */
+                                    .user-post-image1 img {
+                                        width: 500px;
+                                        height: 300px; /* Điều chỉnh chiều cao của ảnh */
+                                        object-fit: cover; /* Đảm bảo ảnh không bị bóp méo */
+                                    }
+
+                                    /* CSS cho nút điều hướng */
+                                    .user-image-btn1 button {
+                                        background: rgba(255, 255, 255, 0.7);
+                                        border: none;
+                                        border-radius: 50%;
+                                        padding: 10px;
+                                        cursor: pointer;
+                                        font-size: 1.5em; /* Kích thước phù hợp */
+                                    }
+
+                                    /* CSS cho nút điều hướng của người dùng */
+                                    .user-navigation-buttons button {
+                                        padding: 10px 20px;
+                                        background-color: #4267B2;
+                                        color: white;
+                                        border: none;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                    }
+
+                                    .user-navigation-buttons button:hover {
+                                        background-color: #345498;
+                                    }
+                                    #user-near-me-post-container1 {
+                                        max-width: 600px;
+                                        margin: auto;
+                                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                        border-radius: 8px;
+                                        overflow: hidden;
+                                        background-color: #f5f5f5;
+                                        padding: 15px;
+                                    }
+
+                                    /* Phần tiêu đề */
+                                    #user-near-me-post-container1 h4 {
+                                        margin: 0;
+                                        font-size: 20px;
+                                        color: #333;
+                                        text-align: center;
+                                    }
+
+                                    /* Card của sản phẩm */
+                                    .user-product-card1 {
+                                        margin-top: 15px;
+                                    }
+
+                                    /* Hình ảnh bài đăng */
+                                    .user-post-image1 {
+                                        position: relative;
+                                        height: 300px;
+                                        overflow: hidden;
+                                    }
+
+                                    /* Nút điều hướng hình ảnh */
+                                    .user-image-btn1 {
+                                        position: absolute;
+                                        top: 50%;
+                                        left: 0;
+                                        right: 0;
+                                        transform: translateY(-50%);
+                                        display: flex;
+                                        justify-content: space-between;
+                                        padding: 0 10px;
+                                    }
+
+                                    .user-image-btn1 button {
+                                        background: rgba(255, 255, 255, 0.7);
+                                        border: none;
+                                        border-radius: 50%;
+                                        padding: 10px;
+                                        cursor: pointer;
+                                    }
+
+                                    /* Thông tin sản phẩm */
+                                    .user-product-info1 {
+                                        padding: 15px;
+                                        background-color: #fff;
+                                        border-radius: 8px;
+                                        margin-top: -10px;
+                                    }
+
+                                    /* Tiêu đề bài đăng */
+                                    #user-post-title1 {
+                                        margin: 0 0 10px;
+                                        font-size: 18px;
+                                        color: #6ba4e9;
+                                        font-weight: bold;
+                                    }
+
+                                    /* Mô tả bài đăng */
+                                    #user-post-description1 {
+                                        margin: 0;
+                                        font-size: 14px;
+                                        color: #666;
+                                    }
+
+                                    /* Các thông tin nhỏ bên dưới */
+                                    .user-product-info1 p {
+                                        margin: 5px 0;
+                                    }
+
+                                    /* Nút điều hướng sản phẩm */
+                                    .user-navigation-buttons {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-top: 15px;
+                                    }
+
+                                    .user-navigation-buttons button {
+                                        padding: 10px 20px;
+                                        background-color: #4267B2;
+                                        color: white;
+                                        border: none;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                    }
+
+                                    /* Liên kết xem profile */
+                                    #user-post-owner-link {
+                                        color: #4267B2;
+                                        text-decoration: none;
+                                        cursor: pointer;
+                                    }
+
+                                    #user-post-owner-link:hover {
+                                        text-decoration: underline;
+                                    }
+                                    .type-free {
+                                        color: #1a936f;
+                                    }
+
+
+                                    .type-exchange {
+                                        color: #d32f2f;
+                                    }
+
+                                </style>                            
+
+                                <div id="user-near-me-post-container1" style="max-width: 600px; margin: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; background-color: #f5f5f5; padding: 15px;">
+                                    <h4 style="margin: 0; font-size: 20px; color: #333; text-align: center;">Posts Liked</h4>
+                                    <c:forEach items="${listLiked}" var="listLiked" varStatus="postStatus">
+                                        <div id="user-post-${postStatus.index}" class="user-product-card1" style="margin-top: 15px; display: none;">
+                                            <div style="position: relative; height: 300px;">
+                                                <c:forEach items="${listLiked.listPostLiked().getListImg()}" var="img" varStatus="imgStatus">
+                                                    <img src="${pageContext.request.contextPath}/${img}" alt="Post image ${imgStatus.index + 1}" 
+                                                         style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s ease;" 
+                                                         class="post-image" data-index="${imgStatus.index}">
+                                                </c:forEach>
+
+                                                <div class="user-image-btn1" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 10px; z-index: 10;">
+                                                    <button onclick="prevUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">◀</button>
+                                                    <button onclick="nextUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">▶</button>
+                                                </div>
+                                            </div>
+                                            <div class="user-product-info1" style="padding: 15px; background-color: #fff; border-radius: 8px; margin-top: -10px;">
+                                                <h3 id="user-post-title1" style="margin: 0 0 10px; font-size: 18px; color: #6ba4e9; font-weight: bold;"> ${listLiked.listPostLiked().getTitle()}</h3>
+                                                <p id="user-post-description1" style="margin: 0; font-size: 14px; color: #666;">${listLiked.listPostLiked().getDescription()}</p>
+                                                <p><strong>Date:</strong> <span>${listLiked.listPostLiked().getCreateTime()}</span></p>
+                                                <p><strong>Type:</strong> <span id="user-post-type1">${listLiked.listPostLiked().getTypeName()}</span></p>
+                                                <p><strong>Quanlity:</strong> <span id="user-post-quanlity1">${listLiked.listPostLiked().getQuanlityName()}</span></p>
+                                                <p><strong>Instructions:</strong> <span id="user-post-instructions1">${listLiked.listPostLiked().getIntructions()}</span></p>
+                                                <p><strong>Owner:</strong> <a id="user-post-owner-link" href="otherprofile?id=${listLiked.listPostLiked().getUserID()}" onclick="viewUserProfile()">View profile ${listLiked.listPostLiked().getFullNameOwner()} </a></p>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+
+                                    <div class="user-navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                                        <button id="user-prev-button" onclick="prevUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Previous</button>
+                                        <button id="user-next-button" onclick="nextUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Next</button>
+                                    </div>
+                                </div>
                             </div>
+
+                            <script>
+                                function showImage(container, index) {
+                                    const images = container.querySelectorAll('.post-image');
+                                    images.forEach(img => img.style.opacity = '0');
+                                    if (images[index]) {
+                                        images[index].style.opacity = '1';
+                                    }
+                                }
+
+                                function prevUserImage(button) {
+                                    const container = button.closest('.user-product-card1');
+                                    const images = container.querySelectorAll('.post-image');
+                                    let currentIndex = Array.from(images).findIndex(img => img.style.opacity === '1');
+                                    let newIndex = (currentIndex - 1 + images.length) % images.length;
+                                    showImage(container, newIndex);
+                                }
+
+                                function nextUserImage(button) {
+                                    const container = button.closest('.user-product-card1');
+                                    const images = container.querySelectorAll('.post-image');
+                                    let currentIndex = Array.from(images).findIndex(img => img.style.opacity === '1');
+                                    let newIndex = (currentIndex + 1) % images.length;
+                                    showImage(container, newIndex);
+                                }
+
+// Hiển thị ảnh đầu tiên cho mỗi bài post khi trang được tải
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    document.querySelectorAll('.user-product-card1').forEach(container => {
+                                        showImage(container, 0);
+                                    });
+                                });
+                            </script>
+                            <script>
+                                let currentPostIndex = 0;
+                                const posts = document.querySelectorAll('.user-product-card1');
+
+                                function showPost(index) {
+                                    posts.forEach(post => post.style.display = 'none');
+                                    if (posts[index]) {
+                                        posts[index].style.display = 'block';
+                                        showImage(posts[index], 0);  // Hiển thị ảnh đầu tiên của bài post
+                                    }
+                                }
+
+                                function prevUserPost() {
+                                    currentPostIndex = (currentPostIndex - 1 + posts.length) % posts.length;
+                                    showPost(currentPostIndex);
+                                }
+
+                                function nextUserPost() {
+                                    currentPostIndex = (currentPostIndex + 1) % posts.length;
+                                    showPost(currentPostIndex);
+                                }
+
+                                function showImage(container, index) {
+                                    const images = container.querySelectorAll('.post-image');
+                                    images.forEach(img => img.style.opacity = '0');
+                                    if (images[index]) {
+                                        images[index].style.opacity = '1';
+                                    }
+                                }
+
+                                function prevUserImage(button) {
+                                    const container = button.closest('.user-product-card1');
+                                    const images = container.querySelectorAll('.post-image');
+                                    let currentIndex = Array.from(images).findIndex(img => img.style.opacity === '1');
+                                    let newIndex = (currentIndex - 1 + images.length) % images.length;
+                                    showImage(container, newIndex);
+                                }
+
+                                function nextUserImage(button) {
+                                    const container = button.closest('.user-product-card1');
+                                    const images = container.querySelectorAll('.post-image');
+                                    let currentIndex = Array.from(images).findIndex(img => img.style.opacity === '1');
+                                    let newIndex = (currentIndex + 1) % images.length;
+                                    showImage(container, newIndex);
+                                }
+
+// Hiển thị bài post đầu tiên khi trang được tải
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    showPost(currentPostIndex);
+                                });
+                            </script>
+
+
+
                             <style>
                                 #history-form {
                                     display: none;
                                 }
                             </style>
+
                             <div class="column is-8">
                                 <div id="profile-timeline-posts" class="box-heading">
                                     <h4>Posts</h4>
                                     <div class="button-wrap">
                                         <button id="list-posts-btn" type="button" class="button is-active">List Posts</button>
                                         <button id="history-btn" type="button" class="button is-active">History</button>
+                                        <button id="view-list-friends" class="button is-active" onclick="window.location.href = 'ListFriends';">List Friends</button>
                                     </div>
                                 </div>
                                 <div id="list-posts-form">
                                     <c:forEach var="post" items="${myPost}"> 
-                                        <div id="feed-post-1" class="card is-post" data-post-id="${post.postID}">
+                                        <div class="card is-post post" data-post-id="${post.postID}">
                                             <!-- Main wrap -->
                                             <div class="content-wrap">
                                                 <!-- Post header -->
                                                 <div class="card-heading">
                                                     <!-- User meta -->
                                                     <div class="user-block" style="width: 100%;">
-                                                        <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                        <div class="image" style="cursor: pointer;" onclick="window.location.href = 'profile?id=${post.userID}'">
                                                             <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
                                                         </div>
                                                         <div class="user-info" style="width: 100%;">
-                                                            <a class="post-name-owner"  href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
+                                                            <a class="post-name-owner" href="profile?id=${post.userID}">${post.getFullNameOwner()}</a>
                                                             <span class="time" style="display: inline-block">${post.createTime}</span>
                                                             <span class="status-post-name" style="display: inline-block; padding: 0 10px; float: right;">${post.getStatusName()}</span>
                                                             <span class="type-post-name" style="display: inline-block; float: right;">${post.getTypeName()}</span>
                                                             <span class="quanlity-post" style="display: none; float: right;">${post.getQuanlityName()}</span>
                                                             <span class="addres-post" style="display: none; float: right;">${post.getAddress()}</span>
                                                             <span class="intrucstion-post" style="display: none; float: right;">${post.intructions}</span>
-
-
                                                         </div>
                                                     </div>
                                                     <!-- Right side dropdown -->
@@ -1078,9 +1418,14 @@
                                                         <div class="dropdown-menu" role="menu">
                                                             <div class="dropdown-content">
                                                                 <c:if test="${post.avaiableEditPost(profile.userID)}">
-                                                                    <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-commune="${post.commune}"  data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" data-all-img="${post.imageUrl}">
+                                                                    <a class="dropdown-item open-modal-edit modal-trigger edit-modal-trigger" data-post-id="${post.postID}" data-post-title="${post.title}" data-post-quanlity="${post.quanlityID}" data-post-desc="${post.description}" data-post-intr="${post.intructions}" data-post-commune="${post.commune}" data-post-district="${post.district}" data-post-street_Number="${post.street_Number}" data-all-img="${post.imageUrl}">
                                                                         <div class="media">
-                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/></g></svg>
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                                                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                                                            <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                                                                            <path d="M18.375 2.625a2.121 2.121 0 1 1 3 3L12 15l-4 1l1-4Z"/>
+                                                                            </g>
+                                                                            </svg>
                                                                             <div class="media-content">
                                                                                 <h3>Edit</h3>
                                                                                 <small>Edit your post.</small>
@@ -1117,7 +1462,6 @@
                                                             ${post.description}
                                                         </p>
                                                     </div>
-
                                                     <!-- Featured image -->
                                                     <div class="post-image">
                                                         <div class="style-img-post">
@@ -1142,9 +1486,7 @@
                                                             </div>
                                                         </c:if>
                                                     </div>
-
                                                 </div>
-
                                                 <div class="card-footer">
                                                     <div class="social-count" style="margin-left: 0px;">
                                                         <div class="likes-count">
@@ -1300,6 +1642,42 @@
                 </div>
             </div>
 
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const posts = document.querySelectorAll(".post");
+                    const loadMoreButton = document.querySelector(".load-more-button");
+                    let currentIndex = 0;
+                    const postsPerPage = 3;
+                    function showPosts(startIndex, endIndex) {
+                        for (let i = startIndex; i < endIndex && i < posts.length; i++) {
+                            posts[i].style.display = "block";
+                        }
+                    }
+
+                    function hideAllPosts() {
+                        posts.forEach(post => post.style.display = "none");
+                    }
+
+                    function handleLoadMore() {
+                        currentIndex += postsPerPage;
+                        showPosts(currentIndex, currentIndex + postsPerPage);
+                        if (currentIndex + postsPerPage >= posts.length) {
+                            loadMoreButton.style.display = "none";
+                        }
+                    }
+
+                    // Initially hide all posts
+                    hideAllPosts();
+                    // Show initial posts
+                    showPosts(0, postsPerPage);
+                    // Add event listener to Load More button
+                    loadMoreButton.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        handleLoadMore();
+                    });
+                });
+            </script>
+
             <!-- Edit profile -->
             <div id="edit-profile-modal" class="modal share-modal is-xsmall has-light-bg" >
                 <div class="modal-background">
@@ -1328,12 +1706,14 @@
                                             <input id="email" name="email" type="text" class="form-control" value="${profile.getEmail()}">
                                             <div style="color: red" id="errorEmail"></div>
                                         </div>
+
                                         <div class="col-md-12">
                                             <label class="labels">Phone Number</label>
                                             <input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
                                             <div style="color: red" id="errorPhone"></div>
                                         </div>
-                                        <input type="submit" id="submit-update-profile1" style="display : none;" value="Submit">
+
+                                        <input type="submit" id="submit-update-profile1" style="display: none;" value="Submit">
                                     </form>
                                 </div>
                             </div>
@@ -1409,6 +1789,8 @@
                 </div>
             </div>
 
+
+
             <style>
                 block-list {
                     font-family: Arial, sans-serif;
@@ -1432,21 +1814,19 @@
                     margin: 0;
                 }
 
-
-
                 .description {
                     font-size: 14px;
                     color: #606770;
                     margin-bottom: 20px;
                 }
 
-                .search-box {
+                .user-blocking-initial__search-input {
                     display: flex;
                     align-items: center;
                     margin-bottom: 20px;
                 }
 
-                .add-block-btn {
+                .user-blocking-initial__add-btn {
                     background-color: #1877f2;
                     color: white;
                     border: none;
@@ -1457,11 +1837,11 @@
                     flex-shrink: 0;
                 }
 
-                .add-block-btn:hover {
+                .user-blocking-initial__add-btn:hover {
                     background-color: #155dc2;
                 }
 
-                .search-input {
+                .user-blocking-initial__search-input {
                     flex-grow: 1;
                     padding: 10px;
                     border-radius: 5px;
@@ -1499,8 +1879,223 @@
                 }
             </style>
 
+            <style>
+                .user-blocking-popup {
+                    width: 100%;
+                    max-width: 400px;
+                    background-color: #fff;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                }
+
+                .user-blocking-popup__header {
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .user-blocking-popup__back-btn,
+                .user-blocking-popup__close-btn {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 4px;
+                }
+
+                .user-blocking-popup__header h2 {
+                    flex-grow: 1;
+                    text-align: center;
+                    font-size: 18px;
+                    margin: 0;
+                }
+
+                .user-blocking-popup__search {
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .user-blocking-popup__search-input {
+                    width: 100%;
+                    padding: 8px 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 20px;
+                    font-size: 14px;
+                }
+
+                .user {
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #f0f0f0;
+                }
+
+                .avatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    margin-right: 12px;
+                    object-fit: cover;
+                }
+
+                .user span {
+                    flex-grow: 1;
+                    font-size: 14px;
+                }
+
+                .btn-block {
+                    background-color: #f0f0f0;
+                    border: none;
+                    padding: 6px 12px;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    cursor: pointer;
+                }
+
+                .btn-block:hover {
+                    background-color: #e0e0e0;
+                }
+                .user-blocking-popup__search {
+                    border-bottom: 1px solid #e0e0e0;
+                }
+                .user-blocking-popup__divider {
+                    border: none;
+                    border-top: 1px solid #e0e0e0;
+                    margin: 0;
+                }
+            </style>
+
+            <style>
+                .user-blocking-popup {
+                    display: none;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                }
+                .user-blocking-popup__header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 15px;
+                }
+                .user-blocking-popup__close-btn {
+                    cursor: pointer;
+                }
+                .user-blocking-popup__search-container {
+                    margin-top: 10px;
+                }
+                .user-blocking-popup__search-input {
+                    width: 100%;
+                    padding: 8px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+
+
+
+                .user-blocking-popup__header {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .user-blocking-popup__back-btn {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 5px;
+                    margin-right: 10px;
+                }
+
+                .user-blocking-popup__back-btn svg {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                .user-blocking-popup__header h2 {
+                    flex-grow: 1;
+                    text-align: center;
+                    margin: 0;
+                }
+
+                .user-blocking-popup__close-btn {
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding: 5px;
+                }
+
+                .user-blocking-popup__search-input {
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 10px;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 4px;
+                }
+                .user-blocking-popup {
+                    background-color: white;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    width: 100%;
+                    max-width: 400px;
+                    margin: auto;
+                }
+
+                .user-blocking-popup__header {
+                    display: flex;
+                    align-items: center;
+                    padding: 12px 16px;
+                    border-bottom: 1px solid #e0e0e0;
+                }
+
+                .user-blocking-popup__back-btn,
+                .user-blocking-popup__close-btn {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 0;
+                }
+
+                .user-blocking-popup__back-btn svg,
+                .user-blocking-popup__close-btn svg {
+                    width: 24px;
+                    height: 24px;
+                    color: #666;
+                }
+
+                .user-blocking-popup__header h2 {
+                    flex-grow: 1;
+                    text-align: center;
+                    margin: 0;
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+
+                .user-blocking-popup__search {
+                    padding: 16px;
+                }
+
+                .user-blocking-popup__search-input {
+                    width: 100%;
+                    padding: 10px 12px;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 4px;
+                    font-size: 14px;
+                }
+
+                .user-blocking-popup__search-input::placeholder {
+                    color: #999;
+                }
+            </style>
+
+
             <!-- Block list users -->
-            <div id="list-block-modal" class="modal share-modal is-xsmall has-light-bg" >
+            <div id="list-block-modal" class="modal share-modal is-xsmall has-light-bg">
                 <div class="modal-background">
                     <div class="modal-content">
                         <div class="card">
@@ -1518,18 +2113,16 @@
 
                             <div class="card-body block-list">
                                 <div class="control">
-                                    <div class="modal-body">
-                                        <!--                                        <form action="profile" id="list-block-modal" method="post">-->
-
+                                    <div class="modal-body" id="listBlockedUsers">
                                         <p class="description">
                                             Khi bạn chặn ai đó, họ sẽ không xem được nội dung bạn đăng trên dòng thời gian của mình,thêm bạn làm bạn bè và trao đổi các đồ dùng.
                                             Lưu ý: Điều này không bao gồm các trao đổi mà cả bạn và người này đều tham gia trước đó.
                                         </p>
-                                        <div class="search-box">
-                                            <button type="button" class="add-block-btn">+ Thêm vào danh sách chặn</button>
-                                            <input type="text" placeholder="Search..." class="search-input" />
+                                        <div class="user-blocking-initial">
+                                            <button type="button" class="user-blocking-initial__add-btn">+ Thêm vào danh sách chặn</button>
+                                            <input type="text" placeholder="Search..." class="user-blocking-initial__search-input" />
                                         </div>
-
+                                        <hr class="user-blocking-popup__divider">
                                         <div class="col-md-12 user-block-list">
                                             <c:forEach var="bl" items="${userBlock}">
                                                 <form action="UnBlockUser" method="post" class="user">
@@ -1540,7 +2133,35 @@
                                                 </form>
                                             </c:forEach>
                                         </div>
-                                        <!--</form>-->
+                                    </div>
+
+                                    <div class="user-blocking-popup" id="userBlockingPopup" style="display: none;">
+                                        <div class="user-blocking-popup__header">
+                                            <button class="user-blocking-popup__back-btn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <line x1="19" y1="12" x2="5" y2="12"></line>
+                                                <polyline points="12 19 5 12 12 5"></polyline>
+                                                </svg>
+                                            </button>
+                                            <h2>Chặn người dùng</h2>
+                                            <button class="user-blocking-popup__close-btn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </button>                                              
+                                        </div>
+                                        <div class="user-blocking-popup__search">
+                                            <input type="text" placeholder="Nhập tên một người" class="user-blocking-popup__search-input" />
+                                        </div>
+                                        <c:forEach var="l" items="${userList}">
+                                            <form action="BlockUser" method="post" class="user user-item">
+                                                <input type="hidden" name="id" value="${l.getUserID()}" />
+                                                <img src="${l.getAvatarUrl()}" alt="Avatar" class="avatar" />
+                                                <span class="user-name">${l.getFull_Name()}</span>
+                                                <button type="submit" class="btn-block">Chặn</button>
+                                            </form>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
@@ -1549,7 +2170,38 @@
                 </div>
             </div>
 
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const searchInput = document.querySelector('.user-blocking-popup__search-input');
+                    const userItems = document.querySelectorAll('.user-item');
 
+                    // Ẩn tất cả người dùng khi trang được tải
+                    function hideAllUsers() {
+                        userItems.forEach(item => item.style.display = 'none');
+                    }
+
+                    // Gọi hàm để ẩn tất cả người dùng khi trang được tải
+                    hideAllUsers();
+
+                    searchInput.addEventListener('input', function () {
+                        const searchTerm = this.value.trim().toLowerCase();
+
+                        if (searchTerm === '') {
+                            // Nếu ô tìm kiếm trống, ẩn tất cả người dùng
+                            hideAllUsers();
+                        } else {
+                            userItems.forEach(item => {
+                                const userName = item.querySelector('.user-name').textContent.toLowerCase();
+                                if (userName.includes(searchTerm)) {
+                                    item.style.display = 'flex'; // hoặc 'block', tùy thuộc vào styling của bạn
+                                } else {
+                                    item.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                });
+            </script>
             <script>
                 // Hàm để loại bỏ dấu và khoảng trống từ chuỗi
                 function normalizeString(str) {
@@ -1561,14 +2213,12 @@
                 }
 
                 // Select the search input and the container for the blocked users
-                const searchInput = document.querySelector('.search-input');
+                const searchInput = document.querySelector('.user-blocking-initial__search-input');
                 const userBlockList = document.querySelector('.user-block-list');
-
                 // Add event listener to the search input
                 searchInput.addEventListener('input', function () {
                     const searchTerm = normalizeString(this.value);
                     const users = userBlockList.querySelectorAll('.user');
-
                     users.forEach(user => {
                         const userName = normalizeString(user.querySelector('span').textContent);
                         if (userName.includes(searchTerm)) {
@@ -1809,6 +2459,7 @@
 
             <!-- profile js -->
             <script src="assets/js/profile.js"></script>
+            <script src="assets/js/fetchNotifycation.js" ></script>
 
             <!-- stories js -->
 
@@ -1836,18 +2487,13 @@
                                     var form1 = document.getElementById('edit-profile');
                                     form1.addEventListener('submit', function (event) {
                                         event.preventDefault();
-
                                         var formData = new FormData(form1);
-
                                         var xhr = new XMLHttpRequest();
-
                                         xhr.open('POST', 'editprofile', true);
-
                                         xhr.onload = function () {
                                             if (xhr.status >= 200 && xhr.status < 300) {
                                                 const modal = document.getElementById('edit-profile-modal');
                                                 modal.classList.remove('is-active');
-
                                                 iziToast.show({
                                                     maxWidth: "280px",
                                                     class: "success-toast",
@@ -1889,11 +2535,9 @@
                                                 });
                                             }
                                         };
-
                                         xhr.onerror = function () {
                                             console.error('Request failed');
                                         };
-
                                         xhr.send(formData);
                                     });
             </script>
@@ -1902,15 +2546,12 @@
                 var districts = document.getElementById("district");
                 var wards = document.getElementById("ward");
                 var selectedCityValue = 'Thành phố Hà Nội';
-
                 var Parameter = {
                     url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
                     method: "GET",
                     responseType: "application/json",
                 };
-
                 var promise = axios(Parameter);
-
                 promise.then(function (result) {
                     var data = result.data;
                     var selectedCity = data.find((city) => city.Name === selectedCityValue);
@@ -1918,7 +2559,6 @@
                     selectDistrictOption(selectedCity.Districts);
                     selectWardOption(selectedCity.Districts);
                 });
-
                 function renderDistricts(districtsData) {
                     for (const district of districtsData) {
                         districts.options[districts.options.length] = new Option(district.Name, district.Name);
@@ -1927,7 +2567,6 @@
                     districts.onchange = function () {
                         wards.length = 1;
                         const selectedDistrict = districtsData.find((district) => district.Name === this.value);
-
                         if (this.value !== "") {
                             for (const ward of selectedDistrict.Wards) {
                                 wards.options[wards.options.length] = new Option(ward.Name, ward.Name);
@@ -1965,18 +2604,13 @@
                 var form2 = document.getElementById('edit-location');
                 form2.addEventListener('submit', function (event) {
                     event.preventDefault();
-
                     var formData = new FormData(form2);
-
                     var xhr = new XMLHttpRequest();
-
                     xhr.open('POST', 'managelocation', true);
-
                     xhr.onload = function () {
                         if (xhr.status >= 200 && xhr.status < 300) {
                             const modal = document.getElementById('edit-location-modal');
                             modal.classList.remove('is-active');
-
                             iziToast.show({
                                 maxWidth: "280px",
                                 class: "success-toast",
@@ -2018,60 +2652,69 @@
                             });
                         }
                     };
-
                     xhr.onerror = function () {
                         console.error('Request failed');
                     };
-
                     xhr.send(formData);
                 });
             </script>
 
             <script>
-                function FormValidate() {
-                    var isValid = true;
-
-                    // Validate Full Name
+                function validateFullName() {
                     var fname = document.getElementById('fname').value.trim();
                     var errorFname = document.getElementById('errorFname');
                     if (fname === "") {
                         errorFname.textContent = "Full Name is required";
-                        isValid = false;
+                        return false;
                     } else {
                         errorFname.textContent = "";
+                        return true;
                     }
+                }
 
-                    // Validate Email
+                function validateEmail() {
                     var email = document.getElementById('email').value.trim();
                     var errorEmail = document.getElementById('errorEmail');
                     var reGexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (email === "") {
                         errorEmail.textContent = "Email is required";
-                        isValid = false;
+                        return false;
                     } else if (!reGexEmail.test(email)) {
                         errorEmail.textContent = "Please enter a valid email address";
-                        isValid = false;
+                        return false;
                     } else {
                         errorEmail.textContent = "";
+                        return true;
                     }
+                }
 
-                    // Validate Phone Number
+                function validatePhoneNumber() {
                     var phoneNum = document.getElementById('phoneNum').value.trim();
                     var errorPhone = document.getElementById('errorPhone');
                     var reGexPhone = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
                     if (phoneNum === "") {
                         errorPhone.textContent = "Phone Number is required";
-                        isValid = false;
+                        return false;
                     } else if (!reGexPhone.test(phoneNum)) {
                         errorPhone.textContent = "Please enter a valid phone number";
-                        isValid = false;
+                        return false;
                     } else {
                         errorPhone.textContent = "";
+                        return true;
                     }
+                }
 
+                function FormValidate() {
+                    var isValid = true;
+                    isValid &= validateFullName();
+                    isValid &= validateEmail();
+                    isValid &= validatePhoneNumber();
                     return isValid;
                 }
 
+                document.getElementById('fname').addEventListener('input', validateFullName);
+                document.getElementById('email').addEventListener('input', validateEmail);
+                document.getElementById('phoneNum').addEventListener('input', validatePhoneNumber);
             </script>
 
             <script>
@@ -2104,12 +2747,6 @@
                     blockImg.style.display = 'block';
                     imageContainer.style.transform = 'translateX(0px)';
                 });
-
-
-
-
-
-
             </script>
 
             <script>
@@ -2118,16 +2755,13 @@
                 const historyBtn = document.getElementById('history-btn');
                 const listPostsForm = document.getElementById('list-posts-form');
                 const historyForm = document.getElementById('history-form');
-
                 // Ẩn các form ban đầu
                 historyForm.style.display = 'none';
-
                 // Thêm sự kiện click cho nút "List Posts"
                 listPostsBtn.addEventListener('click', () => {
                     listPostsForm.style.display = 'block';
                     historyForm.style.display = 'none';
                 });
-
                 // Thêm sự kiện click cho nút "History"
                 historyBtn.addEventListener('click', () => {
                     listPostsForm.style.display = 'none';

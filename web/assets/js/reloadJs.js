@@ -81,7 +81,9 @@ function initOpenModalArcive() {
     const modalArchive = document.getElementById('archive-post');
     const archivePostButton = document.getElementById('archivePostButton');
     let currentPostId = null;
-
+    if(archivePostButton == null){
+        return;
+    }
     openModalArchives.forEach(openModalArchive => {
         openModalArchive.addEventListener('click', () => {
             const postId = openModalArchive.getAttribute('data-post-id');
@@ -124,6 +126,8 @@ function initOpenModalArcive() {
         }
     });
 }
+
+
 
 function initReuqest() {
     const openModalRequest = document.querySelectorAll('.open-modal-request');
@@ -327,6 +331,9 @@ function fetchPostData(idpost) {
 
 function ajaxEditPost() {
     var editPostForm = document.getElementById('edit-post');
+    if(editPostForm == null){
+        return;
+    }
     editPostForm.addEventListener('submit', function (event) {
         event.preventDefault();
         var formDataForEditPost = new FormData(editPostForm);
@@ -394,6 +401,11 @@ document.addEventListener("DOMContentLoaded", function () {
     initShareModal();
     ajaxEditPost();
     initReuqest();
+    initResponseSwapModal();
+    initOpenModalApproveSwap();
+    initOpenModalApproveRequest();
+    initCancelTransaction();
+    initCompelteTransaction();
 });
 
 function reloadJs() {

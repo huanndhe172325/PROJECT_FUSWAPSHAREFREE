@@ -128,14 +128,19 @@ public class Login extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("userInfo", userInfo);
                     session.setAttribute("loginsuccess", true);
+                    if (session.getAttribute("urlBlocked") != null) {
+                        String redirectURL = (String) session.getAttribute("urlBlocked");
+                        response.sendRedirect(redirectURL);
+                        session.removeAttribute("urlBlocked");
+                        return;
+                    }
                     if (userInfo.getRoleID() == 1) {
                         response.sendRedirect("HomePage");
                     } else if (userInfo.getRoleID() == 2) {
                         response.sendRedirect("adminHome");
+                    } else if (userInfo.getRoleID() == 3) {
+                        response.sendRedirect("SideBarAdmin");
                     }
-                    else if (userInfo.getRoleID() == 3) {
-                    response.sendRedirect("SideBarAdmin");
-                }
                 } else {
 
                     PasswordReset passwordResetInfo = daoLogin.getPasswordResetByEmail(email);

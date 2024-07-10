@@ -5,7 +5,11 @@
 package Controllers.HomePage;
 
 import DAL.DAOManagePost;
+import DAL.DAOManageUser;
+import Model.FriendsRequest;
+import Model.Notification;
 import Model.Post;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 /**
@@ -71,6 +76,39 @@ public class detailPost extends HttpServlet {
             ArrayList<Post> listPost = new ArrayList<>();
             listPost.add(post);
             request.setAttribute("listPost", listPost);
+
+            HttpSession session = request.getSession();
+            User userInfo_raw = (User) session.getAttribute("userInfo");
+            DAOManageUser daoManagerUser = new DAOManageUser();
+            //display
+            if (post.getStatusID() == 1) {
+                request.setAttribute("displayConfirm", 1);
+            } else {
+                request.setAttribute("displayConfirm", 0);
+            }
+
+            if (userInfo_raw != null) {
+                User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
+                ArrayList<FriendsRequest> listFriendsRq = daoManagerUser.getListFriendRequest(userInfo_raw.getUserID());
+                ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
+                request.setAttribute("listNoti", listNoti);
+                request.setAttribute("listFriendsRq", listFriendsRq);
+                request.setAttribute("user", userInfor);
+            }
+
+            //guest
+            if (userInfo_raw == null) {
+                request.setAttribute("roleView", 1);
+            } //own post
+            else if (post.getUserID() == userInfo_raw.getUserID()) {
+                request.setAttribute("roleView", 2);
+            }//user requested 
+            else if (dao.checkAvaiableViewRequest(userInfo_raw.getUserID(), post.getPostID())) {
+                request.setAttribute("roleView", 3);
+            } else {
+                request.setAttribute("roleView", 4);
+            }
+
             request.getRequestDispatcher("HomePage/detailPost.jsp").forward(request, response);
         } catch (Exception e) {
             response.sendRedirect("HomePage");

@@ -4,7 +4,11 @@
  */
 package DAL;
 
+import Controllers.HomePage.ListFriends;
+import Controllers.HomePage.SentMail;
 import Model.BlockList;
+import Model.Friends;
+import Model.FriendsRequest;
 import Model.Quanlity;
 import Model.ReportUser;
 import Model.User;
@@ -132,6 +136,7 @@ public class DAOManageUser extends DBContext {
     }
  
     
+
     public int countUsersByJoinDate(int year, int month) {
         int count = 0;
         try {
@@ -479,6 +484,23 @@ public int countAdministrator() {
         return null;
     }
 
+    public boolean insertRequestFriends(int senderUserID, int receiverUserID) {
+        String sql = "INSERT INTO RequestFriends ( Status,SenderUserID, ReceiverUserID) VALUES ('pending',?, ?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, senderUserID);
+            statement.setInt(2, receiverUserID);
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
     public void blockUser(int UserID, int BlockID) {
 
         try {
@@ -558,7 +580,7 @@ public int countAdministrator() {
             return false;
         }
     }
-    
+
     public ArrayList<User> searchUsers(String query, int offset, int limit) {
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM [User] WHERE Email LIKE ? "
@@ -602,45 +624,192 @@ public int countAdministrator() {
         return users;
     }
 
+    public boolean deleteRejectedRequest(int requestId) {
+        String sql = "DELETE FROM RequestFriends WHERE RequestID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, requestId);
+
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public ArrayList<Friends> getListFriends(int userID) {
+        ArrayList<Friends> listFriends = new ArrayList<>();
+        String sql = "SELECT [FriendUserID] "
+                + "FROM [FUSWAPSHAREFREE].[dbo].[ListFriends] "
+                + "WHERE [UserID] = ?";
+
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, userID);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int friendUserId = rs.getInt("FriendUserID");
+
+                Friends friend = new Friends(userID, friendUserId);
+                listFriends.add(friend);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return listFriends;
+    }
+
     public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
-        boolean userDAO1 = userDAO.ReportUser("alknf", 2, 65);
-//        List<BlockList> userB = userDAO.listBlockUser(1);
-//        System.out.println(userB);
-
-        System.out.println();
-//   public static void main(String[] args) {
-//        DAOManageUser userDAO = new DAOManageUser();
-//        ArrayList<User> users = userDAO.getAllUsers();
-//
-//        for (User user : users) {
-//            System.out.println("UserID: " + user.getUserID());
-//            System.out.println("Email: " + user.getEmail());
-//            System.out.println("Phone: " + user.getPhone());
-//            System.out.println("AvatarUrl: " + user.getAvatarUrl());
-//            System.out.println("PassWord: " + user.getPassWord());
-//            System.out.println("JoinDate: " + user.getJoinDate());
-//            System.out.println("UserName: " + user.getUserName());
-//            System.out.println("Full_Name: " + user.getFull_Name());
-//            System.out.println("District: " + user.getDistrict());
-//            System.out.println("Commune: " + user.getCommune());
-//            System.out.println("StreetNumber: " + user.getStreetNumber());
-//            System.out.println("Point: " + user.getPoint());
-//            System.out.println("RoleID: " + user.getRoleID());
-//            System.out.println("StatusID: " + user.getStatusID());
-//            System.out.println("--------------------------------");
-//        }
-//    User u=userDAO.getUserByIdUserSend(1);
-//        System.out.println(u.getEmail());
+        SentMail sent = new SentMail();
+        String content = sent.contentEmailApprove("helo");
+        sent.sentEmail("giautn.cs190417@gmail.com", "Yêu cầu thành công", content);
     }
-//    }
-//    public static void main(String[] args) {
-//        DAOManageUser daomu = new DAOManageUser();
-//        User u = daomu.getUserByIdUserSend(2);
-////        System.out.println(u.getUserID());
-//        Map<ReportUser, Integer> map = daomu.reportRankUser();
-//        for (Map.Entry<ReportUser, Integer> entry : map.entrySet()) {
-//            System.out.println(entry.getKey().getNameIdUserReceive().getFull_Name() + ":" + entry.getValue());
-//        }
-//    }
+
+
+    public ArrayList<FriendsRequest> getListFriendRequest(int userID) {
+        ArrayList<FriendsRequest> friendRequests = new ArrayList<>();
+        String sql = "SELECT [RequestID], [Status], [SenderUserID], [ReceiverUserID] FROM [RequestFriends] WHERE [ReceiverUserID] = ? AND [Status] = 'pending'";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int requestId = rs.getInt("RequestID");
+                String status = rs.getString("Status");
+                int senderUserId = rs.getInt("SenderUserID");
+                int receiverUserId = rs.getInt("ReceiverUserID");
+
+                FriendsRequest friendRequest = new FriendsRequest(requestId, status, senderUserId, receiverUserId);
+                friendRequests.add(friendRequest);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return friendRequests;
+    }
+
+    public boolean updateRequestStatus(int requestId, String status) {
+        String sql = "UPDATE RequestFriends SET Status = ? WHERE RequestID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, status);
+            statement.setInt(2, requestId);
+
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean insertIntoListFriends(int senderUserId, int receiverUserId) {
+        String sql1 = "INSERT INTO ListFriends (UserID, FriendUserID) VALUES (?, ?)";
+        String sql2 = "INSERT INTO ListFriends (UserID, FriendUserID) VALUES (?, ?)";
+        try {
+            PreparedStatement statement1 = connect.prepareStatement(sql1);
+            statement1.setInt(1, senderUserId);
+            statement1.setInt(2, receiverUserId);
+            int rowsInserted1 = statement1.executeUpdate();
+
+            PreparedStatement statement2 = connect.prepareStatement(sql2);
+            statement2.setInt(1, receiverUserId);
+            statement2.setInt(2, senderUserId);
+            int rowsInserted2 = statement2.executeUpdate();
+
+            return rowsInserted1 > 0 && rowsInserted2 > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean checkisFriends(int userID, int friendID) {
+        String sql = "SELECT COUNT(*) AS count FROM ListFriends WHERE (UserID = ? AND FriendUserID = ?) OR (UserID = ? AND FriendUserID = ?)";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, userID);
+            statement.setInt(2, friendID);
+            statement.setInt(3, friendID);
+            statement.setInt(4, userID);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteFriends(int senderUserID, int receiverUserID) {
+        boolean success = false;
+
+        String sql = "DELETE FROM ListFriends WHERE (UserID = ? AND FriendUserID = ?) OR (UserID = ? AND FriendUserID = ?)";
+
+        try (
+                PreparedStatement stmt = connect.prepareStatement(sql)) {
+
+            stmt.setInt(1, senderUserID);
+            stmt.setInt(2, receiverUserID);
+            stmt.setInt(3, receiverUserID);
+            stmt.setInt(4, senderUserID);
+
+            int rowsAffected = stmt.executeUpdate();
+            success = (rowsAffected > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
+    }
+
+    public ArrayList<User> getAllUsersToBlockList(int UserID) {
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "SELECT U.*\n"
+                + "FROM [User] U\n"
+                + "WHERE U.UserID NOT IN (\n"
+                + "    SELECT BlockUserID\n"
+                + "    FROM BlockList\n"
+                + "    WHERE UserID = ?\n"
+                + "	)";
+
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, UserID);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID")
+                );
+                users.add(user);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
 }

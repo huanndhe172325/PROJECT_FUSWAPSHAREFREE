@@ -519,20 +519,444 @@ function initShareModal() {
                 $("#share-modal-desire").html(desire),
                 $(".featured-image").html(postImageDiv),
                 $("#requestThis").attr("data-post-id", postId),
-                $("#requestThis").attr("data-post-id", postId)
+                $("#requestThis").attr("data-post-id", postId),
+                $("#swapThis").attr("data-post-id", postId),
+                $("#swapThis").attr("data-post-id", postId)
                 ;
 
+
+
         if (type === 'Exchange') {
-            $('#share-modal-desire-block').css('display', 'block');
+            $("#share-modal-desire-block").css('display', 'flex');
+            $('#requestThis').css('display', 'none');
+            $('#swapThis').css('display', 'block');
+            $('#requested').css('display', 'none');
+            if (avaiableRequest === "false") {
+                $('#requested').css('display', 'block');
+                $('#requestThis').css('display', 'none');
+                $('#swapThis').css('display', 'none');
+            }
         } else {
             $('#share-modal-desire-block').css('display', 'none');
+            $('#requestThis').css('display', 'block');
+            $('#swapThis').css('display', 'none');
+            $('#requested').css('display', 'none');
+            if (avaiableRequest === "false") {
+                $('#requested').css('display', 'block');
+                $('#requestThis').css('display', 'none');
+                $('#swapThis').css('display', 'none');
+            }
         }
+
 
     }
     ))
 }
 
+function initResponseSwapModal() {
+    $(".modal-trigger.open-response-swap-model").on("click", (function () {
+        var t = $(this)
+                , avatar = t.closest(".is-swap").attr("data-swap-avatar")
+                , fullName = t.closest(".is-swap").attr("data-swap-full-name")
+                , desc = t.closest(".is-swap").attr("data-swap-desc")
+                , postImageDiv = t.closest(".is-swap").find(".post-image").clone()
+                , postId = t.closest(".is-swap").attr("data-swap-postId")
+                , userId = t.closest(".is-swap").attr("data-swap-userSent");
 
+        void 0 !== avatar ? $("#swap-modal-image").attr("src", avatar).removeClass("is-hidden") : $("#swap-modal-image").addClass("is-hidden"),
+                $("#response-swap-modal-avatar").attr("src", avatar),
+                $("#response-swap-modal-avatar").attr("data-demo-src", avatar),
+                $("#response-swap-modal-name").html(fullName),
+                $("#response-swap-modal-text").html(desc),
+                $(".featured-image").html(postImageDiv),
+                $("#rejectThis").attr("data-swap-postId", postId),
+                $("#rejectThis").attr("data-swap-userSent", userId),
+                $("#approveThis").attr("data-swap-postId", postId),
+                $("#approveThis").attr("data-swap-userSent", userId)
+                ;
+        $("#featured-image-response-swap").find(".post-image").removeClass("is-hidden");
+
+
+
+    }
+    ))
+}
+
+function initOpenModalApproveSwap() {
+    const openModalApproveSwap = document.querySelectorAll('.open-modal-approve-swap');
+    const modalApproveSwap = document.getElementById('approve-swap-modal');
+    const approveSwapButton = document.getElementById('approveSwapButton');
+    const rejectSwapButton = document.getElementById('rejectThis');
+    if (rejectSwapButton == null || approveSwapButton == null) {
+        return;
+    }
+    let currentPostIdSwap = null;
+    let currentUserIdSwap = null;
+
+    openModalApproveSwap.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            const postId = openModalArchive.getAttribute('data-swap-postid');
+            const userId = openModalArchive.getAttribute('data-swap-usersent');
+            currentUserIdSwap = userId;
+            currentPostIdSwap = postId;
+            modalApproveSwap.setAttribute('data-swap-postid', postId);
+            modalApproveSwap.setAttribute('data-swap-usersent', userId);
+
+            modalApproveSwap.classList.add('is-active');
+        });
+    });
+
+    approveSwapButton.addEventListener('click', () => {
+        console.log(currentPostIdSwap);
+        console.log(currentUserIdSwap);
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'approveSwap', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if (xhr.responseText == 1) {
+                location.reload();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Approve swap failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
+    });
+    rejectSwapButton.addEventListener('click', () => {
+        const postId = rejectSwapButton.getAttribute('data-swap-postid');
+        const userId = rejectSwapButton.getAttribute('data-swap-usersent');
+        currentUserIdSwap = userId;
+        currentPostIdSwap = postId;
+
+
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'rejectSwap', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if (xhr.responseText == 1) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Reject swap successfully",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#60c032",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+                var element = document.querySelector(`.card.is-swap[data-swap-usersent="${currentUserIdSwap}"][data-swap-postid="${currentPostIdSwap}"]`);
+                element.remove();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Reject swap failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
+
+    });
+
+}
+
+
+function initOpenModalApproveRequest() {
+    const openModalApproveRequest = document.querySelectorAll('.open-response-request-model');
+    const modalApproveRequest = document.getElementById('response-request-modal');
+    const approveRequest = document.getElementById('approveRequest');
+    const rejectRequest = document.getElementById('rejectRequest');
+
+    if (approveRequest == null || rejectRequest == null) {
+        return;
+    }
+    let currentPostIdRequest = null;
+    let currentUserIdRequest = null;
+
+    openModalApproveRequest.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            const postId = document.getElementById('approveRequest').getAttribute('data-swap-postid');
+            const userId = document.getElementById('approveRequest').getAttribute('data-swap-usersent');
+            currentUserIdRequest = userId;
+            currentPostIdRequest = postId;
+            modalApproveRequest.setAttribute('data-request-postid', postId);
+            modalApproveRequest.setAttribute('data-request-usersent', userId);
+            modalApproveRequest.classList.add('is-active');
+        });
+    });
+
+    approveRequest.addEventListener('click', () => {
+        const postId = document.getElementById('approveRequest').getAttribute('data-swap-postid');
+        const userId = document.getElementById('approveRequest').getAttribute('data-swap-usersent');
+        currentUserIdRequest = userId;
+        currentPostIdRequest = postId;
+        console.log(currentPostIdRequest);
+        console.log(currentUserIdRequest);
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'approveRequest', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if (xhr.responseText == 1) {
+                location.reload();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Approve request failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdRequest + '&userIdSentRequest=' + currentUserIdRequest);
+    });
+    rejectRequest.addEventListener('click', () => {
+        const postId = rejectRequest.getAttribute('data-swap-postid');
+        const userId = rejectRequest.getAttribute('data-swap-usersent');
+        currentUserIdRequest = userId;
+        currentPostIdRequest = postId;
+        console.log(currentPostIdRequest);
+        console.log(currentUserIdRequest);
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'rejectRequest', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if (xhr.responseText == 1) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Reject request successfully",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#60c032",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+                var element = document.querySelector(`.card.is-req[data-swap-userSent="${currentUserIdRequest}"][data-swap-postId="${currentPostIdRequest}"]`);
+                element.remove();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Reject swap failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdRequest + '&userIdSentRequest=' + currentUserIdRequest);
+    });
+
+}
+
+
+function initCancelTransaction() {
+    const openCancelTransaction = document.querySelectorAll('.open-modal-cancel-transaction');
+    const modalCancelTransaction = document.getElementById('cancel-transaction-modal');
+    const yesCancelButton = document.getElementById('yesCancelButton');
+    let currentPostIdSwap = null;
+    let currentUserIdSwap = null;
+    let type = null;
+    openCancelTransaction.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            const postId = openModalArchive.getAttribute('data-swap-postid');
+            const userId = openModalArchive.getAttribute('data-swap-usersent');
+            type = openModalArchive.getAttribute('data-type-post');
+            currentUserIdSwap = userId;
+            currentPostIdSwap = postId;
+            modalCancelTransaction.setAttribute('data-swap-postid', postId);
+            modalCancelTransaction.setAttribute('data-swap-usersent', userId);
+            modalCancelTransaction.classList.add('is-active');
+        });
+    });
+
+    yesCancelButton.addEventListener('click', () => {
+        console.log(currentPostIdSwap);
+        console.log(currentUserIdSwap);
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        if (type === "req") {
+            xhr.open('POST', 'cancelTransactionRequest', true);
+        } else {
+            xhr.open('POST', 'cancelTransaction', true);
+        }
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if (xhr.responseText == 1) {
+                location.reload();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Cancel transaction failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
+    });
+}
+
+function initCompelteTransaction() {
+    const openCancelTransaction = document.querySelectorAll('.open-modal-complete-transaction');
+    const modalCancelTransaction = document.getElementById('complete-transaction-modal');
+    const yesCompleteButton = document.getElementById('yesCompleteButton');
+    let currentPostIdSwap = null;
+    let currentUserIdSwap = null;
+
+    openCancelTransaction.forEach(openModalArchive => {
+        openModalArchive.addEventListener('click', () => {
+            const postId = openModalArchive.getAttribute('data-swap-postid');
+            const userId = openModalArchive.getAttribute('data-swap-usersent');
+            currentUserIdSwap = userId;
+            currentPostIdSwap = postId;
+            modalCancelTransaction.setAttribute('data-swap-postid', postId);
+            modalCancelTransaction.setAttribute('data-swap-usersent', userId);
+            modalCancelTransaction.classList.add('is-active');
+        });
+    });
+
+    yesCompleteButton.addEventListener('click', () => {
+        console.log(currentPostIdSwap);
+        console.log(currentUserIdSwap);
+        event.preventDefault();
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'completeTransaction', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            console.log(xhr.responseText);
+            if (xhr.responseText == 1) {
+                location.reload();
+            } else if (xhr.responseText == 2) {
+                iziToast.show({
+                    maxWidth: "280px",
+                    class: "success-toast",
+                    icon: "mdi mdi-check",
+                    title: "",
+                    message: "Complete transaction failed",
+                    titleColor: "#fff",
+                    messageColor: "#fff",
+                    iconColor: "#fff",
+                    backgroundColor: "#FF0000",
+                    progressBarColor: "#0062ff",
+                    position: "bottomRight",
+                    transitionIn: "fadeInUp",
+                    close: false,
+                    timeout: 1800,
+                    zindex: 99999
+                });
+            }
+        };
+        xhr.send('idPost=' + currentPostIdSwap + '&userIdSentRequest=' + currentUserIdSwap);
+    });
+}
+
+function initResponseRequestModal() {
+    $(".modal-trigger.open-response-request-model").on("click", (function () {
+        var t = $(this)
+                , avatar = t.closest(".is-req").attr("data-swap-avatar")
+                , fullName = t.closest(".is-req").attr("data-swap-full-name")
+                , desc = t.closest(".is-req").attr("data-swap-desc")
+                , postId = t.closest(".is-req").attr("data-swap-postId")
+                , userId = t.closest(".is-req").attr("data-swap-userSent");
+
+        void 0 !== avatar ? console.log(1) : console.log(2),
+                $("#response-request-modal-avatar").attr("src", avatar),
+                $("#response-request-modal-avatar").attr("data-demo-src", avatar),
+                $("#response-request-modal-name").html(fullName),
+                $("#response-request-modal-text").html(desc),
+                $("#rejectRequest").attr("data-swap-postId", postId),
+                $("#rejectRequest").attr("data-swap-userSent", userId),
+                $("#approveRequest").attr("data-swap-postId", postId),
+                $("#approveRequest").attr("data-swap-userSent", userId)
+                ;
+
+
+
+    }
+    ))
+}
 
 
 function initAboutGlider() {

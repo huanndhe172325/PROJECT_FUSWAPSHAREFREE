@@ -205,18 +205,14 @@ public class Post {
 
     public boolean avaiAbleRequest(int userId) {
         DAOManagePost dao = new DAOManagePost();
-        System.out.println("UserID: " + UserID);
-        System.out.println("StatusID: " + StatusID);
-        System.out.println("PostID: " + PostID);
-        System.out.println("userId: " + userId);
-        System.out.println("dao.checkRequested(userId, PostID) ssssssss: " + dao.checkRequested(1, 93));
-        if (userId == UserID && StatusID == 1 && !dao.checkRequested(userId, PostID)) {
-            System.out.println("result: true");
-            return true;
-        } else {
-            System.out.println("result: false");
+        if (dao.checkRequested(userId, PostID)) {
             return false;
         }
+        if (userId == UserID || StatusID != 1) {
+            return false;
+        }
+        return true;
+
     }
 
     public String getStatusName() {
@@ -245,6 +241,26 @@ public class Post {
         return false;
     }
 
+    public ArrayList<Request> getListRequest() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getListRequestByPostId(PostID);
+    }
+
+    public ArrayList<HaveSwap> getListRequestSwap() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getListRequesSwaptByPostId(PostID);
+    }
+    
+    public ArrayList<Request> getListRequestApproved() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getListRequestApprovedByPostId(PostID);
+    }
+
+    public ArrayList<HaveSwap> getListRequestSwapApproved() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getListRequesApproveSwaptByPostId(PostID);
+    }
+
     public List<String> getListImg() {
         if (ImageUrl == null || ImageUrl.isEmpty()) {
             return List.of();
@@ -262,5 +278,15 @@ public class Post {
             return true;
         }
         return false;
+    }
+
+    public int getCountLikeOfPost() {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.getNumberLikeOfPost(PostID);
+    }
+
+    public boolean isLikedByUser(int userId) {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.checkPostLikedByUser(PostID, userId);
     }
 }
