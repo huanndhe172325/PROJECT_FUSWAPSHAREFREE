@@ -663,9 +663,6 @@ public int countAdministrator() {
 
     public static void main(String[] args) {
         DAOManageUser userDAO = new DAOManageUser();
-        SentMail sent = new SentMail();
-        String content = sent.contentEmailApprove("helo");
-        sent.sentEmail("giautn.cs190417@gmail.com", "Yêu cầu thành công", content);
     }
 
 

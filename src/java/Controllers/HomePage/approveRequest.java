@@ -88,7 +88,8 @@ public class approveRequest extends HttpServlet {
                     && dao.approveRequest(userSent, idPost)
                     && dao.updateStatusPost(idPost, 2) 
                     && dao.createNotifycation("has accepted your request", userLogin.getUserID(), idPost, userSent, 1)) {
-                sent.sentEmail(emailReceive, "Yêu cầu được chấp nhận", "Yêu cầu của bạn đã được chấp nhận, hãy nhanh chân tới địa điểm để nhận đồ.");
+                String contentMail = sent.contentEmailApprove(post, dao.getUserIdByUserId(userSent));
+                sent.sentEmail(emailReceive, "Yêu cầu được chấp nhận", contentMail);
                 response.getWriter().println(1);
             } else {
                 response.getWriter().println(2);

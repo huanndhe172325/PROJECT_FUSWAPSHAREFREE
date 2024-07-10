@@ -561,7 +561,7 @@
                                         <i data-feather="bell"></i>
                                     </a>
                                 </div>
-                                <div class="nav-drop-body is-notifications">
+                                <div class="nav-drop-body is-notifications fetch-notifycation">
                                     <!-- Notification -->
                                     <div class="media">
                                         <figure class="media-left">

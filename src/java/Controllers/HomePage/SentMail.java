@@ -4,6 +4,7 @@
  */
 package Controllers.HomePage;
 
+import Model.Post;
 import Model.User;
 import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
@@ -66,13 +67,13 @@ public class SentMail {
         }
     }
 
-    public String contentEmailApprove(String name) {
+    public String contentEmailApprove(Post postApproved, User userReceive) {
         String content = "<!DOCTYPE html>\n"
                 + "<html lang=\"vi\">\n"
                 + "<head>\n"
                 + "    <meta charset=\"UTF-8\">\n"
                 + "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-                + "    <title>Thư Mời Gặp Gỡ</title>\n"
+                + "    <title>" + postApproved.getFullNameOwner() + " đã đồng ý yêu cầu của bạn</title>\n"
                 + "    <style>\n"
                 + "        body {\n"
                 + "            font-family: Arial, sans-serif;\n"
@@ -101,13 +102,14 @@ public class SentMail {
                 + "</head>\n"
                 + "<body>\n"
                 + "    <div class=\"container\">\n"
-                + "        <h1>Thư Mời Gặp Gỡ</h1>\n"
-                + "        <p>Chào bạn,</p>\n"
-                + "        <p>FuSwapShareFree đã đồng ý trao đổi với bạn. Hãy tới địa chỉ sau để gặp gỡ:</p>\n"
-                + "        <p class=\"address\">FPT University</p>\n"
-                + "        <p>Rất mong được gặp bạn.</p>\n"
+                + "        <h1>" + postApproved.getFullNameOwner() + " đã đồng ý yêu cầu của bạn</h1>\n"
+                + "        <p>Chào bạn " + userReceive.getFull_Name() + ",</p>\n"
+                + "        <p>" + postApproved.getFullNameOwner() + " đã đồng ý trao đổi "+postApproved.getTitle()+" với bạn. Hãy tới địa chỉ sau để trao đổi:</p>\n"
+                + "        <p class=\"address\"> Address: " + postApproved.getAddress() + "</p>\n"
+                + "        <p class=\"address\"> Intrucsion: " + postApproved.getIntructions() + "</p>\n"
+                + "        <p>Rất mong được trao đổi.</p>\n"
                 + "        <p>Trân trọng,</p>\n"
-                + "        <p>FuSwapShareFree</p>\n"
+                + "        <p>"+postApproved.getFullNameOwner()+"</p>\n"
                 + "    </div>\n"
                 + "</body>\n"
                 + "</html>";

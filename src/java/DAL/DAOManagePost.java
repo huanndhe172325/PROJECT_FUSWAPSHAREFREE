@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Controllers.HomePage.SentMail;
 import Model.HaveSwap;
 import Model.Notification;
 import Model.Post;
@@ -425,6 +426,19 @@ public class DAOManagePost extends DBContext {
             return rowsAffected > 0;
         } catch (SQLException e) {
             return false;
+        }
+    }
+
+    public void updatePoint(int point, int userId) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [Point] = Point + ?\n"
+                + " WHERE UserID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, point);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
         }
     }
 
@@ -1212,6 +1226,10 @@ public class DAOManagePost extends DBContext {
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-        System.out.println(dao.approveRequestSwap(9, 122));
+        Post postApprved = dao.getPostByIdPost(157);
+        User userReceive = dao.getUserIdByUserId(1);
+        SentMail mail = new SentMail();
+        String content = mail.contentEmailApprove(postApprved, userReceive);
+        mail.sentEmail(userReceive.getEmail(), "TEST EMAIL", content);
     }
 }
