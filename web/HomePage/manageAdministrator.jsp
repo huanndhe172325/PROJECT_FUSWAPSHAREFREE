@@ -79,7 +79,7 @@
                 <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
             </a>
             <div class="dashboard-aside-body">
-                <a href="SideBarAdmin" class="dashboard-aside-link">
+                <a href="adminHome " class="dashboard-aside-link">
                     <div>
                         <i data-feather="adminHome"></i>
                         <span>Home</span>
@@ -148,7 +148,7 @@
                             <div class="card-title">List Report Users</div>
                             <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
                                 <div class="input-group">
-                                    <form action="manageReportUsers" method="get"> 
+                                    <form action="manageAdministrator" method="get"> 
                                         <input type="text" name="txtSearch" placeholder="Search ..." class="form-control" />
                                         <button type="submit" class="btn btn-search pe-0">
                                             <i class="fa fa-search search-icon"></i>
@@ -161,19 +161,25 @@
                             <table class="table mt-3">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>Full Name User Send</th>
-                                        <th>Message</th>
-                                        <th>reportTime</th>
-                                        <th>Full Name User Receive</th>
+                                        <th>ID</th>
+                                        <th>UserName</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Full Name</th>
+                         
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${reportUser}" var="c">
+                                    <c:forEach var="c" items="${Administrator}">
                                         <tr>
-                                            <td><a href="otherprofile?id=${c.idUserSend}">${c.getNameIdUserSend().getFull_Name()}</a></td>
-                                            <td>${c.message}</td>
-                                            <td>${c.reportTime}</td>
-                                            <td><a href="otherprofile?id=${c.idUserReceive}">${c.getNameIdUserReceive().getFull_Name()}</a></td>
+                                            <td>${c.userID}</td>
+                                            <td>${c.userName}</td>
+                                            <td>${c.email}</td>
+                                            <td>${c.phone}</td>
+                                            <td>${c.full_Name}</td>
+
+
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -182,7 +188,7 @@
                                 <ul class="pagination">
                                     <div class="paging">
                                         <c:forEach begin="1" end="${endPage}" var="i">
-                                            <a class="page-link" href="manageReportUsers?index=${i}&txtSearch=${param.txtSearch}">
+                                            <a class="page-link" href="manageAdministrator?index=${i}&txtSearch=${param.txtSearch}">
                                                 ${i}
                                             </a>
                                         </c:forEach>

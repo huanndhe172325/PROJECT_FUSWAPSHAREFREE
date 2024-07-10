@@ -4,6 +4,7 @@
  */
 package DAL;
 
+import Controllers.HomePage.SentMail;
 import Model.HaveSwap;
 import Model.Notification;
 import Model.Post;
@@ -428,6 +429,19 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public void updatePoint(int point, int userId) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [Point] = Point + ?\n"
+                + " WHERE UserID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, point);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
     public boolean approveRequest(int userId, int postId) {
         String sql = "UPDATE [dbo].[Request]\n"
                 + "   SET [Status] = N'approved'\n"
@@ -594,7 +608,7 @@ public class DAOManagePost extends DBContext {
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Post where UserID = ? ORDER BY CreateTime DESC";
+            String sql = "SELECT * FROM Post where UserID = ? And [StatusID] <> 5 ORDER BY CreateTime DESC";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, idUser);
             ResultSet rs = statement.executeQuery();
@@ -1212,6 +1226,10 @@ public class DAOManagePost extends DBContext {
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-        System.out.println(dao.approveRequestSwap(9, 122));
+        Post postApprved = dao.getPostByIdPost(157);
+        User userReceive = dao.getUserIdByUserId(1);
+        SentMail mail = new SentMail();
+        String content = mail.contentEmailApprove(postApprved, userReceive);
+        mail.sentEmail(userReceive.getEmail(), "TEST EMAIL", content);
     }
 }
