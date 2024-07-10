@@ -429,6 +429,19 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public void updatePoint(int point, int userId) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [Point] = Point + ?\n"
+                + " WHERE UserID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, point);
+            statement.setInt(2, userId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+        }
+    }
+
     public boolean approveRequest(int userId, int postId) {
         String sql = "UPDATE [dbo].[Request]\n"
                 + "   SET [Status] = N'approved'\n"
