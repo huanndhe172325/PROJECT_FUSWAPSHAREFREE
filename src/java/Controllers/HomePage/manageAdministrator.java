@@ -4,6 +4,10 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManageReport;
+import DAL.DAOManageUser;
+import Model.ReportUser;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +15,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  *
@@ -57,6 +63,45 @@ public class manageAdministrator extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       DAOManageUser dao = new DAOManageUser();
+        ArrayList<User> Administrator;
+        String txtSearch = request.getParameter("txtSearch");
+        String indexString = request.getParameter("index");
+        int index = 1; // Giá trị mặc định nếu không có index được cung cấp từ request
+
+        // Xử lý ngoại lệ khi không có index từ request
+        if (indexString != null && !indexString.isEmpty()) {
+            try {
+                index = Integer.parseInt(indexString);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                index = 1; // Đặt giá trị mặc định nếu không thể chuyển đổi indexString thành số nguyên
+            }
+        }
+
+        // Lấy số lượng quản trị viên và tính số trang cuối cùng
+        int count;
+        int pageSize = 5;
+        if (txtSearch == null || txtSearch.isEmpty()) {
+            count = dao.countAdministrator(); // Lấy tổng số quản trị viên nếu không có tìm kiếm
+        } else {
+            count = dao.countSearchAdministrator(txtSearch); // Lấy tổng số quản trị viên sau khi tìm kiếm
+        }
+        
+        int endPage = (int) Math.ceil((double) count / pageSize);
+
+        // Lấy danh sách quản trị viên theo trang và tìm kiếm
+        if (txtSearch == null || txtSearch.isEmpty()) {
+            Administrator = dao.getAllAdministrator(index, pageSize); // Lấy danh sách quản trị viên nếu không có tìm kiếm
+        } else {
+           Administrator = dao.searchAdministrator(txtSearch, index, pageSize); // Lấy danh sách quản trị viên sau khi tìm kiếm
+        }
+
+        // Đặt các thuộc tính cho request và điều hướng tới trang manageAdministrators.jsp
+        request.setAttribute("endPage", endPage);
+        request.setAttribute("Administrator", Administrator);
+        request.setAttribute("currentPage", index);
+        request.setAttribute("txtSearch", txtSearch);
           request.getRequestDispatcher("HomePage/manageAdministrator.jsp").forward(request, response);
     }
 
