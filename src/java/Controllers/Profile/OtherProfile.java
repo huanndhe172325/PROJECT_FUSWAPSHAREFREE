@@ -7,6 +7,7 @@ package Controllers.Profile;
 import DAL.DAOManagePost;
 import DAL.DAOManageUser;
 import DAL.DAOProfile;
+import Model.Notification;
 import Model.Post;
 import Model.User;
 import java.io.IOException;
@@ -76,11 +77,14 @@ public class OtherProfile extends HttpServlet {
         User u = db.getUserbyId(id);
         ArrayList<Post> myPost = new ArrayList<>();
         DAOManagePost daoPost = new DAOManagePost();
+        ArrayList<Notification> listNoti = daoPost.getListNotiByUserId(user.getUserID());
         myPost = daoPost.getAllPostByIdUser(u.getUserID());
+        
         boolean isfriends = daouser.checkisFriends(userID, id);
         request.setAttribute("isfriend", isfriends);
         request.setAttribute("myPost", myPost);
         request.setAttribute("profile", u);
+        request.setAttribute("listNoti", listNoti);
         request.getRequestDispatcher("Profile/otherprofile.jsp").forward(request, response);
 
     }
