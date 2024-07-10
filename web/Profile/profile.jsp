@@ -543,47 +543,47 @@
                         </div>
                     </div>
                     <div class="navbar-item is-icon drop-trigger">
-                            <a class="icon-link" href="javascript:void(0);">
-                                <i data-feather="bell"></i>
-                                <span class="indicator"></span>
-                            </a>
+                        <a class="icon-link" href="javascript:void(0);">
+                            <i data-feather="bell"></i>
+                            <span class="indicator"></span>
+                        </a>
 
-                            <div class="nav-drop">
-                                <div class="inner">
-                                    <div class="nav-drop-header">
-                                        <span>Notifications</span>
-                                        <a href="#">
-                                            <i data-feather="bell"></i>
-                                        </a>
-                                    </div>
-                                    <div class="nav-drop-body is-notifications">
-                                        <c:forEach var="noti" items="${listNoti}">
-                                            <!-- Notification -->
-                                            <div class="media" onclick="window.location.href = 'detailPost?idpost=${noti.postID}'" style="cursor: pointer;">
-                                                <figure class="media-left">
-                                                    <p class="image">
-                                                        <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${noti.getUserSent().userID}'" data-demo-src="${noti.getAvatarUserSent()}" alt="" style="cursor: pointer;" />
-                                                    </p>
-                                                </figure>
-                                                <div class="media-content">
-                                                    <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
-                                                        <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
-                                                    <span class="time">${noti.getCreateTime()}</span>
-                                                </div>
-                                                <div class="media-right">
-                                                    <div class="added-icon">
-                                                        <i data-feather="message-square"></i>
-                                                    </div>
+                        <div class="nav-drop">
+                            <div class="inner">
+                                <div class="nav-drop-header">
+                                    <span>Notifications</span>
+                                    <a href="#">
+                                        <i data-feather="bell"></i>
+                                    </a>
+                                </div>
+                                <div class="nav-drop-body is-notifications">
+                                    <c:forEach var="noti" items="${listNoti}">
+                                        <!-- Notification -->
+                                        <div class="media" onclick="window.location.href = 'detailPost?idpost=${noti.postID}'" style="cursor: pointer;">
+                                            <figure class="media-left">
+                                                <p class="image">
+                                                    <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${noti.getUserSent().userID}'" data-demo-src="${noti.getAvatarUserSent()}" alt="" style="cursor: pointer;" />
+                                                </p>
+                                            </figure>
+                                            <div class="media-content">
+                                                <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
+                                                    <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
+                                                <span class="time">${noti.getCreateTime()}</span>
+                                            </div>
+                                            <div class="media-right">
+                                                <div class="added-icon">
+                                                    <i data-feather="message-square"></i>
                                                 </div>
                                             </div>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="nav-drop-footer">
-                                        <a href="#">View All</a>
-                                    </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <div class="nav-drop-footer">
+                                    <a href="#">View All</a>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     <div class="navbar-item is-icon drop-trigger">
                         <a class="icon-link is-active" href="javascript:void(0);">
@@ -1248,40 +1248,41 @@
                                     }
 
                                 </style>                            
+                                <c:if test="${not empty listLiked}">
+                                    <div id="user-near-me-post-container1" style="max-width: 600px; margin: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; background-color: #f5f5f5; padding: 15px;">
+                                        <h4 style="margin: 0; font-size: 20px; color: #333; text-align: center;">Posts Liked</h4>
+                                        <c:forEach items="${listLiked}" var="listLiked" varStatus="postStatus">
+                                            <div id="user-post-${postStatus.index}" class="user-product-card1" style="margin-top: 15px; display: none;">
+                                                <div style="position: relative; height: 300px;">
+                                                    <c:forEach items="${listLiked.listPostLiked().getListImg()}" var="img" varStatus="imgStatus">
+                                                        <img src="${pageContext.request.contextPath}/${img}" alt="Post image ${imgStatus.index + 1}" 
+                                                             style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s ease;" 
+                                                             class="post-image" data-index="${imgStatus.index}">
+                                                    </c:forEach>
 
-                                <div id="user-near-me-post-container1" style="max-width: 600px; margin: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; background-color: #f5f5f5; padding: 15px;">
-                                    <h4 style="margin: 0; font-size: 20px; color: #333; text-align: center;">Posts Liked</h4>
-                                    <c:forEach items="${listLiked}" var="listLiked" varStatus="postStatus">
-                                        <div id="user-post-${postStatus.index}" class="user-product-card1" style="margin-top: 15px; display: none;">
-                                            <div style="position: relative; height: 300px;">
-                                                <c:forEach items="${listLiked.listPostLiked().getListImg()}" var="img" varStatus="imgStatus">
-                                                    <img src="${pageContext.request.contextPath}/${img}" alt="Post image ${imgStatus.index + 1}" 
-                                                         style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s ease;" 
-                                                         class="post-image" data-index="${imgStatus.index}">
-                                                </c:forEach>
-
-                                                <div class="user-image-btn1" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 10px; z-index: 10;">
-                                                    <button onclick="prevUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">◀</button>
-                                                    <button onclick="nextUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">▶</button>
+                                                    <div class="user-image-btn1" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 10px; z-index: 10;">
+                                                        <button onclick="prevUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">◀</button>
+                                                        <button onclick="nextUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">▶</button>
+                                                    </div>
+                                                </div>
+                                                <div class="user-product-info1" style="padding: 15px; background-color: #fff; border-radius: 8px; margin-top: -10px;">
+                                                    <h3 id="user-post-title1" style="margin: 0 0 10px; font-size: 18px; color: #6ba4e9; font-weight: bold;"> ${listLiked.listPostLiked().getTitle()}</h3>
+                                                    <p id="user-post-description1" style="margin: 0; font-size: 14px; color: #666;">${listLiked.listPostLiked().getDescription()}</p>
+                                                    <p><strong>Date:</strong> <span>${listLiked.listPostLiked().getCreateTime()}</span></p>
+                                                    <p><strong>Type:</strong> <span id="user-post-type1">${listLiked.listPostLiked().getTypeName()}</span></p>
+                                                    <p><strong>Quanlity:</strong> <span id="user-post-quanlity1">${listLiked.listPostLiked().getQuanlityName()}</span></p>
+                                                    <p><strong>Instructions:</strong> <span id="user-post-instructions1">${listLiked.listPostLiked().getIntructions()}</span></p>
+                                                    <p><strong>Owner:</strong> <a id="user-post-owner-link" href="otherprofile?id=${listLiked.listPostLiked().getUserID()}" onclick="viewUserProfile()">View profile ${listLiked.listPostLiked().getFullNameOwner()} </a></p>
                                                 </div>
                                             </div>
-                                            <div class="user-product-info1" style="padding: 15px; background-color: #fff; border-radius: 8px; margin-top: -10px;">
-                                                <h3 id="user-post-title1" style="margin: 0 0 10px; font-size: 18px; color: #6ba4e9; font-weight: bold;"> ${listLiked.listPostLiked().getTitle()}</h3>
-                                                <p id="user-post-description1" style="margin: 0; font-size: 14px; color: #666;">${listLiked.listPostLiked().getDescription()}</p>
-                                                <p><strong>Date:</strong> <span>${listLiked.listPostLiked().getCreateTime()}</span></p>
-                                                <p><strong>Type:</strong> <span id="user-post-type1">${listLiked.listPostLiked().getTypeName()}</span></p>
-                                                <p><strong>Quanlity:</strong> <span id="user-post-quanlity1">${listLiked.listPostLiked().getQuanlityName()}</span></p>
-                                                <p><strong>Instructions:</strong> <span id="user-post-instructions1">${listLiked.listPostLiked().getIntructions()}</span></p>
-                                                <p><strong>Owner:</strong> <a id="user-post-owner-link" href="otherprofile?id=${listLiked.listPostLiked().getUserID()}" onclick="viewUserProfile()">View profile ${listLiked.listPostLiked().getFullNameOwner()} </a></p>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
+                                        </c:forEach>
 
-                                    <div class="user-navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 15px;">
-                                        <button id="user-prev-button" onclick="prevUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Previous</button>
-                                        <button id="user-next-button" onclick="nextUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Next</button>
+                                        <div class="user-navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                                            <button id="user-prev-button" onclick="prevUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Previous</button>
+                                            <button id="user-next-button" onclick="nextUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Next</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </c:if>
                             </div>
 
                             <script>
@@ -1706,13 +1707,11 @@
                                             <input id="email" name="email" type="text" class="form-control" value="${profile.getEmail()}">
                                             <div style="color: red" id="errorEmail"></div>
                                         </div>
-
                                         <div class="col-md-12">
                                             <label class="labels">Phone Number</label>
                                             <input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
                                             <div style="color: red" id="errorPhone"></div>
                                         </div>
-
                                         <input type="submit" id="submit-update-profile1" style="display: none;" value="Submit">
                                     </form>
                                 </div>
@@ -2706,9 +2705,9 @@
 
                 function FormValidate() {
                     var isValid = true;
-                    isValid &= validateFullName();
-                    isValid &= validateEmail();
-                    isValid &= validatePhoneNumber();
+                    isValid = validateFullName() && isValid;
+                    isValid = validateEmail() && isValid;
+                    isValid = validatePhoneNumber() && isValid;
                     return isValid;
                 }
 
