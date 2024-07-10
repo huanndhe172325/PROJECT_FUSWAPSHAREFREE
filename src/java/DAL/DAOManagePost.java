@@ -608,7 +608,7 @@ public class DAOManagePost extends DBContext {
     public ArrayList<Post> getAllPostByIdUser(int idUser) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Post where UserID = ? ORDER BY CreateTime DESC";
+            String sql = "SELECT * FROM Post where UserID = ? And [StatusID] <> 5 ORDER BY CreateTime DESC";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setInt(1, idUser);
             ResultSet rs = statement.executeQuery();

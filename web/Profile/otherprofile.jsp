@@ -546,7 +546,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="navbar-item is-icon drop-trigger">
+                    <div class="navbar-item is-icon drop-trigger fetch-notifycation">
                         <a class="icon-link" href="javascript:void(0);">
                             <i data-feather="bell"></i>
                             <span class="indicator"></span>
@@ -560,7 +560,7 @@
                                         <i data-feather="bell"></i>
                                     </a>
                                 </div>
-                                <div class="nav-drop-body is-notifications fetch-notifycation">
+                                <div class="nav-drop-body is-notifications">
                                     <!-- Notification -->
                                     <div class="media">
                                         <figure class="media-left">
