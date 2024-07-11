@@ -1443,13 +1443,13 @@
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
                                     </div>
-                                    <a id="btn-post-of-friends" class="button" href="HomePageFriend">Post of friends</a>
+                                    <button type="button" id="btn-post-of-friends" class="button" data-filter="friends" onclick="filterPosts('friends')">Post of friends</button>
                                 </div>
                             </div>
                             <!-- Post 1 -->
                             <div class="post-container" data-category="listPost">
                                 <c:forEach var="post" items="${listPost}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}"  data-is-friend="${post.isPostOfFriend(user.getUserID())}">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
 
@@ -1604,7 +1604,7 @@
                         <!-- /Middle column -->
 
                         <!-- Right side column -->
-                        <div class="column is-3 is-hidden-mobile is-hidden-tablet-only">
+                        <div class="column is-5-fullhd is-hidden-mobile is-hidden-tablet-only">
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
@@ -2132,7 +2132,7 @@
 
     <script>
                             document.addEventListener('DOMContentLoaded', function () {
-                            // Thêm sự kiện click cho các nút accept
+
                             document.querySelectorAll('.accept-request').forEach(function (button) {
                             button.addEventListener('click', function () {
                             var requestId = this.getAttribute('data-request-id');
@@ -2141,7 +2141,6 @@
                             updateFriendRequestStatus(requestId, 'accepted', senderUserId, receiverUserId, this);
                             });
                             });
-                            // Thêm sự kiện click cho các nút reject
                             document.querySelectorAll('.reject-request').forEach(function (button) {
                             button.addEventListener('click', function () {
                             var requestId = this.getAttribute('data-request-id');
@@ -2321,22 +2320,18 @@
         function filterPosts(filter) {
         const posts = document.querySelectorAll('.post');
         const buttons = document.querySelectorAll('.button-wrap .button');
-        // Remove 'is-active' class from all buttons
         buttons.forEach(btn => btn.classList.remove('is-active'));
-        // Add 'is-active' class to clicked button
         const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
         if (activeButton) {
         activeButton.classList.add('is-active');
         }
+
+
         if (filter === 'all') {
-        // Reset to original order
         resetPostsOrder();
         } else {
         posts.forEach(post => {
         switch (filter) {
-        case 'all':
-                post.style.display = 'block';
-        break;
         case 'newest':
                 post.style.display = 'block';
         break;
@@ -2355,13 +2350,24 @@
         case 'new':
                 post.style.display = post.dataset.quality.toLowerCase() === 'new' ? 'block' : 'none';
         break;
+        case 'friends':
+                const isFriend = post.dataset.isFriend === 'true';
+        post.style.display = isFriend ? 'block' : 'none';
+        break;
+        default:
+
+                post.style.display = 'block';
+        break;
         }
         });
-        if (filter === 'newest' || filter === 'exchange' || filter === 'free' || filter === 'used' || filter === 'free' || filter === 'needsrepair' || filter === 'new') {
+        if (filter !== 'all') {
         sortPostsByNewest();
         }
-
         }
+        }
+        function toggleQualityOptions() {
+        const qualityOptions = document.getElementById('quality-options');
+        qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
         }
         function sortPostsByNewest() {
         const postContainer = document.querySelector('.post-container');
@@ -2371,22 +2377,20 @@
         });
         posts.forEach(post => postContainer.appendChild(post));
         }
-        function toggleQualityOptions() {
-        const qualityOptions = document.getElementById('quality-options');
-        qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
-        }
+
         function resetPostsOrder() {
         const postContainer = document.querySelector('.post-container');
-        postContainer.innerHTML = ''; // Clear existing posts
-
-        // Append posts in original order
+        postContainer.innerHTML = '';
         originalPostsOrder.forEach(post => postContainer.appendChild(post));
         }
+
         window.addEventListener('load', () => {
+
         originalPostsOrder = Array.from(document.querySelectorAll('.post'));
         filterPosts('all');
         });
     </script>
+
 
     <script>
         document.getElementById('postButton').addEventListener('click', function () {
