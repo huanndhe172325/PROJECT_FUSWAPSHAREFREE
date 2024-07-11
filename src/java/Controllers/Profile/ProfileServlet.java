@@ -8,6 +8,7 @@ import DAL.DAOManagePost;
 import DAL.DAOManageUser;
 import DAL.DAOProfile;
 import Model.BlockList;
+import Model.DuringExchange;
 import Model.Like;
 import Model.Notification;
 import Model.Post;
@@ -86,6 +87,8 @@ public class ProfileServlet extends HttpServlet {
         List<Like> like = db.getPostsByLike(u.getUserID());
         myPost = daoPost.getAllPostByIdUser(u.getUserID());
         ArrayList<Notification> listNoti = daoPost.getListNotiByUserId(userId.getUserID());
+        ArrayList<DuringExchange> listDuringExchange = daoPost.getListDuringExchange(u.getUserID());
+        request.setAttribute("listDuringExchange", listDuringExchange);
         request.setAttribute("listNoti", listNoti);
         request.setAttribute("listLiked", like);
         request.setAttribute("hisPost", hisPost);

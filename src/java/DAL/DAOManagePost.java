@@ -5,6 +5,7 @@
 package DAL;
 
 import Controllers.HomePage.SentMail;
+import Model.DuringExchange;
 import Model.HaveSwap;
 import Model.Notification;
 import Model.Post;
@@ -273,7 +274,7 @@ public class DAOManagePost extends DBContext {
             statement.setInt(3, userID);
             statement.setInt(4, userID);
             ResultSet rs = statement.executeQuery();
-            isFriendPost = rs.next(); 
+            isFriendPost = rs.next();
             rs.close();
         } catch (SQLException e) {
             System.out.println(e);
@@ -801,6 +802,46 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
+    public ArrayList<DuringExchange> getListDuringExchange(int userLogin) {
+        ArrayList<DuringExchange> list = new ArrayList<>();
+        try {
+            String sql1 = "Select P.PostID, R.UserID AS userRequest from Post p\n"
+                    + "  inner join Request r on r.PostID = p.PostID \n"
+                    + "  where r.Status = 'approved' and p.StatusID = 2 and p.UserID = ?";
+            String sql2 = "Select P.PostID, hs.UserID AS userRequest from Post p\n"
+                    + "  inner join have_swap hs on hs.PostID = p.PostID \n"
+                    + "  where hs.Status = 'approved' and p.StatusID = 2 and p.UserID = ?";
+            PreparedStatement statement1 = connect.prepareStatement(sql1);
+            statement1.setInt(1, userLogin);
+            ResultSet rs1 = statement1.executeQuery();
+            while (rs1.next()) {
+                DuringExchange de = new DuringExchange();
+                de.setPostId(rs1.getInt("PostID"));
+                de.setUserRequest(rs1.getInt("userRequest"));
+                list.add(de);
+            }
+            rs1.close();
+            statement1.close();
+
+            
+            PreparedStatement statement2 = connect.prepareStatement(sql2);
+            statement2.setInt(1, userLogin);
+            ResultSet rs2 = statement2.executeQuery();
+            while (rs2.next()) {
+                DuringExchange de = new DuringExchange();
+                de.setPostId(rs2.getInt("PostID"));
+                de.setUserRequest(rs2.getInt("userRequest"));
+                list.add(de);
+            }
+            rs2.close();
+            statement2.close();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public Post getPostByIdPost(int idPost) {
         Post post = null;
         String sql = "SELECT * FROM Post WHERE PostID = ?";
@@ -1258,10 +1299,10 @@ public class DAOManagePost extends DBContext {
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();
-        Post postApprved = dao.getPostByIdPost(157);
-        User userReceive = dao.getUserIdByUserId(1);
-        SentMail mail = new SentMail();
-        String content = mail.contentEmailApprove(postApprved, userReceive);
-        mail.sentEmail(userReceive.getEmail(), "TEST EMAIL", content);
+        ArrayList<DuringExchange> list = new ArrayList<>();
+        list = dao.getListDuringExchange(1);
+        for(DuringExchange a : list){
+            System.out.println(a.getUserRequest());
+        }
     }
 }

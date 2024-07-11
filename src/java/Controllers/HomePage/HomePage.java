@@ -6,6 +6,7 @@ package Controllers.HomePage;
 
 import DAL.DAOManageUser;
 import DAL.DAOManagePost;
+import Model.DuringExchange;
 import Model.FriendsRequest;
 import Model.Notification;
 import Model.Post;
@@ -86,7 +87,8 @@ public class HomePage extends HttpServlet {
         ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
         ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), district);
         ArrayList<FriendsRequest> listFriendsRq = daoManagerUser.getListFriendRequest(userInfo_raw.getUserID());
-        
+        ArrayList<DuringExchange> listDuringExchange = dao.getListDuringExchange(userInfo_raw.getUserID());
+        request.setAttribute("listDuringExchange", listDuringExchange);
         request.setAttribute("listNoti", listNoti);
         request.setAttribute("listFriendsRq", listFriendsRq);
         request.setAttribute("listUserDistrict", listUserDistrict);
