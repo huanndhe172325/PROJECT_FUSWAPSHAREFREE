@@ -111,7 +111,9 @@
                                         <div class="field">
                                             <div class="control">
                                                 <button type="submit" class="button is-primary">Submit</button>
+                                                 <a href="Preview" class="button is-primary float-end">Back</a>
                                             </div>
+                                           
                                         </div>
                                         <p style="color: red">${msg}</p> 
                                     </div>                       

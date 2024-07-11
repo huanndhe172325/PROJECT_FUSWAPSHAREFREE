@@ -6,6 +6,7 @@ package Controllers.HomePage;
 
 import DAL.DAOManagePost;
 import DAL.DAOManageUser;
+import Model.DuringExchange;
 import Model.FriendsRequest;
 import Model.Notification;
 import Model.Post;
@@ -94,6 +95,8 @@ public class detailPost extends HttpServlet {
                 request.setAttribute("listNoti", listNoti);
                 request.setAttribute("listFriendsRq", listFriendsRq);
                 request.setAttribute("user", userInfor);
+                ArrayList<DuringExchange> listDuringExchange = dao.getListDuringExchange(userInfo_raw.getUserID());
+                request.setAttribute("listDuringExchange", listDuringExchange);
             }
 
             //guest

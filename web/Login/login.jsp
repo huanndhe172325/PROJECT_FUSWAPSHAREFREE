@@ -41,6 +41,13 @@
             .error {
                 color: red;
             }
+            .back-button span {
+                text-decoration: none; /* Loại bỏ gạch chân */
+            }
+
+
+
+
         </style>
         <!-- End Google Tag Manager -->
 
@@ -114,6 +121,12 @@
                                                 <input type="submit" value="Login" class="button is-solid primary-button raised is-rounded is-fullwidth">
                                             </div>
                                         </div>
+
+                                        <a href="Preview" class="button is-solid primary-button raised is-rounded is-fullwidth" style="text-decoration: none">                                          
+                                            <span>Back</span>
+                                        </a>
+
+
                                         <p style="color: red">${mess}</p>  
                                     </div>
                                 </form>
