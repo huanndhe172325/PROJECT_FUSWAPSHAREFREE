@@ -249,6 +249,38 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
+    public boolean isPostOfFriend(int postID, int userID) {
+        boolean isFriendPost = false;
+        try {
+            String sql = "SELECT TOP 1 1\n"
+                    + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
+                    + "WHERE p.PostID = ?\n"
+                    + "AND p.StatusID = 1\n"
+                    + "AND p.UserID IN (\n"
+                    + "    SELECT [FriendUserID]\n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[ListFriends]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID NOT IN (\n"
+                    + "    SELECT BlockUserID\n"
+                    + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
+                    + "    WHERE UserID = ?\n"
+                    + ")\n"
+                    + "AND p.UserID != ?";
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setInt(1, postID);
+            statement.setInt(2, userID);
+            statement.setInt(3, userID);
+            statement.setInt(4, userID);
+            ResultSet rs = statement.executeQuery();
+            isFriendPost = rs.next(); 
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return isFriendPost;
+    }
+
     public ArrayList<Post> getPostNewest(int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
