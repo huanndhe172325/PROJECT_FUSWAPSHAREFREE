@@ -83,7 +83,7 @@ public class completeTransaction extends HttpServlet {
             int idPost = Integer.parseInt(idPost_raw);
             int userSent = Integer.parseInt(userIdSentRequest_raw);
             Post post = dao.getPostByIdPost(idPost);
-            SentMail sent = new SentMail();
+            SentMail sent = SentMail.getInstance();
             String mailReceive = dao.getUserIdByUserId(userSent).getEmail();
             if (dao.updateStatusPost(idPost, 4)) {
                 sent.sentEmail(mailReceive, "Giao dịch đã thành công", "Chúc mừng bạn vừa có một giao dịch thành công.");
