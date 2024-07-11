@@ -20,12 +20,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOManageReport extends DBContext {
-
-    public ArrayList<ReportPost> getAllReportPosts() {
-        ArrayList<ReportPost> reportPosts = new ArrayList<>();
-        String sqlString = "  SELECT * FROM Have_ReportPost  ORDER BY PostID";
+      public int countReportPosts() {
+        int count = 0;
         try {
-            PreparedStatement st = connect.prepareStatement(sqlString);
+            String sql = "SELECT COUNT(*) AS ReportCount FROM Have_ReportPost";
+            PreparedStatement st = connect.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("ReportCount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+      public static void main(String[] args) {
+
+        DAOManageReport dao = new DAOManageReport();
+        ArrayList<ReportPost> al=dao.getAllReportPostsBySort(1,3);
+        for(ReportPost xPost:al){
+            System.out.println(xPost.getReportTime());
+        }
+          System.out.println(dao.countReportPosts());
+    }
+    public ArrayList<ReportPost> getAllReportPostsBySort(int pageIndex, int pageSize) {
+        ArrayList<ReportPost> reportPosts = new ArrayList<>();
+        String sql = "SELECT * FROM Have_ReportPost ORDER BY PostID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, (pageIndex - 1) * pageSize); // Tính toán OFFSET
+            st.setInt(2, pageSize); // Đặt số lượng hàng cần lấy
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -37,18 +61,20 @@ public class DAOManageReport extends DBContext {
                 DAOManageUser ud = new DAOManageUser();
                 User u = ud.getUserByIdUserSend(IdUserSend);
                 rp.setUser(u);
+
                 int PostID = rs.getInt("PostID");
                 DAOManagePost dp = new DAOManagePost();
                 Post post = dp.getPostByIdPost(PostID);
                 rp.setPost(post);
+
                 reportPosts.add(rp);
             }
-            return reportPosts;
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
-        return null;
+        return reportPosts;
     }
+
     public int countReportedPPosts(int year, int month) {
         int count = 0;
         try {
@@ -71,6 +97,7 @@ public class DAOManageReport extends DBContext {
         }
         return count;
     }
+
     public int countReportedUsers(int year, int month) {
         int count = 0;
         try {
@@ -89,6 +116,7 @@ public class DAOManageReport extends DBContext {
         }
         return count;
     }
+
     public int countSearchReportUsers(String txtSearch) {
         int count = 0;
         try {
@@ -109,7 +137,6 @@ public class DAOManageReport extends DBContext {
         }
         return count;
     }
-    
 
     public ArrayList<ReportUser> searchReportUsers(String txtSearch, int index, int size) {
         ArrayList<ReportUser> reportUsers = new ArrayList<>();
@@ -139,6 +166,50 @@ public class DAOManageReport extends DBContext {
             st.setString(2, "%" + txtSearch + "%");
             st.setInt(3, index);
             st.setInt(4, index);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ReportUser reportUser = new ReportUser(
+                        rs.getString("reportTime"),
+                        rs.getString("Message"),
+                        rs.getInt("IdUserSend"),
+                        rs.getInt("IdUserReceive")
+                );
+                reportUsers.add(reportUser);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reportUsers;
+    }
+
+    public ArrayList<ReportUser> getAllReportUsersBySort(int index, int size) {
+        ArrayList<ReportUser> reportUsers = new ArrayList<>();
+        String sql = "WITH a AS (\n"
+                + "    SELECT \n"
+                + "        ROW_NUMBER() OVER (ORDER BY ru.reportTime DESC) AS r,\n"
+                + "        ru.reportTime,\n"
+                + "        ru.Message,\n"
+                + "        us1.Full_Name AS FullNameSend,\n"
+                + "        us2.Full_Name AS FullNameReceive,\n"
+                + "        ru.IdUserSend,\n"
+                + "        ru.IdUserReceive\n"
+                + "    FROM \n"
+                + "        Have_ReportUser ru\n"
+                + "    JOIN \n"
+                + "        [User] us1 ON ru.IdUserSend = us1.UserID\n"
+                + "    JOIN \n"
+                + "        [User] us2 ON ru.IdUserReceive = us2.UserID\n"
+                + ")\n"
+                + "SELECT * \n"
+                + "FROM a \n"
+                + "WHERE r BETWEEN (?*5-4) AND (?*5) \n"
+                + "ORDER BY reportTime DESC;";
+
+        try {
+            PreparedStatement st = connect.prepareStatement(sql);
+
+            st.setInt(1, index);
+            st.setInt(2, index);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 ReportUser reportUser = new ReportUser(
@@ -214,12 +285,5 @@ public class DAOManageReport extends DBContext {
         return count;
     }
 
-    public static void main(String[] args) {
-
-        DAOManageReport dao = new DAOManageReport();
-        int year = 2024;
-        int month = 6;
-        int reportedUsers = dao.countReportedUsers(year, month);
-        System.out.println("Số lượng người dùng bị report trong tháng " + month + " năm " + year + ": " + reportedUsers);
-    }
+    
 }

@@ -57,7 +57,18 @@
                 j.src = '../www.googletagmanager.com/gtm5445.html?id=' + i + dl
                 f.parentNode.insertBefore(j, f)
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
+            function toggleBan(userId) {
+                const button = document.getElementById(`banBtn_${userId}`);
+                if (button.textContent === "Ban") {
+                    button.textContent = "Unban";
+                    // Thêm mã để xử lý khi người dùng bị cấm
+                } else {
+                    button.textContent = "Ban";
+                    // Thêm mã để xử lý khi người dùng được bỏ cấm
+                }
+            }
         </script>
+
         <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700,800,900" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
         <link href="../cdn.jsdelivr.net/npm/fontisto%40v3.0.4/css/fontisto/fontisto-brands.min.css" rel="stylesheet" />
@@ -79,12 +90,7 @@
                 <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
             </a>
             <div class="dashboard-aside-body">
-                <a href="SideBarAdmin" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="home"></i>
-                        <span>Home</span>
-                    </div>
-                </a>
+                
                 <a href="manageReportUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
@@ -157,8 +163,9 @@
                                     <tr>
                                         <th>Full Name User Send</th>
                                         <th>Message</th>
-                                        <th>reportTime</th>
+                                        <th>Date</th>
                                         <th>Full Name User Receive</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -168,21 +175,54 @@
                                             <td>${c.message}</td>
                                             <td>${c.reportTime}</td>
                                             <td><a href="otherprofile?id=${c.idUserReceive}">${c.getNameIdUserReceive().getFull_Name()}</a></td>
+                                            <td>
+                                                <c:if test="${c.getStatus().statusID == 1}">
+                                                                                                        <a href="updateStatus?s=1&id=${c.idUserSend}">Ban</a>
+
+                                                </c:if>
+                                                <c:if test="${c.getStatus().statusID == 2}">
+                                                    <a href="updateStatus?s=2&id=${c.idUserSend}">Unban</a>
+                                                </c:if>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
                             </table>
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    <div class="paging">
-                                        <c:forEach begin="1" end="${endPage}" var="i">
-                                            <a class="page-link" href="manageReportUsers?index=${i}&txtSearch=${param.txtSearch}">
-                                                ${i}
-                                            </a>
+                            <c:if test="${noOfPages > 1}">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <!-- Nút Previous -->
+                                        <c:if test="${currentPage > 1}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="manageReportUsers?index=${currentPage - 1}&txtSearch=${param.txtSearch}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+
+                                        <!-- Các nút trang -->
+                                        <c:forEach begin="1" end="${noOfPages}" var="i">
+                                            <c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
+                                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                                    <a class="page-link" href="manageReportUsers?index=${i}&txtSearch=${param.txtSearch}">${i}</a>
+                                                </li>
+                                            </c:if>
                                         </c:forEach>
-                                    </div>
-                                </ul>
-                            </nav>
+
+                                        <!-- Nút Next -->
+                                        <c:if test="${currentPage < noOfPages}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="manageReportUsers?index=${currentPage + 1}&txtSearch=${param.txtSearch}&sort=${param.sort}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+                                    </ul>
+                                </nav>
+                            </c:if>
+
                             <a href="SideBarAdmin">
                                 <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                             </a>

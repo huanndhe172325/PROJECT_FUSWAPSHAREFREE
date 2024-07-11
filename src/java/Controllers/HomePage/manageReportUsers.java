@@ -59,11 +59,12 @@ public class manageReportUsers extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
         DAOManageReport dao = new DAOManageReport();
         ArrayList<ReportUser> reportUser;
         String txtSearch = request.getParameter("txtSearch");
         String indexString = request.getParameter("index");
+       
         int index = 1; // Giá trị mặc định nếu không có index được cung cấp từ request
 
         // Xử lý ngoại lệ khi không có index từ request
@@ -72,14 +73,13 @@ public class manageReportUsers extends HttpServlet {
                 index = Integer.parseInt(indexString);
             } catch (NumberFormatException e) {
                 // Xử lý khi không thể chuyển đổi indexString thành số nguyên
-                // Ví dụ: Thông báo lỗi hoặc xử lý ngoại lệ
                 e.printStackTrace();
-                // Có thể điều hướng đến trang lỗi
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid page index");
                 return;
             }
         }
-
-        // Lấy số lượng báo cáo và   tính số trang cuối cùng
+        
+        // Lấy số lượng báo cáo và tính số trang cuối cùng
         int count;
         if (txtSearch == null || txtSearch.isEmpty()) {
             count = dao.countReportUsers(); // Lấy tổng số báo cáo nếu không có tìm kiếm
@@ -87,17 +87,21 @@ public class manageReportUsers extends HttpServlet {
             count = dao.countSearchReportUsers(txtSearch); // Lấy tổng số báo cáo sau khi tìm kiếm
         }
         int pageSize = 5;
-        int endPage = (int) Math.ceil((double) count / pageSize);
+        int noOfPages = (int) Math.ceil((double) count / pageSize);
 
         // Lấy danh sách báo cáo theo trang và tìm kiếm
         if (txtSearch == null || txtSearch.isEmpty()) {
             reportUser = dao.getAllReportUsers(index, pageSize); // Lấy danh sách báo cáo nếu không có tìm kiếm
+           
         } else {
             reportUser = dao.searchReportUsers(txtSearch, index, pageSize); // Lấy danh sách báo cáo sau khi tìm kiếm
         }
+       
 
         // Đặt các thuộc tính cho request và điều hướng tới trang manageReportUsers.jsp
-        request.setAttribute("endPage", endPage);
+        request.setAttribute("noOfPages", noOfPages);
+        request.setAttribute("currentPage", index);
+        request.setAttribute("txtSearch", txtSearch);
         request.setAttribute("reportUser", reportUser);
         request.getRequestDispatcher("HomePage/manageReportUsers.jsp").forward(request, response);
     }

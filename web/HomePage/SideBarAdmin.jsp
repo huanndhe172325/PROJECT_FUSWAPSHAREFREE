@@ -63,19 +63,19 @@
                         <span>Home</span>
                     </div>
                 </a>
-                <a href="adminReportUsers" class="dashboard-aside-link">
+                <a href="manageReportUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
                         <span>Manage Report Users</span>
                     </div>
                 </a>
-                <a href="adminReportPost" class="dashboard-aside-link">
+                <a href="manageReportPost" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
                         <span> Manage Report Posts</span>
                     </div>
                 </a>
-                <a href="manageUsers" class="dashboard-aside-link">
+                <a href="ListUser" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
                         <span> List User</span>

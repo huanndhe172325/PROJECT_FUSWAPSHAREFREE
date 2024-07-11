@@ -65,6 +65,10 @@ public class ReportUser {
         DAOManageUser dao=new DAOManageUser();
         return dao.getUserByIdUserReceive(idUserReceive);
     }
+    public User getStatus(){
+                DAOManageUser dao=new DAOManageUser();
+                return dao.getByID(idUserSend);
+    }
     public String toString() {
         return "ReportUser{" +
                 "reportTime='" + reportTime + '\'' +
