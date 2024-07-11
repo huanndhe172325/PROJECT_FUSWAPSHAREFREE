@@ -1,7 +1,7 @@
 <%-- 
-    Document   : HomePage
-    Created on : May 20, 2024, 10:37:57 PM
-    Author     : FPT
+    Document   : HomePage2
+    Created on : Jul 11, 2024, 10:24:03 PM
+    Author     : Binhtran
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -1442,8 +1442,7 @@
                                             <button type="button" class="button" data-filter="needsrepair" onclick="filterPosts('needsrepair')">Needs Repair</button>
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
-                                    </div>
-                                    <button type="button" class="button" id="btn-post-of-friends" onclick="redirectToHomePageFriends()">Post of friends</button>
+                                    </div>                             
                                 </div>
                             </div>
                             <!-- Post 1 -->
@@ -2361,11 +2360,7 @@
         displayUserPost(currentPostIndex);
     </script>
 
-    <script>
-        function redirectToHomePageFriends() {
-        window.location.href = 'HomePageFriends';
-        }
-    </script>
+
 
 
     <script>
@@ -2385,14 +2380,14 @@
         let originalPostsOrder = [];
         function filterPosts(filter) {
         const posts = document.querySelectorAll('.post');
-        const buttons = document.querySelectorAll('.button-wrap .button');
+        const buttons = document.querySelectorAll('.button-wrap .button');       
         buttons.forEach(btn => btn.classList.remove('is-active'));
         const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
         if (activeButton) {
         activeButton.classList.add('is-active');
         }
 
-
+        
         if (filter === 'all') {
         resetPostsOrder();
         } else {
@@ -2415,12 +2410,12 @@
         break;
         case 'new':
                 post.style.display = post.dataset.quality.toLowerCase() === 'new' ? 'block' : 'none';
-        break;
+        break;      
         default:
                 post.style.display = 'block';
         break;
         }
-        });
+        });     
         if (filter !== 'all') {
         sortPostsByNewest();
         }
