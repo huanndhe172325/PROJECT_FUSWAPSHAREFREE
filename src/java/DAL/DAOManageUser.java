@@ -715,11 +715,6 @@ public class DAOManageUser extends DBContext {
         return listFriends;
     }
 
-    public static void main(String[] args) {
-        DAOManageUser userDAO = new DAOManageUser();
-    }
-
-
     public ArrayList<FriendsRequest> getListFriendRequest(int userID) {
         ArrayList<FriendsRequest> friendRequests = new ArrayList<>();
         String sql = "SELECT [RequestID], [Status], [SenderUserID], [ReceiverUserID] FROM [RequestFriends] WHERE [ReceiverUserID] = ? AND [Status] = 'pending'";
