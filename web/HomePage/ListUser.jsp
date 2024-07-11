@@ -79,12 +79,8 @@
                 <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
             </a>
             <div class="dashboard-aside-body">
-                <a href="SideBarAdmin" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="home"></i>
-                        <span>Home</span>
-                    </div>
-                </a>
+                
+                                    
                 <a href="manageReportUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
@@ -162,7 +158,7 @@
                                         <th>Full Name</th>
                                         <th>District</th>
                                         <th>Point</th>
-                                        <th>Status ID</th>
+                                       
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -176,7 +172,7 @@
                                             <td>${c.full_Name}</td>
                                             <td>${c.commune}-${c.district}</td>
                                             <td>${c.point}</td>
-                                            <td>${c.statusID}</td>
+                                            
 
                                         </tr>
                                     </c:forEach>

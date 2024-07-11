@@ -1,19 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
-
-    <!-- Mirrored from friendkit.cssninja.io/dashboard-home.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:39:27 GMT -->
-    <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta http-equiv="x-ua-compatible" content="ie=edge" />
-
-        <title>Friendkit | Dashboard</title>
-        <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
-
-        <!-- Google Tag Manager -->
+  <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="css/ManagerProduct.css" rel="stylesheet" type="text/css"/>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+            />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        
+        
         <script>
             ;
             (function (w, d, s, l, i) {
@@ -30,9 +35,6 @@
                 f.parentNode.insertBefore(j, f)
             })(window, document, 'script', 'dataLayer', 'GTM-KQHJPZP')
         </script>
-        <!-- End Google Tag Manager -->
-
-        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700,800,900" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
         <link href="../cdn.jsdelivr.net/npm/fontisto%40v3.0.4/css/fontisto/fontisto-brands.min.css" rel="stylesheet" />
@@ -43,16 +45,12 @@
         <link rel="stylesheet" href="assets2/css/bootstrap.min.css" />
         <link rel="stylesheet" href="assets2/css/plugins.min.css" />
         <link rel="stylesheet" href="assets2/css/kaiadmin.min.css" />
+
     </head>
-
-    <body>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQHJPZP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-
-        <!-- Pageloader -->
-        <div class="pageloader"></div>
-        <div class="infraloader is-active"></div>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KQHJPZP" height="0" width="0" style="display: none; visibility: hidden"></iframe></noscript>
         <div class="dashboard-aside">
             <a class="dashboard-aside-brand">
                 <img class="logo light-image" src="assets/img/vector/logo/friendkit-bold.svg" width="112" height="28" alt="" />
@@ -80,7 +78,7 @@
                 <a href="manageUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
-                        <span> List User</span>
+                       <span> Number of participants</span>
                     </div>
                 </a>
                 <a href="manageAdministrator" class="dashboard-aside-link">
@@ -90,284 +88,214 @@
                     </div>
                 </a>
 
-            </div>                                                             
+            </div>
             <div class="dashboard-aside-end">
-
                 <a href="Preview" class="dashboard-aside-link">
                     <img class="link-avatar" src="https://via.placeholder.com/400x400" data-demo-src="${user.avatarUrl}" alt="" />
                 </a>
             </div>
         </div>
+      <!-- End Sidebar -->
 
-
-        <div class="view-wrapper is-dashboard">
-            <!--Dashboard container-->
-            <div id="creator-dashboard" class="dashboard-container">
-                <!--Toolbar-->
-                <div class="dashboard-toolbar">
-                    <h1 class="title is-4">Creator dashboard</h1>
-                    <div class="actions">
-                        <label class="theme-toggle">
-                            <input type="checkbox" />
-                            <span class="toggler">
-                                <span class="dark">
-                                    <i data-feather="moon"></i>
-                                </span>
-                                <span class="light">
-                                    <i data-feather="sun"></i>
-                                </span>
-                            </span>
-                        </label>
-                        <div class="buttons">
-                            <a class="button is-solid primary-button is-raised has-icon">
-                                <i data-feather="plus"></i>
-                                <span>Create</span>
-                            </a>
-                            <a class="button is-solid live-button has-icon">
-                                <i data-feather="video"></i>
-                                <span>Go Live</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dashboard-body">
-                    <div class="columns">
-                        <!--Dashboard column-->
-                        <div class="column is-4">
-                            <!--Dashboard box-->
-                            <div class="dashboard-box">
-                                <h3 class="title is-5 is-thin">Latest content</h3>
-                                <div class="box-media">
-                                    <img src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/4.jpg" alt="" />
-                                </div>
-                                <div class="box-content">
-                                    <p class="small">First 2 days 4 hours</p>
-                                    <div class="box-lines">
-                                        <div class="box-line">
-                                            <span class="left">Ranking by views</span>
-                                            <span class="right">3 of 6</span>
-                                        </div>
-                                        <div class="box-line">
-                                            <span class="left">Views</span>
-                                            <span class="right">2.8k</span>
-                                        </div>
-                                        <div class="box-line">
-                                            <span class="left">Bounce rate</span>
-                                            <span class="right">
-                                                <span class="positive">2.3%</span>
-                                            </span>
-                                        </div>
-                                        <div class="box-line">
-                                            <span class="left">Average duration</span>
-                                            <span class="right">2:19</span>
-                                        </div>
-                                    </div>
-                                    <div class="button-wrap">
-                                        <button class="button is-solid primary-button is-fullwidth">
-                                            View Details
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Dashboard box-->
-                            <div class="dashboard-box">
-                                <h3 class="title is-5 is-thin">Latest subscribers</h3>
-                                <p class="small">Last 90 days</p>
-
-                                <div class="box-content">
-                                    <div class="box-subscribers">
-                                        <!--Subscriber-->
-                                        <div class="box-subscriber">
-                                            <img class="subscriber-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/lana.jpeg" data-user-popover="10" alt="" />
-                                            <div class="subscriber-meta">
-                                                <span class="meta-title">Lana Henrikssen</span>
-                                                <span class="meta-content">223 followers</span>
-                                            </div>
-                                        </div>
-                                        <!--Subscriber-->
-                                        <div class="box-subscriber">
-                                            <img class="subscriber-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
-                                            <div class="subscriber-meta">
-                                                <span class="meta-title">Dan Walker</span>
-                                                <span class="meta-content">642 followers</span>
-                                            </div>
-                                        </div>
-                                        <!--Subscriber-->
-                                        <div class="box-subscriber">
-                                            <img class="subscriber-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" data-user-popover="6" alt="" />
-                                            <div class="subscriber-meta">
-                                                <span class="meta-title">Elise Walker</span>
-                                                <span class="meta-content">111 followers</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="link-wrap">
-                                        <a class="link">
-                                            <span>View All</span>
-                                            <i data-feather="arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--Dashboard column-->
-                        <div class="column is-4">
-                            <!--Dashboard box-->
-                            <div class="dashboard-box">
-                                <h3 class="title is-5 is-thin">Analytics</h3>
-                                <div class="stat-block">
-                                    <span class="stat-title">Current subscribers</span>
-                                    <span class="stat-value">839</span>
-                                    <span class="stat-subtitle"
-                                          ><span class="positive">+49</span> in last 28 days
-                                    </span>
-                                </div>
-
-                                <div class="box-content">
-                                    <div class="box-lines">
-                                        <h4 class="topheading">Summary</h4>
-                                        <p class="subheading mb-2">Last 28 days</p>
-                                        <div class="box-line">
-                                            <span class="left">Views</span>
-                                            <span class="right">2.5k</span>
-                                        </div>
-                                        <div class="box-line">
-                                            <span class="left">Duration</span>
-                                            <span class="right">1:27</span>
-                                        </div>
-                                    </div>
-                                    <div class="box-lines">
-                                        <h4 class="topheading">Highlights</h4>
-                                        <p class="subheading mb-2">Last 28 days</p>
-                                        <div class="box-line">
-                                            <span class="left">Post views</span>
-                                            <span class="right">
-                                                <span class="positive">+7.8%</span>
-                                            </span>
-                                        </div>
-                                        <div class="box-line">
-                                            <span class="left">Video views</span>
-                                            <span class="right">
-                                                <span class="negative">-2.3%</span>
-                                            </span>
-                                        </div>
-                                        <div class="box-line">
-                                            <span class="left">Comments</span>
-                                            <span class="right">
-                                                <span>+1.4%</span>
-                                            </span>
-                                        </div>
-                                        <div class="box-line">
-                                            <span class="left">Subscriptions</span>
-                                            <span class="right">
-                                                <span>+5.1%</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="link-wrap">
-                                        <a class="link">
-                                            <span>View More</span>
-                                            <i data-feather="arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Dashboard box-->
-                            <div class="dashboard-box">
-                                <h3 class="title is-5 is-thin">Latest comments</h3>
-                                <p class="small">Comments you haven't answered</p>
-
-                                <div class="box-content">
-                                    <div class="box-comments">
-                                        <!--Comment-->
-                                        <div class="box-comment">
-                                            <img class="comment-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
-                                            <div class="comment-meta">
-                                                <span class="meta-title">Nelly ? 2 days ago</span>
-                                                <span class="meta-content">How is this going?</span>
-                                            </div>
-                                            <div class="comment-end">
-                                                <img class="end-thumbnail" src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/17.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                        <!--Comment-->
-                                        <div class="box-comment">
-                                            <img class="comment-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/mike.jpg" data-user-popover="12" alt="" />
-                                            <div class="comment-meta">
-                                                <span class="meta-title">Mike ? 3 days ago</span>
-                                                <span class="meta-content">Haha, that was amazing!</span>
-                                            </div>
-                                            <div class="comment-end">
-                                                <img class="end-thumbnail" src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/35.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                        <!--Comment-->
-                                        <div class="box-comment">
-                                            <img class="comment-avatar" src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/rolf.jpg" data-user-popover="13" alt="" />
-                                            <div class="comment-meta">
-                                                <span class="meta-title">Rolf ? 4 days ago</span>
-                                                <span class="meta-content"
-                                                      >Do you think you can  it done?</span>
-                                            </div>
-                                            <div class="comment-end">
-                                                <img class="end-thumbnail" src="https://via.placeholder.com/1600x900" data-demo-src="assets/img/demo/unsplash/31.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="link-wrap">
-                                        <a class="link">
-                                            <span>View All</span>
-                                            <i data-feather="arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--Dashboard column-->
-                        <div class="column is-4">
-                            <!--Box-->
-                            <div class="dashboard-box is-compact">
-                                <h3 class="title is-5 is-thin">Help</h3>
-                                <div class="help-block">
-                                    <img class="light-image" src="assets/img/icons/questions/help.svg" alt="" />
-                                    <img class="dark-image" src="assets/img/icons/questions/help-dark.svg" alt="" />
-                                    <h4>Help center</h4>
-                                    <p>
-                                        Having trouble? Please search our
-                                        <a class="standard-link">Help Center</a> for a quick answer to
-                                        your problem.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!--Box-->
-                            <div class="dashboard-box is-compact">
-                                <h3 class="title is-5 is-thin">Support</h3>
-                                <div class="help-block">
-                                    <img class="light-image" src="assets/img/icons/questions/assistance.svg" alt="" />
-                                    <img class="dark-image" src="assets/img/icons/questions/assistance-dark.svg" alt="" />
-                                    <h4>24/7 Support</h4>
-                                    <p>
-                                        Our Help Center didn't help? Please contact our 24/7
-                                        <a class="standard-link">Customer Assistance</a> hotline.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+      <div class="main-panel">
+        <div class="main-header">
+          
+          <!-- Navbar Header -->
+          
+            
+          </nav>
+          <!-- End Navbar -->
         </div>
 
-        <!-- Concatenated js plugins and jQuery -->
+        <div class="container">
+          <div class="page-inner">
+            <h3 class="fw-bold mb-3">Number of participants</h3>
+            
+            <div class="row">
+              
+                <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-container">
+                      <canvas id="multipleLineChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="chart-container">
+                      <canvas id="htmlLegendsChart"></canvas>
+              <div class="chart-container">
+                      <canvas id="lineChart"></canvas>
+              
+              
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+      </div>
+
+      <!-- Custom template | don't include it in your project! -->
+      
+      <!-- End Custom template -->
+    </div>
+    <!--   Core JS Files   -->
+    <script src="assets2/js/core/jquery-3.7.1.min.js"></script>
+    <script src="assets2/js/core/popper.min.js"></script>
+    <script src="assets2/js/core/bootstrap.min2.js"></script>
+    <!-- Chart JS -->
+    <script src="assets2/js/plugin/chart.js/chart.min.js"></script>
+    <!-- jQuery Scrollbar -->
+    <script src="assets2/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <!-- Kaiadmin JS -->
+    <script src="assets2/js/kaiadmin.min.js"></script>
+    <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+    <script src="assets2/js/setting-demo2.js"></script>
+    <script>
+ 
+        htmlLegendsChart = document
+          .getElementById("htmlLegendsChart")
+          .getContext("2d");
+
+      // Chart with HTML Legends
+       var myMultipleLineChart = new Chart(multipleLineChart, {
+        type: "line",
+        data: {
+          labels: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ],
+          datasets: [
+            {
+              label: "PostsReports",
+              borderColor: "#1d7af3",
+              pointBorderColor: "#FFF",
+              pointBackgroundColor: "#1d7af3",
+              pointBorderWidth: 2,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 1,
+              pointRadius: 4,
+              backgroundColor: "transparent",
+              fill: true,
+              borderWidth: 2,
+              data: ${requestScope.requestPostsReports},
+            },
+            {
+              label: "UsersReports",
+              borderColor: "#59d05d",
+              pointBorderColor: "#FFF",
+              pointBackgroundColor: "#59d05d",
+              pointBorderWidth: 2,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 1,
+              pointRadius: 4,
+              backgroundColor: "transparent",
+              fill: true,
+              borderWidth: 2,
+              data: ${requestScope.requestUsersReports},
+            },
+            {
+              label: "UserList",
+              borderColor: "#f3545d",
+              pointBorderColor: "#FFF",
+              pointBackgroundColor: "#f3545d",
+              pointBorderWidth: 2,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 1,
+              pointRadius: 4,
+              backgroundColor: "transparent",
+              fill: true,
+              borderWidth: 2,
+              data: ${requestScope.requestUserList},
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {
+            position: "top",
+          },
+          tooltips: {
+            bodySpacing: 4,
+            mode: "nearest",
+            intersect: 0,
+            position: "nearest",
+            xPadding: 10,
+            yPadding: 10,
+            caretPadding: 10,
+          },
+          layout: {
+            padding: { left: 15, right: 15, top: 15, bottom: 15 },
+          },
+        },
+      });
+
+      var gradientStroke = htmlLegendsChart.createLinearGradient(
+        500,
+        0,
+        100,
+        0
+      );
+      gradientStroke.addColorStop(0, "#177dff");
+      gradientStroke.addColorStop(1, "#80b6f4");
+
+      var gradientFill = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
+      gradientFill.addColorStop(0, "rgba(23, 125, 255, 0.7)");
+      gradientFill.addColorStop(1, "rgba(128, 182, 244, 0.3)");
+
+      var gradientStroke2 = htmlLegendsChart.createLinearGradient(
+        500,
+        0,
+        100,
+        0
+      );
+      gradientStroke2.addColorStop(0, "#f3545d");
+      gradientStroke2.addColorStop(1, "#ff8990");
+
+      var gradientFill2 = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
+      gradientFill2.addColorStop(0, "rgba(243, 84, 93, 0.7)");
+      gradientFill2.addColorStop(1, "rgba(255, 137, 144, 0.3)");
+
+      var gradientStroke3 = htmlLegendsChart.createLinearGradient(
+        500,
+        0,
+        100,
+        0
+      );
+      gradientStroke3.addColorStop(0, "#fdaf4b");
+      gradientStroke3.addColorStop(1, "#ffc478");
+
+      var gradientFill3 = htmlLegendsChart.createLinearGradient(500, 0, 100, 0);
+      gradientFill3.addColorStop(0, "rgba(253, 175, 75, 0.7)");
+      gradientFill3.addColorStop(1, "rgba(255, 196, 120, 0.3)");
+
+      
+      // generate HTML legend
+      myLegendContainer.innerHTML = myHtmlLegendsChart.generateLegend();
+
+      // bind onClick event to all LI-tags of the legend
+      var legendItems = myLegendContainer.getElementsByTagName("li");
+      for (var i = 0; i < legendItems.length; i += 1) {
+        legendItems[i].addEventListener("click", legendClickCallback, false);
+      }
+    </script>
+    <!-- Concatenated js plugins and jQuery -->
         <script src="assets/js/app.js"></script>
         <script src="https://js.stripe.com/v3/"></script>
 
@@ -393,39 +321,6 @@
         <script src="assets/js/modal-uploader.js"></script>
         <script src="assets/js/popovers-users.js"></script>
         <script src="assets/js/popovers-pages.js"></script>
-        <script src="assets/js/lightbox.js"></script>
-
-        <!-- Landing page js -->
-
-        <!-- Signup page js -->
-
-        <!-- Feed pages js -->
-
-        <!-- profile js -->
-
-        <!-- stories js -->
-
-        <!-- friends js -->
-
-        <!-- questions js -->
-
-        <!-- video js -->
-
-        <!-- events js -->
-
-        <!-- news js -->
-
-        <!-- shop js -->
-
-        <!-- inbox js -->
-
-        <!-- settings js -->
-
-        <!-- map page js -->
-
-        <!-- elements page js -->
-    </body>
-
-
-    <!-- Mirrored from friendkit.cssninja.io/dashboard-home.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 May 2024 06:39:27 GMT -->
+        <script src="assets/js/lightbox.js"></script>  
+  </body>
 </html>

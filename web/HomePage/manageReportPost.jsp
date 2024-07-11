@@ -79,12 +79,7 @@
                 <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
             </a>
             <div class="dashboard-aside-body">
-                <a href="SideBarAdmin" class="dashboard-aside-link">
-                    <div>
-                        <i data-feather="home"></i>
-                        <span>Home</span>
-                    </div>
-                </a>
+
                 <a href="manageReportUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
@@ -142,12 +137,7 @@
                             <div class="card-title">List Report Posts</div>
                             <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
                                 <div class="input-group">
-                                    <form action="manageReportUsers" method="get"> 
-                                        <input type="text" name="txtSearch" placeholder="Search ..." class="form-control" />
-                                        <button type="submit" class="btn btn-search pe-0">
-                                            <i class="fa fa-search search-icon"></i>
-                                        </button>
-                                    </form>
+                                    
                                 </div>
                             </nav>
                         </div>
@@ -165,16 +155,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${requestScope.reportPost}" var="c">
+                                    <c:forEach items="${requestScope.reportPosts}" var="c">
                                         <tr>
                                             <th>
                                             <td>
                                                 <a href="detailPost?idpost=${c.post.postID}">
-                                                    
+
                                                     ${c.post.postID}
                                                 </a>
-                                                
-                                                
+
+
                                             </td>
                                             <td>${c.post.title}</td>
                                             <td>${c.post.description}</td>
@@ -188,6 +178,40 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
+                            <c:if test="${totalPages > 1}">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <!-- Nút Previous -->
+                                        <c:if test="${currentPage > 1}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="manageReportPost?index=${currentPage - 1}&size=${pageSize}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+
+                                        <!-- Các nút trang -->
+                                        <c:forEach begin="1" end="${totalPages}" var="i">
+                                            <c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
+                                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                                    <a class="page-link" href="manageReportPost?index=${i}&size=${pageSize}">${i}</a>
+                                                </li>
+                                            </c:if>
+                                        </c:forEach>
+
+                                        <!-- Nút Next -->
+                                        <c:if test="${currentPage < totalPages}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="manageReportPost?index=${currentPage + 1}&size=${pageSize}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+                                    </ul>
+                                </nav>
+                            </c:if>
                         </div>
                         <div id="deleteConfirmationModal" class="modal fade" role="dialog">
                             <div class="modal-dialog">
@@ -216,7 +240,7 @@
     </div>
 
 
-     <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -236,107 +260,107 @@
             </div>
         </div>
     </div>
-<script>
-    $(document).ready(function () {
-        $('.delete-btn').click(function () {
-            var postID = $(this).data('post-id');
-            $('#deleteConfirmationModal').addClass('in');
-            $('#deleteConfirmationModal').attr('aria-hidden', 'false');
-            $('#deleteConfirmationModal').css('display', 'block');
-            $('#confirmDeleteBtn').data('post-id', postID);
-            $('#confirmDeleteBtn').data('status-id', statusID);
-        });
+    <script>
+        $(document).ready(function () {
+            $('.delete-btn').click(function () {
+                var postID = $(this).data('post-id');
+                $('#deleteConfirmationModal').addClass('in');
+                $('#deleteConfirmationModal').attr('aria-hidden', 'false');
+                $('#deleteConfirmationModal').css('display', 'block');
+                $('#confirmDeleteBtn').data('post-id', postID);
+                $('#confirmDeleteBtn').data('status-id', statusID);
+            });
 
-        // Function to handle delete action
-        $(document).on('click', '#confirmDeleteBtn', function () {
-            var postID = $(this).data('post-id');
-            ;
-            $.ajax({
-                type: "POST",
-                url: "/FUSWAPSHAREFREE/DeletePostServlet",
-                data: {pid: postID},
-                success: function (response) {
-                    iziToast.show({
-                        maxWidth: "280px",
-                        class: "success-toast",
-                        icon: "mdi mdi-check",
-                        title: "",
-                        message: "Remove post successfully",
-                        titleColor: "#fff",
-                        messageColor: "#fff",
-                        iconColor: "#fff",
-                        backgroundColor: "#60c032",
-                        progressBarColor: "#0062ff",
-                        position: "bottomRight",
-                        transitionIn: "fadeInUp",
-                        close: false,
-                        timeout: 1800,
-                        zindex: 99999
-                    });
-                    $('#deleteConfirmationModal').removeClass('in');
-                    $('#deleteConfirmationModal').attr('aria-hidden', 'true');
-                    $('#deleteConfirmationModal').css('display', 'none');
-                },
-                error: function (xhr, status, error) {
-                    iziToast.show({
-                        maxWidth: "280px",
-                        class: "success-toast",
-                        icon: "mdi mdi-error",
-                        title: "",
-                        message: "Remove post failed",
-                        titleColor: "#fff",
-                        messageColor: "#fff",
-                        iconColor: "#fff",
-                        backgroundColor: "#FF0000",
-                        progressBarColor: "#0062ff",
-                        position: "bottomRight",
-                        transitionIn: "fadeInUp",
-                        close: false,
-                        timeout: 1800,
-                        zindex: 99999
-                    });
-                    $('#deleteConfirmationModal').css('display', 'block');
-                }
+            // Function to handle delete action
+            $(document).on('click', '#confirmDeleteBtn', function () {
+                var postID = $(this).data('post-id');
+                ;
+                $.ajax({
+                    type: "POST",
+                    url: "/FUSWAPSHAREFREE/DeletePostServlet",
+                    data: {pid: postID},
+                    success: function (response) {
+                        iziToast.show({
+                            maxWidth: "280px",
+                            class: "success-toast",
+                            icon: "mdi mdi-check",
+                            title: "",
+                            message: "Remove post successfully",
+                            titleColor: "#fff",
+                            messageColor: "#fff",
+                            iconColor: "#fff",
+                            backgroundColor: "#60c032",
+                            progressBarColor: "#0062ff",
+                            position: "bottomRight",
+                            transitionIn: "fadeInUp",
+                            close: false,
+                            timeout: 1800,
+                            zindex: 99999
+                        });
+                        $('#deleteConfirmationModal').removeClass('in');
+                        $('#deleteConfirmationModal').attr('aria-hidden', 'true');
+                        $('#deleteConfirmationModal').css('display', 'none');
+                    },
+                    error: function (xhr, status, error) {
+                        iziToast.show({
+                            maxWidth: "280px",
+                            class: "success-toast",
+                            icon: "mdi mdi-error",
+                            title: "",
+                            message: "Remove post failed",
+                            titleColor: "#fff",
+                            messageColor: "#fff",
+                            iconColor: "#fff",
+                            backgroundColor: "#FF0000",
+                            progressBarColor: "#0062ff",
+                            position: "bottomRight",
+                            transitionIn: "fadeInUp",
+                            close: false,
+                            timeout: 1800,
+                            zindex: 99999
+                        });
+                        $('#deleteConfirmationModal').css('display', 'block');
+                    }
+                });
+            });
+
+            // Function to close modal on cancel
+            $('.cancel-btn').click(function () {
+                $('#deleteConfirmationModal').removeClass('in');
+                $('#deleteConfirmationModal').attr('aria-hidden', 'true');
+                $('#deleteConfirmationModal').css('display', 'none');
             });
         });
-
-        // Function to close modal on cancel
-        $('.cancel-btn').click(function () {
-            $('#deleteConfirmationModal').removeClass('in');
-            $('#deleteConfirmationModal').attr('aria-hidden', 'true');
-            $('#deleteConfirmationModal').css('display', 'none');
-        });
-    });
-</script>
-<script src="js/ManagerProduct.js" type="text/javascript"></script>
-<script src="assets/js/app.js"></script>
-<script src="https://js.stripe.com/v3/"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </script>
+    <script src="js/ManagerProduct.js" type="text/javascript"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
-<!-- Core js -->
-<script src="assets/js/global.js"></script>
+    <!-- Core js -->
+    <script src="assets/js/global.js"></script>
 
-<!-- Navigation options js -->
-<script src="assets/js/navbar-v1.js"></script>
-<script src="assets/js/navbar-v2.js"></script>
-<script src="assets/js/navbar-mobile.js"></script>
-<script src="assets/js/navbar-options.js"></script>
-<script src="assets/js/sidebar-v1.js"></script>
+    <!-- Navigation options js -->
+    <script src="assets/js/navbar-v1.js"></script>
+    <script src="assets/js/navbar-v2.js"></script>
+    <script src="assets/js/navbar-mobile.js"></script>
+    <script src="assets/js/navbar-options.js"></script>
+    <script src="assets/js/sidebar-v1.js"></script>
 
-<!-- Core instance js -->
-<script src="assets/js/main.js"></script>
-<script src="assets/js/chat.js"></script>
-<script src="assets/js/touch.js"></script>
-<script src="assets/js/tour.js"></script>
+    <!-- Core instance js -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/chat.js"></script>
+    <script src="assets/js/touch.js"></script>
+    <script src="assets/js/tour.js"></script>
 
-<!-- Components js -->
-<script src="assets/js/explorer.js"></script>
-<script src="assets/js/widgets.js"></script>
-<script src="assets/js/modal-uploader.js"></script>
-<script src="assets/js/popovers-users.js"></script>
-<script src="assets/js/popovers-pages.js"></script>
-<script src="assets/js/lightbox.js"></script>
+    <!-- Components js -->
+    <script src="assets/js/explorer.js"></script>
+    <script src="assets/js/widgets.js"></script>
+    <script src="assets/js/modal-uploader.js"></script>
+    <script src="assets/js/popovers-users.js"></script>
+    <script src="assets/js/popovers-pages.js"></script>
+    <script src="assets/js/lightbox.js"></script>
 </body>
 </html>
 

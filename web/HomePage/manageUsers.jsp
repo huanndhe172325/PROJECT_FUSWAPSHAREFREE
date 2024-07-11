@@ -78,7 +78,7 @@
                 <a href="manageUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
-                        <span> List User</span>
+                        <span> Number of participants</span>
                     </div>
                 </a>
                 <a href="manageAdministrator" class="dashboard-aside-link">
@@ -109,13 +109,13 @@
 
         <div class="container">
           <div class="page-inner">
-            <h3 class="fw-bold mb-3">Chart.js</h3>
+            <h3 class="fw-bold mb-3">Number of participants</h3>
             
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
                   <div class="card-header">
-                    <div class="card-title">Line Chart</div>
+               
                   </div>
                   <div class="card-body">
                     <div class="chart-container">
@@ -124,60 +124,16 @@
                   </div>
                 </div>
               </div>
-              
-              
-              
-              
-              <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header">
-                    <div class="card-title">Chart with HTML Legends</div>
-                  </div>
-                  <div class="card-body">
-                    <div class="card-sub">
-                      Sometimes you need a very complex legend. In these cases,
-                      it makes sense to generate an HTML legend. Charts provide
-                      a generateLegend() method on their prototype that returns
-                      an HTML string for the legend.
-                    </div>
-                    <div class="chart-container">
+                <div class="chart-container">
                       <canvas id="htmlLegendsChart"></canvas>
-                    </div>
-                    <div id="myChartLegend"></div>
-                  </div>
-                </div>
-              </div>
+              
+              
+              
             </div>
           </div>
         </div>
 
-        <footer class="footer">
-          <div class="container-fluid d-flex justify-content-between">
-            <nav class="pull-left">
-              <ul class="nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="http://www.themekita.com">
-                    ThemeKita
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Help </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#"> Licenses </a>
-                </li>
-              </ul>
-            </nav>
-            <div class="copyright">
-              2024, made with <i class="fa fa-heart heart text-danger"></i> by
-              <a href="http://www.themekita.com">ThemeKita</a>
-            </div>
-            <div>
-              Distributed by
-              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
-            </div>
-          </div>
-        </footer>
+        
       </div>
 
       <!-- Custom template | don't include it in your project! -->
