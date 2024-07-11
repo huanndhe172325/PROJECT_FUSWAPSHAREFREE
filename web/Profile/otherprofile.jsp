@@ -840,7 +840,6 @@
 
 
                                         <div class="pop-button is-right haschat-pop-tooltip chat-pop" data-placement="top" data-title="Report user" report_user_target_id="${profile.getUserID()}" data-modal="report-user-modal-container" class="modal share-modal is-xsmall has-light-bg">
-
                                             <a class="inner">
                                                 <i data-feather="alert-octagon"></i>
                                             </a>

@@ -1568,38 +1568,100 @@
                         </div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function() {
-                            const posts = document.querySelectorAll(".post");
+                            const postContainer = document.querySelector('.post-container');
                             const loadMoreButton = document.querySelector(".load-more-button");
-                            let currentIndex = 0;
                             const postsPerPage = 3;
-                            function showPosts(startIndex, endIndex) {
-                            for (let i = startIndex; i < endIndex && i < posts.length; i++) {
-                            posts[i].style.display = "block";
+                            let currentIndex = 0;
+                            let filteredPosts = [];
+                            let originalPostsOrder = [];
+                            function filterPosts(filter) {
+                            const posts = document.querySelectorAll('.post');
+                            const buttons = document.querySelectorAll('.button-wrap .button');
+                            buttons.forEach(btn => btn.classList.remove('is-active'));
+                            const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
+                            if (activeButton) {
+                            activeButton.classList.add('is-active');
                             }
+
+                            filteredPosts = Array.from(posts).filter(post => {
+                            switch (filter) {
+                            case 'all':
+                                    return true;
+                            case 'exchange':
+                                    return post.dataset.type.toLowerCase() === 'exchange';
+                            case 'free':
+                                    return post.dataset.type.toLowerCase() === 'free';
+                            case 'used':
+                                    return post.dataset.quality.toLowerCase() === 'used';
+                            case 'needsrepair':
+                                    return post.dataset.quality.toLowerCase() === 'needs repair';
+                            case 'new':
+                                    return post.dataset.quality.toLowerCase() === 'new';
+                            default:
+                                    return true;
+                            }
+                            });
+                            if (filter === 'newest' || filter !== 'all') {
+                            filteredPosts.sort((a, b) => new Date(b.dataset.createTime) - new Date(a.dataset.createTime));
+                            } else {
+                            resetPostsOrder();
+                            }
+
+                            currentIndex = 0;
+                            hideAllPosts();
+                            showPosts(0, postsPerPage);
+                            updateLoadMoreButton();
                             }
 
                             function hideAllPosts() {
-                            posts.forEach(post => post.style.display = "none");
+                            filteredPosts.forEach(post => post.style.display = "none");
+                            }
+
+                            function showPosts(startIndex, endIndex) {
+                            for (let i = startIndex; i < endIndex && i < filteredPosts.length; i++) {
+                            filteredPosts[i].style.display = "block";
+                            }
                             }
 
                             function handleLoadMore() {
                             currentIndex += postsPerPage;
                             showPosts(currentIndex, currentIndex + postsPerPage);
-                            if (currentIndex + postsPerPage >= posts.length) {
-                            loadMoreButton.style.display = "none";
-                            }
+                            updateLoadMoreButton();
                             }
 
-                            // Initially hide all posts
-                            hideAllPosts();
-                            // Show initial posts
-                            showPosts(0, postsPerPage);
+                            function updateLoadMoreButton() {
+                            loadMoreButton.style.display = currentIndex + postsPerPage >= filteredPosts.length ? "none" : "block";
+                            }
+
+                            function resetPostsOrder() {
+                            postContainer.innerHTML = '';
+                            originalPostsOrder.forEach(post => postContainer.appendChild(post));
+                            filteredPosts = originalPostsOrder;
+                            }
+
+                            function toggleQualityOptions() {
+                            const qualityOptions = document.getElementById('quality-options');
+                            qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
+                            }
+
+                            // Initialize
+                            originalPostsOrder = Array.from(document.querySelectorAll('.post'));
+                            filterPosts('all');
                             // Add event listener to Load More button
                             loadMoreButton.addEventListener("click", function(e) {
                             e.preventDefault();
                             handleLoadMore();
                             });
+                            // Add event listeners to filter buttons
+                            document.querySelectorAll('.button-wrap .button').forEach(button => {
+                            button.addEventListener('click', function() {
+                            filterPosts(this.dataset.filter);
                             });
+                            });
+                            // Add event listener to quality options toggle
+                            document.querySelector('.quality-toggle').addEventListener('click', toggleQualityOptions);
+                            });
+                        </script>
                         </script>
                         <!-- /Middle column -->
 

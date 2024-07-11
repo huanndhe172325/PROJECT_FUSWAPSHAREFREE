@@ -543,10 +543,10 @@
                         </div>
                     </div>
                     <div class="navbar-item is-icon drop-trigger fetch-notifycation">
-                            <a class="icon-link" href="javascript:void(0);">
-                                <i data-feather="bell"></i>
-                                <span class="indicator"></span>
-                            </a>
+                        <a class="icon-link" href="javascript:void(0);">
+                            <i data-feather="bell"></i>
+                            <span class="indicator"></span>
+                        </a>
 
                         <div class="nav-drop">
                             <div class="inner">
@@ -906,7 +906,7 @@
                                             <i class="mdi mdi-star"></i>
                                         </div>
                                         <div class="info-row">
-                                            <div>
+                                            <div data-modal="edit-email-modal" class="pop-button chat-pop">
                                                 <span>Email</span>
                                                 <a class="is-inverted">${profile.getEmail()}</a>
                                             </div>
@@ -1702,11 +1702,7 @@
                                             <input id="fname" name="name" type="text" class="form-control" value="${profile.getFull_Name()}">
                                             <div style="color: red" id="errorFname"></div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <label class="labels">Email</label>
-                                            <input id="email" name="email" type="text" class="form-control" value="${profile.getEmail()}">
-                                            <div style="color: red" id="errorEmail"></div>
-                                        </div>
+
                                         <div class="col-md-12">
                                             <label class="labels">Phone Number</label>
                                             <input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
@@ -1732,6 +1728,53 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Edit email -->
+            <div id="edit-email-modal" class="modal share-modal is-xsmall has-light-bg" >
+                <div class="modal-background">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-heading">
+
+                                <!-- Close X button -->
+                                <div class="close-wrap">
+                                    <span class="close-report-user-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="control">
+                                    <form action="UpdateEmailServlet" id="edit-email-form" method="post" onsubmit="return FormValidate();">
+                                        <div id="addNewSnippet" style="margin-top: 10px;">
+                                            <div class="col-md-12">
+                                                <label class="labels">Email</label>
+                                                <input id="update-email-otp" name="email" type="text" class="form-control" value="${profile.getEmail()}">
+                                                <div style="color: red" id="errorEmail"></div>
+                                            </div>
+                                            <input type="submit" id="submit-edit-email-form" style="display : none;" value="Submit">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="button-wrap" style="width: 100%;">
+                                    <button type="button" class="button is-solid cancel-report-user-button" style="width: 48%;">
+                                        Cancel
+                                    </button>
+                                    <button type="button" class="button is-solid primary-button" id="submit-edit-email-button" style="width: 48%;">
+                                        Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                       
+
+
 
             <!-- Edit location -->
             <div id="edit-location-modal" class="modal share-modal is-xsmall has-light-bg" >
@@ -2671,22 +2714,6 @@
                     }
                 }
 
-                function validateEmail() {
-                    var email = document.getElementById('email').value.trim();
-                    var errorEmail = document.getElementById('errorEmail');
-                    var reGexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                    if (email === "") {
-                        errorEmail.textContent = "Email is required";
-                        return false;
-                    } else if (!reGexEmail.test(email)) {
-                        errorEmail.textContent = "Please enter a valid email address";
-                        return false;
-                    } else {
-                        errorEmail.textContent = "";
-                        return true;
-                    }
-                }
-
                 function validatePhoneNumber() {
                     var phoneNum = document.getElementById('phoneNum').value.trim();
                     var errorPhone = document.getElementById('errorPhone');
@@ -2706,13 +2733,11 @@
                 function FormValidate() {
                     var isValid = true;
                     isValid = validateFullName() && isValid;
-                    isValid = validateEmail() && isValid;
                     isValid = validatePhoneNumber() && isValid;
                     return isValid;
                 }
 
                 document.getElementById('fname').addEventListener('input', validateFullName);
-                document.getElementById('email').addEventListener('input', validateEmail);
                 document.getElementById('phoneNum').addEventListener('input', validatePhoneNumber);
             </script>
 
@@ -2772,6 +2797,7 @@
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
             <script src="assets/js/reloadJs.js"></script>
+            <script src="assets/js/updateEmail.js"></script>
 
     </body>
 
