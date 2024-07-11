@@ -6,7 +6,6 @@ function fetchNotifications() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 var notifyList = document.querySelector('.nav-drop-body.is-notifications');
-                console.log("fetchnoti");
                 notifyList.innerHTML = xhr.responseText;
             } else {
                 console.error('Yêu cầu thất bại:', xhr.statusText);
@@ -15,5 +14,10 @@ function fetchNotifications() {
     };
     xhr.send();
 }
-
-setInterval(fetchNotifications, 5000);
+const buttonNoti = document.querySelectorAll('.navbar-item.is-icon.drop-trigger.fetch-notifycation');
+buttonNoti.forEach(noti => {
+    noti.addEventListener('click', () => {
+        console.log("fetch noti");
+        fetchNotifications();
+    });
+});

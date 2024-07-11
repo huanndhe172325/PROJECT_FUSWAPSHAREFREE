@@ -504,7 +504,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="navbar-item is-icon drop-trigger">
+                        <div class="navbar-item is-icon drop-trigger fetch-notifycation">
                             <a class="icon-link" href="javascript:void(0);">
                                 <i data-feather="bell"></i>
                                 <span class="indicator"></span>
@@ -548,7 +548,7 @@
                         </div>
                         <div class="navbar-item is-icon drop-trigger">
                             <a class="icon-link is-active" href="javascript:void(0);">
-                                <i data-feather="mail"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="white" d="m18 4l-4 4h3v7c0 1.1-.9 2-2 2s-2-.9-2-2V8c0-2.21-1.79-4-4-4S5 5.79 5 8v7H2l4 4l4-4H7V8c0-1.1.9-2 2-2s2 .9 2 2v7c0 2.21 1.79 4 4 4s4-1.79 4-4V8h3z"/></svg>
                                 <span class="indicator"></span>
                             </a>
 
@@ -570,11 +570,6 @@
                                                 <span
                                                     >I think we should meet near the Starbucks so we can get...</span>
                                                 <span class="time">Yesterday</span>
-                                            </div>
-                                            <div class="media-right is-centered">
-                                                <div class="added-icon">
-                                                    <i data-feather="message-square"></i>
-                                                </div>
                                             </div>
                                         </div>
                                         <!-- Message -->
@@ -860,7 +855,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="navbar-item is-icon drop-trigger">
+                <div class="navbar-item is-icon drop-trigger fetch-notifycation">
                     <a class="icon-link" href="javascript:void(0);">
                         <i data-feather="bell"></i>
                         <span class="indicator"></span>
@@ -875,82 +870,26 @@
                                 </a>
                             </div>
                             <div class="nav-drop-body is-notifications">
-                                <!-- Notification -->
-                                <div class="media">
-                                    <figure class="media-left">
-                                        <p class="image">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/david.jpg" alt="" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <span
-                                            ><a href="#">David Kim</a> commented on
-                                            <a href="#">your post</a>.</span>
-                                        <span class="time">30 minutes ago</span>
-                                    </div>
-                                    <div class="media-right">
-                                        <div class="added-icon">
-                                            <i data-feather="message-square"></i>
+                                <c:forEach var="noti" items="${listNoti}">
+                                    <!-- Notification -->
+                                    <div class="media" onclick="window.location.href = 'detailPost?idpost=${noti.postID}'" style="cursor: pointer;">
+                                        <figure class="media-left">
+                                            <p class="image">
+                                                <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${noti.getUserSent().userID}'" data-demo-src="${noti.getAvatarUserSent()}" alt="" style="cursor: pointer;" />
+                                            </p>
+                                        </figure>
+                                        <div class="media-content">
+                                            <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
+                                                <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
+                                            <span class="time">${noti.getCreateTime()}</span>
+                                        </div>
+                                        <div class="media-right">
+                                            <div class="added-icon">
+                                                <i data-feather="message-square"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Notification -->
-                                <div class="media">
-                                    <figure class="media-left">
-                                        <p class="image">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/daniel.jpg" alt="" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <span
-                                            ><a href="#">Daniel Wellington</a> liked your
-                                            <a href="#">profile.</a></span>
-                                        <span class="time">43 minutes ago</span>
-                                    </div>
-                                    <div class="media-right">
-                                        <div class="added-icon">
-                                            <i data-feather="heart"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Notification -->
-                                <div class="media">
-                                    <figure class="media-left">
-                                        <p class="image">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/stella.jpg" alt="" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <span
-                                            ><a href="#">Stella Bergmann</a> shared a
-                                            <a href="#">New video</a> on your wall.</span>
-                                        <span class="time">Yesterday</span>
-                                    </div>
-                                    <div class="media-right">
-                                        <div class="added-icon">
-                                            <i data-feather="youtube"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Notification -->
-                                <div class="media">
-                                    <figure class="media-left">
-                                        <p class="image">
-                                            <img src="https://via.placeholder.com/300x300" data-demo-src="assets/img/avatars/elise.jpg" alt="" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <span
-                                            ><a href="#">Elise Walker</a> shared an <a href="#">Image</a> with
-                                            you an 2 other people.</span>
-                                        <span class="time">2 days ago</span>
-                                    </div>
-                                    <div class="media-right">
-                                        <div class="added-icon">
-                                            <i data-feather="image"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                                </c:forEach>
                             </div>
                             <div class="nav-drop-footer">
                                 <a href="#">View All</a>
@@ -1504,13 +1443,13 @@
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
                                     </div>
-                                    <a id="btn-post-of-friends" class="button" href="HomePageFriend">Post of friends</a>
+                                    <button type="button" id="btn-post-of-friends" class="button" data-filter="friends" onclick="filterPosts('friends')">Post of friends</button>
                                 </div>
                             </div>
                             <!-- Post 1 -->
                             <div class="post-container" data-category="listPost">
                                 <c:forEach var="post" items="${listPost}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}"  data-is-friend="${post.isPostOfFriend(user.getUserID())}">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
 
@@ -1629,43 +1568,105 @@
                         </div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function() {
-                            const posts = document.querySelectorAll(".post");
+                            const postContainer = document.querySelector('.post-container');
                             const loadMoreButton = document.querySelector(".load-more-button");
-                            let currentIndex = 0;
                             const postsPerPage = 3;
-                            function showPosts(startIndex, endIndex) {
-                            for (let i = startIndex; i < endIndex && i < posts.length; i++) {
-                            posts[i].style.display = "block";
+                            let currentIndex = 0;
+                            let filteredPosts = [];
+                            let originalPostsOrder = [];
+                            function filterPosts(filter) {
+                            const posts = document.querySelectorAll('.post');
+                            const buttons = document.querySelectorAll('.button-wrap .button');
+                            buttons.forEach(btn => btn.classList.remove('is-active'));
+                            const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
+                            if (activeButton) {
+                            activeButton.classList.add('is-active');
                             }
+
+                            filteredPosts = Array.from(posts).filter(post => {
+                            switch (filter) {
+                            case 'all':
+                                    return true;
+                            case 'exchange':
+                                    return post.dataset.type.toLowerCase() === 'exchange';
+                            case 'free':
+                                    return post.dataset.type.toLowerCase() === 'free';
+                            case 'used':
+                                    return post.dataset.quality.toLowerCase() === 'used';
+                            case 'needsrepair':
+                                    return post.dataset.quality.toLowerCase() === 'needs repair';
+                            case 'new':
+                                    return post.dataset.quality.toLowerCase() === 'new';
+                            default:
+                                    return true;
+                            }
+                            });
+                            if (filter === 'newest' || filter !== 'all') {
+                            filteredPosts.sort((a, b) => new Date(b.dataset.createTime) - new Date(a.dataset.createTime));
+                            } else {
+                            resetPostsOrder();
+                            }
+
+                            currentIndex = 0;
+                            hideAllPosts();
+                            showPosts(0, postsPerPage);
+                            updateLoadMoreButton();
                             }
 
                             function hideAllPosts() {
-                            posts.forEach(post => post.style.display = "none");
+                            filteredPosts.forEach(post => post.style.display = "none");
+                            }
+
+                            function showPosts(startIndex, endIndex) {
+                            for (let i = startIndex; i < endIndex && i < filteredPosts.length; i++) {
+                            filteredPosts[i].style.display = "block";
+                            }
                             }
 
                             function handleLoadMore() {
                             currentIndex += postsPerPage;
                             showPosts(currentIndex, currentIndex + postsPerPage);
-                            if (currentIndex + postsPerPage >= posts.length) {
-                            loadMoreButton.style.display = "none";
-                            }
+                            updateLoadMoreButton();
                             }
 
-                            // Initially hide all posts
-                            hideAllPosts();
-                            // Show initial posts
-                            showPosts(0, postsPerPage);
+                            function updateLoadMoreButton() {
+                            loadMoreButton.style.display = currentIndex + postsPerPage >= filteredPosts.length ? "none" : "block";
+                            }
+
+                            function resetPostsOrder() {
+                            postContainer.innerHTML = '';
+                            originalPostsOrder.forEach(post => postContainer.appendChild(post));
+                            filteredPosts = originalPostsOrder;
+                            }
+
+                            function toggleQualityOptions() {
+                            const qualityOptions = document.getElementById('quality-options');
+                            qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
+                            }
+
+                            // Initialize
+                            originalPostsOrder = Array.from(document.querySelectorAll('.post'));
+                            filterPosts('all');
                             // Add event listener to Load More button
                             loadMoreButton.addEventListener("click", function(e) {
                             e.preventDefault();
                             handleLoadMore();
                             });
+                            // Add event listeners to filter buttons
+                            document.querySelectorAll('.button-wrap .button').forEach(button => {
+                            button.addEventListener('click', function() {
+                            filterPosts(this.dataset.filter);
                             });
+                            });
+                            // Add event listener to quality options toggle
+                            document.querySelector('.quality-toggle').addEventListener('click', toggleQualityOptions);
+                            });
+                        </script>
                         </script>
                         <!-- /Middle column -->
 
                         <!-- Right side column -->
-                        <div class="column is-3 is-hidden-mobile is-hidden-tablet-only">
+                        <div class="column is-5-fullhd is-hidden-mobile is-hidden-tablet-only">
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
@@ -2193,7 +2194,7 @@
 
     <script>
                             document.addEventListener('DOMContentLoaded', function () {
-                            // Thêm sự kiện click cho các nút accept
+
                             document.querySelectorAll('.accept-request').forEach(function (button) {
                             button.addEventListener('click', function () {
                             var requestId = this.getAttribute('data-request-id');
@@ -2202,7 +2203,6 @@
                             updateFriendRequestStatus(requestId, 'accepted', senderUserId, receiverUserId, this);
                             });
                             });
-                            // Thêm sự kiện click cho các nút reject
                             document.querySelectorAll('.reject-request').forEach(function (button) {
                             button.addEventListener('click', function () {
                             var requestId = this.getAttribute('data-request-id');
@@ -2382,22 +2382,18 @@
         function filterPosts(filter) {
         const posts = document.querySelectorAll('.post');
         const buttons = document.querySelectorAll('.button-wrap .button');
-        // Remove 'is-active' class from all buttons
         buttons.forEach(btn => btn.classList.remove('is-active'));
-        // Add 'is-active' class to clicked button
         const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
         if (activeButton) {
         activeButton.classList.add('is-active');
         }
+
+
         if (filter === 'all') {
-        // Reset to original order
         resetPostsOrder();
         } else {
         posts.forEach(post => {
         switch (filter) {
-        case 'all':
-                post.style.display = 'block';
-        break;
         case 'newest':
                 post.style.display = 'block';
         break;
@@ -2416,13 +2412,24 @@
         case 'new':
                 post.style.display = post.dataset.quality.toLowerCase() === 'new' ? 'block' : 'none';
         break;
+        case 'friends':
+                const isFriend = post.dataset.isFriend === 'true';
+        post.style.display = isFriend ? 'block' : 'none';
+        break;
+        default:
+
+                post.style.display = 'block';
+        break;
         }
         });
-        if (filter === 'newest' || filter === 'exchange' || filter === 'free' || filter === 'used' || filter === 'free' || filter === 'needsrepair' || filter === 'new') {
+        if (filter !== 'all') {
         sortPostsByNewest();
         }
-
         }
+        }
+        function toggleQualityOptions() {
+        const qualityOptions = document.getElementById('quality-options');
+        qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
         }
         function sortPostsByNewest() {
         const postContainer = document.querySelector('.post-container');
@@ -2432,22 +2439,20 @@
         });
         posts.forEach(post => postContainer.appendChild(post));
         }
-        function toggleQualityOptions() {
-        const qualityOptions = document.getElementById('quality-options');
-        qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
-        }
+
         function resetPostsOrder() {
         const postContainer = document.querySelector('.post-container');
-        postContainer.innerHTML = ''; // Clear existing posts
-
-        // Append posts in original order
+        postContainer.innerHTML = '';
         originalPostsOrder.forEach(post => postContainer.appendChild(post));
         }
+
         window.addEventListener('load', () => {
+
         originalPostsOrder = Array.from(document.querySelectorAll('.post'));
         filterPosts('all');
         });
     </script>
+
 
     <script>
         document.getElementById('postButton').addEventListener('click', function () {

@@ -87,11 +87,12 @@ public class approveSwap extends HttpServlet {
             Post post = dao.getPostByIdPost(idPost);
             HttpSession session = request.getSession();
             User userLogin = (User) session.getAttribute("userInfo");
-            if (post.getStatusID() == 1 
+            if (post.getStatusID() == 1
                     && dao.approveRequestSwap(userSent, idPost)
-                    && dao.updateStatusPost(idPost, 2) 
+                    && dao.updateStatusPost(idPost, 2)
                     && dao.createNotifycation("has accepted your exchange request", userLogin.getUserID(), idPost, userSent, 1)) {
-                sent.sentEmail(emailReceive, "Bạn đã được chấp nhận trao đổi", "Yêu cầu trao đổi của bạn đã được chấp nhận nhanh chân tới địa điểm để trao đổi.");
+                String contentMail = sent.contentEmailApprove(post, dao.getUserIdByUserId(userSent));
+                sent.sentEmail(emailReceive, "Bạn đã được chấp nhận trao đổi", contentMail);
                 response.getWriter().println(1);
             } else {
                 response.getWriter().println(2);

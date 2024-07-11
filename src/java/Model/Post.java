@@ -289,4 +289,8 @@ public class Post {
         DAOManagePost dao = new DAOManagePost();
         return dao.checkPostLikedByUser(PostID, userId);
     }
+    public boolean isPostOfFriend(int userId) {
+        DAOManagePost dao = new DAOManagePost();
+        return dao.isPostOfFriend(PostID,userId);
+    }
 }

@@ -542,48 +542,48 @@
                             </div>
                         </div>
                     </div>
-                    <div class="navbar-item is-icon drop-trigger">
-                            <a class="icon-link" href="javascript:void(0);">
-                                <i data-feather="bell"></i>
-                                <span class="indicator"></span>
-                            </a>
+                    <div class="navbar-item is-icon drop-trigger fetch-notifycation">
+                        <a class="icon-link" href="javascript:void(0);">
+                            <i data-feather="bell"></i>
+                            <span class="indicator"></span>
+                        </a>
 
-                            <div class="nav-drop">
-                                <div class="inner">
-                                    <div class="nav-drop-header">
-                                        <span>Notifications</span>
-                                        <a href="#">
-                                            <i data-feather="bell"></i>
-                                        </a>
-                                    </div>
-                                    <div class="nav-drop-body is-notifications">
-                                        <c:forEach var="noti" items="${listNoti}">
-                                            <!-- Notification -->
-                                            <div class="media" onclick="window.location.href = 'detailPost?idpost=${noti.postID}'" style="cursor: pointer;">
-                                                <figure class="media-left">
-                                                    <p class="image">
-                                                        <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${noti.getUserSent().userID}'" data-demo-src="${noti.getAvatarUserSent()}" alt="" style="cursor: pointer;" />
-                                                    </p>
-                                                </figure>
-                                                <div class="media-content">
-                                                    <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
-                                                        <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
-                                                    <span class="time">${noti.getCreateTime()}</span>
-                                                </div>
-                                                <div class="media-right">
-                                                    <div class="added-icon">
-                                                        <i data-feather="message-square"></i>
-                                                    </div>
+                        <div class="nav-drop">
+                            <div class="inner">
+                                <div class="nav-drop-header">
+                                    <span>Notifications</span>
+                                    <a href="#">
+                                        <i data-feather="bell"></i>
+                                    </a>
+                                </div>
+                                <div class="nav-drop-body is-notifications">
+                                    <c:forEach var="noti" items="${listNoti}">
+                                        <!-- Notification -->
+                                        <div class="media" onclick="window.location.href = 'detailPost?idpost=${noti.postID}'" style="cursor: pointer;">
+                                            <figure class="media-left">
+                                                <p class="image">
+                                                    <img src="https://via.placeholder.com/300x300" onclick="window.location.href = 'otherprofile?id=${noti.getUserSent().userID}'" data-demo-src="${noti.getAvatarUserSent()}" alt="" style="cursor: pointer;" />
+                                                </p>
+                                            </figure>
+                                            <div class="media-content">
+                                                <span><a href="otherprofile?id=${noti.getUserSent().userID}">${noti.getFullNameUserSent()}</a> ${noti.descripton}
+                                                    <a href="detailPost?idpost=${noti.postID}">post</a>.</span>
+                                                <span class="time">${noti.getCreateTime()}</span>
+                                            </div>
+                                            <div class="media-right">
+                                                <div class="added-icon">
+                                                    <i data-feather="message-square"></i>
                                                 </div>
                                             </div>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="nav-drop-footer">
-                                        <a href="#">View All</a>
-                                    </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <div class="nav-drop-footer">
+                                    <a href="#">View All</a>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     <div class="navbar-item is-icon drop-trigger">
                         <a class="icon-link is-active" href="javascript:void(0);">
@@ -906,7 +906,7 @@
                                             <i class="mdi mdi-star"></i>
                                         </div>
                                         <div class="info-row">
-                                            <div>
+                                            <div data-modal="edit-email-modal" class="pop-button chat-pop">
                                                 <span>Email</span>
                                                 <a class="is-inverted">${profile.getEmail()}</a>
                                             </div>
@@ -1248,40 +1248,41 @@
                                     }
 
                                 </style>                            
+                                <c:if test="${not empty listLiked}">
+                                    <div id="user-near-me-post-container1" style="max-width: 600px; margin: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; background-color: #f5f5f5; padding: 15px;">
+                                        <h4 style="margin: 0; font-size: 20px; color: #333; text-align: center;">Posts Liked</h4>
+                                        <c:forEach items="${listLiked}" var="listLiked" varStatus="postStatus">
+                                            <div id="user-post-${postStatus.index}" class="user-product-card1" style="margin-top: 15px; display: none;">
+                                                <div style="position: relative; height: 300px;">
+                                                    <c:forEach items="${listLiked.listPostLiked().getListImg()}" var="img" varStatus="imgStatus">
+                                                        <img src="${pageContext.request.contextPath}/${img}" alt="Post image ${imgStatus.index + 1}" 
+                                                             style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s ease;" 
+                                                             class="post-image" data-index="${imgStatus.index}">
+                                                    </c:forEach>
 
-                                <div id="user-near-me-post-container1" style="max-width: 600px; margin: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; background-color: #f5f5f5; padding: 15px;">
-                                    <h4 style="margin: 0; font-size: 20px; color: #333; text-align: center;">Posts Liked</h4>
-                                    <c:forEach items="${listLiked}" var="listLiked" varStatus="postStatus">
-                                        <div id="user-post-${postStatus.index}" class="user-product-card1" style="margin-top: 15px; display: none;">
-                                            <div style="position: relative; height: 300px;">
-                                                <c:forEach items="${listLiked.listPostLiked().getListImg()}" var="img" varStatus="imgStatus">
-                                                    <img src="${pageContext.request.contextPath}/${img}" alt="Post image ${imgStatus.index + 1}" 
-                                                         style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.5s ease;" 
-                                                         class="post-image" data-index="${imgStatus.index}">
-                                                </c:forEach>
-
-                                                <div class="user-image-btn1" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 10px; z-index: 10;">
-                                                    <button onclick="prevUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">◀</button>
-                                                    <button onclick="nextUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">▶</button>
+                                                    <div class="user-image-btn1" style="position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 10px; z-index: 10;">
+                                                        <button onclick="prevUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">◀</button>
+                                                        <button onclick="nextUserImage(this)" style="background: rgba(255,255,255,0.7); border: none; border-radius: 50%; padding: 10px; cursor: pointer;">▶</button>
+                                                    </div>
+                                                </div>
+                                                <div class="user-product-info1" style="padding: 15px; background-color: #fff; border-radius: 8px; margin-top: -10px;">
+                                                    <h3 id="user-post-title1" style="margin: 0 0 10px; font-size: 18px; color: #6ba4e9; font-weight: bold;"> ${listLiked.listPostLiked().getTitle()}</h3>
+                                                    <p id="user-post-description1" style="margin: 0; font-size: 14px; color: #666;">${listLiked.listPostLiked().getDescription()}</p>
+                                                    <p><strong>Date:</strong> <span>${listLiked.listPostLiked().getCreateTime()}</span></p>
+                                                    <p><strong>Type:</strong> <span id="user-post-type1">${listLiked.listPostLiked().getTypeName()}</span></p>
+                                                    <p><strong>Quanlity:</strong> <span id="user-post-quanlity1">${listLiked.listPostLiked().getQuanlityName()}</span></p>
+                                                    <p><strong>Instructions:</strong> <span id="user-post-instructions1">${listLiked.listPostLiked().getIntructions()}</span></p>
+                                                    <p><strong>Owner:</strong> <a id="user-post-owner-link" href="otherprofile?id=${listLiked.listPostLiked().getUserID()}" onclick="viewUserProfile()">View profile ${listLiked.listPostLiked().getFullNameOwner()} </a></p>
                                                 </div>
                                             </div>
-                                            <div class="user-product-info1" style="padding: 15px; background-color: #fff; border-radius: 8px; margin-top: -10px;">
-                                                <h3 id="user-post-title1" style="margin: 0 0 10px; font-size: 18px; color: #6ba4e9; font-weight: bold;"> ${listLiked.listPostLiked().getTitle()}</h3>
-                                                <p id="user-post-description1" style="margin: 0; font-size: 14px; color: #666;">${listLiked.listPostLiked().getDescription()}</p>
-                                                <p><strong>Date:</strong> <span>${listLiked.listPostLiked().getCreateTime()}</span></p>
-                                                <p><strong>Type:</strong> <span id="user-post-type1">${listLiked.listPostLiked().getTypeName()}</span></p>
-                                                <p><strong>Quanlity:</strong> <span id="user-post-quanlity1">${listLiked.listPostLiked().getQuanlityName()}</span></p>
-                                                <p><strong>Instructions:</strong> <span id="user-post-instructions1">${listLiked.listPostLiked().getIntructions()}</span></p>
-                                                <p><strong>Owner:</strong> <a id="user-post-owner-link" href="otherprofile?id=${listLiked.listPostLiked().getUserID()}" onclick="viewUserProfile()">View profile ${listLiked.listPostLiked().getFullNameOwner()} </a></p>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
+                                        </c:forEach>
 
-                                    <div class="user-navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 15px;">
-                                        <button id="user-prev-button" onclick="prevUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Previous</button>
-                                        <button id="user-next-button" onclick="nextUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Next</button>
+                                        <div class="user-navigation-buttons" style="display: flex; justify-content: space-between; margin-top: 15px;">
+                                            <button id="user-prev-button" onclick="prevUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Previous</button>
+                                            <button id="user-next-button" onclick="nextUserPost()" style="padding: 10px 20px; background-color: #4267B2; color: white; border: none; border-radius: 4px; cursor: pointer;">Next</button>
+                                        </div>
                                     </div>
-                                </div>
+                                </c:if>
                             </div>
 
                             <script>
@@ -1701,18 +1702,12 @@
                                             <input id="fname" name="name" type="text" class="form-control" value="${profile.getFull_Name()}">
                                             <div style="color: red" id="errorFname"></div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <label class="labels">Email</label>
-                                            <input id="email" name="email" type="text" class="form-control" value="${profile.getEmail()}">
-                                            <div style="color: red" id="errorEmail"></div>
-                                        </div>
 
                                         <div class="col-md-12">
                                             <label class="labels">Phone Number</label>
                                             <input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
                                             <div style="color: red" id="errorPhone"></div>
                                         </div>
-
                                         <input type="submit" id="submit-update-profile1" style="display: none;" value="Submit">
                                     </form>
                                 </div>
@@ -1733,6 +1728,53 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Edit email -->
+            <div id="edit-email-modal" class="modal share-modal is-xsmall has-light-bg" >
+                <div class="modal-background">
+                    <div class="modal-content">
+                        <div class="card">
+                            <div class="card-heading">
+
+                                <!-- Close X button -->
+                                <div class="close-wrap">
+                                    <span class="close-report-user-modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="control">
+                                    <form action="UpdateEmailServlet" id="edit-email-form" method="post" onsubmit="return FormValidate();">
+                                        <div id="addNewSnippet" style="margin-top: 10px;">
+                                            <div class="col-md-12">
+                                                <label class="labels">Email</label>
+                                                <input id="update-email-otp" name="email" type="text" class="form-control" value="${profile.getEmail()}">
+                                                <div style="color: red" id="errorEmail"></div>
+                                            </div>
+                                            <input type="submit" id="submit-edit-email-form" style="display : none;" value="Submit">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="button-wrap" style="width: 100%;">
+                                    <button type="button" class="button is-solid cancel-report-user-button" style="width: 48%;">
+                                        Cancel
+                                    </button>
+                                    <button type="button" class="button is-solid primary-button" id="submit-edit-email-button" style="width: 48%;">
+                                        Update
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                       
+
+
 
             <!-- Edit location -->
             <div id="edit-location-modal" class="modal share-modal is-xsmall has-light-bg" >
@@ -2672,22 +2714,6 @@
                     }
                 }
 
-                function validateEmail() {
-                    var email = document.getElementById('email').value.trim();
-                    var errorEmail = document.getElementById('errorEmail');
-                    var reGexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-                    if (email === "") {
-                        errorEmail.textContent = "Email is required";
-                        return false;
-                    } else if (!reGexEmail.test(email)) {
-                        errorEmail.textContent = "Please enter a valid email address";
-                        return false;
-                    } else {
-                        errorEmail.textContent = "";
-                        return true;
-                    }
-                }
-
                 function validatePhoneNumber() {
                     var phoneNum = document.getElementById('phoneNum').value.trim();
                     var errorPhone = document.getElementById('errorPhone');
@@ -2706,14 +2732,12 @@
 
                 function FormValidate() {
                     var isValid = true;
-                    isValid &= validateFullName();
-                    isValid &= validateEmail();
-                    isValid &= validatePhoneNumber();
+                    isValid = validateFullName() && isValid;
+                    isValid = validatePhoneNumber() && isValid;
                     return isValid;
                 }
 
                 document.getElementById('fname').addEventListener('input', validateFullName);
-                document.getElementById('email').addEventListener('input', validateEmail);
                 document.getElementById('phoneNum').addEventListener('input', validatePhoneNumber);
             </script>
 
@@ -2773,6 +2797,7 @@
             <script src="assets/js/jsslideimage.js"></script>
             <script src="assets/js/huanndhe172325.js"></script>
             <script src="assets/js/reloadJs.js"></script>
+            <script src="assets/js/updateEmail.js"></script>
 
     </body>
 

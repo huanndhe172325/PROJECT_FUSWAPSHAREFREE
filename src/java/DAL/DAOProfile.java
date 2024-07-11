@@ -79,6 +79,22 @@ public class DAOProfile extends DBContext {
         }
     }
 
+    public boolean UpdateEmailProfile(String email, int id) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [Email] = ?\n"
+                + " WHERE UserID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setInt(2, id);
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void UpdateLocation(String district, String commune, int id) {
         String sql = "UPDATE [dbo].[User]\n"
                 + "   SET [District] = ?\n"
@@ -116,10 +132,13 @@ public class DAOProfile extends DBContext {
 
     public static void main(String[] args) {
         DAOProfile dao = new DAOProfile();
-         ArrayList<Like> listLike = dao.getPostsByLike(2);
-        for (Like like : listLike) {
-            System.out.println(like.toString());
-        }
+//         ArrayList<Like> listLike = dao.getPostsByLike(2);
+//        for (Like like : listLike) {
+//            System.out.println(like.toString());
+//        }
+            
+         dao.UpdateEmailProfile("haotom03@gmail.com", 2);
+          
     }
 
 }
