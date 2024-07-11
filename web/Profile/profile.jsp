@@ -587,7 +587,7 @@
 
                     <div class="navbar-item is-icon drop-trigger">
                         <a class="icon-link is-active" href="javascript:void(0);">
-                            <i data-feather="mail"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="white" d="m18 4l-4 4h3v7c0 1.1-.9 2-2 2s-2-.9-2-2V8c0-2.21-1.79-4-4-4S5 5.79 5 8v7H2l4 4l4-4H7V8c0-1.1.9-2 2-2s2 .9 2 2v7c0 2.21 1.79 4 4 4s4-1.79 4-4V8h3z"/></svg>
                             <span class="indicator"></span>
                         </a>
 
@@ -597,65 +597,19 @@
                                     <span>My post pick-up arrange</span>
                                 </div>
                                 <div class="nav-drop-body is-friend-requests">
-                                    <!-- Message -->
-                                    <div class="media">
-                                        <figure class="media-left">
-                                            <p class="image">
-                                                <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
-                                            </p>
-                                        </figure>
-                                        <div class="media-content">
-                                            <a href="#">Nelly Schwartz</a>
-                                            <span
-                                                >I think we should meet near the Starbucks so we can get...</span>
-                                            <span class="time">Yesterday</span>
-                                        </div>
-                                        <div class="media-right is-centered">
-                                            <div class="added-icon">
-                                                <i data-feather="message-square"></i>
+                                    <c:forEach var="durEx" items="${listDuringExchange}">
+                                        <div class="media">
+                                            <figure class="media-left">
+                                                <p class="image">
+                                                    <img style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${durEx.userRequest}'" src="${durEx.getUser().avatarUrl}" data-demo-src="${durEx.getUser().avatarUrl}" data-user-popover="9" alt="" />
+                                                </p>
+                                            </figure>
+                                            <div class="media-content">
+                                                <a href="otherprofile?id=${durEx.userRequest}" target="_blank">${durEx.getUser().full_Name}</a>
+                                                <span style="cursor: pointer;" onclick="window.location.href = 'detailPost?idpost=${durEx.postId}'" >Address: ${durEx.getPost().getAddress()}</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- Message -->
-                                    <div class="media">
-                                        <figure class="media-left">
-                                            <p class="image">
-                                                <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/edward.jpeg" data-user-popover="5" alt="" />
-                                            </p>
-                                        </figure>
-                                        <div class="media-content">
-                                            <a href="#">Edward Mayers</a>
-                                            <span
-                                                >That was a real pleasure seeing you last time we really
-                                                should...</span>
-                                            <span class="time">last week</span>
-                                        </div>
-                                        <div class="media-right is-centered">
-                                            <div class="added-icon">
-                                                <i data-feather="message-square"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Message -->
-                                    <div class="media">
-                                        <figure class="media-left">
-                                            <p class="image">
-                                                <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
-                                            </p>
-                                        </figure>
-                                        <div class="media-content">
-                                            <a href="#">Dan Walker</a>
-                                            <span
-                                                >Hey there, would it be possible to borrow your bicycle, i really
-                                                need...</span>
-                                            <span class="time">Jun 03 2018</span>
-                                        </div>
-                                        <div class="media-right is-centered">
-                                            <div class="added-icon">
-                                                <i data-feather="message-square"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -1772,7 +1726,7 @@
                     </div>
                 </div>
             </div>
-                       
+
 
 
 
