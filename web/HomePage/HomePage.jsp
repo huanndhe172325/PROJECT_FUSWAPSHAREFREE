@@ -1443,13 +1443,13 @@
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
                                     </div>
-                                    <a id="btn-post-of-friends" class="button" href="HomePageFriend">Post of friends</a>
+                                    <button type="button" id="btn-post-of-friends" class="button" data-filter="friends" onclick="filterPosts('friends')">Post of friends</button>
                                 </div>
                             </div>
                             <!-- Post 1 -->
                             <div class="post-container" data-category="listPost">
                                 <c:forEach var="post" items="${listPost}"> 
-                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}">
+                                    <div id="feed-post-1" class="card is-post post" data-post-id="${post.postID}" data-avaiable-request="${post.avaiAbleRequest(user.getUserID())}"  data-status="${post.getStatusName()}" data-create-time="${post.createTime}" data-status="${post.getStatusName()}" data-type="${post.getTypeName()}" data-quality="${post.getQuanlityName()}" data-user-id="${user.getUserID()}"  data-is-friend="${post.isPostOfFriend(user.getUserID())}">
                                         <!-- Main wrap -->
                                         <div class="content-wrap">
 
@@ -1568,43 +1568,105 @@
                         </div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function() {
-                            const posts = document.querySelectorAll(".post");
+                            const postContainer = document.querySelector('.post-container');
                             const loadMoreButton = document.querySelector(".load-more-button");
-                            let currentIndex = 0;
                             const postsPerPage = 3;
-                            function showPosts(startIndex, endIndex) {
-                            for (let i = startIndex; i < endIndex && i < posts.length; i++) {
-                            posts[i].style.display = "block";
+                            let currentIndex = 0;
+                            let filteredPosts = [];
+                            let originalPostsOrder = [];
+                            function filterPosts(filter) {
+                            const posts = document.querySelectorAll('.post');
+                            const buttons = document.querySelectorAll('.button-wrap .button');
+                            buttons.forEach(btn => btn.classList.remove('is-active'));
+                            const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
+                            if (activeButton) {
+                            activeButton.classList.add('is-active');
                             }
+
+                            filteredPosts = Array.from(posts).filter(post => {
+                            switch (filter) {
+                            case 'all':
+                                    return true;
+                            case 'exchange':
+                                    return post.dataset.type.toLowerCase() === 'exchange';
+                            case 'free':
+                                    return post.dataset.type.toLowerCase() === 'free';
+                            case 'used':
+                                    return post.dataset.quality.toLowerCase() === 'used';
+                            case 'needsrepair':
+                                    return post.dataset.quality.toLowerCase() === 'needs repair';
+                            case 'new':
+                                    return post.dataset.quality.toLowerCase() === 'new';
+                            default:
+                                    return true;
+                            }
+                            });
+                            if (filter === 'newest' || filter !== 'all') {
+                            filteredPosts.sort((a, b) => new Date(b.dataset.createTime) - new Date(a.dataset.createTime));
+                            } else {
+                            resetPostsOrder();
+                            }
+
+                            currentIndex = 0;
+                            hideAllPosts();
+                            showPosts(0, postsPerPage);
+                            updateLoadMoreButton();
                             }
 
                             function hideAllPosts() {
-                            posts.forEach(post => post.style.display = "none");
+                            filteredPosts.forEach(post => post.style.display = "none");
+                            }
+
+                            function showPosts(startIndex, endIndex) {
+                            for (let i = startIndex; i < endIndex && i < filteredPosts.length; i++) {
+                            filteredPosts[i].style.display = "block";
+                            }
                             }
 
                             function handleLoadMore() {
                             currentIndex += postsPerPage;
                             showPosts(currentIndex, currentIndex + postsPerPage);
-                            if (currentIndex + postsPerPage >= posts.length) {
-                            loadMoreButton.style.display = "none";
-                            }
+                            updateLoadMoreButton();
                             }
 
-                            // Initially hide all posts
-                            hideAllPosts();
-                            // Show initial posts
-                            showPosts(0, postsPerPage);
+                            function updateLoadMoreButton() {
+                            loadMoreButton.style.display = currentIndex + postsPerPage >= filteredPosts.length ? "none" : "block";
+                            }
+
+                            function resetPostsOrder() {
+                            postContainer.innerHTML = '';
+                            originalPostsOrder.forEach(post => postContainer.appendChild(post));
+                            filteredPosts = originalPostsOrder;
+                            }
+
+                            function toggleQualityOptions() {
+                            const qualityOptions = document.getElementById('quality-options');
+                            qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
+                            }
+
+                            // Initialize
+                            originalPostsOrder = Array.from(document.querySelectorAll('.post'));
+                            filterPosts('all');
                             // Add event listener to Load More button
                             loadMoreButton.addEventListener("click", function(e) {
                             e.preventDefault();
                             handleLoadMore();
                             });
+                            // Add event listeners to filter buttons
+                            document.querySelectorAll('.button-wrap .button').forEach(button => {
+                            button.addEventListener('click', function() {
+                            filterPosts(this.dataset.filter);
                             });
+                            });
+                            // Add event listener to quality options toggle
+                            document.querySelector('.quality-toggle').addEventListener('click', toggleQualityOptions);
+                            });
+                        </script>
                         </script>
                         <!-- /Middle column -->
 
                         <!-- Right side column -->
-                        <div class="column is-3 is-hidden-mobile is-hidden-tablet-only">
+                        <div class="column is-5-fullhd is-hidden-mobile is-hidden-tablet-only">
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
@@ -1898,7 +1960,7 @@
                                 </select>
 
                                 <label for="instructions">Pick-up instructions</label>
-                                <input type="text" value="4-6pm khi tới nơi hãy gọi cho tôi" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+                                <input type="text" value="4-6pm khi tới nơi hãy bấm chuông cửa" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
                                 <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions!!!</span>
 
 
@@ -2132,7 +2194,7 @@
 
     <script>
                             document.addEventListener('DOMContentLoaded', function () {
-                            // Thêm sự kiện click cho các nút accept
+
                             document.querySelectorAll('.accept-request').forEach(function (button) {
                             button.addEventListener('click', function () {
                             var requestId = this.getAttribute('data-request-id');
@@ -2141,7 +2203,6 @@
                             updateFriendRequestStatus(requestId, 'accepted', senderUserId, receiverUserId, this);
                             });
                             });
-                            // Thêm sự kiện click cho các nút reject
                             document.querySelectorAll('.reject-request').forEach(function (button) {
                             button.addEventListener('click', function () {
                             var requestId = this.getAttribute('data-request-id');
@@ -2321,22 +2382,18 @@
         function filterPosts(filter) {
         const posts = document.querySelectorAll('.post');
         const buttons = document.querySelectorAll('.button-wrap .button');
-        // Remove 'is-active' class from all buttons
         buttons.forEach(btn => btn.classList.remove('is-active'));
-        // Add 'is-active' class to clicked button
         const activeButton = document.querySelector(`.button[data-filter="${filter}"]`);
         if (activeButton) {
         activeButton.classList.add('is-active');
         }
+
+
         if (filter === 'all') {
-        // Reset to original order
         resetPostsOrder();
         } else {
         posts.forEach(post => {
         switch (filter) {
-        case 'all':
-                post.style.display = 'block';
-        break;
         case 'newest':
                 post.style.display = 'block';
         break;
@@ -2355,13 +2412,24 @@
         case 'new':
                 post.style.display = post.dataset.quality.toLowerCase() === 'new' ? 'block' : 'none';
         break;
+        case 'friends':
+                const isFriend = post.dataset.isFriend === 'true';
+        post.style.display = isFriend ? 'block' : 'none';
+        break;
+        default:
+
+                post.style.display = 'block';
+        break;
         }
         });
-        if (filter === 'newest' || filter === 'exchange' || filter === 'free' || filter === 'used' || filter === 'free' || filter === 'needsrepair' || filter === 'new') {
+        if (filter !== 'all') {
         sortPostsByNewest();
         }
-
         }
+        }
+        function toggleQualityOptions() {
+        const qualityOptions = document.getElementById('quality-options');
+        qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
         }
         function sortPostsByNewest() {
         const postContainer = document.querySelector('.post-container');
@@ -2371,22 +2439,20 @@
         });
         posts.forEach(post => postContainer.appendChild(post));
         }
-        function toggleQualityOptions() {
-        const qualityOptions = document.getElementById('quality-options');
-        qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
-        }
+
         function resetPostsOrder() {
         const postContainer = document.querySelector('.post-container');
-        postContainer.innerHTML = ''; // Clear existing posts
-
-        // Append posts in original order
+        postContainer.innerHTML = '';
         originalPostsOrder.forEach(post => postContainer.appendChild(post));
         }
+
         window.addEventListener('load', () => {
+
         originalPostsOrder = Array.from(document.querySelectorAll('.post'));
         filterPosts('all');
         });
     </script>
+
 
     <script>
         document.getElementById('postButton').addEventListener('click', function () {

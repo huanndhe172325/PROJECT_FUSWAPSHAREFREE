@@ -5,6 +5,7 @@
 package Controllers.HomePage;
 
 import DAL.DAOManageReport;
+import Model.ReportPost;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -39,7 +40,7 @@ public class manageReportPost extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet manageReportPost</title>");            
+            out.println("<title>Servlet manageReportPost</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet manageReportPost at " + request.getContextPath() + "</h1>");
@@ -60,12 +61,30 @@ public class manageReportPost extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         DAOManageReport dao = new DAOManageReport();
-       ArrayList<Model.ReportPost> reportPost = new ArrayList<>();
-        reportPost = dao.getAllReportPosts();
-        request.setAttribute("reportPost", reportPost);
-               request.getRequestDispatcher("HomePage/manageReportPost.jsp").forward(request, response);
+
+        // Lấy tham số phân trang từ yêu cầu
+        String pageIndexStr = request.getParameter("index");
+        String pageSizeStr = request.getParameter("size");
+        int pageIndex = pageIndexStr != null ? Integer.parseInt(pageIndexStr) : 1;
+        int pageSize = pageSizeStr != null ? Integer.parseInt(pageSizeStr) : 5;
+
+        // Lấy danh sách report post phân trang
+        ArrayList<ReportPost> reportPosts = dao.getAllReportPostsBySort(pageIndex, pageSize);
+
+        // Đếm tổng số report post
+        int totalReportPosts = dao.countReportPosts();
+
+        // Tính tổng số trang
+        int totalPages = (int) Math.ceil((double) totalReportPosts / pageSize);
+
+        // Thiết lập các thuộc tính cho yêu cầu
+        request.setAttribute("reportPosts", reportPosts);
+        request.setAttribute("currentPage", pageIndex);
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("pageSize", pageSize);
+        request.getRequestDispatcher("HomePage/manageReportPost.jsp").forward(request, response);
     }
 
     /**
