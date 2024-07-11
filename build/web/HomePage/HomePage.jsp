@@ -1960,7 +1960,7 @@
                                 </select>
 
                                 <label for="instructions">Pick-up instructions</label>
-                                <input type="text" value="4-6pm khi tới nơi hãy gọi cho tôi" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
+                                <input type="text" value="4-6pm khi tới nơi hãy bấm chuông cửa" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
                                 <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions!!!</span>
 
 
