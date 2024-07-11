@@ -1340,7 +1340,7 @@
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
                                     </div>
-                                    <button type="button" id="btn-post-of-friends" class="button" data-filter="friends" onclick="filterPosts('friends')">Post of friends</button>
+                                    <button type="button" class="button" id="btn-post-of-friends" onclick="redirectToHomePageFriends()">Post of friends</button>
                                 </div>
                             </div>
                             <!-- Post 1 -->
@@ -2258,7 +2258,11 @@
         displayUserPost(currentPostIndex);
     </script>
 
-
+    <script>
+        function redirectToHomePageFriends() {
+        window.location.href = 'HomePageFriends';
+        }
+    </script>
 
 
     <script>
@@ -2309,12 +2313,7 @@
         case 'new':
                 post.style.display = post.dataset.quality.toLowerCase() === 'new' ? 'block' : 'none';
         break;
-        case 'friends':
-                const isFriend = post.dataset.isFriend === 'true';
-        post.style.display = isFriend ? 'block' : 'none';
-        break;
         default:
-
                 post.style.display = 'block';
         break;
         }
@@ -2324,10 +2323,12 @@
         }
         }
         }
+
         function toggleQualityOptions() {
         const qualityOptions = document.getElementById('quality-options');
         qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
         }
+
         function sortPostsByNewest() {
         const postContainer = document.querySelector('.post-container');
         const posts = Array.from(postContainer.querySelectorAll('.post'));
@@ -2343,12 +2344,14 @@
         originalPostsOrder.forEach(post => postContainer.appendChild(post));
         }
 
-        window.addEventListener('load', () => {
 
+        window.addEventListener('load', () => {
         originalPostsOrder = Array.from(document.querySelectorAll('.post'));
         filterPosts('all');
         });
     </script>
+
+
 
 
     <script>
