@@ -94,6 +94,22 @@ public class DAOProfile extends DBContext {
             return false;
         }
     }
+    
+    public boolean UpdatePhoneProfile(String phone, int id) {
+        String sql = "UPDATE [dbo].[User]\n"
+                + "   SET [Phone] = ?\n"
+                + " WHERE UserID = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, phone);
+            statement.setInt(2, id);
+            int rowsUpdated = statement.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public void UpdateLocation(String district, String commune, int id) {
         String sql = "UPDATE [dbo].[User]\n"

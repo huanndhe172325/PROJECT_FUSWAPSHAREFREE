@@ -110,7 +110,6 @@ public class Login extends HttpServlet {
             }
         }
         String email = request.getParameter("email").trim();
-//
         String passWord = request.getParameter("password").trim();
 
         if (email == null || passWord == null || email.isEmpty() || passWord.isEmpty()) {
@@ -142,7 +141,6 @@ public class Login extends HttpServlet {
                         response.sendRedirect("manageReportUsers");
                     }
                 } else {
-
                     PasswordReset passwordResetInfo = daoLogin.getPasswordResetByEmail(email);
                     User userInfoLoginByPassReset = daoLogin.getUserLoginByPassReset(email, passWord);
 
@@ -160,8 +158,7 @@ public class Login extends HttpServlet {
                             Date expiryDateTime = dateFormat.parse(passwordResetInfo.getExpiryDateTime());
                             if (currentDate.before(expiryDateTime)) {
                                 HttpSession session = request.getSession();
-                                session.setAttribute("userInfo", userInfoLoginByPassReset);
-                                session.setAttribute("loginsuccess", true);
+                                session.setAttribute("userInfo", userInfoLoginByPassReset);                               
                                 response.sendRedirect("changepassword");
                             } else {
                                 request.setAttribute("mess", "Password reset has expired");

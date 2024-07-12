@@ -83,7 +83,7 @@ public class cancelTransaction extends HttpServlet {
             int idPost = Integer.parseInt(idPost_raw);
             int userSent = Integer.parseInt(userIdSentRequest_raw);
             Post post = dao.getPostByIdPost(idPost);
-            SentMail sent = new SentMail();
+            SentMail sent = SentMail.getInstance();
             String mailReceive = dao.getUserIdByUserId(userSent).getEmail();
             HttpSession session = request.getSession();
             User userLogin = (User) session.getAttribute("userInfo");

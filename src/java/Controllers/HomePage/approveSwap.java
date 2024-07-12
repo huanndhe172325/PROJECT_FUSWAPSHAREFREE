@@ -78,7 +78,7 @@ public class approveSwap extends HttpServlet {
         String idPost_raw = request.getParameter("idPost");
         String userIdSentRequest_raw = request.getParameter("userIdSentRequest");
         DAOManagePost dao = new DAOManagePost();
-        SentMail sent = new SentMail();
+        SentMail sent = SentMail.getInstance();
 
         try {
             int idPost = Integer.parseInt(idPost_raw);

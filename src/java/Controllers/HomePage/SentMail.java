@@ -4,6 +4,7 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManagePost;
 import Model.Post;
 import Model.User;
 import jakarta.servlet.http.HttpSession;
@@ -24,39 +25,38 @@ import javax.mail.internet.MimeMessage;
  * @author FPT
  */
 public class SentMail {
+    private static SentMail instance;
+    private final String from = "fanjfla1989@gmail.com";
+    private final String password = "ggkcowdffnophotg";
+    private Session session;
 
-    public void sentEmail(String emailReceive, String title, String message) {
-        final String from = "fanjfla1989@gmail.com";
-        final String password2 = "ggkcowdffnophotg";
-        final String to = emailReceive;
-
+    public SentMail() {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); //smtp host
-        props.put("mail.smtp.port", "587"); // tls 582 ssl 465
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com"); // SMTP Host
+        props.put("mail.smtp.port", "587"); // TLS Port
+        props.put("mail.smtp.auth", "true"); // Enable Authentication
+        props.put("mail.smtp.starttls.enable", "true"); // Enable STARTTLS
 
-        //create Authenticator
+        // Create Authenticator object to pass in Session.getInstance argument
         Authenticator auth = new Authenticator() {
-            @Override
+            // override the getPasswordAuthentication method
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, password2);
+                return new PasswordAuthentication(from, password);
             }
         };
 
-        //phiên làm việc
-        Session session = Session.getInstance(props, auth);
+        session = Session.getInstance(props, auth);
+    }
 
-        //Tạo tin nhắn 
-        MimeMessage msg = new MimeMessage(session);
-
+    public void sentEmail(String emailReceive, String title, String message) {
         try {
+            MimeMessage msg = new MimeMessage(session);
             //kiểu nội dung
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
             //người gửi
             msg.setFrom(from);
             //người nhận
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(emailReceive));
             //tiêu đề email
             msg.setSubject(title);
             //nội dung 
@@ -65,6 +65,17 @@ public class SentMail {
             Transport.send(msg);
         } catch (Exception e) {
         }
+    }
+    
+    public static SentMail getInstance() {
+        if (instance == null) {
+            synchronized (SentMail.class) {
+                if (instance == null) {
+                    instance = new SentMail();
+                }
+            }
+        }
+        return instance;
     }
 
     public String contentEmailApprove(Post postApproved, User userReceive) {
@@ -104,12 +115,12 @@ public class SentMail {
                 + "    <div class=\"container\">\n"
                 + "        <h1>" + postApproved.getFullNameOwner() + " đã đồng ý yêu cầu của bạn</h1>\n"
                 + "        <p>Chào bạn " + userReceive.getFull_Name() + ",</p>\n"
-                + "        <p>" + postApproved.getFullNameOwner() + " đã đồng ý trao đổi "+postApproved.getTitle()+" với bạn. Hãy tới địa chỉ sau để trao đổi:</p>\n"
+                + "        <p>" + postApproved.getFullNameOwner() + " đã đồng ý trao đổi " + postApproved.getTitle() + " với bạn. Hãy tới địa chỉ sau để trao đổi:</p>\n"
                 + "        <p class=\"address\"> Address: " + postApproved.getAddress() + "</p>\n"
                 + "        <p class=\"address\"> Intrucsion: " + postApproved.getIntructions() + "</p>\n"
                 + "        <p>Rất mong được trao đổi.</p>\n"
                 + "        <p>Trân trọng,</p>\n"
-                + "        <p>"+postApproved.getFullNameOwner()+"</p>\n"
+                + "        <p>" + postApproved.getFullNameOwner() + "</p>\n"
                 + "    </div>\n"
                 + "</body>\n"
                 + "</html>";
