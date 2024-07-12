@@ -715,9 +715,7 @@ public class DAOManageUser extends DBContext {
         return listFriends;
     }
 
-    public static void main(String[] args) {
-        DAOManageUser userDAO = new DAOManageUser();
-    }
+   
 
 
     public ArrayList<FriendsRequest> getListFriendRequest(int userID) {
