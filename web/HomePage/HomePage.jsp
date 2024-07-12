@@ -1132,7 +1132,7 @@
                             </div>
                         </div>
 
-                        <div class="column is-3">
+                        <div class="column is-2">
                             <!-- Placeload element -->
                             <div class="placeload stories-placeload">
                                 <div class="header">
@@ -1563,7 +1563,7 @@
                         <!-- /Middle column -->
 
                         <!-- Right side column -->
-                        <div class="column is-5-fullhd is-hidden-mobile is-hidden-tablet-only">
+                        <div class="column is-4-fullhd is-hidden-mobile is-hidden-tablet-only">
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
