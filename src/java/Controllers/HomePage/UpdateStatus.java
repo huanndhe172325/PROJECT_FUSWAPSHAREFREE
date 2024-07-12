@@ -8,6 +8,7 @@ import DAL.DAOManageUser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
+@WebServlet(name = "UpdateStatus", urlPatterns = {"/UpdateStatus"})
 public class UpdateStatus extends HttpServlet {
 
     /**

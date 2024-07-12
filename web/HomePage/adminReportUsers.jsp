@@ -109,7 +109,7 @@
 
         <div class="container">
           <div class="page-inner">
-            <h3 class="fw-bold mb-3">Report Posts</h3>
+            <h3 class="fw-bold mb-3">Report Users </h3>
             
             <div class="row">
               <div class="col-md-12">

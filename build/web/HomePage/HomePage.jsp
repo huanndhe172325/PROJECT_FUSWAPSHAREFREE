@@ -558,60 +558,19 @@
                                         <span>My post pick-up arrange</span>
                                     </div>
                                     <div class="nav-drop-body is-friend-requests">
-                                        <!-- Message -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Nelly Schwartz</a>
-                                                <span
-                                                    >I think we should meet near the Starbucks so we can get...</span>
-                                                <span class="time">Yesterday</span>
-                                            </div>
-                                        </div>
-                                        <!-- Message -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/edward.jpeg" data-user-popover="5" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Edward Mayers</a>
-                                                <span
-                                                    >That was a real pleasure seeing you last time we really
-                                                    should...</span>
-                                                <span class="time">last week</span>
-                                            </div>
-                                            <div class="media-right is-centered">
-                                                <div class="added-icon">
-                                                    <i data-feather="message-square"></i>
+                                        <c:forEach var="durEx" items="${listDuringExchange}">
+                                            <div class="media">
+                                                <figure class="media-left">
+                                                    <p class="image">
+                                                        <img style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${durEx.userRequest}'" src="${durEx.getUser().avatarUrl}" data-demo-src="${durEx.getUser().avatarUrl}" data-user-popover="9" alt="" />
+                                                    </p>
+                                                </figure>
+                                                <div class="media-content">
+                                                    <a href="otherprofile?id=${durEx.userRequest}" target="_blank">${durEx.getUser().full_Name}</a>
+                                                    <span style="cursor: pointer;" onclick="window.location.href = 'detailPost?idpost=${durEx.postId}'" >Address: ${durEx.getPost().getAddress()}</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- Message -->
-                                        <div class="media">
-                                            <figure class="media-left">
-                                                <p class="image">
-                                                    <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
-                                                </p>
-                                            </figure>
-                                            <div class="media-content">
-                                                <a href="#">Dan Walker</a>
-                                                <span
-                                                    >Hey there, would it be possible to borrow your bicycle, i really
-                                                    need...</span>
-                                                <span class="time">Jun 03 2018</span>
-                                            </div>
-                                            <div class="media-right is-centered">
-                                                <div class="added-icon">
-                                                    <i data-feather="message-square"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
@@ -714,7 +673,7 @@
         <nav class="navbar mobile-navbar is-hidden-desktop" aria-label="main navigation">
             <!-- Brand -->
             <div class="navbar-brand">
-                <a class="navbar-item" href="index.html">
+                <a class="navbar-item" href="HomePage">
                     <img class="light-image" src="assets/img/vector/logo/friendkit-bold.svg" alt="" />
                     <img class="dark-image" src="assets/img/vector/logo/friendkit-white.svg" alt="" />
                 </a>
@@ -899,89 +858,34 @@
                 </div>
                 <div class="navbar-item is-icon drop-trigger">
                     <a class="icon-link is-active" href="javascript:void(0);">
-                        <i data-feather="mail"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="white" d="m18 4l-4 4h3v7c0 1.1-.9 2-2 2s-2-.9-2-2V8c0-2.21-1.79-4-4-4S5 5.79 5 8v7H2l4 4l4-4H7V8c0-1.1.9-2 2-2s2 .9 2 2v7c0 2.21 1.79 4 4 4s4-1.79 4-4V8h3z"/></svg>
                         <span class="indicator"></span>
                     </a>
 
                     <div class="nav-drop">
                         <div class="inner">
                             <div class="nav-drop-header">
-                                <span>Messages</span>
-                                <a href="messages-inbox.html">Inbox</a>
+                                <span>My post pick-up arrange</span>
                             </div>
                             <div class="nav-drop-body is-friend-requests">
-                                <!-- Message -->
-                                <div class="media">
-                                    <figure class="media-left">
-                                        <p class="image">
-                                            <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/nelly.png" data-user-popover="9" alt="" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <a href="#">Nelly Schwartz</a>
-                                        <span
-                                            >I think we should meet near the Starbucks so we can get...</span>
-                                        <span class="time">Yesterday</span>
-                                    </div>
-                                    <div class="media-right is-centered">
-                                        <div class="added-icon">
-                                            <i data-feather="message-square"></i>
+                                <c:forEach var="durEx" items="${listDuringExchange}">
+                                    <div class="media">
+                                        <figure class="media-left">
+                                            <p class="image">
+                                                <img style="cursor: pointer;" onclick="window.location.href = 'otherprofile?id=${durEx.userRequest}'" src="${durEx.getUser().avatarUrl}" data-demo-src="${durEx.getUser().avatarUrl}" data-user-popover="9" alt="" />
+                                            </p>
+                                        </figure>
+                                        <div class="media-content">
+                                            <a href="otherprofile?id=${durEx.userRequest}" target="_blank">${durEx.getUser().full_Name}</a>
+                                            <span style="cursor: pointer;" onclick="window.location.href = 'detailPost?idpost=${durEx.postId}'" >Address: ${durEx.getPost().getAddress()}</span>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Message -->
-                                <div class="media">
-                                    <figure class="media-left">
-                                        <p class="image">
-                                            <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/edward.jpeg" data-user-popover="5" alt="" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <a href="#">Edward Mayers</a>
-                                        <span
-                                            >That was a real pleasure seeing you last time we really
-                                            should...</span>
-                                        <span class="time">last week</span>
-                                    </div>
-                                    <div class="media-right is-centered">
-                                        <div class="added-icon">
-                                            <i data-feather="message-square"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Message -->
-                                <div class="media">
-                                    <figure class="media-left">
-                                        <p class="image">
-                                            <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/dan.jpg" data-user-popover="1" alt="" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <a href="#">Dan Walker</a>
-                                        <span
-                                            >Hey there, would it be possible to borrow your bicycle, i really
-                                            need...</span>
-                                        <span class="time">Jun 03 2018</span>
-                                    </div>
-                                    <div class="media-right is-centered">
-                                        <div class="added-icon">
-                                            <i data-feather="message-square"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="nav-drop-footer">
-                                <a href="#">Clear All</a>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="mobile-explorer-trigger" class="navbar-item is-icon">
-                    <a class="icon-link is-primary">
-                        <i class="mdi mdi-apps"></i>
-                    </a>
-                </div>
 
                 <div id="open-mobile-search" class="navbar-item is-icon">
                     <a class="icon-link is-primary" href="javascript:void(0);">
@@ -1000,34 +904,27 @@
             <div class="navbar-menu">
                 <!-- Account -->
                 <div class="navbar-item has-dropdown is-active">
-                    <a href="navbar-v1-profile-main.html" class="navbar-link">
-                        <img src="https://via.placeholder.com/150x150" data-demo-src="assets/img/avatars/jenna.png" alt="" />
-                        <span class="is-heading">Jenna Davis</span>
+                    <a href="profile" class="navbar-link">
+                        <img src="${user.avatarUrl}" data-demo-src="${user.avatarUrl}" alt="" />
+                        <span class="is-heading">${user.full_Name}</span>
                     </a>
 
                     <!-- Mobile Dropdown -->
                     <div class="navbar-dropdown">
-                        <a href="navbar-v1-feed.html" class="navbar-item is-flex is-mobile-icon">
+                        <a href="#" class="navbar-item is-flex is-mobile-icon">
                             <span><i data-feather="activity"></i>Feed</span>
                             <span class="menu-badge">87</span>
                         </a>
-                        <a href="navbar-v1-videos-home-v2.html" class="navbar-item is-flex is-mobile-icon">
+                        <a href="#" class="navbar-item is-flex is-mobile-icon">
                             <span><i data-feather="play-circle"></i>Watch</span>
                             <span class="menu-badge">21</span>
                         </a>
-                        <a href="navbar-v1-profile-friends.html" class="navbar-item is-flex is-mobile-icon">
+                        <a href="#" class="navbar-item is-flex is-mobile-icon">
                             <span><i data-feather="heart"></i>Friend Requests</span>
                             <span class="menu-badge">3</span>
                         </a>
-                        <a href="navbar-v1-profile-main.html" class="navbar-item is-flex is-mobile-icon">
-                            <span><i data-feather="user"></i>Profile</span>
-                        </a>
-                        <a href="navbar-v1-ecommerce-cart.html" class="navbar-item is-flex is-mobile-icon">
-                            <span><i data-feather="shopping-cart"></i>Cart</span>
-                            <span class="menu-badge">3</span>
-                        </a>
                         <a href="#" class="navbar-item is-flex is-mobile-icon">
-                            <span><i data-feather="bookmark"></i>Bookmarks</span>
+                            <span><i data-feather="user"></i>Profile</span>
                         </a>
                     </div>
                 </div>
@@ -1044,7 +941,7 @@
                         <a href="#" class="navbar-item is-flex is-mobile-icon">
                             <span><i data-feather="life-buoy"></i>Support</span>
                         </a>
-                        <a href="navbar-v1-settings.html" class="navbar-item is-flex is-mobile-icon">
+                        <a href="#" class="navbar-item is-flex is-mobile-icon">
                             <span><i data-feather="settings"></i>Settings</span>
                         </a>
                         <a class="navbar-item is-flex is-mobile-icon">
@@ -1235,7 +1132,7 @@
                             </div>
                         </div>
 
-                        <div class="column is-3">
+                        <div class="column is-2">
                             <!-- Placeload element -->
                             <div class="placeload stories-placeload">
                                 <div class="header">
@@ -1443,7 +1340,7 @@
                                             <button type="button" class="button" data-filter="new" onclick="filterPosts('new')">New</button>
                                         </div>
                                     </div>
-                                    <button type="button" id="btn-post-of-friends" class="button" data-filter="friends" onclick="filterPosts('friends')">Post of friends</button>
+                                    <button type="button" class="button" id="btn-post-of-friends" onclick="redirectToHomePageFriends()">Post of friends</button>
                                 </div>
                             </div>
                             <!-- Post 1 -->
@@ -1560,11 +1457,9 @@
 
 
 
-                            <!-- Load more posts -->
                             <div class="load-more-wrap narrow-top has-text-centered">
-                                <a href="#" class="load-more-button">Load More</a>
+                                <a href="#" style="margin: 0 auto;" class="load-more-button">Load More</a>
                             </div>
-                            <!-- /Load more posts -->
                         </div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function() {
@@ -1666,7 +1561,7 @@
                         <!-- /Middle column -->
 
                         <!-- Right side column -->
-                        <div class="column is-5-fullhd is-hidden-mobile is-hidden-tablet-only">
+                        <div class="column is-4-fullhd is-hidden-mobile is-hidden-tablet-only">
                             <!-- Birthday widget -->
                             <!-- /partials/widgets/birthday-widget.html -->
 
@@ -1866,7 +1761,7 @@
                 <div class="card">
                     <div class="card-heading">
                         <div class="close-wrap">
-                            <span class="close-modal">
+                            <span class="close-modal" onclick="document.getElementById('create-post-modal').classList.remove('is-active')">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
                         </div>
@@ -2361,7 +2256,11 @@
         displayUserPost(currentPostIndex);
     </script>
 
-
+    <script>
+        function redirectToHomePageFriends() {
+        window.location.href = 'HomePageFriends';
+        }
+    </script>
 
 
     <script>
@@ -2412,12 +2311,7 @@
         case 'new':
                 post.style.display = post.dataset.quality.toLowerCase() === 'new' ? 'block' : 'none';
         break;
-        case 'friends':
-                const isFriend = post.dataset.isFriend === 'true';
-        post.style.display = isFriend ? 'block' : 'none';
-        break;
         default:
-
                 post.style.display = 'block';
         break;
         }
@@ -2427,10 +2321,12 @@
         }
         }
         }
+
         function toggleQualityOptions() {
         const qualityOptions = document.getElementById('quality-options');
         qualityOptions.style.display = qualityOptions.style.display === 'none' ? 'block' : 'none';
         }
+
         function sortPostsByNewest() {
         const postContainer = document.querySelector('.post-container');
         const posts = Array.from(postContainer.querySelectorAll('.post'));
@@ -2446,12 +2342,14 @@
         originalPostsOrder.forEach(post => postContainer.appendChild(post));
         }
 
-        window.addEventListener('load', () => {
 
+        window.addEventListener('load', () => {
         originalPostsOrder = Array.from(document.querySelectorAll('.post'));
         filterPosts('all');
         });
     </script>
+
+
 
 
     <script>
