@@ -140,7 +140,7 @@ public class CreatePost2 extends HttpServlet {
                     daoManagePost.updatePoint(10, userInfor.getUserID());
                 } else if (type == 2) {
                     daoManagePost.updatePoint(20, userInfor.getUserID());
-                }
+                }   
                 response.getWriter().write("success");
             } else {
                 response.getWriter().write("failed");
