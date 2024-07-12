@@ -90,7 +90,7 @@
                 <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
             </a>
             <div class="dashboard-aside-body">
-                
+
                 <a href="manageReportUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
@@ -177,11 +177,11 @@
                                             <td><a href="otherprofile?id=${c.idUserReceive}">${c.getNameIdUserReceive().getFull_Name()}</a></td>
                                             <td>
                                                 <c:if test="${c.getStatus().statusID == 1}">
-                                                                                                        <a href="updateStatus?s=1&id=${c.idUserSend}">Ban</a>
+                                                    <a href="UpdateStatus?s=1&id=${c.idUserSend}">Ban</a>
 
                                                 </c:if>
                                                 <c:if test="${c.getStatus().statusID == 2}">
-                                                    <a href="updateStatus?s=2&id=${c.idUserSend}">Unban</a>
+                                                    <a href="UpdateStatus?s=2&id=${c.idUserSend}">Unban</a>
                                                 </c:if>
                                             </td>
                                         </tr>

@@ -1457,11 +1457,9 @@
 
 
 
-                            <!-- Load more posts -->
                             <div class="load-more-wrap narrow-top has-text-centered">
-                                <a href="#" class="load-more-button">Load More</a>
+                                <a href="#" style="margin: 0 auto;" class="load-more-button">Load More</a>
                             </div>
-                            <!-- /Load more posts -->
                         </div>
                         <script>
                             document.addEventListener("DOMContentLoaded", function() {
