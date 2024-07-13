@@ -5,6 +5,7 @@
 package Controllers.Profile;
 
 import DAL.DAOProfile;
+import DAL.DAOSignup;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 /**
  *
@@ -72,22 +74,27 @@ public class UpdateEmailServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     DAOProfile db = new DAOProfile();
-
+    DAOSignup daoSignUp = new DAOSignup();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String idEmail = request.getParameter("emailId");
         User uId = (User) session.getAttribute("userInfo");
+        ArrayList<User> listUser = daoSignUp.getAllUser();
         int id = uId.getUserID();
-        try {
+        
+            if (daoSignUp.checkEmailExits(idEmail, listUser)) {
+            request.setAttribute("mess2", "Email exists");
+            request.getRequestDispatcher("Profile/Profile.jsp").forward(request, response);
+            return;
+            }
             if (db.UpdateEmailProfile(idEmail, id)) {
                 response.getWriter().write("Update Succesfully");
+                return;
             } else {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
-        } catch (Exception e) {
-        }
 
     }
 
