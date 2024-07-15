@@ -233,7 +233,7 @@ public class DAOLoginSystem extends DBContext {
 
     public boolean checkEmailExits(String email, ArrayList<User> listUser) {
         for (User user : listUser) {
-            if (user.getEmail().equals(email)) {
+            if (user.getEmail().equals(email.toLowerCase())) {
                 return true;
             }
         }
