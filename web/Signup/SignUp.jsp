@@ -192,8 +192,10 @@
                                 </div>
 
                                 <div class="buttons">
-                                    <button type="submit" class="button process-button center-button process-button">Let Me In</button>
-                                    <a class="button process-button center-button process-button" data-step="step-dot-1" onclick="showPanel(1)">Back</a>                                   
+                                    
+                                    <a class="button process-button center-button process-button" data-step="step-dot-1" onclick="showPanel(1)"  style="background-color: #007BFF; color: white; border-radius: 5px; padding: 10px 20px;">Back</a>    
+                                    
+                                    <button type="submit" class="button process-button center-button process-button" style="background-color: #007BFF; color: white; border-radius: 5px; padding: 10px 20px;">Let Me In</button>
                                 </div>
                             </div>                          
                         </div>

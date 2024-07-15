@@ -125,7 +125,7 @@ public class DAOManagePost extends DBContext {
             String sql = "SELECT TOP 3 * \n"
                     + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
                     + "WHERE p.StatusID = 1\n"
-                    + "AND p.District = ?\n"
+                    + "AND p.Commune = ?\n"
                     + "AND p.UserID != ?\n"
                     + "AND p.UserID NOT IN (\n"
                     + "    SELECT BlockUserID \n"
