@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
         var errorPhone = document.getElementById('errorPhone');
         var reGexPhone = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
         if (phoneNum === "") {
+
             errorPhone.textContent = "Phone Number is required";
+                        console.log(errorPhone);
             return false;
         } else if (!reGexPhone.test(phoneNum)) {
             errorPhone.textContent = "Please enter a valid phone number";

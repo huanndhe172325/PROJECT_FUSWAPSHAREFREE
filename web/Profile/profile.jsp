@@ -1657,11 +1657,7 @@
                                             <div style="color: red" id="errorFname"></div>
                                         </div>
 
-                                        <div class="col-md-12">
-                                            <label class="labels">Phone Number</label>
-                                            <input id="phoneNum" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
-                                            <div style="color: red" id="errorPhone"></div>
-                                        </div>
+                                        
                                         <input type="submit" id="submit-update-profile1" style="display: none;" value="Submit">
                                     </form>
                                 </div>
@@ -1706,6 +1702,7 @@
                                                 <label class="labels">Email</label>
                                                 <input id="update-email-otp" name="email" type="text" class="form-control" value="${profile.getEmail()}">
                                                 <div style="color: red" id="errorEmail"></div>
+                                                 <p class="error-message" id="email-error">${mess2}</p>
                                             </div>
                                             <input type="submit" id="submit-edit-email-form" style="display : none;" value="Submit">
                                         </div>
@@ -1750,6 +1747,7 @@
                                             <label class="labels">Phone Number</label>
                                             <input id="update-phone-otp" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
                                             <div style="color: red" id="errorPhone"></div>
+                                            <p class="error-message" id="email-error">${mess3}</p>
                                         </div>
                                             <input type="submit" id="submit-edit-phone-form" style="display : none;" value="Submit">
                                         </div>
