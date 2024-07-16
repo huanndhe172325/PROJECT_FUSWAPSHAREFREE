@@ -156,6 +156,7 @@ public class DAOSignup extends DBContext {
         }
         return false;
     }
+    
 
     public String generateOTP() {
         Random random = new Random();
