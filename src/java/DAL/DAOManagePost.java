@@ -369,7 +369,7 @@ public class DAOManagePost extends DBContext {
         }
         return listPost;
     }
-
+    
     public ArrayList<Post> getPostsByQuanlityID(int quanlityId, int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {

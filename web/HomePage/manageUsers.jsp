@@ -97,15 +97,8 @@
         </div>
       <!-- End Sidebar -->
 
-      <div class="main-panel">
-        <div class="main-header">
-          
-          <!-- Navbar Header -->
-          
-            
-          </nav>
-          <!-- End Navbar -->
-        </div>
+      
+        
 
         <div class="container">
           <div class="page-inner">
@@ -119,7 +112,7 @@
                   </div>
                   <div class="card-body">
                     <div class="chart-container">
-                      <canvas id="lineChart"></canvas>
+                      <canvas id="lineChart" height="500"></canvas>
                     </div>
                   </div>
                 </div>
@@ -134,7 +127,7 @@
         </div>
 
         
-      </div>
+     
 
       <!-- Custom template | don't include it in your project! -->
       
