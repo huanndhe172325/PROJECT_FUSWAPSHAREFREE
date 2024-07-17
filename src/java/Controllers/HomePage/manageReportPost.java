@@ -136,7 +136,7 @@ public class manageReportPost extends HttpServlet {
             row.createCell(1).setCellValue(post.getTitle());
             row.createCell(2).setCellValue(post.getDescription() );
             String reportTimePost = dao.getTimePostByPostId(post.getPostID());
-            String reportMesP = dao.getTimePostByPostId(post.getPostID());
+            String reportMesP = dao.getMessPostByPostId(post.getPostID());
             row.createCell(3).setCellValue(reportTimePost);
             row.createCell(4).setCellValue(reportMesP);
         }

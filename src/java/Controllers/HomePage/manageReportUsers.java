@@ -4,7 +4,9 @@
  */
 package Controllers.HomePage;
 
+import DAL.DAOManagePost;
 import DAL.DAOManageReport;
+import Model.Post;
 import Model.ReportUser;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +15,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
  *
@@ -117,7 +125,49 @@ public class manageReportUsers extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // Thiết lập response
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=ReportUserData.xls");
+
+        // Tạo workbook và sheet
+        HSSFWorkbook wb = new HSSFWorkbook();
+        HSSFSheet sheet = wb.createSheet("List Report Users");
+
+        // Tạo header row
+        Row headerRow = sheet.createRow(0);
+        String[] columns = {"FullNameUserSend", "Message", "Date", "FullNameUserReceive"};
+        for (int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+        }
+
+        // Lấy dữ liệu người dùng từ database
+        DAOManageReport dao = new DAOManageReport();
+        List<ReportUser> rpU = dao.getAllReportUsers();
+
+        // Điền dữ liệu vào sheet
+        int rowNum = 1;
+        for (ReportUser report : rpU) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(report.getNameIdUserSend().getFull_Name());
+            row.createCell(1).setCellValue(report.getMessage());
+            row.createCell(2).setCellValue(report.getReportTime());
+            row.createCell(3).setCellValue(report.getNameIdUserReceive().getFull_Name());
+        }
+
+        // Tự động điều chỉnh kích thước cột
+        for (int i = 0; i < columns.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        try (OutputStream out = response.getOutputStream()) {
+            wb.write(out);
+        } finally {
+            wb.close();
+        }
+
+        // Chuyển hướng đến trang JSP
+       response.sendRedirect("manageReportUsers");
     }
 
     /**
