@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="field">
                                             <div class="control">
-                                                <input type="submit" value="Change Password" class="button is-solid primary-button raised is-rounded is-fullwidth">
+                                                <input type="submit" value="Change Password" class="button is-solid primary-button raised is-rounded is-fullwidth" style="height: 57px;">
                                             </div>
                                         </div>
                                         <p id="passwordStrengthMessage" style="color: red">${mess}</p>  

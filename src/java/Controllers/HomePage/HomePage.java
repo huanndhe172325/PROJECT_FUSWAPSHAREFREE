@@ -76,6 +76,7 @@ public class HomePage extends HttpServlet {
         User userInfo_raw = (User) session.getAttribute("userInfo");
         User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
         String district = userInfor.getDistrict();
+        String commune = userInfor.getCommune();
         ArrayList<User> listUserDistrict = daoManagerUser.getUsersInSameDistrict(district);
         ArrayList<User> listUserRanking = daoManagerUser.getListUserRanking();
 
@@ -85,7 +86,7 @@ public class HomePage extends HttpServlet {
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         ArrayList<Post> listPost = dao.getAllPost(userInfo_raw.getUserID());
         ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
-        ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), district);
+        ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), commune);
         ArrayList<FriendsRequest> listFriendsRq = daoManagerUser.getListFriendRequest(userInfo_raw.getUserID());
         ArrayList<DuringExchange> listDuringExchange = dao.getListDuringExchange(userInfo_raw.getUserID());
         request.setAttribute("listDuringExchange", listDuringExchange);
