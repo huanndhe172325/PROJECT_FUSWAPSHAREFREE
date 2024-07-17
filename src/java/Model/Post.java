@@ -260,6 +260,7 @@ public class Post {
         DAOManagePost dao = new DAOManagePost();
         return dao.getListRequesApproveSwaptByPostId(PostID);
     }
+    
 
     public List<String> getListImg() {
         if (ImageUrl == null || ImageUrl.isEmpty()) {

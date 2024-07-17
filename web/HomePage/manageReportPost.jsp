@@ -137,7 +137,7 @@
                             <div class="card-title">List Report Posts</div>
                             <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
                                 <div class="input-group">
-                                    
+
                                 </div>
                             </nav>
                         </div>
@@ -233,6 +233,10 @@
                         <a href="SideBarAdmin">
                             <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                         </a>
+                        <form action="manageReportPost" method="post" class="download-form">
+                            <input type="hidden" name="action" value="download">
+                            <button type="submit" class="btn btn-primary">Export Reported Posts</button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -166,12 +166,6 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h2>List Users</h2>
-                                <form class="nav-search" action="ListUser" method="get">
-                                    <input type="text" name="query" value="${query}" placeholder="Search...">
-                                    <button type="submit">Search</button>
-                                </form>
-                            </div>
                             <div class="card-body">
                                 <table class="table mt-3">
                                     <thead class="thead-dark">
@@ -234,7 +228,7 @@
                                     <a href="SideBarAdmin" class="btn btn-primary" onclick="back()">Back to home</a>
                                     <form action="ListUser" method="post" class="download-form">
                                         <input type="hidden" name="action" value="download">
-                                        <button type="submit" class="btn btn-primary">Click Here to Download</button>
+                                        <button type="submit" class="btn btn-primary">Export List Users</button>
                                     </form>
                                 </div>
                             </div>
