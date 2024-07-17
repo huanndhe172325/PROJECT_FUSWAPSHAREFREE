@@ -226,6 +226,7 @@
                             <a href="SideBarAdmin">
                                 <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                             </a>
+                            <a href="Profile/test.jsp">Click Here to Download</a>
                         </div>
                     </div>
                 </div>

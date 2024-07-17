@@ -1458,7 +1458,7 @@
 
 
                             <div class="load-more-wrap narrow-top has-text-centered">
-                                <a href="#" style="margin: 0 auto;" class="load-more-button">Load More</a>
+                                <a href="#" style="margin: 0 auto;" id="load-more-post" class="load-more-button">Load More</a>
                             </div>
                         </div>
                         <script>
@@ -1557,7 +1557,7 @@
                             document.querySelector('.quality-toggle').addEventListener('click', toggleQualityOptions);
                             });
                         </script>
-                        </script>
+                       
                         <!-- /Middle column -->
 
                         <!-- Right side column -->

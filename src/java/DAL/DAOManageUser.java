@@ -48,10 +48,7 @@ public class DAOManageUser extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        DAOManageUser daomu = new DAOManageUser();
-        daomu.UpdateStatus(1, 2);
-    }
+
 
     public User getByID(int id) {
         ArrayList<User> users = new ArrayList<>();
@@ -715,9 +712,6 @@ public class DAOManageUser extends DBContext {
         return listFriends;
     }
 
-   
-
-
     public ArrayList<FriendsRequest> getListFriendRequest(int userID) {
         ArrayList<FriendsRequest> friendRequests = new ArrayList<>();
         String sql = "SELECT [RequestID], [Status], [SenderUserID], [ReceiverUserID] FROM [RequestFriends] WHERE [ReceiverUserID] = ? AND [Status] = 'pending'";
@@ -859,6 +853,61 @@ public class DAOManageUser extends DBContext {
         }
 
         return users;
+    }
+
+    public ArrayList<User> getAllUsers() {
+    ArrayList<User> users = new ArrayList<>();
+    String sql = """
+                 SELECT U.*
+                 FROM [User] U
+                 """;
+
+    PreparedStatement st = null;
+    ResultSet rs = null;
+
+    try {
+        st = connect.prepareStatement(sql);
+        rs = st.executeQuery();
+
+        while (rs.next()) {
+            User user = new User(
+                    rs.getInt("UserID"),
+                    rs.getString("Email"),
+                    rs.getString("Phone"),
+                    rs.getString("AvatarUrl"),
+                    rs.getString("PassWord"),
+                    rs.getString("JoinDate"),
+                    rs.getString("UserName"),
+                    rs.getString("Full_Name"),
+                    rs.getString("District"),
+                    rs.getString("Commune"),
+                    rs.getString("StreetNumber"),
+                    rs.getInt("Point"),
+                    rs.getInt("RoleID"),
+                    rs.getInt("StatusID")
+            );
+            users.add(user);
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (st != null) st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    return users;
+}
+
+    
+    public static void main(String[] args) {
+       ArrayList<User> users = new ArrayList<>();
+       DAOManageUser dao = new DAOManageUser();
+        System.out.println(dao.getAllUsers().size());
     }
 
 }
