@@ -1,5 +1,26 @@
 
-Web:FrameWithoutTitleCheckœ"-Add a "title" attribute to this <iframe> tag.(‚ ú’ùÿÿÿÿJ$dbe303f8-f67a-4fe2-87c5-4b3d8d46792c
-Q	Web:S6853à"/A form label must be associated with a control.(ÿõŒ´ùÿÿÿÿ8³¿”áş1
-Q	Web:S6853á"/A form label must be associated with a control.(™¤ÛÚùÿÿÿÿ8³¿”áş1
-L	Web:S6853â"/A form label must be associated with a control.(ß´—Î8³¿”áş1
+Web:FrameWithoutTitleCheckö"-Add a "title" attribute to this <iframe> tag.(‚ ú’ùÿÿÿÿJ$dbe303f8-f67a-4fe2-87c5-4b3d8d46792c
+†,Web:MouseEventWithoutKeyboardEquivalentCheck²"AAdd a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag.(Ï¾Ó‰ÿÿÿÿÿ8ü£©©‹2
+å	Web:S6848²"ÂAvoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.(Ï¾Ó‰ÿÿÿÿÿ8ı£©©‹2
+,Web:MouseEventWithoutKeyboardEquivalentCheckµ"AAdd a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <img> tag.(ïŒÌÄ8ı£©©‹2
+o	Web:S6847µ"RNon-interactive elements should not be assigned mouse or keyboard event listeners.(ïŒÌÄ8ş£©©‹2
+†,Web:MouseEventWithoutKeyboardEquivalentCheckÜ"AAdd a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <img> tag.(³¯ä†üÿÿÿÿ8ş£©©‹2
+t	Web:S6847Ü"RNon-interactive elements should not be assigned mouse or keyboard event listeners.(³¯ä†üÿÿÿÿ8€¤©©‹2
+‡,Web:MouseEventWithoutKeyboardEquivalentChecká"BAdd a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <span> tag.(ÿÍ€ÿÿÿÿÿ8¤©©‹2
+å	Web:S6848á"ÂAvoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.(ÿÍ€ÿÿÿÿÿ8‚¤©©‹2
+VWeb:AvoidCommentedOutCodeCheckÌ"Remove this commented out code.(™èú×üÿÿÿÿ8ƒ¤©©‹2
+f	Web:S6851¼	"IRemove redundant word "image" from the "alt" attribute of your "img" tag.(ê£áÇ8ƒ¤©©‹2
+†,Web:MouseEventWithoutKeyboardEquivalentCheckÈ
+"AAdd a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag.(Ñ²‹„ÿÿÿÿÿ8„¤©©‹2
+å	Web:S6848È
+"ÂAvoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.(Ñ²‹„ÿÿÿÿÿ8„¤©©‹2
+†,Web:MouseEventWithoutKeyboardEquivalentCheckÂ"AAdd a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <div> tag.(Ñ²‹„ÿÿÿÿÿ8…¤©©‹2
+å	Web:S6848Â"ÂAvoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.(Ñ²‹„ÿÿÿÿÿ8†¤©©‹2
+Q	Web:S6853÷"/A form label must be associated with a control.(¶÷úÿùÿÿÿÿ8†¤©©‹2
+L	Web:S6853¦"/A form label must be associated with a control.(Ï¦×ˆ8‡¤©©‹2
+Q	Web:S6853Ó"/A form label must be associated with a control.(“úà™øÿÿÿÿ8‡¤©©‹2
+‚,Web:MouseEventWithoutKeyboardEquivalentCheck‡"BAdd a 'onKeyPress|onKeyDown|onKeyUp' attribute to this <span> tag.(™Ö‹õ8‡¤©©‹2
+à	Web:S6848‡"ÂAvoid non-native interactive elements. If using native HTML is not possible, add an appropriate role and support for tabbing, mouse, keyboard, and touch inputs to an interactive content element.(™Ö‹õ8ˆ¤©©‹2
+B	Web:S5256›"%Add "<th>" headers to this "<table>".(ÀÑÈ´8ˆ¤©©‹2
+Q	Web:S6853¹"/A form label must be associated with a control.(ÒäÙöıÿÿÿÿ8‰¤©©‹2
+Q	Web:S6853¾"/A form label must be associated with a control.(’±Éıÿÿÿÿ8‰¤©©‹2

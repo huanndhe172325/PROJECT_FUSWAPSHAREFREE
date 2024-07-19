@@ -6,6 +6,7 @@ package Controllers.HomePage;
 
 import DAL.DAOManageUser;
 import Model.User;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,7 +15,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 /**
  *
@@ -40,7 +48,7 @@ public class ListUser extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListUser</title>");            
+            out.println("<title>Servlet ListUser</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ListUser at " + request.getContextPath() + "</h1>");
@@ -61,7 +69,7 @@ public class ListUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAOManageUser dao = new DAOManageUser();
+
         int page = 1;
         int recordsPerPage = 5;
 
@@ -70,25 +78,26 @@ public class ListUser extends HttpServlet {
         }
 
         String input = request.getParameter("query");
-        ArrayList<User> users;
+        DAOManageUser dao = new DAOManageUser();
+        ArrayList<User> userss;
 
         if (input != null && !input.isEmpty()) {
-            users = dao.searchUsers(input.trim(), (page - 1) * recordsPerPage, recordsPerPage);
+            userss = dao.searchUsers(input.trim(), (page - 1) * recordsPerPage, recordsPerPage);
         } else {
-            users = dao.getAllUsers((page - 1) * recordsPerPage, recordsPerPage);
+            userss = dao.getAllUsers((page - 1) * recordsPerPage, recordsPerPage);
         }
 
         int noOfRecords = dao.getTotalRecords();
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 
-        request.setAttribute("users", users);
+        request.setAttribute("users", userss);
         request.setAttribute("noOfPages", noOfPages);
         request.setAttribute("currentPage", page);
         request.setAttribute("query", input); // Để hiển thị lại từ khóa tìm kiếm nếu có
 
         request.getRequestDispatcher("HomePage/ListUser.jsp").forward(request, response);
+
     }
-    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -101,7 +110,55 @@ public class ListUser extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // Thiết lập response
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=UserData.xls");
+
+        // Tạo workbook và sheet
+        HSSFWorkbook wb = new HSSFWorkbook();
+        HSSFSheet sheet = wb.createSheet("User Data");
+
+        // Tạo header row
+        Row headerRow = sheet.createRow(0);
+        String[] columns = {"ID", "UserName", "Email", "Phone", "Full Name", "District", "Commune", "Point"};
+        for (int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+        }
+
+        // Lấy dữ liệu người dùng từ database
+        DAOManageUser dao = new DAOManageUser();
+        List<User> users = dao.getAllUsers();
+
+        // Điền dữ liệu vào sheet
+        int rowNum = 1;
+        for (User user : users) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(user.getUserID());
+            row.createCell(1).setCellValue(user.getUserName());
+            row.createCell(2).setCellValue(user.getEmail());
+            row.createCell(3).setCellValue(user.getPhone());
+            row.createCell(4).setCellValue(user.getFull_Name());
+            row.createCell(5).setCellValue(user.getDistrict());
+            row.createCell(6).setCellValue(user.getCommune());
+            row.createCell(7).setCellValue(user.getPoint());
+        }
+
+        // Tự động điều chỉnh kích thước cột
+        for (int i = 0; i < columns.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        try (OutputStream out = response.getOutputStream()) {
+            wb.write(out);
+        } finally {
+            wb.close();
+        }
+
+        // Chuyển hướng đến trang JSP
+        RequestDispatcher dispatcher = request.getRequestDispatcher("HomePage/ListUser.jsp");
+        dispatcher.forward(request, response);
+
     }
 
     /**

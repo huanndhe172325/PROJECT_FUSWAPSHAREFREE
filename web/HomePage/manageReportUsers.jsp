@@ -136,6 +136,22 @@
                 .nav-search {
                     margin-left: auto;
                 }
+
+                .button-container {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 20px;
+                    width: 100%;  /* Đảm bảo container chiếm toàn bộ chiều rộng */
+                }
+
+                .download-form {
+                    margin-left: auto;  /* Đẩy form sang bên phải */
+                }
+
+                .btn-primary {
+                    margin: 5px;  /* Thêm khoảng cách giữa các nút nếu cần */
+                }
             }
         </style>
 
@@ -223,9 +239,15 @@
                                 </nav>
                             </c:if>
 
-                            <a href="SideBarAdmin">
-                                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                            </a>
+                            <div class="button-container">
+                                <a href="SideBarAdmin">
+                                    <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+                                </a>
+                                <form action="manageReportUsers" method="post" class="download-form">
+                                    <input type="hidden" name="action" value="download">
+                                    <button type="submit" class="btn btn-primary">Export Reported Users</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

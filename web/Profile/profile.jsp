@@ -827,7 +827,7 @@
                                 <!-- html/partials/pages/profile/timeline/widgets/basic-infos-widget.html -->
                                 <div class="box-heading">
                                     <h4>User details</h4>
-                                    <div class="dropdown is-neutral is-spaced is-right dropdown-trigger">
+                                    <div id="dropdown-select-edit" class="dropdown is-neutral is-spaced is-right dropdown-trigger">
                                         <div>
                                             <div class="button">
                                                 <i data-feather="more-vertical"></i>
@@ -1579,14 +1579,6 @@
                                         </div>
                                     </c:forEach> 
                                 </div>
-
-
-
-
-
-
-
-
 
                                 <div class="load-more-wrap has-text-centered">
                                     <a href="#" class="load-more-button">Load More</a>
