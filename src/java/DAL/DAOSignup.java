@@ -30,8 +30,8 @@ public class DAOSignup extends DBContext {
             st.setString(4, user.getPassWord());
             st.setString(5, user.getUserName());
             st.setString(6, "USERFUSWAPSHAREFREE");
-            st.setString(7, "-");
-            st.setString(8, "-");
+            st.setString(7, "Huyện Thạch Thất");
+            st.setString(8, "Xã Thạch Hòa");
             st.setString(9, "-");
             st.executeUpdate();
             st.close();

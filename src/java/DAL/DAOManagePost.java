@@ -120,10 +120,10 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
-    public ArrayList<Post> getTop5PostsSameDistrict(int userID, String district) {
+    public ArrayList<Post> getTop5PostsSameDistrict(int userID, String commune) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT TOP 3 * \n"
+            String sql = "SELECT TOP 3 *\n"
                     + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
                     + "WHERE p.StatusID = 1\n"
                     + "AND p.Commune = ?\n"
@@ -131,11 +131,11 @@ public class DAOManagePost extends DBContext {
                     + "AND p.UserID NOT IN (\n"
                     + "    SELECT BlockUserID \n"
                     + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
-                    + "    WHERE UserID = ?  \n"
+                    + "    WHERE UserID = ?\n"
                     + ")\n"
                     + "ORDER BY p.CreateTime DESC";
             PreparedStatement statement = connect.prepareStatement(sql);
-            statement.setString(1, district);
+            statement.setString(1, commune);
             statement.setInt(2, userID);
             statement.setInt(3, userID);
             ResultSet rs = statement.executeQuery();
