@@ -198,6 +198,7 @@
                             <a href="adminHome">
                                 <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                             </a>
+                          <a href="addAdmin" class="btn btn-primary" role="button">Add Admin</a>
                         </div>
                     </div>
                 </div>

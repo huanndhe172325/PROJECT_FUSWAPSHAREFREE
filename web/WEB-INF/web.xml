@@ -116,6 +116,10 @@
         <servlet-name>fetchNotifycation</servlet-name>
         <servlet-class>Controllers.HomePage.fetchNotifycation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddAdmin</servlet-name>
+        <servlet-class>Controllers.HomePage.AddAdmin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/HomePage</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>fetchNotifycation</servlet-name>
         <url-pattern>/fetchNotifycation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAdmin</servlet-name>
+        <url-pattern>/addAdmin</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Preview</welcome-file>

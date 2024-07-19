@@ -98,14 +98,7 @@
             <!-- End Sidebar -->
 
             <div class="main-panel">
-                <div class="main-header">
-
-                    <!-- Navbar Header -->
-
-
-                    </nav>
-                    <!-- End Navbar -->
-                </div>
+               
 
                 <div class="container">
                     <div class="page-inner">
