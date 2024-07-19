@@ -1,4 +1,4 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -119,10 +119,10 @@ public class DAOManagePost extends DBContext {
         return listPost;
     }
 
-    public ArrayList<Post> getTop5PostsSameDistrict(int userID, String district) {
+    public ArrayList<Post> getTop5PostsSameDistrict(int userID, String commune) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
-            String sql = "SELECT TOP 3 * \n"
+            String sql = "SELECT TOP 3 *\n"
                     + "FROM [FUSWAPSHAREFREE].[dbo].[Post] p\n"
                     + "WHERE p.StatusID = 1\n"
                     + "AND p.Commune = ?\n"
@@ -130,11 +130,11 @@ public class DAOManagePost extends DBContext {
                     + "AND p.UserID NOT IN (\n"
                     + "    SELECT BlockUserID \n"
                     + "    FROM [FUSWAPSHAREFREE].[dbo].[BlockList]\n"
-                    + "    WHERE UserID = ?  \n"
+                    + "    WHERE UserID = ?\n"
                     + ")\n"
                     + "ORDER BY p.CreateTime DESC";
             PreparedStatement statement = connect.prepareStatement(sql);
-            statement.setString(1, district);
+            statement.setString(1, commune);
             statement.setInt(2, userID);
             statement.setInt(3, userID);
             ResultSet rs = statement.executeQuery();
@@ -369,7 +369,7 @@ public class DAOManagePost extends DBContext {
         }
         return listPost;
     }
-    
+
     public ArrayList<Post> getPostsByQuanlityID(int quanlityId, int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
@@ -827,7 +827,6 @@ public class DAOManagePost extends DBContext {
             rs1.close();
             statement1.close();
 
-            
             PreparedStatement statement2 = connect.prepareStatement(sql2);
             statement2.setInt(1, userLogin);
             ResultSet rs2 = statement2.executeQuery();
@@ -1305,7 +1304,7 @@ public class DAOManagePost extends DBContext {
         DAOManagePost dao = new DAOManagePost();
         ArrayList<DuringExchange> list = new ArrayList<>();
         list = dao.getListDuringExchange(1);
-        for(DuringExchange a : list){
+        for (DuringExchange a : list) {
             System.out.println(a.getUserRequest());
         }
     }
