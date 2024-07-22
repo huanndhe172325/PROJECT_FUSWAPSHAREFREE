@@ -21,7 +21,7 @@ public class DAOSignup extends DBContext {
 
     public void insertAccount(User user) {
         String sql = "INSERT INTO [User] (Email, Phone, AvatarUrl, PassWord, JoinDate, UserName, Full_Name, District, Commune, StreetNumber, Point, RoleID, StatusID) "
-                + "VALUES (?, ?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, 0, 1, 1002)";
+                + "VALUES (?, ?, ?, ?, GETDATE(), ?, ?, ?, ?, ?, 0, 1, 3)";
         try {
             PreparedStatement st = connect.prepareStatement(sql);
             st.setString(1, user.getEmail());
@@ -30,9 +30,9 @@ public class DAOSignup extends DBContext {
             st.setString(4, user.getPassWord());
             st.setString(5, user.getUserName());
             st.setString(6, "USERFUSWAPSHAREFREE");
-            st.setString(7, "-");
-            st.setString(8, "-");
-            st.setString(9, "-");
+            st.setString(7, "Huyện Thạch Thất");
+            st.setString(8, "Xã Thạch Hoà");
+            st.setString(9, "Thon 5");
             st.executeUpdate();
             st.close();
         } catch (SQLException e) {
