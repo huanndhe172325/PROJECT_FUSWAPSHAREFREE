@@ -24,6 +24,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +35,44 @@ import java.util.Map;
  * @author admin
  */
 public class DAOManageUser extends DBContext {
+
+    public void addAdmin(String mailString, String userrString, String passString, String phoneString, String fullname,String communeString,String distriString,Date date) {
+        String sqlString = "INSERT INTO [dbo].[User]\n"
+                + "           ([Email]\n"
+                + "           ,[Phone]\n"
+                + "           ,[PassWord]\n"
+                + "           ,[JoinDate]\n"
+                + "           ,[UserName]\n"
+                + "           ,[Full_Name]\n"
+                + "           ,[District]\n"
+                + "           ,[RoleID]\n"
+                + "           ,[StatusID]\n"
+                + "		   ,Commune)\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "         ,  ?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,2\n"
+                + "           ,1002,?)";
+        try {
+            PreparedStatement st = connect.prepareStatement(sqlString);
+            st.setString(1, mailString);
+            st.setString(2, phoneString);
+            st.setString(3, passString);
+            st.setDate(4, date);
+            st.setString(5, userrString);
+            st.setString(6, fullname);
+            st.setString(7, distriString);
+            st.setString(8, communeString);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     public void UpdateStatus(int id, int Idstatus) {
         String sqlString = "UPDATE [dbo].[User]\n"
@@ -50,7 +91,9 @@ public class DAOManageUser extends DBContext {
 
     public static void main(String[] args) {
         DAOManageUser daomu = new DAOManageUser();
-        daomu.UpdateStatus(1, 2);
+          
+                Date date=Date.valueOf("2024-5-5");
+        daomu.addAdmin("tee", "tee", "123", "0909090", "alo","123","123",date);
     }
 
     public User getByID(int id) {
@@ -714,9 +757,6 @@ public class DAOManageUser extends DBContext {
 
         return listFriends;
     }
-
-   
-
 
     public ArrayList<FriendsRequest> getListFriendRequest(int userID) {
         ArrayList<FriendsRequest> friendRequests = new ArrayList<>();

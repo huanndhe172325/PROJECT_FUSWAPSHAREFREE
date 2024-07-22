@@ -100,7 +100,7 @@
                 <a href="manageUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
-                        <span> List User</span>
+                        <span> Number of participants</span>
                     </div>
                 </a>
                 <a href="manageAdministrator" class="dashboard-aside-link">
@@ -145,7 +145,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <div class="card-title">List Report Users</div>
+                      
                             <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
                                 <div class="input-group">
                                     <form action="manageAdministrator" method="get"> 
@@ -195,9 +195,10 @@
                                     </div>
                                 </ul>
                             </nav>
-                            <a href="SideBarAdmin">
+                            <a href="adminHome">
                                 <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                             </a>
+                          <a href="addAdmin" class="btn btn-primary" role="button">Add Admin</a>
                         </div>
                     </div>
                 </div>

@@ -70,46 +70,8 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String code = request.getParameter("code");
-        if (code != null) {
-            String accessToken = GoogleLogin.getToken(code);
-            User userAcc = GoogleLogin.getUserInfo(accessToken);
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet Logout</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Servlet Logout at " + userAcc + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
-            if (userAcc != null) {
-                ArrayList<User> listUser = daoLogin.getAllUser();
-                if (!daoLogin.checkEmailExits(userAcc.getEmail(), listUser)) {
-                    daoLogin.addUser(userAcc);
-                }
-
-                User userInfo = daoLogin.getUserByEmail(userAcc.getEmail());
-                HttpSession session = request.getSession();
-                session.setAttribute("userInfo", userInfo);
-                session.setAttribute("loginsuccess", true);
-                if (userInfo.getRoleID() == 1) {
-                    response.sendRedirect("HomePage");
-                } else if (userInfo.getRoleID() == 2) {
-                    response.sendRedirect("adminHome");
-                }
-                return;
-            } else {
-                request.setAttribute("mess", "Google login failed");
-                request.getRequestDispatcher("Login/login.jsp").forward(request, response);
-                return;
-            }
-        }
-        String email = request.getParameter("email").trim();
+            throws ServletException, IOException {       
+        String email = request.getParameter("email").trim().toLowerCase();
         String passWord = request.getParameter("password").trim();
 
         if (email == null || passWord == null || email.isEmpty() || passWord.isEmpty()) {

@@ -177,11 +177,11 @@
                                             <td><a href="otherprofile?id=${c.idUserReceive}">${c.getNameIdUserReceive().getFull_Name()}</a></td>
                                             <td>
                                                 <c:if test="${c.getStatus().statusID == 1}">
-                                                    <a href="UpdateStatus?s=1&id=${c.idUserSend}">Ban</a>
+                                                    <a href="UpdateStatus?s=1&id=${c.idUserReceive}">Ban</a>
 
                                                 </c:if>
                                                 <c:if test="${c.getStatus().statusID == 2}">
-                                                    <a href="UpdateStatus?s=2&id=${c.idUserSend}">Unban</a>
+                                                    <a href="UpdateStatus?s=2&id=${c.idUserReceive}">Unban</a>
                                                 </c:if>
                                             </td>
                                         </tr>

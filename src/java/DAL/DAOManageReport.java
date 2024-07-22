@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOManageReport extends DBContext {
-      public int countReportPosts() {
+
+    public int countReportPosts() {
         int count = 0;
         try {
             String sql = "SELECT COUNT(*) AS ReportCount FROM Have_ReportPost";
@@ -34,15 +35,17 @@ public class DAOManageReport extends DBContext {
         }
         return count;
     }
-      public static void main(String[] args) {
+
+    public static void main(String[] args) {
 
         DAOManageReport dao = new DAOManageReport();
-        ArrayList<ReportPost> al=dao.getAllReportPostsBySort(1,3);
-        for(ReportPost xPost:al){
+        ArrayList<ReportPost> al = dao.getAllReportPostsBySort(1, 3);
+        for (ReportPost xPost : al) {
             System.out.println(xPost.getReportTime());
         }
-          System.out.println(dao.countReportPosts());
+        System.out.println(dao.countReportPosts());
     }
+
     public ArrayList<ReportPost> getAllReportPostsBySort(int pageIndex, int pageSize) {
         ArrayList<ReportPost> reportPosts = new ArrayList<>();
         String sql = "SELECT * FROM Have_ReportPost ORDER BY PostID OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
@@ -110,6 +113,27 @@ public class DAOManageReport extends DBContext {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 count = rs.getInt("ReportCount");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public int countPostsWithStatusID4(int year, int month) {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(*) AS countPostsWithStatusID4\n"
+                    + "FROM [dbo].[Post]\n"
+                    + "WHERE YEAR(CreateTime) = ?\n"
+                    + "AND MONTH(CreateTime) = ?\n"
+                    + "AND StatusID = 4;"; // assuming 4 means reported
+            PreparedStatement st = connect.prepareStatement(sql);
+            st.setInt(1, year);
+            st.setInt(2, month);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt("countPostsWithStatusID4");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -285,5 +309,4 @@ public class DAOManageReport extends DBContext {
         return count;
     }
 
-    
 }

@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -49,22 +50,25 @@ public class SentMail {
     }
 
     public void sentEmail(String emailReceive, String title, String message) {
-        try {
-            MimeMessage msg = new MimeMessage(session);
-            //kiểu nội dung
-            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-            //người gửi
-            msg.setFrom(from);
-            //người nhận
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(emailReceive));
-            //tiêu đề email
-            msg.setSubject(title);
-            //nội dung 
-            msg.setContent(message, "text/HTML; charset=UTF-8");
-            //gửi email
-            Transport.send(msg);
-        } catch (Exception e) {
-        }
+        new Thread(() -> {
+            try {
+                MimeMessage msg = new MimeMessage(session);
+                // Content type
+                msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+                // Sender
+                msg.setFrom(new InternetAddress(from));
+                // Recipient
+                msg.setRecipient(Message.RecipientType.TO, new InternetAddress(emailReceive));
+                // Subject
+                msg.setSubject(title);
+                // Content
+                msg.setContent(message, "text/HTML; charset=UTF-8");
+                // Send email
+                Transport.send(msg);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
     
     public static SentMail getInstance() {

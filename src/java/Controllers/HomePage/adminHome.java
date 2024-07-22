@@ -68,6 +68,7 @@ public class adminHome extends HttpServlet {
         ArrayList PostsReports = new ArrayList();
         ArrayList UsersReports = new ArrayList();
         ArrayList UserList = new ArrayList();
+        ArrayList PostsWithStatusID4 = new ArrayList();
         ArrayList listYear = new ArrayList();
         int count = 0;
         String yearParam = request.getParameter("year");
@@ -91,16 +92,19 @@ public class adminHome extends HttpServlet {
             PostsReports.add(r.countReportedPPosts(currentYear, i));
             UsersReports.add(r.countReportedUsers(currentYear, i));
             UserList.add(r1.countUsersByJoinDate(currentYear, i));
+            PostsWithStatusID4.add(r.countPostsWithStatusID4(currentYear, i));
         }
 
         // chuyển array sang string "[1,2,3,4,5,6,7,8,9,10,11,12]"
         String requestPostsReports = convertToStringArray(PostsReports).toString();
-        String requestUsersReports = convertToStringArray(UserList).toString();
-        String requestUserList = convertToStringArray(UsersReports).toString();
+        String requestUsersReports = convertToStringArray(UsersReports).toString();
+        String requestUserList = convertToStringArray(UserList).toString();
+        String requestPostsWithStatusID4 = convertToStringArray(PostsWithStatusID4).toString();
 
         request.setAttribute("requestPostsReports", requestPostsReports);
         request.setAttribute("requestUsersReports", requestUsersReports);
         request.setAttribute("requestUserList", requestUserList);
+        request.setAttribute("requestPostsWithStatusID4", requestPostsWithStatusID4);
         request.setAttribute("listYear", listYear);
 
         request.getRequestDispatcher("HomePage/adminHome.jsp").forward(request, response);

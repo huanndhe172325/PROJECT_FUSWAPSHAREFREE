@@ -67,7 +67,7 @@ public class ReportUser {
     }
     public User getStatus(){
                 DAOManageUser dao=new DAOManageUser();
-                return dao.getByID(idUserSend);
+                return dao.getByID(idUserReceive);
     }
     public String toString() {
         return "ReportUser{" +
