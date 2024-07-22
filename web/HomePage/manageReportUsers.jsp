@@ -136,22 +136,6 @@
                 .nav-search {
                     margin-left: auto;
                 }
-
-                .button-container {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-top: 20px;
-                    width: 100%;  /* Đảm bảo container chiếm toàn bộ chiều rộng */
-                }
-
-                .download-form {
-                    margin-left: auto;  /* Đẩy form sang bên phải */
-                }
-
-                .btn-primary {
-                    margin: 5px;  /* Thêm khoảng cách giữa các nút nếu cần */
-                }
             }
         </style>
 
@@ -193,11 +177,11 @@
                                             <td><a href="otherprofile?id=${c.idUserReceive}">${c.getNameIdUserReceive().getFull_Name()}</a></td>
                                             <td>
                                                 <c:if test="${c.getStatus().statusID == 1}">
-                                                    <a href="UpdateStatus?s=1&id=${c.idUserSend}">Ban</a>
+                                                    <a href="UpdateStatus?s=1&id=${c.idUserReceive}">Ban</a>
 
                                                 </c:if>
                                                 <c:if test="${c.getStatus().statusID == 2}">
-                                                    <a href="UpdateStatus?s=2&id=${c.idUserSend}">Unban</a>
+                                                    <a href="UpdateStatus?s=2&id=${c.idUserReceive}">Unban</a>
                                                 </c:if>
                                             </td>
                                         </tr>
@@ -239,15 +223,9 @@
                                 </nav>
                             </c:if>
 
-                            <div class="button-container">
-                                <a href="SideBarAdmin">
-                                    <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                                </a>
-                                <form action="manageReportUsers" method="post" class="download-form">
-                                    <input type="hidden" name="action" value="download">
-                                    <button type="submit" class="btn btn-primary">Export Reported Users</button>
-                                </form>
-                            </div>
+                            <a href="SideBarAdmin">
+                                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+                            </a>
                         </div>
                     </div>
                 </div>

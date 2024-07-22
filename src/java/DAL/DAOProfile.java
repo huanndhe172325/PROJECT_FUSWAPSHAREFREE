@@ -48,14 +48,18 @@ public class DAOProfile extends DBContext {
         return null;
     }
 
-    public void UpdateProfile(String name, int id) {
+    public void UpdateProfile(String name, String email, String phone, int id) {
         String sql = "UPDATE [dbo].[User]\n"
-                + "     SET [Full_Name] = ?\n"
+                + "   SET [Email] = ?\n"
+                + "      ,[Phone] = ?     \n"
+                + "      ,[Full_Name] = ?\n"
                 + " WHERE UserID = ?";
         try {
             PreparedStatement statement = connect.prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setInt(2, id);
+            statement.setString(1, email);
+            statement.setString(2, phone);
+            statement.setString(3, name);
+            statement.setInt(4, id);
             ResultSet rs = statement.executeQuery();
         } catch (Exception e) {
         }

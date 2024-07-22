@@ -1,112 +1,28 @@
 
-Œ	java:S117Ô"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áœ‹J$0b8ec01c-0e39-4394-94f5-de042d7ffd55
-n	java:S117‘	"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šâ¹ö8Îž©©‹2
+Œ	java:S117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áœ‹J$0b8ec01c-0e39-4394-94f5-de042d7ffd55
 •	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(”Ç¨†J$782e3d77-57ab-4d09-af88-26f4f5b53d0f
-
-java:S1192l"LDefine a constant instead of duplicating this literal "QuanlityID" 11 times.(“Ô×ÎþÿÿÿÿJ$d9ef44c3-923e-4164-ae91-cee0952fa6f5
-l
-java:S1192h"ODefine a constant instead of duplicating this literal "Street_Number" 10 times.(Žª¤8©Ÿ©©‹2
-e
-java:S1192_"HDefine a constant instead of duplicating this literal "PostID" 17 times.(Åßûá8ªŸ©©‹2
-…
-java:S1192f"IDefine a constant instead of duplicating this literal "Commune" 11 times.(ð³Æ¨J$c02b5db8-4bc5-48e7-965a-2aeb26cdfcb7
-e
-java:S1192±"GDefine a constant instead of duplicating this literal "Status" 4 times.(¥©ïî8«Ÿ©©‹2
-g
-java:S1192d"JDefine a constant instead of duplicating this literal "ImageUrl" 10 times.(ÜÐç”8¬Ÿ©©‹2
-i
-java:S1192b"MDefine a constant instead of duplicating this literal "intructions" 10 times.(™ûóu8¬Ÿ©©‹2
-†
-java:S1192g"JDefine a constant instead of duplicating this literal "District" 11 times.(äÉéäJ$d67d6809-3e7c-4110-b632-55ea55f7e9a3
+ƒ
+java:S1192"GDefine a constant instead of duplicating this literal "TypeID" 3 times.(Ôõ°J$ab242a7d-271d-410e-93a8-014b6640042d
+Œ
+java:S1192>"KDefine a constant instead of duplicating this literal "QuanlityID" 3 times.(“Ô×ÎþÿÿÿÿJ$d9ef44c3-923e-4164-ae91-cee0952fa6f5
+ƒ
+java:S1192<"GDefine a constant instead of duplicating this literal "UserID" 3 times.(–çøJ$dd50070e-d379-4c66-827a-34f7d9c28ffc
 „
-java:S11921"HDefine a constant instead of duplicating this literal "TypeID" 11 times.(Ôõ°J$ab242a7d-271d-410e-93a8-014b6640042d
-j
-java:S1192a"MDefine a constant instead of duplicating this literal "Description" 12 times.(°ð¢û8®Ÿ©©‹2
-o
-java:S1192c"MDefine a constant instead of duplicating this literal "ExpiresDate" 10 times.(›Ê´¯ÿÿÿÿÿ8®Ÿ©©‹2
+java:S1192="IDefine a constant instead of duplicating this literal "StatusID" 3 times.(ñ›FJ$88f2fa52-910e-49e3-9c57-90aa65a81d29
 „
-java:S1192j"HDefine a constant instead of duplicating this literal "UserID" 15 times.(–çøJ$dd50070e-d379-4c66-827a-34f7d9c28ffc
+java:S11928"HDefine a constant instead of duplicating this literal "Commune" 3 times.(ð³Æ¨J$c02b5db8-4bc5-48e7-965a-2aeb26cdfcb7
 …
-java:S1192k"JDefine a constant instead of duplicating this literal "StatusID" 12 times.(ñ›FJ$88f2fa52-910e-49e3-9c57-90aa65a81d29
+java:S11929"IDefine a constant instead of duplicating this literal "District" 3 times.(äÉéäJ$d67d6809-3e7c-4110-b632-55ea55f7e9a3
+k	java:S106$"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$f1dad8f6-0557-4153-8160-b69bbfd1c54a
+k	java:S106D"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$fb8c2fd4-80f3-4506-b1d0-2f1cf2a0c6af
+k	java:S106e"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$454629d7-a2a3-4729-9a92-e9b8cf5b0276
+k	java:S106x"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$e3f5f5fb-9cf6-4180-85c6-7ebc8a6019b9
+n
+java:S6126~"2Replace this String concatenation with Text block.(ƒŽ‰ìJ$589e0127-b3e2-49ea-842f-e1b06b7b3daf
+l	java:S106Î"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$6ea3177f-e07a-4f9e-9162-04d646997cfb
+l	java:S106ß"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$161dc97e-1f3f-4513-ab0d-09d329fcd026
+y
+java:S1854å"7Remove this useless assignment to local variable "dao".(³¿­ñøÿÿÿÿJ$1e81ad95-b9cb-4b1f-a4a7-e679a15ab972
 j
-java:S1192e"HDefine a constant instead of duplicating this literal "Desire" 10 times.(èŸ„¹ûÿÿÿÿ8°Ÿ©©‹2
-h
-java:S1192i"LDefine a constant instead of duplicating this literal "CreateTime" 11 times.(úÆ®c8±Ÿ©©‹2
-i
-java:S1192`"GDefine a constant instead of duplicating this literal "Title" 10 times.(‘µ‚­úÿÿÿÿ8±Ÿ©©‹2
-k	java:S1067"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$f1dad8f6-0557-4153-8160-b69bbfd1c54a
-T
-java:S6126}"2Replace this String concatenation with Text block.(üÑÑœûÿÿÿÿ8• ©©‹2
-l	java:S106¢"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$fb8c2fd4-80f3-4506-b1d0-2f1cf2a0c6af
-P
-java:S6126ª"2Replace this String concatenation with Text block.(×ýí†8— ©©‹2
-l	java:S106Ì"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$454629d7-a2a3-4729-9a92-e9b8cf5b0276
-P
-java:S6126Ô"2Replace this String concatenation with Text block.(×ýí†8— ©©‹2
-l	java:S106ü"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$e3f5f5fb-9cf6-4180-85c6-7ebc8a6019b9
-U
-java:S6126„"2Replace this String concatenation with Text block.(¶»Îåÿÿÿÿÿ8® ©©‹2
-l	java:S106œ"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$6ea3177f-e07a-4f9e-9162-04d646997cfb
-P
-java:S6126¤"2Replace this String concatenation with Text block.(×ýí†8¸ ©©‹2
-l	java:S106Å"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿJ$161dc97e-1f3f-4513-ab0d-09d329fcd026
-P
-java:S6126Í"2Replace this String concatenation with Text block.(×ýí†8ß ©©‹2
-M	java:S106ð"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8ß ©©‹2
-P
-java:S6126ø"2Replace this String concatenation with Text block.(×ýí†8ü ©©‹2
-M	java:S106›"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8ü ©©‹2
-M	java:S106¬"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8ý ©©‹2
-P
-java:S6126Ç"2Replace this String concatenation with Text block.(Ý 8ý ©©‹2
-P
-java:S6126Ö"2Replace this String concatenation with Text block.(î¼Äç8ý ©©‹2
-F	java:S108Þ")Either remove or fill this block of code.(É®£8ý ©©‹2
-U
-java:S6126ã"2Replace this String concatenation with Text block.(áçù¹ÿÿÿÿÿ8ý ©©‹2
-P
-java:S6126ò"2Replace this String concatenation with Text block.(Ý 8ý ©©‹2
-U
-java:S6126"2Replace this String concatenation with Text block.(áçù¹ÿÿÿÿÿ8ý ©©‹2
-U
-java:S6126"2Replace this String concatenation with Text block.(æÔÿ‰þÿÿÿÿ8þ ©©‹2
-P
-java:S6126Ÿ"2Replace this String concatenation with Text block.(òêˆÜ8þ ©©‹2
-P
-java:S6126µ"2Replace this String concatenation with Text block.(òò¼•8þ ©©‹2
-M	java:S106É"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8þ ©©‹2
-P
-java:S6126Ï"2Replace this String concatenation with Text block.(×ùÉÞ8þ ©©‹2
-M	java:S106å"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8þ ©©‹2
-M	java:S106¡"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8þ ©©‹2
-M	java:S106¸"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8þ ©©‹2
-M	java:S106Ï"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8’¡©©‹2
-M	java:S106è"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8“¡©©‹2
-M	java:S106"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8“¡©©‹2
-P
-java:S6126‰"2Replace this String concatenation with Text block.(ã¶«½8­¡©©‹2
-M	java:S106¤"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8®¡©©‹2
-U
-java:S6126¬"2Replace this String concatenation with Text block.(äŒª¾ýÿÿÿÿ8®¡©©‹2
-P
-java:S6126¯"2Replace this String concatenation with Text block.(¼È¨8®¡©©‹2
-M	java:S106Ì"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8×¡©©‹2
-M	java:S106ì"+Replace this use of System.err by a logger.(ïù¯¯ûÿÿÿÿ8Ø¡©©‹2
-M	java:S106ÿ"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8ú¡©©‹2
-o
-java:S6126…"2Replace this String concatenation with Text block.(ƒŽ‰ìJ$589e0127-b3e2-49ea-842f-e1b06b7b3daf
-U
-java:S6126­"2Replace this String concatenation with Text block.(æÔÿ‰þÿÿÿÿ8Í¢©©‹2
-M	java:S106î"+Replace this use of System.err by a logger.(ý”ðŒüÿÿÿÿ8Ï¢©©‹2
-M	java:S106ú"+Replace this use of System.out by a logger.(‹ˆèŒûÿÿÿÿ8Ï¢©©‹2
-M	java:S106ü"+Replace this use of System.err by a logger.(­›Ëýÿÿÿÿ8Ï¢©©‹2
-M	java:S106©"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8Ï¢©©‹2
-M	java:S106ì"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8×¢©©‹2
-M	java:S106ý"+Replace this use of System.out by a logger.(¨¶ÑÍþÿÿÿÿ8Ü¢©©‹2
-P
-java:S6126ý	"2Replace this String concatenation with Text block.(òóÀ´8õ¢©©‹2
-[
-java:S1854š
-"8Remove this useless assignment to local variable "list".(åÐçûýÿÿÿÿ8ù¢©©‹2
-H	java:S106
-"+Replace this use of System.out by a logger.(žžÞÔ8þ¢©©‹2
+java:S1481å"(Remove this unused "dao" local variable.(³¿­ñøÿÿÿÿJ$b41270e1-2e9e-41b1-a451-b1b5ae258d2c
+x	java:S125æ"<This block of commented-out lines of code should be removed.(ÐÀëâJ$d5e264bb-3bdc-41ee-941f-05092cea7282

@@ -81,7 +81,7 @@ public class UpdatePhonenumberServlet extends HttpServlet {
         ArrayList<User> listUser = daoSignUp.getAllUser();
         int id = uId.getUserID();
         try {
-            if (daoSignUp.checkPhoneExits(idPhone, listUser)) {
+            if (daoSignUp.checkEmailExits(idPhone, listUser)) {
             request.setAttribute("mess3", "Phone exists");
             request.getRequestDispatcher("Profile/Profile.jsp").forward(request, response);
             return;

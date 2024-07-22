@@ -23,7 +23,7 @@
         <script src="cdn-cgi/apps/head/lmplkzhV3pH6fdNUw6kpmpBQ68Q.js"></script><link rel="icon" type="image/png" href="assets/img/favicon.png" />
 
         <!-- Google Tag Manager -->
-        <script>
+        <script> 
             ;
             (function (w, d, s, l, i) {
             w[l] = w[l] || []

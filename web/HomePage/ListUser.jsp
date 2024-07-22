@@ -79,8 +79,8 @@
                 <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
             </a>
             <div class="dashboard-aside-body">
-
-
+                
+                                    
                 <a href="manageReportUsers" class="dashboard-aside-link">
                     <div>
                         <i data-feather="file"></i>
@@ -114,35 +114,18 @@
         <title>Search Form</title>
         <style>
             body {
-                /* Giữ nguyên các styles hiện có */
-            }
 
-            .button-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-top: 20px;
-            }
-
-            .download-form {
-                margin-left: auto;
-            }
-
-            .btn-primary {
-                background-color: #007bff;
-                border-color: #007bff;
-                color: white;
-                padding: 10px 20px;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-                border-radius: 5px;
-            }
-
-            .btn-primary:hover {
-                background-color: #0056b3;
+                .btn-primary:hover {
+                    background-color: #006a86;
+                }
+                .card-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .nav-search {
+                    margin-left: auto;
+                }
             }
         </style>
 
@@ -157,81 +140,81 @@
                                 <div class="input-group">
                                     <form action="ListUser" method="get"> 
                                         <input type="text" name="query" placeholder="Search ..." class="form-control" />
-                                        <button type="submit" class="btn btn-search pe-0">
-                                            <i class="fa fa-search search-icon"></i>
+                                               <button type="submit" class="btn btn-search pe-0">
+                                        <i class="fa fa-search search-icon"></i>
                                         </button>
                                     </form>
                                 </div>
                             </nav>
                         </div>
-                        <div class="card">
-                            <div class="card-header">
-                            <div class="card-body">
-                                <table class="table mt-3">
-                                    <thead class="thead-dark">
+                        <div class="card-body">
+                            <table class="table mt-3">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>UserName</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Full Name</th>
+                                        <th>District</th>
+                                        <th>Point</th>
+                                       
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="c" items="${users}">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>UserName</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Full Name</th>
-                                            <th>District</th>
-                                            <th>Point</th>
-                                            <th>Actions</th>
+                                            <td>${c.userID}</td>
+                                            <td>${c.userName}</td>
+                                            <td>${c.email}</td>
+                                            <td>${c.phone}</td>
+                                            <td>${c.full_Name}</td>
+                                            <td>${c.commune}-${c.district}</td>
+                                            <td>${c.point}</td>
+                                            
+
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="c" items="${users}">
-                                            <tr>
-                                                <td>${c.userID}</td>
-                                                <td>${c.userName}</td>
-                                                <td>${c.email}</td>
-                                                <td>${c.phone}</td>
-                                                <td>${c.full_Name}</td>
-                                                <td>${c.commune}-${c.district}</td>
-                                                <td>${c.point}</td>
-                                                <td><!-- Actions content --></td>
-                                            </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <c:if test="${noOfPages > 1}">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <!-- Nút Previous -->
+                                        <c:if test="${currentPage > 1}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="ListUser?page=${currentPage - 1}&query=${query}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+
+                                        <!-- Các nút trang -->
+                                        <c:forEach begin="1" end="${noOfPages}" var="i">
+                                            <c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
+                                                <li class="page-item ${i == currentPage ? 'active' : ''}">
+                                                    <a class="page-link" href="ListUser?page=${i}&query=${query}">${i}</a>
+                                                </li>
+                                            </c:if>
                                         </c:forEach>
-                                    </tbody>
-                                </table>
-                                <c:if test="${noOfPages > 1}">
-                                    <nav aria-label="Page navigation">
-                                        <ul class="pagination">
-                                            <c:if test="${currentPage > 1}">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="ListUser?page=${currentPage - 1}&query=${query}" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                        <span class="sr-only">Previous</span>
-                                                    </a>
-                                                </li>
-                                            </c:if>
-                                            <c:forEach begin="1" end="${noOfPages}" var="i">
-                                                <c:if test="${i >= currentPage - 2 && i <= currentPage + 2}">
-                                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                                        <a class="page-link" href="ListUser?page=${i}&query=${query}">${i}</a>
-                                                    </li>
-                                                </c:if>
-                                            </c:forEach>
-                                            <c:if test="${currentPage < noOfPages}">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="ListUser?page=${currentPage + 1}&query=${query}" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                        <span class="sr-only">Next</span>
-                                                    </a>
-                                                </li>
-                                            </c:if>
-                                        </ul>
-                                    </nav>
-                                </c:if>
-                                <div class="button-container">
-                                    <a href="SideBarAdmin" class="btn btn-primary" onclick="back()">Back to home</a>
-                                    <form action="ListUser" method="post" class="download-form">
-                                        <input type="hidden" name="action" value="download">
-                                        <button type="submit" class="btn btn-primary">Export List Users</button>
-                                    </form>
-                                </div>
-                            </div>
+
+                                        <!-- Nút Next -->
+                                        <c:if test="${currentPage < noOfPages}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="ListUser?page=${currentPage + 1}&query=${query}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+                                    </ul>
+                                </nav>
+                            </c:if>
+                            <a href="SideBarAdmin">
+                                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
+                            </a>
                         </div>
                     </div>
                 </div>

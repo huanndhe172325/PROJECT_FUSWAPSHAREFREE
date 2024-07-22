@@ -86,13 +86,15 @@ public class EditProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
 
         DAOProfile db = new DAOProfile();
         User userId = (User) session.getAttribute("userInfo");
         int id = userId.getUserID();
         User u = db.getUserbyId(id);
 
-        db.UpdateProfile(name, u.getUserID());
+        db.UpdateProfile(name, email, phone, u.getUserID());
 
         response.sendRedirect("profile?id=" + u.getUserID());
 
