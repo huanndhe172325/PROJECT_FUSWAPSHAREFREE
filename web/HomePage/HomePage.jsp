@@ -1772,10 +1772,10 @@
                             <form enctype="multipart/form-data" action="CreatePost2" id="create-post" method="post">
                                 <label for="Title">Title:</label>
                                 <input type="text" id="title" name="title" required="">
-                                <span id="title-error" class="error-message" style="display: none; color: red;">Please input title!!!</span>
+                                <span id="title-error" class="error-message" style="display: none; color: red;">Please input title and no longer than 150 characters!!!</span>
                                 <label for="Title">Description: </label>
                                 <textarea id="description" required class="textarea comment-textarea" name="description" rows="5" placeholder="e.g 2 x bottles of shampoo, almost full">Món đồ này đã có một vài năm sử dụng nhưng vẫn đáp ứng tốt nhu cầu sử dụng hàng ngày.</textarea>
-                                <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input description!!!</span>
+                                <span id="title-error-desc" class="error-message" style="display: none; color: red;">Please input description and no longer than 1500 characters!!!</span>
 
                                 <label for="imgPath">Image:</label>
                                 <input type="file" id="imgPath" name="imgPath" accept="image/*" required="" multiple>
@@ -1843,7 +1843,7 @@
                                     <div class="input-container">
                                         <label>Street number</label>
                                         <input name="newAddress" id="Order_name" type="text" maxlength="255" value="Số nhà ...." required="">
-                                        <span id="title-error-add" class="error-message" style="display: none; color: red;">Please input street number!!!</span>
+                                        <span id="title-error-add" class="error-message" style="display: none; color: red;">Please input street number and no longer than 150 characters!!!!!!</span>
                                     </div>
                                 </div>
                                 <label>Expires Date<span class="required">*</span></label>
@@ -1856,7 +1856,7 @@
 
                                 <label for="instructions">Pick-up instructions</label>
                                 <input type="text" value="4-6pm khi tới nơi hãy bấm chuông cửa" id="instructions" name="instructions" required="" placeholder="Pick up today from 4 - 6pm. Please ring doorbell when here">
-                                <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions!!!</span>
+                                <span id="title-error-inst" class="error-message" style="display: none; color: red;">Please input instructions and no longer than 1500 characters!!!</span>
 
 
 
@@ -2403,25 +2403,25 @@
         var description = document.querySelector('textarea[name="description"]').value.trim();
         var newAddress = document.getElementById('Order_name').value.trim();
         var instructions = document.getElementById('instructions').value.trim();
-        if (title === '') {
+        if (title === '' || title.length > 200) {
         var titleError = document.getElementById('title-error');
         titleError.style.display = 'block';
         return false;
         }
 
-        if (description === '') {
+        if (description === '' || description.length>1500) {
         var titleError = document.getElementById('title-error-desc');
         titleError.style.display = 'block';
         return false;
         }
 
-        if (newAddress === '') {
+        if (newAddress === '' || newAddress.length > 200) {
         var titleError = document.getElementById('title-error-add');
         titleError.style.display = 'block';
         return false;
         }
 
-        if (instructions === '') {
+        if (instructions === '' || instructions.length > 1500) {
         var titleError = document.getElementById('title-error-inst');
         titleError.style.display = 'block';
         return false;
