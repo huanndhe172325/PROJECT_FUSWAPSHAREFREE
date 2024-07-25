@@ -15,8 +15,25 @@ public class ReportUser {
     private String message;
     private int idUserSend;
     private int idUserReceive;
+    private int StatusId;
 
     public ReportUser() {
+    }
+
+    public int getStatusId() {
+        return StatusId;
+    }
+
+    public void setStatusId(int StatusId) {
+        this.StatusId = StatusId;
+    }
+
+    public ReportUser(String reportTime, String message, int idUserSend, int idUserReceive, int StatusId) {
+        this.reportTime = reportTime;
+        this.message = message;
+        this.idUserSend = idUserSend;
+        this.idUserReceive = idUserReceive;
+        this.StatusId = StatusId;
     }
 
     public ReportUser(String reportTime, String message, int idUserSend, int idUserReceive) {

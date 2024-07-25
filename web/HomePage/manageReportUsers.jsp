@@ -176,11 +176,11 @@
                                             <td>${c.reportTime}</td>
                                             <td><a href="otherprofile?id=${c.idUserReceive}">${c.getNameIdUserReceive().getFull_Name()}</a></td>
                                             <td>
-                                                <c:if test="${c.getStatus().statusID == 1}">
+                                                <c:if test="${c.getStatusId() == 1}">
                                                     <a href="UpdateStatus?s=1&id=${c.idUserReceive}">Ban</a>
 
                                                 </c:if>
-                                                <c:if test="${c.getStatus().statusID == 2}">
+                                                <c:if test="${c.getStatusId() == 2}">
                                                     <a href="UpdateStatus?s=2&id=${c.idUserReceive}">Unban</a>
                                                 </c:if>
                                             </td>
@@ -223,9 +223,7 @@
                                 </nav>
                             </c:if>
 
-                            <a href="SideBarAdmin">
-                                <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                            </a>
+
                         </div>
                     </div>
                 </div>

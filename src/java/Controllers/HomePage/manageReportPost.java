@@ -86,6 +86,7 @@ public class manageReportPost extends HttpServlet {
         request.setAttribute("pageSize", pageSize);
         request.getRequestDispatcher("HomePage/manageReportPost.jsp").forward(request, response);
     }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.

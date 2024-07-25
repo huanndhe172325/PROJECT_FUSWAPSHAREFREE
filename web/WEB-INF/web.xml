@@ -118,7 +118,7 @@
     </servlet>
     <servlet>
         <servlet-name>AddAdmin</servlet-name>
-        <servlet-class>Controllers.HomePage.AddAdmin</servlet-class>
+        <servlet-class>Controllers.HomePage.AddAdministrator</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>

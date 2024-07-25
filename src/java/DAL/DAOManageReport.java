@@ -256,7 +256,7 @@ public class DAOManageReport extends DBContext {
                 + "    SELECT \n"
                 + "        ROW_NUMBER() OVER (ORDER BY ru.reportTime DESC) AS r,\n"
                 + "        ru.reportTime,\n"
-                + "        ru.Message,\n"
+                + "        ru.Message, us2.StatusID,\n"
                 + "        us1.Full_Name AS FullNameSend,\n"
                 + "        us2.Full_Name AS FullNameReceive,\n"
                 + "        ru.IdUserSend,\n"
@@ -281,7 +281,8 @@ public class DAOManageReport extends DBContext {
                         rs.getString("reportTime"),
                         rs.getString("Message"),
                         rs.getInt("IdUserSend"),
-                        rs.getInt("IdUserReceive")
+                        rs.getInt("IdUserReceive"),
+                        rs.getInt("StatusID")
                 );
                 reportUsers.add(reportUser);
             }

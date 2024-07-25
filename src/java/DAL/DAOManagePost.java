@@ -285,7 +285,7 @@ public class DAOManagePost extends DBContext {
         }
         return isFriendPost;
     }
-
+    
     public ArrayList<Post> getPostNewest(int userID) {
         ArrayList<Post> listPost = new ArrayList<>();
         try {
