@@ -28,6 +28,7 @@ import java.util.Properties;
 import java.util.UUID;
 import javax.mail.Authenticator;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -38,7 +39,7 @@ import javax.mail.internet.MimeMessage;
  *
  * @author Binhtran
  */
-@WebServlet(name="SignUp", urlPatterns={"/SignUp"})
+@WebServlet(name = "SignUp", urlPatterns = {"/SignUp"})
 public class SignUp extends HttpServlet {
 
     DAOSignup daoSignUp = new DAOSignup();
@@ -125,27 +126,28 @@ public class SignUp extends HttpServlet {
 
         //Tạo tin nhắn 
         MimeMessage msg = new MimeMessage(session);
+        HttpSession sess = request.getSession();
+        sess.setAttribute("userID", userId);
+        response.sendRedirect("verifyemail");
 
-        try {
-            //kiểu nội dung
-            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-            //người gửi
-            msg.setFrom(from);
-            //người nhận
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            //tiêu đề email
-            msg.setSubject("Verify Email");
-            //nội dung 
-            msg.setContent("OTP : " + otp, "text/HTML; charset=UTF-8");
-            //gửi email
-            Transport.send(msg);
-            HttpSession sess = request.getSession();
-            sess.setAttribute("userID", userId);
-            response.sendRedirect("verifyemail");
-        } catch (Exception e) {
-            request.setAttribute("mess", "Can't send otp for your email");
-            request.getRequestDispatcher("Login").forward(request, response);
-        }
+        new Thread(() -> {
+            try {
+                // Content type
+                msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+                // Sender
+                msg.setFrom(new InternetAddress(from));
+                // Recipient
+                msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                // Subject
+                msg.setSubject("Verify Email");
+                // Content
+                msg.setContent("OTP : " + otp, "text/HTML; charset=UTF-8");
+                // Send email
+                Transport.send(msg);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     @Override
