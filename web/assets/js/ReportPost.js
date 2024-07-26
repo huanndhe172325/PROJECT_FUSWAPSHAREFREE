@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Hiển thị modal khi người dùng bấm vào flag-link và gán giá trị post_id
+    
     document.querySelectorAll('.flag-link').forEach(function (flagLink) {
         flagLink.addEventListener('click', function (e) {
             e.preventDefault();
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Hiển thị textarea khi chọn lý do khác
+    
     document.querySelectorAll('input[name="report_reason"]').forEach(function (radio) {
         radio.addEventListener('change', function () {
             if (document.getElementById('reason_other').checked) {
@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Xử lý khi nhấn nút "Report"
+  
     document.getElementById('reportButton').addEventListener('click', function () {
         document.getElementById('submit-report-form').click();
     });
 
-    // Xử lý khi nhấn nút "Cancel"
+    
     document.querySelectorAll('.close-modal, .close-modal-report').forEach(function (closeButton) {
         closeButton.addEventListener('click', function () {
             document.getElementById('report-post-modal').classList.remove('is-active');
