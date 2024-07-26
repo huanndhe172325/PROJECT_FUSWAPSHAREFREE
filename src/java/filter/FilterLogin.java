@@ -5,6 +5,8 @@
 
 package filter;
 
+import DAL.DAOManageUser;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -24,7 +26,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author FPT
  */
-@WebFilter(filterName="FilterLogin", urlPatterns={"/HomePage", "/HomePageFriend", "/logout", "/profile"})
+@WebFilter(filterName="FilterLogin", urlPatterns={"/HomePage", "/HomePageFriend", "/logout", "/profile", "/otherprofile", "/detailPost"})
 public class FilterLogin implements Filter {
 
     private static final boolean debug = true;
