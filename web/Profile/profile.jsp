@@ -1657,7 +1657,7 @@
                                             <div style="color: red" id="errorFname"></div>
                                         </div>
 
-                                        
+
                                         <input type="submit" id="submit-update-profile1" style="display: none;" value="Submit">
                                     </form>
                                 </div>
@@ -1702,7 +1702,7 @@
                                                 <label class="labels">Email</label>
                                                 <input id="update-email-otp" name="email" type="text" class="form-control" value="${profile.getEmail()}">
                                                 <div style="color: red" id="errorEmail"></div>
-                                                 <p class="error-message" id="email-error">${mess2}</p>
+                                                <p class="error-message" id="email-error">${mess2}</p>
                                             </div>
                                             <input type="submit" id="submit-edit-email-form" style="display : none;" value="Submit">
                                         </div>
@@ -1723,7 +1723,7 @@
                     </div>
                 </div>
             </div>
-                                                
+
             <!-- Edit phone number -->
             <div id="edit-phone-modal" class="modal share-modal is-xsmall has-light-bg" >
                 <div class="modal-background">
@@ -1744,11 +1744,11 @@
                                     <form action="UpdatePhonenumberServlet" id="edit-phone-form" method="post" onsubmit="return FormValidate();">
                                         <div id="addNewSnippet" style="margin-top: 10px;">
                                             <div class="col-md-12">
-                                            <label class="labels">Phone Number</label>
-                                            <input id="update-phone-otp" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
-                                            <div style="color: red" id="errorPhone"></div>
-                                            <p class="error-message" id="email-error">${mess3}</p>
-                                        </div>
+                                                <label class="labels">Phone Number</label>
+                                                <input id="update-phone-otp" name="phone" type="text" class="form-control" value="${profile.getPhone()}">
+                                                <div style="color: red" id="errorPhone"></div>
+                                                <p class="error-message" id="email-error">${mess3}</p>
+                                            </div>
                                             <input type="submit" id="submit-edit-phone-form" style="display : none;" value="Submit">
                                         </div>
                                     </form>
@@ -2701,20 +2701,27 @@
                 function validateFullName() {
                     var fname = document.getElementById('fname').value.trim();
                     var errorFname = document.getElementById('errorFname');
+
                     if (fname === "") {
                         errorFname.textContent = "Full Name is required";
+                        return false;
+                    } else if (fname.length > 20) {
+                        errorFname.textContent = "Full Name cannot exceed 20 characters";
                         return false;
                     } else {
                         errorFname.textContent = "";
                         return true;
                     }
                 }
+
                 function FormValidate() {
                     var isValid = true;
-                    isValid = validateFullName() && isValid;                  
+                    isValid = validateFullName() && isValid;
                     return isValid;
                 }
+
                 document.getElementById('fname').addEventListener('input', validateFullName);
+
             </script>
 
             <script>
