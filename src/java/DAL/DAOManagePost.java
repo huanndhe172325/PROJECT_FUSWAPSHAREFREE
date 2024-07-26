@@ -629,6 +629,20 @@ public class DAOManagePost extends DBContext {
         }
     }
 
+    public boolean checkSwaped(int idUser, int postId) {
+        String sql = "SELECT * FROM have_swap WHERE [UserID] = ? AND [PostID] = ?";
+        try (PreparedStatement statement = connect.prepareStatement(sql)) {
+            statement.setInt(1, idUser);
+            statement.setInt(2, postId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+    
     public boolean checkAvaiableViewRequest(int idUser, int postId) {
         String sql = "SELECT * FROM have_swap WHERE [UserID] = ? AND [PostID] = ?";
         try (PreparedStatement statement = connect.prepareStatement(sql)) {

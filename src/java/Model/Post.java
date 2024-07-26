@@ -205,7 +205,7 @@ public class Post {
 
     public boolean avaiAbleRequest(int userId) {
         DAOManagePost dao = new DAOManagePost();
-        if (dao.checkRequested(userId, PostID)) {
+        if (dao.checkRequested(userId, PostID) || dao.checkSwaped(userId, PostID)) {
             return false;
         }
         if (userId == UserID || StatusID != 1) {
