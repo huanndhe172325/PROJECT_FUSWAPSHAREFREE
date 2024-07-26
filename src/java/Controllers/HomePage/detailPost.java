@@ -74,6 +74,9 @@ public class detailPost extends HttpServlet {
         DAOManagePost dao = new DAOManagePost();
         try {
             Post post = dao.getPostByIdPost(Integer.parseInt(idPost));
+            if(post.getStatusID() == 5){
+                response.sendRedirect("HomePage");
+            }
             ArrayList<Post> listPost = new ArrayList<>();
             listPost.add(post);
             request.setAttribute("listPost", listPost);
