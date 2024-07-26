@@ -727,28 +727,8 @@
                                         </a>
                                     </c:if>
 
-                                    <a href="options-settings.html" class="account-item">
-                                        <div class="media">
-                                            <div class="icon-wrap">
-                                                <i data-feather="settings"></i>
-                                            </div>
-                                            <div class="media-content">
-                                                <h3>Settings</h3>
-                                                <small>Access widget settings.</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a class="account-item">
-                                        <div class="media">
-                                            <div class="icon-wrap">
-                                                <i data-feather="life-buoy"></i>
-                                            </div>
-                                            <div class="media-content">
-                                                <h3>Help</h3>
-                                                <small>Contact our support.</small>
-                                            </div>
-                                        </div>
-                                    </a>
+                                    
+                                    
                                     <form action="logout" method="POST">
                                         <button type="submit" class="button-link account-item">
                                             <div class="media">
@@ -801,14 +781,7 @@
                                         <div class="avatar-button">
                                             <i data-feather="plus"></i>
                                         </div>
-                                        <div class="pop-button is-far-left has-tooltip modal-trigger" data-modal="change-profile-pic-modal" data-placement="right" data-title="Change profile picture">
-                                            <a class="inner">
-                                                <label>
-                                                    <i style="margin: 7px" data-feather="camera"></i>
-                                                </label>
-
-                                            </a>
-                                        </div>
+                                       
                                         <div id="follow-pop" class="pop-button pop-shift is-left has-tooltip" data-placement="top" data-title="Subscription">
                                             <a class="inner">
                                                 <i class="inactive-icon" data-feather="bell"></i>

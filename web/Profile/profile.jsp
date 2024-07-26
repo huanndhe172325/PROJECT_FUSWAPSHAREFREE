@@ -729,11 +729,7 @@
                                                 <i data-feather="message-circle"></i>
                                             </a>
                                         </div>
-                                        <div class="pop-button is-far-right has-tooltip" data-placement="right" data-title="Send message">
-                                            <a href="messages-inbox.html" class="inner">
-                                                <i data-feather="mail"></i>
-                                            </a>
-                                        </div>
+                                        
                                     </div>
 
                                     <!--/html/partials/pages/profile/timeline/dropdowns/timeline-mobile-dropdown.html-->
@@ -790,8 +786,8 @@
 
                                 <div class="profile-subheader">
                                     <div class="subheader-start is-hidden-mobile">
-                                        <span>Incoming</span>
-                                        <span>Incoming</span>
+                                        <span></span>
+                                        <span></span>
                                     </div>
                                     <div class="subheader-middle">
                                         <h2>${profile.getFull_Name()}</h2>
