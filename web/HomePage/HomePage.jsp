@@ -1416,7 +1416,7 @@
                                                     </div>
                                                     <div class="shares-count">
                                                         <i data-feather="link-2"></i>
-                                                        <span>9</span>
+                                                        <span>0</span>
                                                     </div>
                                                 </div>
                                             </div>
