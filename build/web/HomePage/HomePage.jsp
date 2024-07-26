@@ -2262,7 +2262,7 @@
         }
     </script>
 
-
+     
     <script>
         document.getElementById("tipue_drop_input").addEventListener("keyup", function (event) {
         if (event.key === "Enter") {
@@ -2276,6 +2276,8 @@
         }
         });
     </script>
+    
+    
     <script>
         let originalPostsOrder = [];
         function filterPosts(filter) {

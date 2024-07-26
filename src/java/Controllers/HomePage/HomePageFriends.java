@@ -70,6 +70,7 @@ public class HomePageFriends extends HttpServlet {
         User userInfo_raw = (User) session.getAttribute("userInfo");
         User userInfor = daoManagerUser.getUserByID(userInfo_raw.getUserID());
         String district = userInfor.getDistrict();
+        String commune = userInfor.getCommune();
         ArrayList<User> listUserDistrict = daoManagerUser.getUsersInSameDistrict(district);
         ArrayList<User> listUserRanking = daoManagerUser.getListUserRanking();
 
@@ -79,7 +80,7 @@ public class HomePageFriends extends HttpServlet {
         ArrayList<Quanlity> listQuanlity = dao.getAllQuanlity();
         ArrayList<Post> listPost = dao.getAllPostOfFriends(userInfo_raw.getUserID());
         ArrayList<Notification> listNoti = dao.getListNotiByUserId(userInfo_raw.getUserID());
-        ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), district);
+        ArrayList<Post> listPostUserNearMe = dao.getTop5PostsSameDistrict(userInfo_raw.getUserID(), commune);
         ArrayList<FriendsRequest> listFriendsRq = daoManagerUser.getListFriendRequest(userInfo_raw.getUserID());
         
         request.setAttribute("listNoti", listNoti);
