@@ -89,7 +89,6 @@ public class DAOManageUser extends DBContext {
         }
     }
 
-
     public User getByID(int id) {
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM [User] WHERE UserID = ?";
@@ -926,53 +925,101 @@ public class DAOManageUser extends DBContext {
 
         return users;
     }
-    
+
     public ArrayList<User> getAllUsers() {
-    ArrayList<User> users = new ArrayList<>();
-    String sql = """
+        ArrayList<User> users = new ArrayList<>();
+        String sql = """
                  SELECT U.*
                  FROM [User] U
                  """;
 
-    PreparedStatement st = null;
-    ResultSet rs = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
 
-    try {
-        st = connect.prepareStatement(sql);
-        rs = st.executeQuery();
-
-        while (rs.next()) {
-            User user = new User(
-                    rs.getInt("UserID"),
-                    rs.getString("Email"),
-                    rs.getString("Phone"),
-                    rs.getString("AvatarUrl"),
-                    rs.getString("PassWord"),
-                    rs.getString("JoinDate"),
-                    rs.getString("UserName"),
-                    rs.getString("Full_Name"),
-                    rs.getString("District"),
-                    rs.getString("Commune"),
-                    rs.getString("StreetNumber"),
-                    rs.getInt("Point"),
-                    rs.getInt("RoleID"),
-                    rs.getInt("StatusID")
-            );
-            users.add(user);
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    } finally {
         try {
-            if (rs != null) rs.close();
-            if (st != null) st.close();
+            st = connect.prepareStatement(sql);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("UserID"),
+                        rs.getString("Email"),
+                        rs.getString("Phone"),
+                        rs.getString("AvatarUrl"),
+                        rs.getString("PassWord"),
+                        rs.getString("JoinDate"),
+                        rs.getString("UserName"),
+                        rs.getString("Full_Name"),
+                        rs.getString("District"),
+                        rs.getString("Commune"),
+                        rs.getString("StreetNumber"),
+                        rs.getInt("Point"),
+                        rs.getInt("RoleID"),
+                        rs.getInt("StatusID")
+                );
+                users.add(user);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+
+        return users;
     }
 
-    return users;
-}
+    public ArrayList<ReportUser> getAllReportUsers() {
+        ArrayList<ReportUser> reportUsers = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    ru.reportTime,\n"
+                + "    ru.Message,\n"
+                + "    ru.IdUserSend,\n"
+                + "    ru.IdUserReceive\n"
+                + "FROM \n"
+                + "    Have_ReportUser ru\n"
+                + "ORDER BY ru.reportTime DESC";
+
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            statement = connect.prepareStatement(sql);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                ReportUser reportUser = new ReportUser(
+                        rs.getString("reportTime"),
+                        rs.getString("Message"),
+                        rs.getInt("IdUserSend"),
+                        rs.getInt("IdUserReceive")
+                );
+                reportUsers.add(reportUser);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return reportUsers;
+    }
 
 }

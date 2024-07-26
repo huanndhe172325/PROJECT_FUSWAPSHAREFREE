@@ -1300,6 +1300,112 @@ public class DAOManagePost extends DBContext {
 
         return numberOfFriends;
     }
+    
+     public ArrayList<Post> getReportPosts() {
+        ArrayList<Post> listPost = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    P.PostID,\n"
+                + "    P.Title,\n"
+                + "    P.Description,\n"
+                + "    H.reportTime,\n"
+                + "    H.Message\n"
+                + "FROM \n"
+                + "    Post P\n"
+                + "INNER JOIN \n"
+                + "    Have_ReportPost H ON P.PostID = H.PostID;";
+
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            statement = connect.prepareStatement(sql);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                Post post = new Post();
+            post.setPostID(rs.getInt("PostID"));
+            post.setTitle(rs.getString("Title"));
+            post.setDescription(rs.getString("Description"));
+                listPost.add(post);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return listPost;
+    }
+    
+    public String getTimePostByPostId(int idPost) {
+
+        String reportTime = "";
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "SELECT [reportTime] FROM Have_ReportPost WHERE PostID = ?";
+            statement = connect.prepareStatement(sql);
+            statement.setInt(1, idPost);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                reportTime = rs.getString("reportTime");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return reportTime;
+    }
+
+    public String getMessPostByPostId(int idPost) {
+
+        String message = "";
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "SELECT [Message] FROM Have_ReportPost WHERE PostID = ?";
+            statement = connect.prepareStatement(sql);
+            statement.setInt(1, idPost);
+            rs = statement.executeQuery();
+            if (rs.next()) {
+                message = rs.getString("Message");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return message;
+    }
 
     public static void main(String[] args) {
         DAOManagePost dao = new DAOManagePost();

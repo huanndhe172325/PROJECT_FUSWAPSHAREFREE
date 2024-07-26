@@ -222,7 +222,13 @@
                                     </ul>
                                 </nav>
                             </c:if>
-
+                            <div class="button-container">
+                                
+                                <form action="manageReportUsers" method="post" class="download-form">
+                                    <input type="hidden" name="action" value="download">
+                                    <button type="submit" class="btn btn-primary">Export Reported Users</button>
+                                </form>
+                            </div>
 
                         </div>
                     </div>

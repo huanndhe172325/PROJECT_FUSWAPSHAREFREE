@@ -310,4 +310,48 @@ public class DAOManageReport extends DBContext {
         return count;
     }
 
+    public ArrayList<ReportUser> getAllReportUsers() {
+        ArrayList<ReportUser> reportUsers = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    ru.reportTime,\n"
+                + "    ru.Message,\n"
+                + "    ru.IdUserSend,\n"
+                + "    ru.IdUserReceive\n"
+                + "FROM \n"
+                + "    Have_ReportUser ru\n"
+                + "ORDER BY ru.reportTime DESC";
+
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+
+        try {
+            statement = connect.prepareStatement(sql);
+            rs = statement.executeQuery();
+            while (rs.next()) {
+                ReportUser reportUser = new ReportUser(
+                        rs.getString("reportTime"),
+                        rs.getString("Message"),
+                        rs.getInt("IdUserSend"),
+                        rs.getInt("IdUserReceive")
+                );
+                reportUsers.add(reportUser);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return reportUsers;
+    }
+
 }
