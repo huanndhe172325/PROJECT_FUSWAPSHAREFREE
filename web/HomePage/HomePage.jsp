@@ -1241,40 +1241,11 @@
                                     <h4>User Ranking</h4>
                                     <div class="dropdown is-spaced is-right is-neutral dropdown-trigger">
                                         <div>
-                                            <div class="button">
-                                                <i data-feather="more-vertical"></i>
-                                            </div>
+                                            
                                         </div>
                                         <div class="dropdown-menu" role="menu">
                                             <div class="dropdown-content">
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="list"></i>
-                                                        <div class="media-content">
-                                                            <h3>All updates</h3>
-                                                            <small>View my network's activity.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="settings"></i>
-                                                        <div class="media-content">
-                                                            <h3>Settings</h3>
-                                                            <small>Access widget settings.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <hr class="dropdown-divider" />
-                                                <a href="#" class="dropdown-item">
-                                                    <div class="media">
-                                                        <i data-feather="trash-2"></i>
-                                                        <div class="media-content">
-                                                            <h3>Remove</h3>
-                                                            <small>Removes this widget from your feed.</small>
-                                                        </div>
-                                                    </div>
-                                                </a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -1354,7 +1325,7 @@
                                             <div class="card-heading">
                                                 <!-- User meta -->
                                                 <div class="user-block" style="width: 100%;">
-                                                    <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'profile?id=${post.userID}'">
+                                                    <div class="image" style="cursor: pointer;"  onclick="window.location.href = 'otherprofile?id=${post.userID}'">
                                                         <img src="https://via.placeholder.com/300x300" data-demo-src="${post.getAvatarOwner()}" data-user-popover="1" alt="" />
                                                     </div>
                                                     <div class="user-info" style="width: 100%;">

@@ -545,7 +545,7 @@
                             <div class="option-naver"></div>
                         </div>
                         <div class="end-group">
-                            <div class="nav-item is-friend-count">979 friends</div>
+                            <div class="nav-item is-friend-count"></div>
                             <div id="subsearch" class="nav-item is-search is-hidden">
                                 <div class="control">
                                     <input type="text" class="input textFilter-input" placeholder="Search your friends" />

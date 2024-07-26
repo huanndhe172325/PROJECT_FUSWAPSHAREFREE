@@ -389,28 +389,11 @@
                             <img class="logo dark-image" src="assets/img/vector/logo/friendkit-white.svg" width="112" height="28" alt="" />
                         </a>
                     </div>
-                    <div class="search">
-                        <div class="navbar-item">
-                            <div id="global-search" class="control">
-                                <input id="tipue_drop_input" class="input is-rounded" type="text" placeholder="Search" required />
-                                <span id="clear-search" class="reset-search">
-                                    <i data-feather="x"></i>
-                                </span>
-                                <span class="search-icon" style="margin: 5px">
-                                    <i data-feather="search"></i>
-                                </span>
-
-                                <div id="tipue_drop_content" class="tipue-drop-content"></div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="right">
                     <div class="navbar-item is-icon drop-trigger">
-                        <a class="icon-link is-friends" href="javascript:void(0);">
-                            <i data-feather="heart"></i>
-                            <span class="indicator"></span>
-                        </a>
+                        
 
                         <div class="nav-drop is-right">
                             <div class="inner">
