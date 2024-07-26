@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class DAOManageUser extends DBContext {
 
-    public void addAdmin(String mailString, String userrString, String passString, String phoneString, String fullname,String communeString,String distriString,Date date) {
+    public void addAdmintrator(String mailString, String userrString, String passString, String phoneString, String fullname, String communeString, String distriString, Date date) {
         String sqlString = "INSERT INTO [dbo].[User]\n"
                 + "           ([Email]\n"
                 + "           ,[Phone]\n"
@@ -56,8 +56,8 @@ public class DAOManageUser extends DBContext {
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
-                + "           ,2\n"
-                + "           ,1002,?)";
+                + "           ,3\n"
+                + "           ,1,?)";
         try {
             PreparedStatement st = connect.prepareStatement(sqlString);
             st.setString(1, mailString);
@@ -89,12 +89,6 @@ public class DAOManageUser extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        DAOManageUser daomu = new DAOManageUser();
-          
-                Date date=Date.valueOf("2024-5-5");
-        daomu.addAdmin("tee", "tee", "123", "0909090", "alo","123","123",date);
-    }
 
     public User getByID(int id) {
         ArrayList<User> users = new ArrayList<>();
@@ -387,7 +381,7 @@ public class DAOManageUser extends DBContext {
                 + "    FROM \n"
                 + "        [User]\n"
                 + "    WHERE \n"
-                + "        RoleID = 3\n"
+                + "        RoleID = 3 AND StatusID = 1\n"
                 + ")\n"
                 + "SELECT * FROM a WHERE r BETWEEN (? - 1) * ? + 1 AND ? * ?";
 
@@ -833,6 +827,38 @@ public class DAOManageUser extends DBContext {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isCheckEmail(String mail) {
+        String sql = "SELECT * FROM [User] WHERE Email = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, mail);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isCheckPhone(String phone) {
+        String sql = "SELECT * FROM [User] WHERE Phone = ?";
+        try {
+            PreparedStatement statement = connect.prepareStatement(sql);
+            statement.setString(1, phone);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return true;
         }
         return false;
     }

@@ -16,7 +16,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -67,6 +71,12 @@ public class manageAdministrator extends HttpServlet {
         ArrayList<User> Administrator;
         String txtSearch = request.getParameter("txtSearch");
         String indexString = request.getParameter("index");
+        String userId = request.getParameter("userId");
+        
+        if (userId != null && userId != "") {
+            dao.UpdateStatus(Integer.parseInt(userId), 2);
+            request.setAttribute("msgError", "Banned is success!!!");
+        }
         int index = 1; // Giá trị mặc định nếu không có index được cung cấp từ request
 
         // Xử lý ngoại lệ khi không có index từ request
@@ -102,7 +112,7 @@ public class manageAdministrator extends HttpServlet {
         request.setAttribute("Administrator", Administrator);
         request.setAttribute("currentPage", index);
         request.setAttribute("txtSearch", txtSearch);
-          request.getRequestDispatcher("HomePage/manageAdministrator.jsp").forward(request, response);
+        request.getRequestDispatcher("HomePage/manageAdministrator.jsp").forward(request, response);
     }
 
     /**
@@ -116,7 +126,6 @@ public class manageAdministrator extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -128,5 +137,4 @@ public class manageAdministrator extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

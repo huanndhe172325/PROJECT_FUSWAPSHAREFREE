@@ -21,13 +21,25 @@
             <file>file:/H:/SWP391/Project_SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
         </group>
         <group>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
-            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/assets/css/core.css</file>
-        </group>
-        <group>
             <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
             <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/HomePage/HomePage.jsp</file>
             <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/web/assets/css/core.css</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
+        </group>
+        <group>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/Profile/PostArchive.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOLoginSystem.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/manageReportUsers.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/manageUsers.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/DeletePostServlet.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/UpdateStatus.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/Profile/OtherProfile.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/CreatePost2.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/detailPost.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/filter/FilterLogin.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/HomePage.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/HomePage/manageAdministrator.java</file>
+            <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/Controllers/LoginSystem/Login.java</file>
             <file>file:/D:/SWP391/PROJECT_FUSWAPSHAREFREE/src/java/DAL/DAOManageUser.java</file>
         </group>
     </open-files>

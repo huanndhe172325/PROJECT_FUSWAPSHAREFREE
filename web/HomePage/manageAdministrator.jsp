@@ -145,7 +145,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                      
+
                             <nav class="navbar navbar-expand-lg navbar-form nav-search p-0">
                                 <div class="input-group">
                                     <form action="manageAdministrator" method="get"> 
@@ -161,25 +161,26 @@
                             <table class="table mt-3">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>ID</th>
+                                        
                                         <th>UserName</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Full Name</th>
-                         
+
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="c" items="${Administrator}">
                                         <tr>
-                                            <td>${c.userID}</td>
+                                            
                                             <td>${c.userName}</td>
                                             <td>${c.email}</td>
                                             <td>${c.phone}</td>
                                             <td>${c.full_Name}</td>
-
-
+                                            <td>
+                                                <a href="manageAdministrator?userId=${c.userID}">Delete</a>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>
@@ -198,7 +199,8 @@
                             <a href="adminHome">
                                 <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
                             </a>
-                          <a href="addAdmin" class="btn btn-primary" role="button">Add Admin</a>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add New Administrator</button>
+                            <p style="color: red">${requestScope.msgError}</p>
                         </div>
                     </div>
                 </div>
@@ -206,6 +208,50 @@
         </div>
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Administrator</h5>
+                </div>
+                <div class="modal-body">
+                    <form  action="addAdmin" method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"> Enter Email: </label>
+                            <input type="text" class="form-control" id="recipient-name"  name="mail">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Enter UserName: </label>
+                            <input type="text" class="form-control" id="recipient-name" name="user">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Enter Password: </label>
+                            <input type="text" class="form-control" id="recipient-name" name="pass">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label"> Enter Full Name: </label>
+                            <input type="text" class="form-control" id="recipient-name" name="fullname">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Enter phone: </label>
+                            <input type="text" class="form-control" id="recipient-name"  name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label"> Enter Commune: </label>
+                            <input type="text" class="form-control" id="recipient-name"  name="commune">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Enter District: </label>
+                            <input type="text" class="form-control" id="recipient-name" name="district">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 

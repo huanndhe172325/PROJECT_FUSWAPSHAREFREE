@@ -230,9 +230,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="SideBarAdmin">
-                            <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
-                        </a>
+                        
                     </div>
                 </div>
             </div>
